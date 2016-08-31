@@ -1,0 +1,219 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin">
+
+    <TextView
+        android:id="@+id/section_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:id="@+id/Prozentanzeige_l"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:text="@string/so_much_schooltime_is_over_"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        tools:ignore="RtlHardcoded" />
+
+    <ProgressBar
+        android:id="@+id/Percent_Bar"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/section_label"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/section_label"
+        android:layout_marginTop="18dp"
+        android:progress="0"
+        tools:ignore="RtlHardcoded" />
+    
+    <TextView
+        android:id="@+id/Prozentanzeige"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/Percent_Bar"
+        android:layout_centerHorizontal="true"
+        android:text="@string/percent_0"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+   <TableLayout
+        android:id="@+id/timetable"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:gravity="center"
+        tools:ignore="RtlHardcoded" >
+
+        <TableRow
+            android:id="@+id/monate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal" >
+            
+            <TextView
+                android:gravity="center"
+                android:padding="3dip"
+                android:text="  1  "
+                tools:ignore="HardcodedText" />
+            
+            <TextView
+                android:gravity="center"
+                android:padding="3dip"
+                android:text="  2  "
+                tools:ignore="HardcodedText" />
+            
+            <TextView
+                android:gravity="center"
+                android:padding="3dip"
+                android:text="  3  "
+                tools:ignore="HardcodedText" />
+            
+            <TextView
+                android:gravity="center"
+                android:padding="3dip"
+                android:text="  4  "
+                tools:ignore="HardcodedText" />
+            
+            <TextView
+                android:gravity="center"
+                android:padding="3dip"
+                android:text="  5  "
+                tools:ignore="HardcodedText" />
+            
+            <TextView
+                android:gravity="center"
+                android:padding="3dip"
+                android:text="  6  "
+                tools:ignore="HardcodedText" />
+            
+            <TextView
+                android:gravity="center"
+                android:padding="3dip"
+                android:text="  7  "
+                tools:ignore="HardcodedText" />
+            
+            <TextView
+                android:gravity="center"
+                android:padding="3dip"
+                android:text="  8  "
+                tools:ignore="HardcodedText" />
+            
+            <TextView
+                android:gravity="center"
+                android:padding="3dip"
+                android:text="  9  "
+                tools:ignore="HardcodedText" />
+            
+            <TextView
+                android:gravity="center"
+                android:padding="3dip"
+                android:text="  10  "
+                tools:ignore="HardcodedText" />
+
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/tableRow2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal" >
+            
+            <TextView
+                android:id="@+id/tt_1"
+                android:gravity="center"
+                android:padding="3dip"
+                android:text="@string/loading_without_tripple_point" />
+            
+            <TextView
+                android:id="@+id/tt_2"
+                android:gravity="center"
+                android:padding="3dip"
+                android:text="@string/loading_without_tripple_point" />
+            
+            <TextView
+                android:id="@+id/tt_3"
+                android:gravity="center"
+                android:padding="3dip"
+                android:text="@string/loading_without_tripple_point" />
+            
+            <TextView
+                android:id="@+id/tt_4"
+                android:gravity="center"
+                android:padding="3dip"
+                android:text="@string/loading_without_tripple_point" />
+            
+            <TextView
+                android:id="@+id/tt_5"
+                android:gravity="center"
+                android:padding="3dip"
+                android:text="@string/loading_without_tripple_point" />
+            
+            <TextView
+                android:id="@+id/tt_6"
+                android:gravity="center"
+                android:padding="3dip"
+                android:text="@string/loading_without_tripple_point" />
+            
+            <TextView
+                android:id="@+id/tt_7"
+                android:gravity="center"
+                android:padding="3dip"
+                android:text="@string/loading_without_tripple_point" />
+            
+            <TextView
+                android:id="@+id/tt_8"
+                android:gravity="center"
+                android:padding="3dip"
+                android:text="@string/loading_without_tripple_point" />
+            
+            <TextView
+                android:id="@+id/tt_9"
+                android:gravity="center"
+                android:padding="3dip"
+                android:text="@string/loading_without_tripple_point" />
+            
+            <TextView
+                android:id="@+id/tt_10"
+                android:gravity="center"
+                android:padding="3dip"
+                android:text="@string/loading_without_tripple_point" />
+        </TableRow>
+    </TableLayout>
+    
+   <TextView
+       android:id="@+id/SV"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:layout_above="@+id/timetable"
+       android:layout_alignParentLeft="true"
+       android:layout_alignParentRight="true"
+       android:layout_marginBottom="16dp"
+       android:gravity="center"
+       android:text="@string/loading"
+       android:textAppearance="?android:attr/textAppearanceMedium"
+       tools:ignore="RtlHardcoded" />
+
+    <FrameLayout
+        android:id="@+id/termine_heute_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/Prozentanzeige"
+        android:layout_above="@+id/SV"/>
+
+    <!--<fragment
+        class="bsbz_app.jimdo.mrgames13.com.App.MainActivity$TermineFragment_Heute"
+        android:id="@+id/termine_heute"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/Prozentanzeige"
+        android:layout_above="@+id/SV" />-->
+</RelativeLayout>

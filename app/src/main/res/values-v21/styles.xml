@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="drawerArrowStyle">@style/drawerArrowStyle</item>
+        <item name="android:windowTranslucentStatus">true</item>
+    </style>
+
+    <style name="FirstTheme_Dialog_Progress" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textColorAlertDialogListItem">@color/black</item>
+    </style>
+
+    <style name="SecondTheme_Dialog_Progress" parent="Base.Theme.AppCompat.Dialog.Alert">
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textColorAlertDialogListItem">@color/white</item>
+    </style>
+
+    <style name="drawerArrowStyle" parent="Widget.AppCompat.DrawerArrowToggle">
+        <item name="spinBars">true</item>
+    </style>
+</resources>

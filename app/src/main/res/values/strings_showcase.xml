@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="showcase_login_registrate_t">Registrieren</string>
+    <string name="showcase_login_registrate_m">Um einen neuen Account auf unserem Server anzulegen, kannst du auf diesen Button tippen.</string>
+
+</resources>

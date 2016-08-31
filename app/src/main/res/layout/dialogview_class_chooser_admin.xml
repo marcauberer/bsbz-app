@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/dialogview"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="12dp" >
+
+    <TextView
+        android:id="@+id/l_Rechte"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:gravity="center"
+        android:text="@string/kind_of_school_"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <SeekBar
+        android:id="@+id/seekBar1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignBottom="@+id/schulart"
+        android:layout_below="@+id/l_Rechte"
+        android:layout_toLeftOf="@+id/schulart"
+        android:max="@integer/Registration_Klasse_Progress1_max" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/seekBar1"
+        android:gravity="center"
+        android:text="@string/class_level_"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <SeekBar
+        android:id="@+id/seekBar2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignBottom="@+id/klassenstufe"
+        android:layout_alignRight="@+id/seekBar1"
+        android:layout_below="@+id/textView2"
+        android:max="@integer/Registration_Klasse_Progress2_max" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/seekBar2"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/seekBar2"
+        android:gravity="center"
+        android:text="@string/kind_of_class_"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <SeekBar
+        android:id="@+id/seekBar3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignBottom="@+id/klassenart"
+        android:layout_alignRight="@+id/seekBar1"
+        android:layout_below="@+id/textView3"
+        android:max="@integer/Registration_Klasse_Progress3_max" />
+
+    <TextView
+        android:id="@+id/klasse"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/seekBar3"
+        android:gravity="center"
+        android:text="W5a"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <TextView
+        android:id="@+id/klassenstufe"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignRight="@+id/textView2"
+        android:layout_below="@+id/textView2"
+        android:gravity="center"
+        android:text="5"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <TextView
+        android:id="@+id/klassenart"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignRight="@+id/textView3"
+        android:layout_below="@+id/textView3"
+        android:gravity="center"
+        android:text="a"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <TextView
+        android:id="@+id/schulart"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/l_Rechte"
+        android:gravity="center"
+        android:text="W"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <android.support.v7.widget.SwitchCompat
+        android:id="@+id/all_classes"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/all_classes"
+        android:layout_below="@+id/klasse"
+        android:checked="true"/>
+
+</RelativeLayout>

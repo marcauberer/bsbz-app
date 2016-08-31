@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.mrgames13.jimdo.bsbz_app.App.MainActivity">
+
+    <android.support.v4.widget.DrawerLayout
+        android:id="@+id/drawer_layout_gesamt"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+
+        <!-- Activity Layout -->
+        <RelativeLayout
+            android:id="@+id/activity_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" >
+
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbar_main"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/colorPrimary"
+                android:theme="@style/toolbarStyle"
+                android:fitsSystemWindows="true" />
+
+            <RelativeLayout
+                android:id="@+id/container"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@+id/toolbar_main"/>
+
+        </RelativeLayout>
+
+        <!-- Drawer Layout -->
+        <RelativeLayout
+            android:id="@+id/drawer_layout_single"
+            android:layout_width="@dimen/navDrawerWidth"
+            android:layout_height="match_parent"
+            android:layout_gravity="start"
+            android:background="#fff">
+
+            <android.support.design.widget.NavigationView
+                android:id="@+id/navView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:menu="@menu/navigation_view_menu"
+                app:itemIconTint="@color/itemtintcolor"
+                app:itemTextColor="@color/itemtintcolor"
+                app:headerLayout="@layout/header_layout" />
+
+            <RelativeLayout
+                android:id="@+id/copyright"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:paddingLeft="4dp"
+                android:paddingBottom="3dp"
+                android:paddingRight="4dp"
+                android:background="@color/white"
+                android:layout_marginRight="8dp" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/copyright" />
+
+            </RelativeLayout>
+        </RelativeLayout>
+    </android.support.v4.widget.DrawerLayout>
+</RelativeLayout>

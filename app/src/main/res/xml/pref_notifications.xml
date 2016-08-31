@@ -1,0 +1,19 @@
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
+    <PreferenceCategory
+        android:title="@string/pref_header_data_sync"
+        android:key="Notifications" >
+        
+        <SwitchPreference
+        	android:title="@string/pref_title_send_notifications"
+        	android:summary="@string/pref_summary_send_notifications"
+        	android:key="send_notifications"
+        	android:defaultValue="true" />
+        
+        <SwitchPreference
+        	android:title="@string/pref_title_send_percent_notification"
+        	android:summary="@string/pref_summary_send_percent_notification"
+        	android:key="send_percent_notification"
+        	android:defaultValue="false" />
+        
+    </PreferenceCategory>
+</PreferenceScreen>

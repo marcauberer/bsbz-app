@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="?attr/selectableItemBackground"
+    android:padding="2dp">
+
+    <com.joooonho.SelectableRoundedImageView
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/gallery_folder_icon"
+        android:layout_width="match_parent"
+        android:layout_height="135dp"
+        android:scaleType="center"
+        app:sriv_left_top_corner_radius="2dip"
+        app:sriv_right_top_corner_radius="10dip"
+        app:sriv_left_bottom_corner_radius="10dip"
+        app:sriv_right_bottom_corner_radius="10dip"
+        app:sriv_border_width="1dip"
+        app:sriv_border_color="#00000000"
+        app:sriv_oval="false"/>
+
+    <TextView
+        android:id="@+id/gallery_folder_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/loading"
+        android:gravity="center"
+        android:textSize="18sp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/gallery_folder_icon" />
+
+    <ImageView
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:id="@+id/imageView"
+        android:src="@drawable/ic_folder_open_black_48dp"
+        android:layout_above="@+id/gallery_folder_name"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"/>
+
+</RelativeLayout>

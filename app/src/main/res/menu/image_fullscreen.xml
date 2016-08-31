@@ -1,0 +1,19 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.mrgames13.jimdo.bsbz_app.App.NewNewActivity" >
+
+    <item
+        android:id="@+id/action_download_image"
+        android:orderInCategory="100"
+        android:title="@string/download_image"
+        app:showAsAction="always"
+        android:icon="@drawable/ic_file_download_white_48dp" />
+
+    <item
+        android:id="@+id/action_settings"
+        android:orderInCategory="200"
+        android:title="@string/settings"
+        app:showAsAction="never"/>
+
+</menu>

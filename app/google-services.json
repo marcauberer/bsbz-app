@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "1087927243833",
+    "firebase_url": "https://bsbz-app-cede6.firebaseio.com",
+    "project_id": "bsbz-app-cede6",
+    "storage_bucket": "bsbz-app-cede6.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1087927243833:android:74d8fe04cf0e857b",
+        "android_client_info": {
+          "package_name": "com.mrgames13.jimdo.bsbz_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1087927243833-ib0i3vc9gdfan7qle3q1hj9esnrsvstl.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB22O7sxJGCSAXxAB9ZpNrgxbHCXZ-M3CM"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <integer name="ProgBar2_start">1000</integer>
+    <integer name="Registration_Klasse_Progress1_max">2</integer>
+    <integer name="Registration_Klasse_Progress2_max">7</integer>
+    <integer name="Registration_Klasse_Progress3_max">1</integer>
+</resources>

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:checkableBehavior="single" >
+        <item
+            android:id="@+id/drawer_item_account"
+            android:title="@string/my_profile"
+            android:icon="@drawable/ic_account_circle_black_48dp"
+            android:checked="true"/>
+        <item
+            android:id="@+id/drawer_item_today"
+            android:title="@string/today"
+            android:icon="@drawable/ic_today_black_48dp"/>
+        <item
+            android:id="@+id/drawer_item_this_week"
+            android:title="@string/this_week"
+            android:icon="@drawable/ic_view_module_black_48dp"/>
+        <item
+            android:id="@+id/drawer_item_plan_of_the_year"
+            android:title="@string/plan_of_the_year"
+            android:icon="@drawable/ic_apps_black_48dp"/>
+        <item
+            android:id="@+id/drawer_item_news"
+            android:title="@string/news"
+            android:icon="@drawable/ic_new_releases_black_48dp"/>
+        <item
+            android:id="@+id/drawer_item_food_plan"
+            android:title="@string/food_plan"
+            android:icon="@drawable/ic_store_black_48dp"/>
+        <item
+            android:id="@+id/drawer_item_gallery"
+            android:title="@string/gallery"
+            android:icon="@drawable/ic_image_black_48dp"/>
+        <item
+            android:id="@+id/drawer_item_bsbz_infos"
+            android:title="@string/bsbz_infos"
+            android:icon="@drawable/ic_info_outline_black_48dp"/>
+        <item
+            android:id="@+id/drawer_item_the_developers"
+            android:title="@string/the_developers"
+            android:icon="@drawable/ic_developer_mode_48pt"/>
+        <item
+            android:id="@+id/drawer_item_settings"
+            android:title="@string/settings"
+            android:icon="@drawable/ic_settings_black_48dp"/>
+    </group>
+</menu>

@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar_new_new"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimary"
+        android:theme="@style/toolbarStyle"
+        android:title="@string/title_activity_new_new"
+        android:fitsSystemWindows="true"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="10dp"
+        android:layout_below="@+id/toolbar_new_new"
+        android:focusable="true"
+        android:focusableInTouchMode="true">
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/new_new_betreff"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:hint="@string/subject"
+            android:inputType="textCapSentences"/>
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/scrollView"
+            android:layout_below="@+id/new_new_betreff"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_above="@+id/new_new_writer">
+
+            <EditText
+                android:id="@+id/new_new_description"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:hint="@string/descreption"
+                android:lines="20"
+                android:gravity="clip_vertical"/>
+
+        </ScrollView>
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/fab_create_new"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"/>
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/new_new"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_check_white_48dp"
+            android:theme="@style/toolbarStyle"
+            app:backgroundTint="@color/colorPrimary"
+            android:layout_gravity="right|bottom"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"/>
+
+        <EditText
+            android:id="@+id/new_new_writer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/choose_receiver"
+            android:inputType="textCapSentences"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_toRightOf="@+id/choose_activation_date"
+            android:layout_toEndOf="@+id/choose_activation_date"/>
+
+        <LinearLayout
+            android:id="@+id/seperator"
+            android:layout_above="@+id/switch_timed_activation"
+            android:layout_width="match_parent"
+            android:layout_height="1.5dp"
+            android:background="#80828A"
+            android:orientation="vertical"
+            android:layout_marginTop="6dp"
+            android:layout_marginBottom="6dp">
+        </LinearLayout>
+
+        <android.support.v7.widget.SwitchCompat
+            android:id="@+id/switch_timed_activation"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/timed_activation"
+            android:layout_above="@+id/choose_activation_date"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:textAppearance="?android:attr/textAppearanceMedium"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="@string/activation_"
+            android:id="@+id/choose_activation_date"
+            android:layout_above="@+id/btn_choose_expiration_date"
+            android:layout_alignBottom="@+id/btn_choose_activation_date"
+            android:layout_alignParentLeft="true"
+            android:gravity="center"
+            android:layout_alignTop="@+id/btn_choose_activation_date"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="@string/expiration_"
+            android:id="@+id/choose_expiration_date"
+            android:layout_alignBottom="@+id/btn_choose_expiration_date"
+            android:layout_alignParentLeft="true"
+            android:gravity="center"
+            android:layout_alignTop="@+id/btn_choose_expiration_date"/>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/choose_date"
+            android:id="@+id/btn_choose_activation_date"
+            android:layout_above="@+id/btn_choose_expiration_date"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="6dp"/>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/choose_date"
+            android:id="@+id/btn_choose_expiration_date"
+            android:layout_above="@+id/fab_create_new"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="@string/writer_"
+            android:id="@+id/new_new_lblWriter"
+            android:layout_above="@+id/choose_receiver"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:gravity="center"
+            android:layout_alignTop="@+id/new_new_writer"/>
+
+        <Button
+            android:id="@+id/choose_receiver"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/choose_receiver_"
+            android:layout_above="@+id/seperator"/>
+
+    </RelativeLayout>
+</RelativeLayout>

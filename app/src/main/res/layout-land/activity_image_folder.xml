@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.mrgames13.jimdo.bsbz_app.App.ImageFolderActivity">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar_image_folder_activity"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimary"
+        android:theme="@style/toolbarStyle"
+        android:title="@string/loading"
+        android:fitsSystemWindows="true" />
+
+    <RelativeLayout
+        android:id="@+id/container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/toolbar_image_folder_activity" >
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/gallery_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+    </RelativeLayout>
+</RelativeLayout>

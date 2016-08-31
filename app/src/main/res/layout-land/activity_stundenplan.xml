@@ -1,0 +1,633 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/rl4"
+    tools:context=".StundenplanActivity"
+    android:layout_gravity="center">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar_timetable"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimary"
+        android:theme="@style/toolbarStyle"
+        android:fitsSystemWindows="true" />
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/toolbar_timetable"
+        android:layout_centerHorizontal="true">
+
+        <ScrollView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:scrollbars="horizontal|vertical"
+            tools:ignore="RtlHardcoded,UselessParent">
+
+            <HorizontalScrollView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:scrollbars="horizontal|vertical"
+                tools:ignore="RtlHardcoded,UselessParent">
+
+                <TableLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    tools:ignore="RtlHardcoded,UselessParent">
+
+                    <TableRow
+                        android:id="@+id/monate"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" >
+
+                        <TextView
+                            android:id="@+id/tt_klasse"
+                            android:gravity="center"
+                            android:padding="3dip"
+                            android:text="@string/loading"
+                            android:textSize="@dimen/TextHeight_14"
+                            tools:ignore="HardcodedText" />
+
+                        <TextView
+                            android:gravity="center"
+                            android:padding="3dip"
+                            android:text="@string/_monday_"
+                            android:textSize="@dimen/TextHeight_14"
+                            tools:ignore="HardcodedText" />
+
+                        <TextView
+                            android:gravity="center"
+                            android:padding="3dip"
+                            android:text="@string/_tuesday_"
+                            android:textSize="@dimen/TextHeight_14"
+                            tools:ignore="HardcodedText" />
+
+                        <TextView
+                            android:gravity="center"
+                            android:padding="3dip"
+                            android:text="@string/_wednesday_"
+                            android:textSize="@dimen/TextHeight_14"
+                            tools:ignore="HardcodedText" />
+
+                        <TextView
+                            android:gravity="center"
+                            android:padding="3dip"
+                            android:text="@string/_thursday_"
+                            android:textSize="@dimen/TextHeight_14"
+                            tools:ignore="HardcodedText" />
+
+                        <TextView
+                            android:gravity="center"
+                            android:padding="3dip"
+                            android:text="@string/_friday_"
+                            android:textSize="@dimen/TextHeight_14"
+                            tools:ignore="HardcodedText" />
+
+                    </TableRow>
+
+                    <TableRow
+                        android:id="@+id/tableRow2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" >
+
+                        <TextView
+                            android:gravity="center"
+                            android:padding="3dip"
+                            android:text="7:30 - 8:15"
+                            android:textSize="@dimen/TextHeight_14"
+                            tools:ignore="HardcodedText" />
+
+                        <TextView
+                            android:id="@+id/tta1"
+                            android:gravity="center"
+                            android:padding="3dip"
+                            android:text=""
+                            android:textSize="@dimen/TextHeight_14"
+                            tools:ignore="HardcodedText" />
+
+                        <TextView
+                            android:id="@+id/tta2"
+                            android:gravity="center"
+                            android:padding="3dip"
+                            android:text=""
+                            android:textSize="@dimen/TextHeight_14"
+                            tools:ignore="HardcodedText" />
+
+                        <TextView
+                            android:id="@+id/tta3"
+                            android:gravity="center"
+                            android:padding="3dip"
+                            android:text=""
+                            android:textSize="@dimen/TextHeight_14"
+                            tools:ignore="HardcodedText" />
+
+                        <TextView
+                            android:id="@+id/tta4"
+                            android:gravity="center"
+                            android:padding="3dip"
+                            android:text=""
+                            android:textSize="@dimen/TextHeight_14"
+                            tools:ignore="HardcodedText" />
+
+                        <TextView
+                            android:id="@+id/tta5"
+                            android:gravity="center"
+                            android:padding="3dip"
+                            android:text=""
+                            android:textSize="@dimen/TextHeight_14"
+                            tools:ignore="HardcodedText" />
+
+                    </TableRow>
+
+                    <TableRow
+                        android:id="@+id/tableRow3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" >
+
+                        <TextView
+                            android:gravity="center"
+                            android:padding="3dip"
+                            android:text="8:15 - 9:00"
+                            android:textSize="@dimen/TextHeight_14"
+                            tools:ignore="HardcodedText" />
+
+                        <TextView
+                            android:id="@+id/tta6"
+                            android:gravity="center"
+                            android:padding="3dip"
+                            android:text=""
+                            android:textSize="@dimen/TextHeight_14"
+                            tools:ignore="HardcodedText" />
+
+                        <TextView
+                            android:id="@+id/tta7"
+                            android:gravity="center"
+                            android:padding="3dip"
+                            android:text=""
+                            android:textSize="@dimen/TextHeight_14"
+                            tools:ignore="HardcodedText" />
+
+                        <TextView
+                            android:id="@+id/tta8"
+                            android:gravity="center"
+                            android:padding="3dip"
+                            android:text=""
+                            android:textSize="@dimen/TextHeight_14"
+                            tools:ignore="HardcodedText" />
+
+                        <TextView
+                            android:id="@+id/tta9"
+                            android:gravity="center"
+                            android:padding="3dip"
+                            android:text=""
+                            android:textSize="@dimen/TextHeight_14"
+                            tools:ignore="HardcodedText" />
+
+                        <TextView
+                            android:id="@+id/tta10"
+                            android:gravity="center"
+                            android:padding="3dip"
+                            android:text=""
+                            android:textSize="@dimen/TextHeight_14"
+                            tools:ignore="HardcodedText" />
+
+                    </TableRow>
+
+                    <TableRow
+                        android:id="@+id/tableRow4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" >
+
+                        <TextView
+                            android:gravity="center"
+                            android:padding="3dip"
+                            android:text="9:05 - 9:50"
+                            android:textSize="@dimen/TextHeight_14"
+                            tools:ignore="HardcodedText" />
+
+                        <TextView
+                            android:id="@+id/tta11"
+                            android:gravity="center"
+                            android:padding="3dip"
+                            android:text=""
+                            android:textSize="@dimen/TextHeight_14"
+                            tools:ignore="HardcodedText" />
+
+                        <TextView
+                            android:id="@+id/tta12"
+                            android:gravity="center"
+                            android:padding="3dip"
+                            android:text=""
+                            android:textSize="@dimen/TextHeight_14"
+                            tools:ignore="HardcodedText" />
+
+                        <TextView
+                            android:id="@+id/tta13"
+                            android:gravity="center"
+                            android:padding="3dip"
+                            android:text=""
+                            android:textSize="@dimen/TextHeight_14"
+                            tools:ignore="HardcodedText" />
+
+                        <TextView
+                            android:id="@+id/tta14"
+                            android:gravity="center"
+                            android:padding="3dip"
+                            android:text=""
+                            android:textSize="@dimen/TextHeight_14"
+                            tools:ignore="HardcodedText" />
+
+                        <TextView
+                            android:id="@+id/tta15"
+                            android:gravity="center"
+                            android:padding="3dip"
+                            android:text=""
+                            android:textSize="@dimen/TextHeight_14"
+                            tools:ignore="HardcodedText" />
+
+                    </TableRow>
+
+                    <TableRow
+                        android:id="@+id/tableRow5"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" >
+
+                        <TextView
+                            android:gravity="center"
+                            android:padding="3dip"
+                            android:text="10:10 - 10:55"
+                            android:textSize="@dimen/TextHeight_14"
+                            tools:ignore="HardcodedText" />
+
+                        <TextView
+                            android:id="@+id/tta16"
+                            android:gravity="center"
+                            android:padding="3dip"
+                            android:text=""
+                            android:textSize="@dimen/TextHeight_14"
+                            tools:ignore="HardcodedText" />
+
+                        <TextView
+                            android:id="@+id/tta17"
+                            android:gravity="center"
+                            android:padding="3dip"
+                            android:text=""
+                            android:textSize="@dimen/TextHeight_14"
+                            tools:ignore="HardcodedText" />
+
+                        <TextView
+                            android:id="@+id/tta18"
+                            android:gravity="center"
+                            android:padding="3dip"
+                            android:text=""
+                            android:textSize="@dimen/TextHeight_14"
+                            tools:ignore="HardcodedText" />
+
+                        <TextView
+                            android:id="@+id/tta19"
+                            android:gravity="center"
+                            android:padding="3dip"
+                            android:text=""
+                            android:textSize="@dimen/TextHeight_14"
+                            tools:ignore="HardcodedText" />
+
+                        <TextView
+                            android:id="@+id/tta20"
+                            android:gravity="center"
+                            android:padding="3dip"
+                            android:text=""
+                            android:textSize="@dimen/TextHeight_14"
+                            tools:ignore="HardcodedText" />
+
+                    </TableRow>
+
+                    <TableRow
+                        android:id="@+id/tableRow6"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" >
+
+                        <TextView
+                            android:gravity="center"
+                            android:padding="3dip"
+                            android:text="11:00 - 11:40"
+                            android:textSize="@dimen/TextHeight_14"
+                            tools:ignore="HardcodedText" />
+
+                        <TextView
+                            android:id="@+id/tta21"
+                            android:gravity="center"
+                            android:padding="3dip"
+                            android:text=""
+                            android:textSize="@dimen/TextHeight_14"
+                            tools:ignore="HardcodedText" />
+
+                        <TextView
+                            android:id="@+id/tta22"
+                            android:gravity="center"
+                            android:padding="3dip"
+                            android:text=""
+                            android:textSize="@dimen/TextHeight_14"
+                            tools:ignore="HardcodedText" />
+
+                        <TextView
+                            android:id="@+id/tta23"
+                            android:gravity="center"
+                            android:padding="3dip"
+                            android:text=""
+                            android:textSize="@dimen/TextHeight_14"
+                            tools:ignore="HardcodedText" />
+
+                        <TextView
+                            android:id="@+id/tta24"
+                            android:gravity="center"
+                            android:padding="3dip"
+                            android:text=""
+                            android:textSize="@dimen/TextHeight_14"
+                            tools:ignore="HardcodedText" />
+
+                        <TextView
+                            android:id="@+id/tta25"
+                            android:gravity="center"
+                            android:padding="3dip"
+                            android:text=""
+                            android:textSize="@dimen/TextHeight_14"
+                            tools:ignore="HardcodedText" />
+
+                    </TableRow>
+
+                    <TableRow
+                        android:id="@+id/tableRow7"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" >
+
+                        <TextView
+                            android:gravity="center"
+                            android:padding="3dip"
+                            android:text="11:40 - 12:30"
+                            android:textSize="@dimen/TextHeight_14"
+                            tools:ignore="HardcodedText" />
+
+                        <TextView
+                            android:id="@+id/tta26"
+                            android:gravity="center"
+                            android:padding="3dip"
+                            android:text=""
+                            android:textSize="@dimen/TextHeight_14"
+                            tools:ignore="HardcodedText" />
+
+                        <TextView
+                            android:id="@+id/tta27"
+                            android:gravity="center"
+                            android:padding="3dip"
+                            android:text=""
+                            android:textSize="@dimen/TextHeight_14"
+                            tools:ignore="HardcodedText" />
+
+                        <TextView
+                            android:id="@+id/tta28"
+                            android:gravity="center"
+                            android:padding="3dip"
+                            android:text=""
+                            android:textSize="@dimen/TextHeight_14"
+                            tools:ignore="HardcodedText" />
+
+                        <TextView
+                            android:id="@+id/tta29"
+                            android:gravity="center"
+                            android:padding="3dip"
+                            android:text=""
+                            android:textSize="@dimen/TextHeight_14"
+                            tools:ignore="HardcodedText" />
+
+                        <TextView
+                            android:id="@+id/tta30"
+                            android:gravity="center"
+                            android:padding="3dip"
+                            android:text=""
+                            android:textSize="@dimen/TextHeight_14"
+                            tools:ignore="HardcodedText" />
+
+                    </TableRow>
+
+                    <TableRow
+                        android:id="@+id/tableRow8"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" >
+
+                        <TextView
+                            android:gravity="center"
+                            android:padding="3dip"
+                            android:text="13:15 - 14:00"
+                            android:textSize="@dimen/TextHeight_14"
+                            tools:ignore="HardcodedText" />
+
+                        <TextView
+                            android:id="@+id/tta31"
+                            android:gravity="center"
+                            android:padding="3dip"
+                            android:text=""
+                            android:textSize="@dimen/TextHeight_14"
+                            tools:ignore="HardcodedText" />
+
+                        <TextView
+                            android:id="@+id/tta32"
+                            android:gravity="center"
+                            android:padding="3dip"
+                            android:text=""
+                            android:textSize="@dimen/TextHeight_14"
+                            tools:ignore="HardcodedText" />
+
+                        <TextView
+                            android:id="@+id/tta33"
+                            android:gravity="center"
+                            android:padding="3dip"
+                            android:text=""
+                            android:textSize="@dimen/TextHeight_14"
+                            tools:ignore="HardcodedText" />
+
+                        <TextView
+                            android:id="@+id/tta34"
+                            android:gravity="center"
+                            android:padding="3dip"
+                            android:text=""
+                            android:textSize="@dimen/TextHeight_14"
+                            tools:ignore="HardcodedText" />
+
+                        <TextView
+                            android:id="@+id/tta35"
+                            android:gravity="center"
+                            android:padding="3dip"
+                            android:text=""
+                            android:textSize="@dimen/TextHeight_14"
+                            tools:ignore="HardcodedText" />
+
+                    </TableRow>
+
+                    <TableRow
+                        android:id="@+id/tableRow9"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" >
+
+                        <TextView
+                            android:gravity="center"
+                            android:padding="3dip"
+                            android:text="14:00 - 14:50"
+                            android:textSize="@dimen/TextHeight_14"
+                            tools:ignore="HardcodedText" />
+
+                        <TextView
+                            android:id="@+id/tta36"
+                            android:gravity="center"
+                            android:padding="3dip"
+                            android:text=""
+                            android:textSize="@dimen/TextHeight_14"
+                            tools:ignore="HardcodedText" />
+
+                        <TextView
+                            android:id="@+id/tta37"
+                            android:gravity="center"
+                            android:padding="3dip"
+                            android:text=""
+                            android:textSize="@dimen/TextHeight_14"
+                            tools:ignore="HardcodedText" />
+
+                        <TextView
+                            android:id="@+id/tta38"
+                            android:gravity="center"
+                            android:padding="3dip"
+                            android:text=""
+                            android:textSize="@dimen/TextHeight_14"
+                            tools:ignore="HardcodedText" />
+
+                        <TextView
+                            android:id="@+id/tta39"
+                            android:gravity="center"
+                            android:padding="3dip"
+                            android:text=""
+                            android:textSize="@dimen/TextHeight_14"
+                            tools:ignore="HardcodedText" />
+
+                        <TextView
+                            android:id="@+id/tta40"
+                            android:gravity="center"
+                            android:padding="3dip"
+                            android:text=""
+                            android:textSize="@dimen/TextHeight_14"
+                            tools:ignore="HardcodedText" />
+
+                    </TableRow>
+
+                    <TableRow
+                        android:id="@+id/tableRow10"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" >
+
+                        <TextView
+                            android:gravity="center"
+                            android:padding="3dip"
+                            android:text="14:55 - 15:40"
+                            android:textSize="@dimen/TextHeight_14"
+                            tools:ignore="HardcodedText" />
+
+                        <TextView
+                            android:id="@+id/tta41"
+                            android:gravity="center"
+                            android:padding="3dip"
+                            android:text=""
+                            android:textSize="@dimen/TextHeight_14"
+                            tools:ignore="HardcodedText" />
+
+                        <TextView
+                            android:id="@+id/tta42"
+                            android:gravity="center"
+                            android:padding="3dip"
+                            android:text=""
+                            android:textSize="@dimen/TextHeight_14"
+                            tools:ignore="HardcodedText" />
+
+                        <TextView
+                            android:id="@+id/tta43"
+                            android:gravity="center"
+                            android:padding="3dip"
+                            android:text=""
+                            android:textSize="@dimen/TextHeight_14"
+                            tools:ignore="HardcodedText" />
+
+                        <TextView
+                            android:id="@+id/tta44"
+                            android:gravity="center"
+                            android:padding="3dip"
+                            android:text=""
+                            android:textSize="@dimen/TextHeight_14"
+                            tools:ignore="HardcodedText" />
+
+                        <TextView
+                            android:id="@+id/tta45"
+                            android:gravity="center"
+                            android:padding="3dip"
+                            android:text=""
+                            android:textSize="@dimen/TextHeight_14"
+                            tools:ignore="HardcodedText" />
+
+                    </TableRow>
+
+                    <TableRow
+                        android:id="@+id/tableRow11"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" >
+
+                        <TextView
+                            android:gravity="center"
+                            android:padding="3dip"
+                            android:text="15:40 - 16:25"
+                            android:textSize="@dimen/TextHeight_14"
+                            tools:ignore="HardcodedText" />
+
+                        <TextView
+                            android:id="@+id/tta46"
+                            android:gravity="center"
+                            android:padding="3dip"
+                            android:text=""
+                            android:textSize="@dimen/TextHeight_14"
+                            tools:ignore="HardcodedText" />
+
+                        <TextView
+                            android:id="@+id/tta47"
+                            android:gravity="center"
+                            android:padding="3dip"
+                            android:text=""
+                            android:textSize="@dimen/TextHeight_14"
+                            tools:ignore="HardcodedText" />
+
+                        <TextView
+                            android:id="@+id/tta48"
+                            android:gravity="center"
+                            android:padding="3dip"
+                            android:text=""
+                            android:textSize="@dimen/TextHeight_14"
+                            tools:ignore="HardcodedText" />
+
+                        <TextView
+                            android:id="@+id/tta49"
+                            android:gravity="center"
+                            android:padding="3dip"
+                            android:text=""
+                            android:textSize="@dimen/TextHeight_14"
+                            tools:ignore="HardcodedText" />
+
+                        <TextView
+                            android:id="@+id/tta50"
+                            android:gravity="center"
+                            android:padding="3dip"
+                            android:text=""
+                            android:textSize="@dimen/TextHeight_14"
+                            tools:ignore="HardcodedText,TooManyViews" />
+
+                    </TableRow>
+                </TableLayout>
+            </HorizontalScrollView>
+        </ScrollView>
+    </RelativeLayout>
+</RelativeLayout>

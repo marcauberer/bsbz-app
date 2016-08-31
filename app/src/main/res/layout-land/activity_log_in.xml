@@ -1,0 +1,104 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/rl1" >
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar_login"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimary"
+        android:theme="@style/toolbarStyle"
+        android:title="@string/title_activity_log_in"
+        android:fitsSystemWindows="true" />
+
+    <RelativeLayout
+        android:id="@+id/container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/toolbar_login"
+        android:paddingBottom="5dp"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        android:paddingTop="5dp">
+
+        <TextView
+            android:id="@+id/Bitte_logge_dich_ein_land"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:gravity="center"
+            android:text="@string/please_logIn"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            tools:ignore="HardcodedText,RtlHardcoded" />
+
+        <Button
+            android:id="@+id/LogIn_LogIn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/LogIn_Password"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/LogIn_Password"
+            android:text="@string/login"
+            tools:ignore="HardcodedText,RtlHardcoded" />
+
+        <ProgressBar
+            android:id="@+id/login_in_progress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/LogIn_LogIn"
+            android:layout_alignParentRight="true"
+            android:visibility="gone"/>
+
+        <EditText
+            android:id="@+id/LogIn_User_Name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/Bitte_logge_dich_ein_land"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/Bitte_logge_dich_ein_land"
+            android:ems="10"
+            android:hint="@string/username"
+            android:inputType="textCapWords|textPersonName"
+            tools:ignore="RtlHardcoded,HardcodedText" />
+
+        <EditText
+            android:id="@+id/LogIn_Password"
+            android:imeOptions="actionGo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/LogIn_User_Name"
+            android:ems="10"
+            android:hint="@string/password"
+            android:inputType="textPassword"
+            tools:ignore="RtlHardcoded,HardcodedText" >
+
+        </EditText>
+
+        <Button
+            android:id="@+id/LogIn_Registrieren"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentRight="true"
+            android:text="@string/registrate"
+            tools:ignore="HardcodedText,RtlHardcoded" />
+
+        <CheckBox
+            android:id="@+id/angemeldet_bleiben"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/LogIn_LogIn"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/LogIn_LogIn"
+            android:text="@string/keepLoggedIn"
+            tools:ignore="HardcodedText,RtlHardcoded" />
+
+    </RelativeLayout>
+</RelativeLayout>

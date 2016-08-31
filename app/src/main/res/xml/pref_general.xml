@@ -1,0 +1,35 @@
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
+    <PreferenceCategory
+        android:title="@string/pref_header_general"
+        android:key="Allgemein" >
+        <ListPreference
+        	android:defaultValue="0"
+        	android:entries="@array/pref_app_layout"
+        	android:entryValues="@array/pref_app_layout_values"
+        	android:key="Layout"
+        	android:negativeButtonText="@null"
+        	android:positiveButtonText="@null"
+        	android:title="@string/pref_title_app_layout"
+        	android:summary="@string/pref_summary_app_layout" />
+    	
+    	<ListPreference
+       		android:defaultValue="3"
+        	android:entries="@array/pref_sync_frequency_titles"
+        	android:entryValues="@array/pref_sync_frequency_values"
+        	android:key="SyncFreq"
+        	android:negativeButtonText="@null"
+        	android:positiveButtonText="@null"
+        	android:title="@string/pref_title_sync_frequency"
+        	android:summary="@string/pref_summary_sync_frequency" />
+    	
+    	<ListPreference
+       		android:defaultValue="0"
+        	android:entries="@array/pref_app_layout1_titles"
+        	android:entryValues="@array/pref_app_layout1_values"
+        	android:key="AppTheme"
+        	android:negativeButtonText="@null"
+        	android:positiveButtonText="@null"
+        	android:title="@string/pref_title_app_layout1"
+        	android:summary="@string/pref_summary_app_layout1" />
+    </PreferenceCategory>
+</PreferenceScreen>

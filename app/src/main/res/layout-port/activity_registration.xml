@@ -1,0 +1,106 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/rl2" >
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar_registration"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimary"
+        android:theme="@style/toolbarStyle"
+        android:title="@string/title_activity_registration"
+        android:fitsSystemWindows="true" />
+
+    <RelativeLayout
+        android:id="@+id/container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/toolbar_registration"
+        android:paddingBottom="@dimen/activity_vertical_margin"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:paddingTop="@dimen/activity_vertical_margin">
+
+        <TextView
+            android:id="@+id/Bitte_alle_Felder_ausfuellen"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:gravity="center"
+            android:text="@string/please_fill_all_fields"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            tools:ignore="HardcodedText,RtlHardcoded" />
+
+        <EditText
+            android:id="@+id/Registration_User_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/Bitte_alle_Felder_ausfuellen"
+            android:layout_marginTop="16dp"
+            android:ems="10"
+            android:hint="@string/username_first_name_second_name"
+            android:inputType="textCapWords|textPersonName"
+            tools:ignore="RtlHardcoded,HardcodedText" >
+            <requestFocus />
+        </EditText>
+
+        <Button
+            android:id="@+id/Registration_Registrieren"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentRight="true"
+            android:text="@string/registrate"
+            tools:ignore="HardcodedText,RtlHardcoded" />
+
+        <CheckBox
+            android:id="@+id/automatisch_einloggen"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/Registration_Remember_Password"
+            android:layout_below="@+id/Registration_Remember_Password"
+            android:text="@string/login_automatically" />
+
+        <Button
+            android:id="@+id/Registration_klasse"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/Registration_User_name"
+            android:text="@string/tap_to_coose_class" />
+
+        <EditText
+            android:id="@+id/Registration_Password"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/Registration_klasse"
+            android:ems="10"
+            android:hint="@string/password"
+            android:inputType="textPassword"
+            tools:ignore="HardcodedText,RtlHardcoded" />
+
+        <EditText
+            android:id="@+id/Registration_Remember_Password"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/Registration_Password"
+            android:ems="10"
+            android:hint="@string/confirm_password"
+            android:imeOptions="actionGo"
+            android:inputType="textPassword"
+            tools:ignore="RtlHardcoded,HardcodedText" />
+
+    </RelativeLayout>
+</RelativeLayout>

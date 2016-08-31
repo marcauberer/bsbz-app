@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<appwidget-provider 
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:minHeight="@dimen/AppWidget_2Cells"
+    android:minWidth="@dimen/AppWidget_4Cells"
+    android:initialLayout="@layout/widget_layout"
+    android:previewImage="@drawable/bsbz_logo_gross_mrgames"
+    android:updatePeriodMillis="1800000"
+    android:widgetCategory="home_screen" >
+    
+</appwidget-provider>

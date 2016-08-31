@@ -1,0 +1,80 @@
+<resources>
+    <!-- Strings related to Settings -->
+    <string name="title_activity_einstellungen">Einstellungen</string>
+
+    <!-- Example General settings -->
+    <string name="pref_header_general">Allgemeine Einstellungen</string>
+
+    <!-- Example settings for Data & Sync -->
+    <string name="pref_header_notifications">Benachrichtigungen</string>
+    <string name="pref_header_data_sync">Nachrichten &amp; Zusätzliche Funktionen</string>
+    <string name="pref_header_accounts">Account-einstellungen</string>
+    <string name="pref_header_infos">Über die BSZB-App</string>
+    <string-array name="pref_sync_frequency_titles">
+        <item>5 Minuten</item>
+        <item>10 Minuten</item>
+        <item>30 Minuten</item>
+        <item>1 Stunde</item>
+        <item>3 Stunden</item>
+        <item>Manuell</item>
+    </string-array>
+
+    
+    <string-array name="pref_sync_frequency_values">
+        <item>300000</item>
+        <item>600000</item>
+        <item>1800000</item>
+        <item>3600000</item>
+        <item>10800000</item>
+        <item>-1</item>
+    </string-array>
+
+    <!-- Example settings for Notifications -->
+    <string-array name="pref_app_layout">
+        <item>BSBZ Layout (orange)</item>
+        <item>Schwarzes Layout</item>
+        <item>Grünes Layout</item>
+        <item>Rotes Layout</item>
+        <item>Blaues Layout</item>
+        <item>Dunkelblaues Layout</item>
+    </string-array>
+    <string-array name="pref_app_layout_values">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+    </string-array>
+    <string-array name="pref_app_layout1_titles">
+        <item>Helles Schema (Standard)</item>
+        <item>Dunkles Schema</item>
+    </string-array>
+    <string-array name="pref_app_layout1_values">
+        <item>0</item>
+        <item>1</item>
+    </string-array>
+    <string name="pref_title_sync_frequency">Synchronisationszyklus</string>
+    <string name="pref_title_app_layout">App-Layout</string>
+    <string name="pref_title_delete_account">Account löschen</string>
+    <string name="pref_title_send_notifications">Nachrichten in die Statusleiste senden</string>
+    <string name="pref_title_app_version">App-Version</string>
+    <string name="pref_title_change_password">Passwort ändern</string>
+    <string name="pref_title_developer">Die Entwickler</string>
+    <string name="pref_title_send_percent_notification">Prozentanzeige des Tages in der Statusleiste anzeigen</string>
+    <string name="pref_title_app_layout1">App Farbschema</string>
+    <string name="pref_summary_delete_account">Aktiven Account löschen</string>
+    <string name="pref_summary_app_layout">Ändert das Layout der gesamten App</string>
+    <string name="pref_summary_sync_frequency">Ändert den Abstand der automatischen synchronisation</string>
+    <string name="pref_summary_send_notifications">Die BSBZ-App sendet Nachrichten in die Statusleiste, wenn es z.B.: eine Stundenplanänderung gab</string>
+    <string name="pref_summary_app_version">Version</string>
+    <string name="pref_summary_developer">M&amp;R Games</string>
+    <string name="pref_summary_change_password">Passwort des aktiven Accounts ändern</string>
+    <string name="pref_summary_send_percent_notification">Prozentanzeige des Schultages in der Statusleiste</string>
+    <string name="pref_summary_app_layout1">Verändert das Farbschema der App</string>
+    <string name="pref_later">Später</string>
+    <string name="pref_reboot_title">Neustart</string>
+    <string name="pref_serverinfo">Serverinfo</string>
+    <string name="pref_open_source_licenses">Open-Source-Lizenzen</string>
+    <string name="pref_open_source_licenses_summary">Lizenzdetails für Open-Source-Lizenzen</string>
+</resources>
