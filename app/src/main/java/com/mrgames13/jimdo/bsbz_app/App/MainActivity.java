@@ -1812,6 +1812,12 @@ public class MainActivity extends AppCompatActivity {
                                             try{
                                                 String name = prefs.getString("Name", res.getString(R.string.guest));
                                                 serverMessagingUtils.sendRequest(findViewById(R.id.container), "name="+URLEncoder.encode(name, "UTF-8")+"&command=setimageconfig&foldername="+URLEncoder.encode(foldername, "UTF-8") + "&filenames=");
+                                                runOnUiThread(new Runnable() {
+                                                    @Override
+                                                    public void run() {
+                                                        launchGalleryFragment();
+                                                    }
+                                                });
                                             } catch (Exception e) {}
                                         }
                                     }).start();
