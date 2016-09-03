@@ -114,7 +114,7 @@ public class ImageFolderActivity extends AppCompatActivity {
             filenames = new ArrayList<String>(Arrays.asList(filenames_string.split(",")));
         } else {
             filenames = new ArrayList<>();
-            filenames.add(filenames_string);
+            if(!filenames_string.equals("")) filenames.add(filenames_string);
         }
     }
 
