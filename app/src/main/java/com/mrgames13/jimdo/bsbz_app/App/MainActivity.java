@@ -31,6 +31,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.app.ListFragment;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -1775,7 +1776,40 @@ public boolean onCreateOptionsMenu(Menu menu) {
         //Container leeren
         container.removeAllViews();
         //Layout-Datei entfalten
-        layoutInflater.inflate(R.layout.fragment_gallery, container);
+        String rights = prefs.getString("Rights", res.getString(R.string.guest));
+        if(rights.equals("teacher") || rights.equals("administrator") || rights.equals("team")) {
+            layoutInflater.inflate(R.layout.fragment_gallery_admins, container);
+        } else {
+            layoutInflater.inflate(R.layout.fragment_gallery, container);
+        }
+
+        final FloatingActionButton new_folder = (FloatingActionButton) findViewById(R.id.new_folder);
+        new_folder.setVisibility(View.GONE);
+        new_folder.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final EditText input = new EditText(MainActivity.this);
+                input.setHint(res.getString(R.string.new_folder_name));
+                AlertDialog d = new AlertDialog.Builder(MainActivity.this)
+                        .setTitle(res.getString(R.string.new_folder))
+                        .setView(input)
+                        .setNegativeButton(res.getString(R.string.cancel), new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                            }
+                        })
+                        .setPositiveButton(res.getString(R.string.ok), new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                String foldername = input.getText().toString();
+                                Log.d("BSBZ-App", foldername);
+                            }
+                        })
+                        .create();
+
+            }
+        });
 
         new Thread(new Runnable() {
             @Override
@@ -1817,9 +1851,8 @@ public boolean onCreateOptionsMenu(Menu menu) {
                             findViewById(R.id.progressBar1).setVisibility(View.GONE);
                         }
                     });
-                } catch(Exception e) {
-                    Log.e("BSBZ-App", "", e);
-                }
+                    new_folder.setVisibility(View.VISIBLE);
+                } catch(Exception e) {}
             }
         }).start();
     }

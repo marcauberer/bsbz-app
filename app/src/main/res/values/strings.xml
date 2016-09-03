@@ -242,5 +242,7 @@
     <string name="download">Download</string>
     <string name="download_in_progress">Download wird ausgeführt</string>
     <string name="download_in_progress_">Download wird ausgeführt ...</string>
+    <string name="new_folder">Ordner erstellen</string>
+    <string name="new_folder_name">Ordnername</string>
 
 </resources>
