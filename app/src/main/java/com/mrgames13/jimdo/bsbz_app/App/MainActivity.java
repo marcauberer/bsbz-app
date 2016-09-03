@@ -1804,8 +1804,17 @@ public class MainActivity extends AppCompatActivity {
                             .setPositiveButton(res.getString(R.string.ok), new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
-                                    String foldername = input.getText().toString();
-                                    Log.d("BSBZ-App", foldername);
+                                    final String foldername = input.getText().toString();
+                                    Toast.makeText(MainActivity.this, res.getString(R.string.folder_is_creating_), Toast.LENGTH_LONG).show();
+                                    new Thread(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            try{
+                                                String name = prefs.getString("Name", res.getString(R.string.guest));
+                                                serverMessagingUtils.sendRequest(findViewById(R.id.container), "name="+URLEncoder.encode(name, "UTF-8")+"&command=setimageconfig&foldername="+URLEncoder.encode(foldername, "UTF-8") + "&filenames=");
+                                            } catch (Exception e) {}
+                                        }
+                                    }).start();
                                 }
                             })
                             .create();
