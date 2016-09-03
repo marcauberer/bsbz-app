@@ -24,7 +24,8 @@
     <android.support.v7.widget.RecyclerView
         android:id="@+id/gallery_view"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent"
+        android:layout_above="@+id/con"/>
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/new_folder"
@@ -38,4 +39,18 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"/>
 
+    <RelativeLayout
+        android:id="@+id/con"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_toLeftOf="@+id/new_folder">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/long_tap_on_folder"
+            android:gravity="center"/>
+
+    </RelativeLayout>
 </RelativeLayout>

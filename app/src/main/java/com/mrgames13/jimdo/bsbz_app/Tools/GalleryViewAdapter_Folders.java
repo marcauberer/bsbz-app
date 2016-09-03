@@ -11,7 +11,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.mrgames13.jimdo.bsbz_app.App.ImageFolderActivity;
 import com.mrgames13.jimdo.bsbz_app.App.MainActivity;
@@ -56,7 +55,7 @@ public class GalleryViewAdapter_Folders extends RecyclerView.Adapter<GalleryView
             @Override
             public void run() {
                 int index = MainActivity.gallery_view_filenames.get(pos).indexOf(",");
-                String firstImageName;
+                final String firstImageName;
                 if(index != -1) {
                     firstImageName = MainActivity.gallery_view_filenames.get(pos).substring(0, index);
                 } else {
@@ -72,20 +71,16 @@ public class GalleryViewAdapter_Folders extends RecyclerView.Adapter<GalleryView
                 });
             }
         }).start();
-        //OnClickListener für Item setzen
-        if(firstImage == null) {
-            holder.itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent i = new Intent(context, ImageFolderActivity.class);
-                    i.putExtra("foldername", MainActivity.gallery_view_foldernames.get(pos));
-                    i.putExtra("filenames", MainActivity.gallery_view_filenames.get(pos));
-                    context.startActivity(i);
-                }
-            });
-        } else {
-            Toast.makeText(context, MainActivity.res.getString(R.string.dir_empty), Toast.LENGTH_SHORT).show();
-        }
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(context, ImageFolderActivity.class);
+                i.putExtra("foldername", MainActivity.gallery_view_foldernames.get(pos));
+                i.putExtra("filenames", MainActivity.gallery_view_filenames.get(pos));
+                context.startActivity(i);
+            }
+        });
+
     }
 
     @Override

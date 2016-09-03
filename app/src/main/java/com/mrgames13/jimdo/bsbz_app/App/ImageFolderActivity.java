@@ -12,7 +12,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.Window;
@@ -116,9 +115,6 @@ public class ImageFolderActivity extends AppCompatActivity {
         } else {
             filenames = new ArrayList<>();
             filenames.add(filenames_string);
-        }
-        for(String s : filenames) {
-            Log.d("BSBZ-App", s);
         }
     }
 
