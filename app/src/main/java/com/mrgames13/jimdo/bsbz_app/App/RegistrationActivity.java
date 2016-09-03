@@ -43,7 +43,7 @@ import java.net.URLEncoder;
 public class RegistrationActivity extends AppCompatActivity {
 
     //Konstanten
-	protected static final String SERVER_BASE_URL = "http://13-dot-bsbzapp1.appspot.com/bsbz_app_masterserver";
+
 
     //Variablen als Objekte
     private Toolbar toolbar;
@@ -122,7 +122,7 @@ public class RegistrationActivity extends AppCompatActivity {
 
 		//Android ID ermitteln
 		try{
-			TelephonyManager tm = (TelephonyManager) RegistrationActivity.this.getSystemService(RegistrationActivity.this.TELEPHONY_SERVICE);
+			TelephonyManager tm = (TelephonyManager) RegistrationActivity.this.getSystemService(TELEPHONY_SERVICE);
 			id = tm.getDeviceId();
 		} catch(Exception e) {}
 
@@ -406,7 +406,7 @@ public class RegistrationActivity extends AppCompatActivity {
 			@Override
 			public void run() {
 				try {
-					result = serverMessagingUtils.sendRequest(findViewById(R.id.container), "name="+URLEncoder.encode(username, "UTF-8")+"&command=newaccount&password="+URLEncoder.encode(password, "UTF-8")+"&class="+URLEncoder.encode(klasse, "UTF-8")+"&rights=normal+user&androidid="+URLEncoder.encode(id, "UTF-8"));
+					result = serverMessagingUtils.sendRequest(findViewById(R.id.container), "name="+URLEncoder.encode(username, "UTF-8")+"&command=newaccount&password="+URLEncoder.encode(password, "UTF-8")+"&class="+URLEncoder.encode(klasse, "UTF-8")+"&rights=student&androidid="+URLEncoder.encode(id, "UTF-8"));
 					//Result auswerten
 					if(result.contains("Action Successful")) {
 						result = res.getString(R.string.account_creation_successful);

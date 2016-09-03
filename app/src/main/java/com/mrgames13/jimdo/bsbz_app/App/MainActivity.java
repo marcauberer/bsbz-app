@@ -646,7 +646,13 @@ public boolean onCreateOptionsMenu(Menu menu) {
         //Texte setzen
         Profil_name.setText(User_name);
         Profil_klasse.setText(User_klasse);
-        if(User_rechte.equals("administrator")) {
+        if(User_rechte.equals("classspeaker")) {
+            Profil_Rechte.setText(res.getString(R.string.classspeaker));
+            klasse_wahlen.setVisibility(View.INVISIBLE);
+        } else if(User_rechte.equals("teacher")) {
+            Profil_Rechte.setText(res.getString(R.string.teacher));
+            klasse_wahlen.setText(res.getString(R.string.choose_class_1_)+User_klasse+")");
+        } else if(User_rechte.equals("administrator")) {
             Profil_Rechte.setText(res.getString(R.string.administrator));
             klasse_wahlen.setText(res.getString(R.string.choose_class_1_)+User_klasse+")");
         } else if(User_rechte.equals("team")) {
@@ -1097,7 +1103,7 @@ public boolean onCreateOptionsMenu(Menu menu) {
         container.removeAllViews();
         //Layout-Datei entfalten
         String rights = prefs.getString("Rights", "normal user");
-        if(rights.equals("administrator") || rights.equals("team")) {
+        if(rights.equals("teacher") || rights.equals("administrator") || rights.equals("team")) {
             layoutInflater.inflate(R.layout.fragment_news_admins, container);
         } else {
             layoutInflater.inflate(R.layout.fragment_news, container);
@@ -1109,7 +1115,7 @@ public boolean onCreateOptionsMenu(Menu menu) {
         ft.commit();
 
         //Aktionen, die nur für Admins oder Team-Mitglieder vorgesehen sind
-        if(rights.equals("administrator") || rights.equals("team")) {
+        if(rights.equals("teacher") || rights.equals("administrator") || rights.equals("team")) {
             //FloatingActionButton Aktion zuweisen
             FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.new_new);
             fab.setOnClickListener(new View.OnClickListener() {
@@ -2228,7 +2234,7 @@ public boolean onCreateOptionsMenu(Menu menu) {
             setListAdapter(adapter);
 
             String rights = prefs.getString("Rights", "normal user");
-            if(rights.equals("administrator") || rights.equals("team")) {
+            if(rights.equals("teacher") || rights.equals("administrator") || rights.equals("team")) {
                 registerForContextMenu(getListView());
                 getListView().setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
                     @Override

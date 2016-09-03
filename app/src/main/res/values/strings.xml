@@ -156,6 +156,8 @@
     <string name="news_changings">Änderungen an den News wurden auf dem Server gefunden</string>
     <string name="no_synchronisation">Keine Syncronisation</string>
     <string name="max_musterman">Max Mustermann</string>
+    <string name="classspeaker">Klassensprecher</string>
+    <string name="teacher">Lehrer</string>
     <string name="administrator">Administrator</string>
     <string name="team_mrgames">Team (M&amp;R Games)</string>
     <string name="choose_class_1_">Klasse auswählen (Aktuell:\u0020</string>
