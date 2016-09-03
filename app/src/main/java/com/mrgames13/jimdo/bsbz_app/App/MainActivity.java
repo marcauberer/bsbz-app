@@ -111,6 +111,7 @@ public class MainActivity extends AppCompatActivity {
     private RecyclerView gallery_view;
     private RecyclerView.Adapter gallery_view_adapter;
     private RecyclerView.LayoutManager gallery_view_manager;
+    private FloatingActionButton new_folder;
 
     //UtilsPakete
     public static ServerMessagingUtils serverMessagingUtils;
@@ -334,17 +335,17 @@ public class MainActivity extends AppCompatActivity {
         } catch(NullPointerException e) {}
 
         if(AppTheme != 0) findViewById(R.id.copyright).setBackgroundColor(Color.GRAY);
-}
+    }
 
-@Override
-public boolean onCreateOptionsMenu(Menu menu) {
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_main, menu);
 
         action_menu = menu;
         progress_menu_item = action_menu.findItem(R.id.action_refresh);
 
         return super.onCreateOptionsMenu(menu);
-        }
+    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -1783,33 +1784,35 @@ public boolean onCreateOptionsMenu(Menu menu) {
             layoutInflater.inflate(R.layout.fragment_gallery, container);
         }
 
-        final FloatingActionButton new_folder = (FloatingActionButton) findViewById(R.id.new_folder);
-        new_folder.setVisibility(View.GONE);
-        new_folder.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                final EditText input = new EditText(MainActivity.this);
-                input.setHint(res.getString(R.string.new_folder_name));
-                AlertDialog d = new AlertDialog.Builder(MainActivity.this)
-                        .setTitle(res.getString(R.string.new_folder))
-                        .setView(input)
-                        .setNegativeButton(res.getString(R.string.cancel), new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                dialog.dismiss();
-                            }
-                        })
-                        .setPositiveButton(res.getString(R.string.ok), new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                String foldername = input.getText().toString();
-                                Log.d("BSBZ-App", foldername);
-                            }
-                        })
-                        .create();
-
-            }
-        });
+        if(rights.equals("teacher") || rights.equals("administrator") || rights.equals("team")) {
+            new_folder = (FloatingActionButton) findViewById(R.id.new_folder);
+            new_folder.setVisibility(View.GONE);
+            new_folder.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    final EditText input = new EditText(MainActivity.this);
+                    input.setHint(res.getString(R.string.new_folder_name));
+                    AlertDialog d = new AlertDialog.Builder(MainActivity.this)
+                            .setTitle(res.getString(R.string.new_folder))
+                            .setView(input)
+                            .setNegativeButton(res.getString(R.string.cancel), new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    dialog.dismiss();
+                                }
+                            })
+                            .setPositiveButton(res.getString(R.string.ok), new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    String foldername = input.getText().toString();
+                                    Log.d("BSBZ-App", foldername);
+                                }
+                            })
+                            .create();
+                    d.show();
+                }
+            });
+        }
 
         new Thread(new Runnable() {
             @Override
@@ -1849,9 +1852,9 @@ public boolean onCreateOptionsMenu(Menu menu) {
                             //ProgressBar und Laden ausblenden
                             findViewById(R.id.laden).setVisibility(View.GONE);
                             findViewById(R.id.progressBar1).setVisibility(View.GONE);
+                            if(new_folder != null) new_folder.setVisibility(View.VISIBLE);
                         }
                     });
-                    new_folder.setVisibility(View.VISIBLE);
                 } catch(Exception e) {}
             }
         }).start();
