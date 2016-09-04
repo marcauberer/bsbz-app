@@ -168,6 +168,8 @@
 
         <activity android:name=".App.ImageFullscreenActivity">
         </activity>
+        <activity android:name=".App.ImagePickerActivity">
+        </activity>
     </application>
 
 </manifest>
