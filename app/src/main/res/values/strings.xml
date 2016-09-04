@@ -236,7 +236,7 @@
     <string name="serverstate_4_short">Nicht mehr unterstützt</string>
     <string name="no_name">(Unbenannt)</string>
     <string name="dir_empty">Dieser Ordner ist leer</string>
-    <string name="download_dir">Ordner herunterladen herunterladen</string>
+    <string name="download_dir">Ordner herunterladen</string>
     <string name="download_image">Bild herunterladen</string>
     <string name="download_finished">Download abgeschlossen</string>
     <string name="download">Download</string>
@@ -248,5 +248,6 @@
     <string name="long_tap_on_folder">Lange auf einen Ordner tippen, um weitere Optionen zu sehen</string>
     <string name="upload_changes">Änderungen hochladen</string>
     <string name="delete_folder">Ordner löschen</string>
+    <string name="delete_folder_m">Möchtest du diesen Ordner wirklich unwiederuflich löschen?</string>
 
 </resources>

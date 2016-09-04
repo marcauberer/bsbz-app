@@ -1,5 +1,6 @@
 package com.mrgames13.jimdo.bsbz_app.App;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
@@ -8,6 +9,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -20,6 +22,7 @@ import android.widget.Toast;
 import com.mrgames13.jimdo.bsbz_app.R;
 import com.mrgames13.jimdo.bsbz_app.Tools.GalleryViewAdapter_Files;
 
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -150,7 +153,42 @@ public class ImageFolderActivity extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(), res.getString(R.string.internet_is_not_available), Toast.LENGTH_SHORT).show();
             }
             return true;
+        } else if(id == R.id.action_delete_folder) {
+            AlertDialog d = new AlertDialog.Builder(ImageFolderActivity.this)
+                    .setTitle(res.getString(R.string.delete_folder))
+                    .setMessage(res.getString(R.string.delete_folder_m))
+                    .setPositiveButton(res.getString(R.string.yes), new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            new Thread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    try{
+                                        MainActivity.serverMessagingUtils.sendRequest(null, "name="+ URLEncoder.encode(prefs.getString("Name", res.getString(R.string.guest)), "UTF-8")+"&command=deleteimagefolder&foldername="+URLEncoder.encode(folderName, "UTF-8"));
+                                        finish();
+                                    } catch(Exception e) {}
+                                }
+                            }).start();
+                            dialog.dismiss();
+                        }
+                    })
+                    .create();
+            d.show();
+        } else if(id == R.id.action_upload_chages) {
+            uploadChanges();
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private void uploadChanges() {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try{
+                    MainActivity.serverMessagingUtils.sendRequest(null, "name="+ URLEncoder.encode(prefs.getString("Name", res.getString(R.string.guest)), "UTF-8")+"&command=deleteimagefolder&foldername="+URLEncoder.encode(folderName, "UTF-8"));
+                    finish();
+                } catch(Exception e) {}
+            }
+        }).start();
     }
 }
