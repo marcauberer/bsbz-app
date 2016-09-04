@@ -120,7 +120,12 @@ public class ImageFolderActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.image_folder, menu);
+        String rights = MainActivity.prefs.getString("Rights", "student");
+        if(rights.equals("classspeaker") || rights.equals("teacher") || rights.equals("administrator") || rights.equals("team")) {
+            getMenuInflater().inflate(R.menu.image_folder_admin, menu);
+        } else {
+            getMenuInflater().inflate(R.menu.image_folder, menu);
+        }
         return super.onCreateOptionsMenu(menu);
     }
 

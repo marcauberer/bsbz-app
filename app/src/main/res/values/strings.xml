@@ -246,5 +246,7 @@
     <string name="new_folder_name">Ordnername</string>
     <string name="folder_is_creating_">Ordner wird erstellt ...</string>
     <string name="long_tap_on_folder">Lange auf einen Ordner tippen, um weitere Optionen zu sehen</string>
+    <string name="upload_changes">Änderungen hochladen</string>
+    <string name="delete_folder">Ordner löschen</string>
 
 </resources>

@@ -527,7 +527,7 @@ public class MainActivity extends AppCompatActivity {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(MainActivity.this);
         String User_name = prefs.getString("Name", res.getString(R.string.max_musterman)).replace("+", " ");
         String User_klasse = prefs.getString("Klasse", "---");
-        String User_rechte = prefs.getString("Rights", "normal user");
+        String User_rechte = prefs.getString("Rights", "student");
         String last_syncronisation_time = prefs.getString("SyncTime", res.getString(R.string.no_synchronisation));
 
         if(User_klasse.length() == 3) User_klasse.replace("0", "");
@@ -1104,7 +1104,7 @@ public class MainActivity extends AppCompatActivity {
         //Container leeren
         container.removeAllViews();
         //Layout-Datei entfalten
-        String rights = prefs.getString("Rights", "normal user");
+        String rights = prefs.getString("Rights", "student");
         if(rights.equals("teacher") || rights.equals("administrator") || rights.equals("team")) {
             layoutInflater.inflate(R.layout.fragment_news_admin, container);
         } else {
@@ -2284,7 +2284,7 @@ public class MainActivity extends AppCompatActivity {
             adapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_list_item_activated_1, arraylist);
             setListAdapter(adapter);
 
-            String rights = prefs.getString("Rights", "normal user");
+            String rights = prefs.getString("Rights", "student");
             if(rights.equals("teacher") || rights.equals("administrator") || rights.equals("team")) {
                 registerForContextMenu(getListView());
                 getListView().setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
