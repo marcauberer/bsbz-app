@@ -1106,7 +1106,7 @@ public class MainActivity extends AppCompatActivity {
         //Layout-Datei entfalten
         String rights = prefs.getString("Rights", "normal user");
         if(rights.equals("teacher") || rights.equals("administrator") || rights.equals("team")) {
-            layoutInflater.inflate(R.layout.fragment_news_admins, container);
+            layoutInflater.inflate(R.layout.fragment_news_admin, container);
         } else {
             layoutInflater.inflate(R.layout.fragment_news, container);
         }
@@ -1779,7 +1779,7 @@ public class MainActivity extends AppCompatActivity {
         //Layout-Datei entfalten
         String rights = prefs.getString("Rights", res.getString(R.string.guest));
         if(rights.equals("teacher") || rights.equals("administrator") || rights.equals("team")) {
-            layoutInflater.inflate(R.layout.fragment_gallery_admins, container);
+            layoutInflater.inflate(R.layout.fragment_gallery_admin, container);
         } else {
             layoutInflater.inflate(R.layout.fragment_gallery, container);
         }
