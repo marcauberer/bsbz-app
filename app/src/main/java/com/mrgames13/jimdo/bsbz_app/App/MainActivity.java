@@ -1787,7 +1787,6 @@ public class MainActivity extends AppCompatActivity {
         if(serverMessagingUtils.isInternetAvailable()) {
             if(rights.equals("teacher") || rights.equals("administrator") || rights.equals("team")) {
                 new_folder = (FloatingActionButton) findViewById(R.id.new_folder);
-                new_folder.setVisibility(View.GONE);
                 new_folder.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {

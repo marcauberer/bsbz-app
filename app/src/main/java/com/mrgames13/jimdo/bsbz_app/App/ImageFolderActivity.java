@@ -29,6 +29,7 @@ import java.util.Arrays;
 public class ImageFolderActivity extends AppCompatActivity {
 
     //Konstanten
+    private final int REQ_CODE_PICK_IMAGE = 10001;
 
     //Varialben als Objekte
     private Toolbar toolbar;
@@ -172,6 +173,12 @@ public class ImageFolderActivity extends AppCompatActivity {
                             dialog.dismiss();
                         }
                     })
+                    .setNegativeButton(res.getString(R.string.no), new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                        }
+                    })
                     .create();
             d.show();
         } else if(id == R.id.action_upload_chages) {
@@ -190,5 +197,20 @@ public class ImageFolderActivity extends AppCompatActivity {
                 } catch(Exception e) {}
             }
         }).start();
+    }
+
+    private void pickImage() {
+        Intent pickImageIntent = new Intent(Intent.ACTION_GET_CONTENT);
+        pickImageIntent.setType("image/jpg");
+        startActivityForResult(pickImageIntent, REQ_CODE_PICK_IMAGE);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if(resultCode == RESULT_OK && requestCode == REQ_CODE_PICK_IMAGE) {
+
+        }
     }
 }
