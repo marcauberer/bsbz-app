@@ -252,5 +252,7 @@
     <string name="need_internet_gallery">Du brauchst du eine Internetverbindung um auf die Gallerie zuzugreifen</string>
     <string name="pick_image">Bild auswählen ...</string>
     <string name="upload_image">Bild hochladen</string>
+    <string name="new_image">Neues Bild</string>
+    <string name="image_upload_m">Möchtest du das gewählte Bild wirklich veröffentlichen?</string>
 
 </resources>

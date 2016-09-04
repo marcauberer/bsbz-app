@@ -1,15 +1,20 @@
 package com.mrgames13.jimdo.bsbz_app.App;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -26,8 +31,11 @@ public class ImagePickerActivity extends AppCompatActivity {
     private SharedPreferences prefs;
     private Toolbar toolbar;
     private ImageView imageView;
+    private Button pickImage;
+    private Button uploadImage;
 
     //Variablen
+    Uri imageUri;
 
     @Override
     protected void onStart() {
@@ -73,17 +81,19 @@ public class ImagePickerActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_image_picker);
 
+        //Resourcen initialisieren
+        res = getResources();
+
         //Toolbar initialisieren
         toolbar = (Toolbar) findViewById(R.id.toolbar_image_picker_activity);
         setSupportActionBar(toolbar);
-
-        //Resourcen initialisieren
-        res = getResources();
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setTitle(res.getString(R.string.new_image));
 
         //Benutzeroberfläche initialisieren
         imageView = (ImageView) findViewById(R.id.image_picker_image_view);
 
-        Button pickImage = (Button) findViewById(R.id.pick_image);
+        pickImage = (Button) findViewById(R.id.pick_image);
         pickImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -91,13 +101,49 @@ public class ImagePickerActivity extends AppCompatActivity {
             }
         });
 
-        Button uploadImage = (Button) findViewById(R.id.upload_image);
+        uploadImage = (Button) findViewById(R.id.upload_image);
         uploadImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                uploadImage();
+                AlertDialog d = new AlertDialog.Builder(ImagePickerActivity.this)
+                        .setTitle(res.getString(R.string.new_image))
+                        .setMessage(res.getString(R.string.image_upload_m))
+                        .setPositiveButton(res.getString(R.string.yes), new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                uploadImage();
+                                dialog.dismiss();
+                            }
+                        })
+                        .setNegativeButton(res.getString(R.string.no), new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                            }
+                        })
+                        .create();
+                d.show();
             }
         });
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.image_picker, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == R.id.action_settings) {
+            startActivity(new Intent(this, SettingsActivity.class));
+            return true;
+        } else if(id == android.R.id.home) {
+            finish();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     private void pickImage() {
@@ -107,7 +153,14 @@ public class ImagePickerActivity extends AppCompatActivity {
     }
 
     private void uploadImage() {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
 
+                } catch(Exception e) {}
+            }
+        }).start();
     }
 
     @Override
@@ -115,7 +168,10 @@ public class ImagePickerActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
 
         if(resultCode == RESULT_OK && requestCode == REQ_CODE_PICK_IMAGE) {
-
+            imageUri = data.getData();
+            imageView.setImageURI(imageUri);
+            pickImage.setEnabled(false);
+            uploadImage.setEnabled(true);
         }
     }
 }

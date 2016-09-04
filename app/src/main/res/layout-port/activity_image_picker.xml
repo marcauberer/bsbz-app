@@ -48,6 +48,7 @@
             android:layout_height="wrap_content"
             android:text="@string/upload_image"
             android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"/>
+            android:layout_centerHorizontal="true"
+            android:enabled="false" />
     </RelativeLayout>
 </RelativeLayout>
