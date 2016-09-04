@@ -9,6 +9,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
@@ -16,6 +17,7 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.Window;
 import android.widget.Toast;
 
@@ -29,7 +31,6 @@ import java.util.Arrays;
 public class ImageFolderActivity extends AppCompatActivity {
 
     //Konstanten
-    private final int REQ_CODE_PICK_IMAGE = 10001;
 
     //Varialben als Objekte
     private Toolbar toolbar;
@@ -120,6 +121,15 @@ public class ImageFolderActivity extends AppCompatActivity {
             filenames = new ArrayList<>();
             if(!filenames_string.equals("")) filenames.add(filenames_string);
         }
+
+        //FloatingAction-Button initialisieren
+        FloatingActionButton new_image = (FloatingActionButton) findViewById(R.id.new_image);
+        new_image.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(ImageFolderActivity.this, ImagePickerActivity.class));
+            }
+        });
     }
 
     @Override
@@ -181,36 +191,7 @@ public class ImageFolderActivity extends AppCompatActivity {
                     })
                     .create();
             d.show();
-        } else if(id == R.id.action_upload_chages) {
-            uploadChanges();
         }
         return super.onOptionsItemSelected(item);
-    }
-
-    private void uploadChanges() {
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try{
-                    MainActivity.serverMessagingUtils.sendRequest(null, "name="+ URLEncoder.encode(prefs.getString("Name", res.getString(R.string.guest)), "UTF-8")+"&command=deleteimagefolder&foldername="+URLEncoder.encode(folderName, "UTF-8"));
-                    finish();
-                } catch(Exception e) {}
-            }
-        }).start();
-    }
-
-    private void pickImage() {
-        Intent pickImageIntent = new Intent(Intent.ACTION_GET_CONTENT);
-        pickImageIntent.setType("image/jpg");
-        startActivityForResult(pickImageIntent, REQ_CODE_PICK_IMAGE);
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        if(resultCode == RESULT_OK && requestCode == REQ_CODE_PICK_IMAGE) {
-
-        }
     }
 }
