@@ -249,5 +249,6 @@
     <string name="upload_changes">Änderungen hochladen</string>
     <string name="delete_folder">Ordner löschen</string>
     <string name="delete_folder_m">Möchtest du diesen Ordner wirklich unwiederuflich löschen?</string>
+    <string name="need_internet_gallery">Du brauchst du eine Internetverbindung um auf die Gallerie zuzugreifen</string>
 
 </resources>

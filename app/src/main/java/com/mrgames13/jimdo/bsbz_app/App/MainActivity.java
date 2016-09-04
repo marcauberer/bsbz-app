@@ -1784,95 +1784,99 @@ public class MainActivity extends AppCompatActivity {
             layoutInflater.inflate(R.layout.fragment_gallery, container);
         }
 
-        if(rights.equals("teacher") || rights.equals("administrator") || rights.equals("team")) {
-            new_folder = (FloatingActionButton) findViewById(R.id.new_folder);
-            new_folder.setVisibility(View.GONE);
-            new_folder.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    final EditText input = new EditText(MainActivity.this);
-                    input.setHint(res.getString(R.string.new_folder_name));
-                    AlertDialog d = new AlertDialog.Builder(MainActivity.this)
-                            .setTitle(res.getString(R.string.new_folder))
-                            .setView(input)
-                            .setNegativeButton(res.getString(R.string.cancel), new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-                                    dialog.dismiss();
-                                }
-                            })
-                            .setPositiveButton(res.getString(R.string.ok), new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-                                    final String foldername = input.getText().toString();
-                                    Toast.makeText(MainActivity.this, res.getString(R.string.folder_is_creating_), Toast.LENGTH_LONG).show();
-                                    new Thread(new Runnable() {
-                                        @Override
-                                        public void run() {
-                                            try{
-                                                String name = prefs.getString("Name", res.getString(R.string.guest));
-                                                serverMessagingUtils.sendRequest(findViewById(R.id.container), "name="+URLEncoder.encode(name, "UTF-8")+"&command=setimageconfig&foldername="+URLEncoder.encode(foldername, "UTF-8") + "&filenames=");
-                                                runOnUiThread(new Runnable() {
-                                                    @Override
-                                                    public void run() {
-                                                        launchGalleryFragment();
-                                                    }
-                                                });
-                                            } catch (Exception e) {}
-                                        }
-                                    }).start();
-                                }
-                            })
-                            .create();
-                    d.show();
-                }
-            });
-        }
-
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try{
-                    //Username aus den SharedPreferences auslesen
-                    String username = prefs.getString("Name", res.getString(R.string.guest));
-                    //ImageConfig herunterladen
-                    result = serverMessagingUtils.sendRequest(findViewById(R.id.container), "name="+URLEncoder.encode(username, "UTF-8")+"&command=getimageconfig");
-                    //Result auseinandernehmen
-                    gallery_view_foldernames.clear();
-                    gallery_view_filenames.clear();
-                    for(int i = 0; i < 100; i++) {
-                        if(result.length() > 0) {
-                            int index1 = result.indexOf(":");
-                            int index2 = result.indexOf(";");
-                            //Auseinandernehmen
-                            String dirname = result.substring(0, index1);
-                            String filenames = result.substring(index1 +1, index2);
-                            //In Arraylists speichern
-                            gallery_view_foldernames.add(dirname);
-                            gallery_view_filenames.add(filenames);
-                            //Vorne abzwacken
-                            result = result.substring(index2 +1);
-                        }
+        if(serverMessagingUtils.isInternetAvailable()) {
+            if(rights.equals("teacher") || rights.equals("administrator") || rights.equals("team")) {
+                new_folder = (FloatingActionButton) findViewById(R.id.new_folder);
+                new_folder.setVisibility(View.GONE);
+                new_folder.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        final EditText input = new EditText(MainActivity.this);
+                        input.setHint(res.getString(R.string.new_folder_name));
+                        AlertDialog d = new AlertDialog.Builder(MainActivity.this)
+                                .setTitle(res.getString(R.string.new_folder))
+                                .setView(input)
+                                .setNegativeButton(res.getString(R.string.cancel), new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        dialog.dismiss();
+                                    }
+                                })
+                                .setPositiveButton(res.getString(R.string.ok), new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        final String foldername = input.getText().toString();
+                                        Toast.makeText(MainActivity.this, res.getString(R.string.folder_is_creating_), Toast.LENGTH_LONG).show();
+                                        new Thread(new Runnable() {
+                                            @Override
+                                            public void run() {
+                                                try{
+                                                    String name = prefs.getString("Name", res.getString(R.string.guest));
+                                                    serverMessagingUtils.sendRequest(findViewById(R.id.container), "name="+URLEncoder.encode(name, "UTF-8")+"&command=setimageconfig&foldername="+URLEncoder.encode(foldername, "UTF-8") + "&filenames=");
+                                                    runOnUiThread(new Runnable() {
+                                                        @Override
+                                                        public void run() {
+                                                            launchGalleryFragment();
+                                                        }
+                                                    });
+                                                } catch (Exception e) {}
+                                            }
+                                        }).start();
+                                    }
+                                })
+                                .create();
+                        d.show();
                     }
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            //Gallerie anzeigen
-                            gallery_view = (RecyclerView) findViewById(R.id.gallery_view);
-                            gallery_view_manager = new GridLayoutManager(MainActivity.this, 2);
-                            gallery_view.setLayoutManager(gallery_view_manager);
-
-                            gallery_view_adapter = new GalleryViewAdapter_Folders();
-                            gallery_view.setAdapter(gallery_view_adapter);
-                            //ProgressBar und Laden ausblenden
-                            findViewById(R.id.laden).setVisibility(View.GONE);
-                            findViewById(R.id.progressBar1).setVisibility(View.GONE);
-                            if(new_folder != null) new_folder.setVisibility(View.VISIBLE);
-                        }
-                    });
-                } catch(Exception e) {}
+                });
             }
-        }).start();
+
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    try{
+                        //Username aus den SharedPreferences auslesen
+                        String username = prefs.getString("Name", res.getString(R.string.guest));
+                        //ImageConfig herunterladen
+                        result = serverMessagingUtils.sendRequest(findViewById(R.id.container), "name="+URLEncoder.encode(username, "UTF-8")+"&command=getimageconfig");
+                        //Result auseinandernehmen
+                        gallery_view_foldernames.clear();
+                        gallery_view_filenames.clear();
+                        for(int i = 0; i < 100; i++) {
+                            if(result.length() > 0) {
+                                int index1 = result.indexOf(":");
+                                int index2 = result.indexOf(";");
+                                //Auseinandernehmen
+                                String dirname = result.substring(0, index1);
+                                String filenames = result.substring(index1 +1, index2);
+                                //In Arraylists speichern
+                                gallery_view_foldernames.add(dirname);
+                                gallery_view_filenames.add(filenames);
+                                //Vorne abzwacken
+                                result = result.substring(index2 +1);
+                            }
+                        }
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                //Gallerie anzeigen
+                                gallery_view = (RecyclerView) findViewById(R.id.gallery_view);
+                                gallery_view_manager = new GridLayoutManager(MainActivity.this, 2);
+                                gallery_view.setLayoutManager(gallery_view_manager);
+
+                                gallery_view_adapter = new GalleryViewAdapter_Folders();
+                                gallery_view.setAdapter(gallery_view_adapter);
+                                //ProgressBar und Laden ausblenden
+                                findViewById(R.id.laden).setVisibility(View.GONE);
+                                findViewById(R.id.progressBar1).setVisibility(View.GONE);
+                                if(new_folder != null) new_folder.setVisibility(View.VISIBLE);
+                            }
+                        });
+                    } catch(Exception e) {}
+                }
+            }).start();
+        } else {
+            findViewById(R.id.no_internet_gallery).setVisibility(View.VISIBLE);
+        }
     }
 
     public void launchFoodPlanFragment() {
