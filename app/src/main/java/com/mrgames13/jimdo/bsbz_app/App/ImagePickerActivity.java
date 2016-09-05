@@ -157,6 +157,7 @@ public class ImagePickerActivity extends AppCompatActivity {
             @Override
             public void run() {
                 try {
+                    MainActivity.serverMessagingUtils.uploadImage(imageUri, ImageFolderActivity.folderName, );
 
                 } catch(Exception e) {}
             }

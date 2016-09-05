@@ -1,6 +1,7 @@
 package com.mrgames13.jimdo.bsbz_app.Tools;
 
 import android.app.ProgressDialog;
+import android.content.ContentResolver;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
@@ -8,6 +9,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.net.Uri;
 import android.net.wifi.WifiManager;
 import android.os.Environment;
 import android.os.Handler;
@@ -20,6 +22,7 @@ import com.mrgames13.jimdo.bsbz_app.R;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
+import java.io.DataOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.InputStream;
@@ -30,13 +33,15 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 
 public class ServerMessagingUtils {
     //Konstanten
-    public static final String SERVER_BASE_FOLDER = "http://mrgamesserver.esy.es/bsbz_app_masterserver/";
-    public static final String SERVER_MAIN_SCRIPT = "http://mrgamesserver.esy.es/bsbz_app_masterserver/ServerScript.php";
-    private final int DOWNLOAD_ATTEMPTS = 5;
+    private final String SERVER_BASE_FOLDER = "http://mrgamesserver.esy.es/bsbz_app_masterserver/";
+    private final String SERVER_MAIN_SCRIPT = "http://mrgamesserver.esy.es/bsbz_app_masterserver/ServerScript.php";
+    private final String SERVER_UPLOAD_SCRIPT = "http://mrgamesserver.esy.es/bsbz_app_masterserver/UploadReceiver.php";
+    private final int UPLOAD_BLOCK_SIZE = 256;
 
     //Variablen als Objekte
     private ConnectivityManager cm;
@@ -47,6 +52,7 @@ public class ServerMessagingUtils {
     private URL url;
     private Handler handler;
     private ProgressDialog pd;
+    private ContentResolver cr;
 
     //Variablen
     int i;
@@ -58,6 +64,7 @@ public class ServerMessagingUtils {
         wifiManager = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
         prefs = PreferenceManager.getDefaultSharedPreferences(context);
         res = context.getResources();
+        cr = context.getContentResolver();
         handler = new Handler();
         //UTL erstellen
         try { url = new URL(SERVER_MAIN_SCRIPT); } catch (MalformedURLException e) {}
@@ -171,6 +178,66 @@ public class ServerMessagingUtils {
             e.printStackTrace();
         }
         return b;
+    }
+
+    public void uploadImage(final Uri imageUri, final String folderName, final String imageName) {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    pd = new ProgressDialog(context);
+                    pd.setTitle(res.getString(R.string.upload_image));
+                    pd.setMessage(res.getString(R.string.upload_image_m));
+                    pd.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
+                    pd.show();
+
+                    handler.post(new Runnable() {
+                        @Override
+                        public void run() {
+
+                        }
+                    });
+
+                    String boundary = "---boundary"+System.currentTimeMillis();
+                    String firstLineBoundary = "--"+boundary+"\r\n";
+                    String contentDisposition = "Content-Disposition: form-data;name=\"fileupload\";filename=\"" + URLEncoder.encode(folderName + "," + imageName + ".jpg", "UTF-8") + "\"\r\n";
+                    String newLine = "\r\n";
+                    String lastLineBoundary = "--"+boundary+"--\r\n";
+
+                    InputStream imageInputStream = cr.openInputStream(imageUri);
+                    int uploadSize = (firstLineBoundary+contentDisposition+newLine+newLine+lastLineBoundary).getBytes().length + imageInputStream.available();
+                    pd.setMax(uploadSize);
+
+
+                    URL uploadUrl = new URL(SERVER_UPLOAD_SCRIPT);
+                    HttpURLConnection connection = (HttpURLConnection) uploadUrl.openConnection();
+                    connection.setDoOutput(true);
+                    connection.setDoInput(true);
+                    connection.setRequestProperty("Content-Type", "multipart/form-data; boundary="+boundary);
+                    connection.setRequestProperty("Connection", "Keep-Alive");
+                    connection.setFixedLengthStreamingMode(uploadSize);
+
+                    DataOutputStream dataOutputStream = new DataOutputStream(connection.getOutputStream());
+                    dataOutputStream.writeBytes(firstLineBoundary);
+                    dataOutputStream.writeBytes(contentDisposition);
+                    dataOutputStream.writeBytes(newLine);
+
+                    int byteCounter = 0;
+                    byte[] buffer = new byte[UPLOAD_BLOCK_SIZE];
+                    int read;
+                    while ((read = imageInputStream.read(buffer)) != -1){
+                        dataOutputStream.write(buffer, 0, read);
+                        byteCounter+=UPLOAD_BLOCK_SIZE;
+                        pd.setProgress(byteCounter);
+                    }
+
+                    dataOutputStream.writeBytes(newLine);
+                    dataOutputStream.writeBytes(lastLineBoundary);
+                    dataOutputStream.flush();
+                    dataOutputStream.close();
+                } catch (Exception e) {}
+            }
+        }).start();
     }
 
     public long ping() {
