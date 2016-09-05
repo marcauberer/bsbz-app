@@ -32,7 +32,8 @@
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:layout_below="@+id/pick_image"
-            android:layout_above="@+id/upload_image"/>
+            android:layout_above="@+id/upload_image"
+            android:src="@drawable/ic_image_black_48dp"/>
 
         <Button
             android:id="@+id/pick_image"

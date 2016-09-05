@@ -95,7 +95,12 @@ public class ImageFolderActivity extends AppCompatActivity {
             setTheme(R.style.SecondTheme);
         }
 
-        setContentView(R.layout.activity_image_folder);
+        String rights = prefs.getString("Rights", "student");
+        if(rights.equals("classspeaker") || rights.equals("teacher") || rights.equals("administrator") || rights.equals("team")) {
+            setContentView(R.layout.activity_image_folder_admin);
+        } else {
+            setContentView(R.layout.activity_image_folder);
+        }
 
         //Toolbar initialisieren
         toolbar = (Toolbar) findViewById(R.id.toolbar_image_folder_activity);
@@ -122,7 +127,6 @@ public class ImageFolderActivity extends AppCompatActivity {
             if(!filenames_string.equals("")) filenames.add(filenames_string);
         }
 
-        String rights = prefs.getString("Name", "student");
         if(rights.equals("classspeaker") || rights.equals("teacher") || rights.equals("administrator") || rights.equals("team")) {
             //FloatingAction-Button initialisieren
             FloatingActionButton new_image = (FloatingActionButton) findViewById(R.id.new_image);
