@@ -9,7 +9,6 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.net.Uri;
 import android.net.wifi.WifiManager;
 import android.os.Environment;
 import android.os.Handler;
@@ -22,6 +21,8 @@ import com.mrgames13.jimdo.bsbz_app.R;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.DataOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -42,6 +43,7 @@ public class ServerMessagingUtils {
     private final String SERVER_MAIN_SCRIPT = "http://mrgamesserver.esy.es/bsbz_app_masterserver/ServerScript.php";
     private final String SERVER_UPLOAD_SCRIPT = "http://mrgamesserver.esy.es/bsbz_app_masterserver/UploadReceiver.php";
     private final int UPLOAD_BLOCK_SIZE = 256;
+    private final int IMAGE_COMPRESSION_QUALITY = 70;
 
     //Variablen als Objekte
     private ConnectivityManager cm;
@@ -180,7 +182,7 @@ public class ServerMessagingUtils {
         return b;
     }
 
-    public void uploadImage(final ProgressDialog pd, final Uri imageUri, final String folderName, final String imageName) {
+    public void uploadImage(final ProgressDialog pd, final Bitmap bitmap, final String folderName, final String imageName) {
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -191,7 +193,10 @@ public class ServerMessagingUtils {
                     String newLine = "\r\n";
                     String lastLineBoundary = "--"+boundary+"--\r\n";
 
-                    InputStream imageInputStream = cr.openInputStream(imageUri);
+                    ByteArrayOutputStream bos = new ByteArrayOutputStream();
+                    bitmap.compress(Bitmap.CompressFormat.PNG, IMAGE_COMPRESSION_QUALITY, bos);
+                    byte[] bitmapdata = bos.toByteArray();
+                    ByteArrayInputStream imageInputStream = new ByteArrayInputStream(bitmapdata);
                     int uploadSize = (firstLineBoundary+contentDisposition+newLine+newLine+lastLineBoundary).getBytes().length + imageInputStream.available();
                     pd.setMax(uploadSize);
 

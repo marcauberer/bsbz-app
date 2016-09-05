@@ -5,6 +5,8 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
@@ -22,10 +24,13 @@ import android.widget.ImageView;
 
 import com.mrgames13.jimdo.bsbz_app.R;
 
+import java.io.FileNotFoundException;
+
 public class ImagePickerActivity extends AppCompatActivity {
 
     //Konstanten
     private final int REQ_CODE_PICK_IMAGE = 10001;
+    private final int MAX_PIXELS = 1000;
 
     //Variablen als Objekte
     private Resources res;
@@ -172,9 +177,38 @@ public class ImagePickerActivity extends AppCompatActivity {
             pd.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
             pd.setCancelable(false);
             pd.show();
-            MainActivity.serverMessagingUtils.uploadImage(pd, imageUri, ImageFolderActivity.folderName, imageName);
+            Bitmap bitmap = null;
+            try {
+                bitmap = BitmapFactory.decodeStream(getContentResolver().openInputStream(imageUri));
+                bitmap = scaleBitmap(bitmap);
+            } catch (FileNotFoundException e) {}
+            MainActivity.serverMessagingUtils.uploadImage(pd, bitmap, ImageFolderActivity.folderName, imageName);
+            //ServerCommit durchführen
 
         }
+    }
+
+    private Bitmap scaleBitmap(Bitmap bitmap) {
+        try{
+            int width = bitmap.getWidth();
+            int height = bitmap.getHeight();
+            float factor;
+            int target_width = width;
+            int target_height = height;
+            if(width > MAX_PIXELS || height > MAX_PIXELS) {
+                if(width > height) {
+                    factor = (float) width / MAX_PIXELS;
+                    target_width = MAX_PIXELS;
+                    target_height = Math.round(height / factor);
+                } else {
+                    factor = (float) height / MAX_PIXELS;
+                    target_width = Math.round(width / factor);
+                    target_height = MAX_PIXELS;
+                }
+            }
+            return Bitmap.createScaledBitmap(bitmap, target_width, target_height, false);
+        } catch(Exception e) {}
+        return null;
     }
 
     @Override
