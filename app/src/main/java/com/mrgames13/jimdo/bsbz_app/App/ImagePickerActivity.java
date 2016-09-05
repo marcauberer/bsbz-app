@@ -1,5 +1,6 @@
 package com.mrgames13.jimdo.bsbz_app.App;
 
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -153,15 +154,27 @@ public class ImagePickerActivity extends AppCompatActivity {
     }
 
     private void uploadImage() {
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    MainActivity.serverMessagingUtils.uploadImage(imageUri, ImageFolderActivity.folderName, );
-
-                } catch(Exception e) {}
+        String imageName = "Unnamed";
+        for(int i = 1; i <= 100; i++) {
+            String tmp = String.valueOf(i);
+            if(tmp.length() == 1) tmp = "00" + tmp;
+            if(tmp.length() == 2) tmp = "0" + tmp;
+            if(!ImageFolderActivity.filenames.toString().contains(tmp + ".jpg")) {
+                imageName = tmp + ".jpg";
+                break;
             }
-        }).start();
+        }
+        if(!imageName.equals("Unnamed")) {
+            //Upload durchführen
+            ProgressDialog pd = new ProgressDialog(ImagePickerActivity.this);
+            pd.setTitle(res.getString(R.string.upload_image));
+            pd.setMessage(res.getString(R.string.upload_image_m));
+            pd.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
+            pd.setCancelable(false);
+            pd.show();
+            MainActivity.serverMessagingUtils.uploadImage(pd, imageUri, ImageFolderActivity.folderName, imageName);
+
+        }
     }
 
     @Override

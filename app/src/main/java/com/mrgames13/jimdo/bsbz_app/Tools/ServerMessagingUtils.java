@@ -180,34 +180,20 @@ public class ServerMessagingUtils {
         return b;
     }
 
-    public void uploadImage(final Uri imageUri, final String folderName, final String imageName) {
+    public void uploadImage(final ProgressDialog pd, final Uri imageUri, final String folderName, final String imageName) {
         new Thread(new Runnable() {
             @Override
             public void run() {
                 try {
-                    pd = new ProgressDialog(context);
-                    pd.setTitle(res.getString(R.string.upload_image));
-                    pd.setMessage(res.getString(R.string.upload_image_m));
-                    pd.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
-                    pd.show();
-
-                    handler.post(new Runnable() {
-                        @Override
-                        public void run() {
-
-                        }
-                    });
-
                     String boundary = "---boundary"+System.currentTimeMillis();
                     String firstLineBoundary = "--"+boundary+"\r\n";
-                    String contentDisposition = "Content-Disposition: form-data;name=\"fileupload\";filename=\"" + URLEncoder.encode(folderName + "," + imageName + ".jpg", "UTF-8") + "\"\r\n";
+                    String contentDisposition = "Content-Disposition: form-data;name=\"fileupload\";filename=\"" + URLEncoder.encode(folderName, "UTF-8") + "," + URLEncoder.encode(imageName, "UTF-8") + "\"\r\n";
                     String newLine = "\r\n";
                     String lastLineBoundary = "--"+boundary+"--\r\n";
 
                     InputStream imageInputStream = cr.openInputStream(imageUri);
                     int uploadSize = (firstLineBoundary+contentDisposition+newLine+newLine+lastLineBoundary).getBytes().length + imageInputStream.available();
                     pd.setMax(uploadSize);
-
 
                     URL uploadUrl = new URL(SERVER_UPLOAD_SCRIPT);
                     HttpURLConnection connection = (HttpURLConnection) uploadUrl.openConnection();
@@ -229,12 +215,15 @@ public class ServerMessagingUtils {
                         dataOutputStream.write(buffer, 0, read);
                         byteCounter+=UPLOAD_BLOCK_SIZE;
                         pd.setProgress(byteCounter);
+                        Thread.sleep(5);
                     }
 
                     dataOutputStream.writeBytes(newLine);
                     dataOutputStream.writeBytes(lastLineBoundary);
                     dataOutputStream.flush();
                     dataOutputStream.close();
+
+                    pd.dismiss();
                 } catch (Exception e) {}
             }
         }).start();
