@@ -122,14 +122,17 @@ public class ImageFolderActivity extends AppCompatActivity {
             if(!filenames_string.equals("")) filenames.add(filenames_string);
         }
 
-        //FloatingAction-Button initialisieren
-        FloatingActionButton new_image = (FloatingActionButton) findViewById(R.id.new_image);
-        new_image.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(ImageFolderActivity.this, ImagePickerActivity.class));
-            }
-        });
+        String rights = prefs.getString("Name", "student");
+        if(rights.equals("classspeaker") || rights.equals("teacher") || rights.equals("administrator") || rights.equals("team")) {
+            //FloatingAction-Button initialisieren
+            FloatingActionButton new_image = (FloatingActionButton) findViewById(R.id.new_image);
+            new_image.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    startActivity(new Intent(ImageFolderActivity.this, ImagePickerActivity.class));
+                }
+            });
+        }
     }
 
     @Override
