@@ -183,55 +183,50 @@ public class ServerMessagingUtils {
     }
 
     public void uploadImage(final ProgressDialog pd, final Bitmap bitmap, final String folderName, final String imageName) {
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    String boundary = "---boundary"+System.currentTimeMillis();
-                    String firstLineBoundary = "--"+boundary+"\r\n";
-                    String contentDisposition = "Content-Disposition: form-data;name=\"fileupload\";filename=\"" + URLEncoder.encode(folderName, "UTF-8") + "," + URLEncoder.encode(imageName, "UTF-8") + "\"\r\n";
-                    String newLine = "\r\n";
-                    String lastLineBoundary = "--"+boundary+"--\r\n";
+        try {
+            String boundary = "---boundary"+System.currentTimeMillis();
+            String firstLineBoundary = "--"+boundary+"\r\n";
+            String contentDisposition = "Content-Disposition: form-data;name=\"fileupload\";filename=\"" + URLEncoder.encode(folderName, "UTF-8") + "," + URLEncoder.encode(imageName, "UTF-8") + "\"\r\n";
+            String newLine = "\r\n";
+            String lastLineBoundary = "--"+boundary+"--\r\n";
 
-                    ByteArrayOutputStream bos = new ByteArrayOutputStream();
-                    bitmap.compress(Bitmap.CompressFormat.PNG, IMAGE_COMPRESSION_QUALITY, bos);
-                    byte[] bitmapdata = bos.toByteArray();
-                    ByteArrayInputStream imageInputStream = new ByteArrayInputStream(bitmapdata);
-                    int uploadSize = (firstLineBoundary+contentDisposition+newLine+newLine+lastLineBoundary).getBytes().length + imageInputStream.available();
-                    pd.setMax(uploadSize);
+            ByteArrayOutputStream bos = new ByteArrayOutputStream();
+            bitmap.compress(Bitmap.CompressFormat.PNG, IMAGE_COMPRESSION_QUALITY, bos);
+            byte[] bitmapdata = bos.toByteArray();
+            ByteArrayInputStream imageInputStream = new ByteArrayInputStream(bitmapdata);
+            int uploadSize = (firstLineBoundary+contentDisposition+newLine+newLine+lastLineBoundary).getBytes().length + imageInputStream.available();
+            pd.setMax(uploadSize);
 
-                    URL uploadUrl = new URL(SERVER_UPLOAD_SCRIPT);
-                    HttpURLConnection connection = (HttpURLConnection) uploadUrl.openConnection();
-                    connection.setDoOutput(true);
-                    connection.setDoInput(true);
-                    connection.setRequestProperty("Content-Type", "multipart/form-data; boundary="+boundary);
-                    connection.setRequestProperty("Connection", "Keep-Alive");
-                    connection.setFixedLengthStreamingMode(uploadSize);
+            URL uploadUrl = new URL(SERVER_UPLOAD_SCRIPT);
+            HttpURLConnection connection = (HttpURLConnection) uploadUrl.openConnection();
+            connection.setDoOutput(true);
+            connection.setDoInput(true);
+            connection.setRequestProperty("Content-Type", "multipart/form-data; boundary="+boundary);
+            connection.setRequestProperty("Connection", "Keep-Alive");
+            connection.setFixedLengthStreamingMode(uploadSize);
 
-                    DataOutputStream dataOutputStream = new DataOutputStream(connection.getOutputStream());
-                    dataOutputStream.writeBytes(firstLineBoundary);
-                    dataOutputStream.writeBytes(contentDisposition);
-                    dataOutputStream.writeBytes(newLine);
+            DataOutputStream dataOutputStream = new DataOutputStream(connection.getOutputStream());
+            dataOutputStream.writeBytes(firstLineBoundary);
+            dataOutputStream.writeBytes(contentDisposition);
+            dataOutputStream.writeBytes(newLine);
 
-                    int byteCounter = 0;
-                    byte[] buffer = new byte[UPLOAD_BLOCK_SIZE];
-                    int read;
-                    while ((read = imageInputStream.read(buffer)) != -1){
-                        dataOutputStream.write(buffer, 0, read);
-                        byteCounter+=UPLOAD_BLOCK_SIZE;
-                        pd.setProgress(byteCounter);
-                        Thread.sleep(5);
-                    }
-
-                    dataOutputStream.writeBytes(newLine);
-                    dataOutputStream.writeBytes(lastLineBoundary);
-                    dataOutputStream.flush();
-                    dataOutputStream.close();
-
-                    pd.dismiss();
-                } catch (Exception e) {}
+            int byteCounter = 0;
+            byte[] buffer = new byte[UPLOAD_BLOCK_SIZE];
+            int read;
+            while ((read = imageInputStream.read(buffer)) != -1){
+                dataOutputStream.write(buffer, 0, read);
+                byteCounter+=UPLOAD_BLOCK_SIZE;
+                pd.setProgress(byteCounter);
+                Thread.sleep(0, 500);
             }
-        }).start();
+
+            dataOutputStream.writeBytes(newLine);
+            dataOutputStream.writeBytes(lastLineBoundary);
+            dataOutputStream.flush();
+            dataOutputStream.close();
+
+            pd.dismiss();
+        } catch (Exception e) {}
     }
 
     public long ping() {

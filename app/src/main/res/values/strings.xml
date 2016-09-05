@@ -255,5 +255,6 @@
     <string name="new_image">Neues Bild</string>
     <string name="image_upload_m">Möchtest du das gewählte Bild wirklich veröffentlichen?</string>
     <string name="upload_image_m">Bitte warten. Bild wird hochgeladen ...</string>
+    <string name="delete_image">Bild löschen</string>
 
 </resources>

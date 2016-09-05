@@ -39,6 +39,7 @@ public class ImagePickerActivity extends AppCompatActivity {
     private ImageView imageView;
     private Button pickImage;
     private Button uploadImage;
+    private ProgressDialog pd;
 
     //Variablen
     Uri imageUri;
@@ -170,21 +171,29 @@ public class ImagePickerActivity extends AppCompatActivity {
             }
         }
         if(!imageName.equals("Unnamed")) {
-            //Upload durchführen
-            ProgressDialog pd = new ProgressDialog(ImagePickerActivity.this);
+            final String imagename = imageName;
+            pd = new ProgressDialog(ImagePickerActivity.this);
             pd.setTitle(res.getString(R.string.upload_image));
             pd.setMessage(res.getString(R.string.upload_image_m));
             pd.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
             pd.setCancelable(false);
             pd.show();
-            Bitmap bitmap = null;
-            try {
-                bitmap = BitmapFactory.decodeStream(getContentResolver().openInputStream(imageUri));
-                bitmap = scaleBitmap(bitmap);
-            } catch (FileNotFoundException e) {}
-            MainActivity.serverMessagingUtils.uploadImage(pd, bitmap, ImageFolderActivity.folderName, imageName);
-            //ServerCommit durchführen
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    //Upload durchführen
+                    Bitmap bitmap = null;
+                    try {
+                        bitmap = BitmapFactory.decodeStream(getContentResolver().openInputStream(imageUri));
+                        bitmap = scaleBitmap(bitmap);
+                    } catch (FileNotFoundException e) {}
+                    MainActivity.serverMessagingUtils.uploadImage(pd, bitmap, ImageFolderActivity.folderName, imagename);
+                    //ServerCommit durchführen
 
+                    //Activity beenden
+                    finish();
+                }
+            }).start();
         }
     }
 

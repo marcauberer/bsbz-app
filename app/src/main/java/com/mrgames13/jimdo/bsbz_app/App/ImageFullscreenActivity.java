@@ -12,6 +12,7 @@ import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.graphics.Palette;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -20,6 +21,8 @@ import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.mrgames13.jimdo.bsbz_app.R;
+
+import java.net.URLEncoder;
 
 public class ImageFullscreenActivity extends AppCompatActivity {
 
@@ -125,6 +128,26 @@ public class ImageFullscreenActivity extends AppCompatActivity {
         } if(id == android.R.id.home) {
             finish();
             return true;
+        } else if(id == R.id.action_delete_image) {
+            if(MainActivity.serverMessagingUtils.isInternetAvailable()) {
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        try{
+                            String name = prefs.getString("Name", res.getString(R.string.guest));
+                            MainActivity.serverMessagingUtils.sendRequest(null, "name="+ URLEncoder.encode(name, "UTF-8")+"&command=deleteimagefile&foldername="+URLEncoder.encode(folderName, "UTF-8")+"&filename="+URLEncoder.encode(imageName+".jpg", "UTF-8"));
+                            String filenames = "";
+                            Log.d("BSBZ-App", ImageFolderActivity.filenames.toString());
+                            filenames = filenames.substring(1);
+                            Log.d("BSBZ-App", filenames);
+                            MainActivity.serverMessagingUtils.sendRequest(null, "name="+ URLEncoder.encode(name, "UTF-8")+"&command=setimageconfig&foldername="+URLEncoder.encode(folderName, "UTF-8")+"&filenames="+URLEncoder.encode(filenames, "UTF-8"));
+                            finish();
+                        } catch(Exception e) {}
+                    }
+                }).start();
+            } else {
+                Toast.makeText(getApplicationContext(), res.getString(R.string.internet_is_not_available), Toast.LENGTH_SHORT).show();
+            }
         } else if(id == R.id.action_download_image) {
             if(MainActivity.serverMessagingUtils.isInternetAvailable()) {
                 new Thread(new Runnable() {
