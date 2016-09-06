@@ -25,6 +25,8 @@ import android.widget.ImageView;
 import com.mrgames13.jimdo.bsbz_app.R;
 
 import java.io.FileNotFoundException;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 
 public class ImagePickerActivity extends AppCompatActivity {
 
@@ -189,7 +191,14 @@ public class ImagePickerActivity extends AppCompatActivity {
                     } catch (FileNotFoundException e) {}
                     MainActivity.serverMessagingUtils.uploadImage(pd, bitmap, ImageFolderActivity.folderName, imagename);
                     //ServerCommit durchführen
-
+                    ImageFolderActivity.filenames.add(imagename);
+                    String filenames = "";
+                    for(String fileName : ImageFolderActivity.filenames) {
+                        filenames = filenames + "," + fileName;
+                    }
+                    filenames = filenames.substring(1);
+                    String name = prefs.getString("Name", res.getString(R.string.guest));
+                    try { MainActivity.serverMessagingUtils.sendRequest(null, "name="+URLEncoder.encode(name, "UTF-8")+"&command=setimageconfig&foldername="+URLEncoder.encode(ImageFolderActivity.folderName, "UTF-8")+"&filenames="+URLEncoder.encode(filenames, "UTF-8")); } catch (UnsupportedEncodingException e) {}
                     //Activity beenden
                     finish();
                 }

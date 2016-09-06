@@ -1,18 +1,20 @@
 package com.mrgames13.jimdo.bsbz_app.App;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.graphics.Palette;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -36,7 +38,7 @@ public class ImageFullscreenActivity extends AppCompatActivity {
     //Variablen
     private String folderName;
     private String imageName;
-    private Bitmap bitmap;
+    private Bitmap bitmap = null;
     private int index;
     private int vibrantColor;
 
@@ -129,25 +131,51 @@ public class ImageFullscreenActivity extends AppCompatActivity {
             finish();
             return true;
         } else if(id == R.id.action_delete_image) {
-            if(MainActivity.serverMessagingUtils.isInternetAvailable()) {
-                new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        try{
-                            String name = prefs.getString("Name", res.getString(R.string.guest));
-                            MainActivity.serverMessagingUtils.sendRequest(null, "name="+ URLEncoder.encode(name, "UTF-8")+"&command=deleteimagefile&foldername="+URLEncoder.encode(folderName, "UTF-8")+"&filename="+URLEncoder.encode(imageName+".jpg", "UTF-8"));
-                            String filenames = "";
-                            Log.d("BSBZ-App", ImageFolderActivity.filenames.toString());
-                            filenames = filenames.substring(1);
-                            Log.d("BSBZ-App", filenames);
-                            MainActivity.serverMessagingUtils.sendRequest(null, "name="+ URLEncoder.encode(name, "UTF-8")+"&command=setimageconfig&foldername="+URLEncoder.encode(folderName, "UTF-8")+"&filenames="+URLEncoder.encode(filenames, "UTF-8"));
-                            finish();
-                        } catch(Exception e) {}
-                    }
-                }).start();
-            } else {
-                Toast.makeText(getApplicationContext(), res.getString(R.string.internet_is_not_available), Toast.LENGTH_SHORT).show();
-            }
+            AlertDialog d = new AlertDialog.Builder(ImageFullscreenActivity.this)
+                    .setTitle(res.getString(R.string.delete_image))
+                    .setMessage(res.getString(R.string.delete_image_m))
+                    .setPositiveButton(res.getString(R.string.yes), new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            if(MainActivity.serverMessagingUtils.isInternetAvailable()) {
+                                new Thread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        try{
+                                            imageName = imageName + ".jpg";
+                                            String name = prefs.getString("Name", res.getString(R.string.guest));
+                                            MainActivity.serverMessagingUtils.sendRequest(null, "name="+ URLEncoder.encode(name, "UTF-8")+"&command=deleteimagefile&foldername="+URLEncoder.encode(folderName, "UTF-8")+"&filename="+URLEncoder.encode(imageName, "UTF-8"));
+                                            String filenames = "";
+                                            for(String filename : ImageFolderActivity.filenames) {
+                                                filenames = filenames + "," + filename;
+                                            }
+                                            if(!filenames.equals("")) filenames = filenames.substring(1);
+                                            if(filenames.contains("," + imageName)) {
+                                                filenames = filenames.replace("," + imageName, "");
+                                            } else if(filenames.contains(imageName + ",")) {
+                                                filenames = filenames.replace(imageName + ",", "");
+                                            } else {
+                                                filenames = "";
+                                            }
+                                            MainActivity.serverMessagingUtils.sendRequest(null, "name="+ URLEncoder.encode(name, "UTF-8")+"&command=setimageconfig&foldername="+URLEncoder.encode(folderName, "UTF-8")+"&filenames="+URLEncoder.encode(filenames, "UTF-8"));
+                                            finish();
+                                        } catch(Exception e) {}
+                                    }
+                                }).start();
+                            } else {
+                                Toast.makeText(getApplicationContext(), res.getString(R.string.internet_is_not_available), Toast.LENGTH_SHORT).show();
+                            }
+                            dialog.dismiss();
+                        }
+                    })
+                    .setNegativeButton(res.getString(R.string.no), new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                        }
+                    })
+                    .create();
+            d.show();
         } else if(id == R.id.action_download_image) {
             if(MainActivity.serverMessagingUtils.isInternetAvailable()) {
                 new Thread(new Runnable() {
@@ -175,10 +203,11 @@ public class ImageFullscreenActivity extends AppCompatActivity {
             @Override
             public void run() {
                 bitmap = MainActivity.serverMessagingUtils.downloadImage(folderName, ImageFolderActivity.filenames.get(index));
+                if(bitmap == null) bitmap = BitmapFactory.decodeResource(res, R.drawable.ic_image_black_48dp);
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        ImageView iv = (ImageView) findViewById(R.id.image_fullscreen);
+                        final ImageView iv = (ImageView) findViewById(R.id.image_fullscreen);
                         iv.setImageBitmap(bitmap);
                         //VibrantColor herausfinden und auf Toolbar übertragen
                         Palette palette = Palette.from(bitmap).generate();
