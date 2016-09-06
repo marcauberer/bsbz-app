@@ -104,13 +104,17 @@ public class ServerMessagingUtils {
         try {
             if(!imageName.endsWith(".jpg")) imageName = imageName + ".jpg";
             //Connection aufbauen
+            Log.d("BSBZ-App", SERVER_BASE_FOLDER + "images/" + URLEncoder.encode(imageFolder, "UTF-8") + "/" + URLEncoder.encode(imageName, "UTF-8"));
             URL url = new URL(SERVER_BASE_FOLDER + "images/" + URLEncoder.encode(imageFolder, "UTF-8") + "/" + URLEncoder.encode(imageName, "UTF-8"));
             URLConnection connection = url.openConnection();
             connection.connect();
             //InputStream erstellen
             InputStream i = new BufferedInputStream(connection.getInputStream(), 8192);
             //Dateien initialisieren
-            if(dir == null) dir = new File(Environment.getExternalStorageDirectory(), "Download");
+            if(dir == null) {
+                dir = new File(Environment.getExternalStorageDirectory(), "Download");
+                imageName = imageFolder + "_" + imageName;
+            }
             if(!dir.exists()) dir.mkdirs();
             File file = new File(dir, imageName);
             //FileOutputStreams erstellen
