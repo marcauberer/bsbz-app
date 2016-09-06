@@ -104,7 +104,7 @@ public class ServerMessagingUtils {
         try {
             if(!imageName.endsWith(".jpg")) imageName = imageName + ".jpg";
             //Connection aufbauen
-            URL url = new URL(SERVER_BASE_FOLDER + "images/" + imageFolder + "/" + imageName);
+            URL url = new URL(SERVER_BASE_FOLDER + "images/" + URLEncoder.encode(imageFolder, "UTF-8") + "/" + URLEncoder.encode(imageName, "UTF-8"));
             URLConnection connection = url.openConnection();
             connection.connect();
             //InputStream erstellen
@@ -170,7 +170,7 @@ public class ServerMessagingUtils {
         try {
             if(!imageName.endsWith(".jpg")) imageName = imageName + ".jpg";
             //Connection aufbauen
-            URL url = new URL(SERVER_BASE_FOLDER + "images/" + imageFolder + "/" + imageName);
+            URL url = new URL(SERVER_BASE_FOLDER + "images/" + URLEncoder.encode(imageFolder, "UTF-8") + "/" + URLEncoder.encode(imageName, "UTF-8"));
             URLConnection connection = url.openConnection();
             connection.connect();
             //InputStream erstellen
