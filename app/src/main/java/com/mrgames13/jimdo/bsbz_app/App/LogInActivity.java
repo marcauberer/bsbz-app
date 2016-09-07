@@ -323,7 +323,6 @@ public class LogInActivity extends AppCompatActivity {
                                         String rights = result.substring(index1 +1, index2);
                                         String account_state = result.substring(index2 +1);
                                         if(account_state.equals("1")) {
-                                            pb.setVisibility(View.GONE);
                                             SharedPreferences.Editor e = prefs.edit();
                                             //Synchronisation aktivieren
                                             e.putBoolean("Sync", true);
