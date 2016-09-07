@@ -49,7 +49,7 @@ public class GalleryViewAdapter_Folders extends RecyclerView.Adapter<GalleryView
     @Override
     public void onBindViewHolder(final ViewHolderClass holder, final int pos) {
         //Ordner-Titel setzen
-        holder.item_name.setText(MainActivity.gallery_view_foldernames.get(pos));
+        holder.item_name.setText(MainActivity.gallery_view_foldernames.get(pos).replace(".", ""));
         //Bild setzen, wenn vorhanden
         new Thread(new Runnable() {
             @Override

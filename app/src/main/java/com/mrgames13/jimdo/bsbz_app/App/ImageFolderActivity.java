@@ -72,7 +72,7 @@ public class ImageFolderActivity extends AppCompatActivity {
         }
 
         // ToolBar Titel festlegen
-        String title = getIntent().getExtras().getString("foldername").toString();
+        String title = getIntent().getExtras().getString("foldername").toString().replace(".", "");
         if(title.equals("")) title = res.getString(R.string.no_name);
         getSupportActionBar().setTitle(title);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);

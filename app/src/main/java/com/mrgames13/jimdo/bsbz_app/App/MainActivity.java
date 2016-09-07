@@ -1844,6 +1844,8 @@ public class MainActivity extends AppCompatActivity {
                         //Result auseinandernehmen
                         gallery_view_foldernames.clear();
                         gallery_view_filenames.clear();
+                        String rights = prefs.getString("Rights", "student");
+                        String klasse = prefs.getString("Klasse", "no_class");
                         for(int i = 0; i < 100; i++) {
                             if(result.length() > 0) {
                                 int index1 = result.indexOf(":");
@@ -1852,8 +1854,15 @@ public class MainActivity extends AppCompatActivity {
                                 String dirname = result.substring(0, index1);
                                 String filenames = result.substring(index1 +1, index2);
                                 //In Arraylists speichern
-                                gallery_view_foldernames.add(dirname);
-                                gallery_view_filenames.add(filenames);
+                                if(rights.equals("teacher") || rights.equals("administrator") || rights.equals("team")) {
+                                    gallery_view_foldernames.add(dirname);
+                                    gallery_view_filenames.add(filenames);
+                                } else {
+                                    if(dirname.equals("." + klasse)) {
+                                        gallery_view_foldernames.add(dirname);
+                                        gallery_view_filenames.add(filenames);
+                                    }
+                                }
                                 //Vorne abzwacken
                                 result = result.substring(index2 +1);
                             }

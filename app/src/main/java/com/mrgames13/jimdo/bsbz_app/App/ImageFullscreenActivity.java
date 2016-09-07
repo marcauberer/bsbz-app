@@ -1,5 +1,6 @@
 package com.mrgames13.jimdo.bsbz_app.App;
 
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -71,7 +72,7 @@ public class ImageFullscreenActivity extends AppCompatActivity {
             if(Build.VERSION.SDK_INT >= 21) getWindow().setStatusBarColor(MainActivity.darkenColor(vibrantColor));
         }
         // ToolBar Titel festlegen
-        getSupportActionBar().setTitle(folderName + "_" + imageName);
+        getSupportActionBar().setTitle(folderName.replace(".", "") + "_" + imageName);
     }
 
     @Override
@@ -177,22 +178,7 @@ public class ImageFullscreenActivity extends AppCompatActivity {
                     .create();
             d.show();
         } else if(id == R.id.action_download_image) {
-            if(MainActivity.serverMessagingUtils.isInternetAvailable()) {
-                new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        MainActivity.serverMessagingUtils.downloadFile(folderName, imageName, null);
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                Toast.makeText(getApplicationContext(), res.getString(R.string.download_finished), Toast.LENGTH_SHORT).show();
-                            }
-                        });
-                    }
-                }).start();
-            } else {
-                Toast.makeText(getApplicationContext(), res.getString(R.string.internet_is_not_available), Toast.LENGTH_SHORT).show();
-            }
+            downloadImage();
             return true;
         }
         return super.onOptionsItemSelected(item);
@@ -220,5 +206,32 @@ public class ImageFullscreenActivity extends AppCompatActivity {
                 });
             }
         }).start();
+    }
+
+    private void downloadImage() {
+        if(MainActivity.serverMessagingUtils.isInternetAvailable()) {
+            final ProgressDialog pd = new ProgressDialog(ImageFullscreenActivity.this);
+            pd.setTitle(res.getString(R.string.download));
+            pd.setMessage(res.getString(R.string.download_in_progress_));
+            pd.setIndeterminate(true);
+            pd.setCancelable(false);
+            pd.show();
+
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    MainActivity.serverMessagingUtils.downloadFile(folderName, imageName, null);
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            pd.dismiss();
+                            Toast.makeText(getApplicationContext(), res.getString(R.string.download_finished), Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                }
+            }).start();
+        } else {
+            Toast.makeText(getApplicationContext(), res.getString(R.string.internet_is_not_available), Toast.LENGTH_SHORT).show();
+        }
     }
 }
