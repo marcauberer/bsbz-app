@@ -54,6 +54,7 @@ public class FCM_Messaging_Service extends FirebaseMessagingService {
                 dialogIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(dialogIntent);
             } else if (command.equals("clear_notifications")) {
+                Log.d("BSBZ-App", command);
                 clearNotifications();
             }
         } catch (Exception e) {
