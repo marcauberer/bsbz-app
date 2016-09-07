@@ -113,7 +113,7 @@ public class ServerMessagingUtils {
             //Dateien initialisieren
             if(dir == null) {
                 dir = new File(Environment.getExternalStorageDirectory(), "Download");
-                imageName = imageFolder + "_" + imageName;
+                imageName = imageFolder.replace(".", "") + "_" + imageName;
             }
             if(!dir.exists()) dir.mkdirs();
             File file = new File(dir, imageName);
