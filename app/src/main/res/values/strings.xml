@@ -66,7 +66,8 @@
     <string name="password">Passwort</string>
     <string name="confirm_password">Passwort bestätigen</string>
     <string name="login">LogIn</string>
-    <string name="login_automatically">Automatisch einloggen</string>
+    <string name="login_automatically">Nach der Registrierung automatisch einloggen</string>
+    <string name="keep_logged_in">Angemeldet bleiben</string>
     <string name="registrate">Registrieren</string>
     <string name="open_bsbz_app">BSBZ-App öffnen</string>
     <string name="loading">Laden ...</string>

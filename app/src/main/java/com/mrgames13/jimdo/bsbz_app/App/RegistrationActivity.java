@@ -26,6 +26,7 @@ import android.view.View.OnClickListener;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.SeekBar;
@@ -55,6 +56,8 @@ public class RegistrationActivity extends AppCompatActivity {
     private Button klasse;
     private EditText password;
     private EditText repassword;
+    private CheckBox auto_login;
+    private CheckBox keep_logged_in;
 
     //Veriablen
 	public static String id = "";
@@ -337,6 +340,17 @@ public class RegistrationActivity extends AppCompatActivity {
 				}
 			}
 		});
+
+        keep_logged_in = (CheckBox) findViewById(R.id.angemeldet_bleiben);
+
+		auto_login = (CheckBox) findViewById(R.id.automatisch_einloggen);
+        auto_login.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                keep_logged_in.setEnabled(isChecked);
+            }
+        });
+
         //ServerMessagingUtils initialisieren
         cm = (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE);
         serverMessagingUtils = new ServerMessagingUtils(cm, RegistrationActivity.this);
@@ -418,9 +432,8 @@ public class RegistrationActivity extends AppCompatActivity {
 						public void run() {
 							Toast.makeText(RegistrationActivity.this, result, Toast.LENGTH_SHORT).show();
 							if(result.equals(res.getString(R.string.account_creation_successful))) {
-								CheckBox al = (CheckBox) findViewById(R.id.automatisch_einloggen);
-								if(al.isChecked()) {
-									LogInActivity.autologin = username+","+password;
+								if(auto_login.isChecked()) {
+									LogInActivity.autologin = username + "," + password;
 								}
 								finish();
 							}
