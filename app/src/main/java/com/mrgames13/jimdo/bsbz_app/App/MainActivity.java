@@ -1858,7 +1858,12 @@ public class MainActivity extends AppCompatActivity {
                                     gallery_view_foldernames.add(dirname);
                                     gallery_view_filenames.add(filenames);
                                 } else {
-                                    if(dirname.equals("." + klasse)) {
+                                    if(dirname.contains(".")) {
+                                        if(dirname.equals("." + klasse)) {
+                                            gallery_view_foldernames.add(dirname);
+                                            gallery_view_filenames.add(filenames);
+                                        }
+                                    } else {
                                         gallery_view_foldernames.add(dirname);
                                         gallery_view_filenames.add(filenames);
                                     }
