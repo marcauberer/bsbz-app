@@ -7,7 +7,6 @@ import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.preference.PreferenceManager;
 import android.support.v4.app.NotificationCompat;
-import android.util.Log;
 
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
@@ -37,23 +36,25 @@ public class FCM_Messaging_Service extends FirebaseMessagingService {
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
         super.onMessageReceived(remoteMessage);
-        //Command ermitteln
-        String command = remoteMessage.getData().get("command");
-        if(command.equals("display_notification")) {
-            String message_title = remoteMessage.getData().get("title");
-            String message_text = remoteMessage.getData().get("message");
-            displayNitification(message_title, message_text, (int)((Math.random()) * 1000000 + 1));
-        } else if(command.equals("announce_update")) {
-            String version = remoteMessage.getData().get("version");
-            String message_text = remoteMessage.getData().get("message");
-            displayNitification(res.getString(R.string.update_to_version) + version, message_text, 106);
-        } else if(command.equals("initiate_sync")) {
-            startService(new Intent(this, SyncronisationService.class));
-        } else if(command.equals("start_app")) {
-            Intent dialogIntent = new Intent(this, LogInActivity.class);
-            dialogIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            startActivity(dialogIntent);
-        }
+        try{
+            //Command ermitteln
+            String command = remoteMessage.getData().get("command");
+            if(command.equals("display_notification")) {
+                String message_title = URLDecoder.decode(remoteMessage.getData().get("title"), "UTF-8");
+                String message_text = URLDecoder.decode(remoteMessage.getData().get("message"), "UTF-8");
+                displayNitification(message_title, message_text, (int)((Math.random()) * 1000000 + 1));
+            } else if(command.equals("announce_update")) {
+                String version = remoteMessage.getData().get("version");
+                String message_text = URLDecoder.decode(remoteMessage.getData().get("message"), "UTF-8");
+                displayNitification(res.getString(R.string.update_to_version) + version, message_text, 106);
+            } else if(command.equals("initiate_sync")) {
+                startService(new Intent(this, SyncronisationService.class));
+            } else if(command.equals("start_app")) {
+                Intent dialogIntent = new Intent(this, LogInActivity.class);
+                dialogIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(dialogIntent);
+            }
+        } catch(Exception e) {}
         stopSelf();
     }
 
