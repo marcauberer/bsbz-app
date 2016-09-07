@@ -142,8 +142,10 @@ public class ImageFolderActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         String rights = MainActivity.prefs.getString("Rights", "student");
-        if(rights.equals("classspeaker") || rights.equals("teacher") || rights.equals("administrator") || rights.equals("team")) {
+        if(rights.equals("teacher") || rights.equals("administrator") || rights.equals("team")) {
             getMenuInflater().inflate(R.menu.image_folder_admin, menu);
+        } else if(rights.equals("classspeaker")) {
+            getMenuInflater().inflate(R.menu.image_folder_classspeaker, menu);
         } else {
             getMenuInflater().inflate(R.menu.image_folder, menu);
         }
