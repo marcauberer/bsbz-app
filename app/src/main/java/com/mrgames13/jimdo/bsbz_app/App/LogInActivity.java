@@ -49,8 +49,6 @@ import java.net.URLEncoder;
 public class LogInActivity extends AppCompatActivity {
 
 	//Konstanten festlegen
-	public static String CURRENTVERSION = "";
-	public static String autologin = "";
 	private static final String androidversion = Build.VERSION.RELEASE;
     private final int REQUEST_CODE_PERMISSION_READ_PHONE_STATE = 488;
 
@@ -64,6 +62,8 @@ public class LogInActivity extends AppCompatActivity {
     //Variablen
     private boolean pressedOnce;
     private String result;
+    public static String CURRENTVERSION = "";
+    public static String autologin = "";
 
     //ThemeUtils-Pakete
     ServerMessagingUtils serverMessagingUtils;
@@ -118,6 +118,18 @@ public class LogInActivity extends AppCompatActivity {
 			}
 		} catch(Exception e) {}
 	}
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        autologin = "";
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if(!autologin.equals("")) autoLogin();
+    }
 
     @Override
 	protected void onCreate(Bundle savedInstanceState) {

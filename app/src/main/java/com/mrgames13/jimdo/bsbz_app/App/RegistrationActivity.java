@@ -433,6 +433,9 @@ public class RegistrationActivity extends AppCompatActivity {
 							Toast.makeText(RegistrationActivity.this, result, Toast.LENGTH_SHORT).show();
 							if(result.equals(res.getString(R.string.account_creation_successful))) {
 								if(auto_login.isChecked()) {
+                                    SharedPreferences.Editor e = prefs.edit();
+                                        e.putBoolean("Angemeldet bleiben", keep_logged_in.isChecked());
+                                    e.commit();
 									LogInActivity.autologin = username + "," + password;
 								}
 								finish();
