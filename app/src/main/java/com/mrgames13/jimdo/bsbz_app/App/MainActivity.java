@@ -1805,22 +1805,26 @@ public class MainActivity extends AppCompatActivity {
                                     @Override
                                     public void onClick(DialogInterface dialog, int which) {
                                         final String foldername = input.getText().toString();
-                                        Toast.makeText(MainActivity.this, res.getString(R.string.folder_is_creating_), Toast.LENGTH_LONG).show();
-                                        new Thread(new Runnable() {
-                                            @Override
-                                            public void run() {
-                                                try{
-                                                    String name = prefs.getString("Name", res.getString(R.string.guest));
-                                                    serverMessagingUtils.sendRequest(findViewById(R.id.container), "name="+URLEncoder.encode(name, "UTF-8")+"&command=setimageconfig&foldername="+URLEncoder.encode(foldername, "UTF-8") + "&filenames=");
-                                                    runOnUiThread(new Runnable() {
-                                                        @Override
-                                                        public void run() {
-                                                            launchGalleryFragment();
-                                                        }
-                                                    });
-                                                } catch (Exception e) {}
-                                            }
-                                        }).start();
+                                        if(!foldername.contains(".") && !foldername.contains(",") && !foldername.contains("/") && !foldername.contains("\\")) {
+                                            Toast.makeText(MainActivity.this, res.getString(R.string.folder_is_creating_), Toast.LENGTH_LONG).show();
+                                            new Thread(new Runnable() {
+                                                @Override
+                                                public void run() {
+                                                    try{
+                                                        String name = prefs.getString("Name", res.getString(R.string.guest));
+                                                        serverMessagingUtils.sendRequest(findViewById(R.id.container), "name="+URLEncoder.encode(name, "UTF-8")+"&command=setimageconfig&foldername="+URLEncoder.encode(foldername, "UTF-8") + "&filenames=");
+                                                        runOnUiThread(new Runnable() {
+                                                            @Override
+                                                            public void run() {
+                                                                launchGalleryFragment();
+                                                            }
+                                                        });
+                                                    } catch (Exception e) {}
+                                                }
+                                            }).start();
+                                        } else {
+                                            Toast.makeText(MainActivity.this, res.getString(R.string.invalid_foldername), Toast.LENGTH_LONG).show();
+                                        }
                                     }
                                 })
                                 .create();

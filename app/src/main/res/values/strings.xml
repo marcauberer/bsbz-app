@@ -257,5 +257,6 @@
     <string name="upload_image_m">Bitte warten. Bild wird hochgeladen ...</string>
     <string name="delete_image">Bild löschen</string>
     <string name="delete_image_m">Möchtest du dieses Bild wirklich unwiederruflich löschen?</string>
+    <string name="invalid_foldername">Der Ordnername kann keine Sonderzeichen (\'.\', \',\', \'/\', \'\\\') enthalten</string>
 
 </resources>
