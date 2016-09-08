@@ -65,7 +65,7 @@ public class RegistrationActivity extends AppCompatActivity {
 	public static String id = "";
     private String result = "";
     private boolean pressedOnce;
-    private String rights;
+    private String rights = "student";
 
 	@Override
 	public void onStart() {
@@ -255,7 +255,7 @@ public class RegistrationActivity extends AppCompatActivity {
                             s2.setEnabled(true);
                             s3.setEnabled(true);
                             //Rights anpassen
-                            rights = "teacher";
+                            rights = "wants_to_be_a_teacher";
                         }
                     }
                 });
@@ -271,7 +271,7 @@ public class RegistrationActivity extends AppCompatActivity {
                             s2.setEnabled(false);
                             s3.setEnabled(false);
                             //Rights anpassen
-                            rights = "teacher";
+                            rights = "wants_to_be_a_teacher";
                         }
                     }
                 });
@@ -305,7 +305,7 @@ public class RegistrationActivity extends AppCompatActivity {
                             warning_iv.setVisibility(View.GONE);
                             warning_tv.setVisibility(View.GONE);
                         }
-                        if(sw3.isChecked()) klasse.setText("Keine Klasse");
+                        if(sw3.isChecked()) klasse.setText(res.getString(R.string.no_class));
 						dialog.cancel();
 					}
 				});
@@ -411,7 +411,6 @@ public class RegistrationActivity extends AppCompatActivity {
 					} else {
 						if(password1.equals(repassword1)) {
 							Registrieren(name1, klasse1, password1);
-							//SharedPreferences(name1, klasse1, password1);
 						} else {
 							Toast.makeText(RegistrationActivity.this, res.getString(R.string.passwords_do_not_match), Toast.LENGTH_SHORT).show();
 						}
@@ -501,7 +500,9 @@ public class RegistrationActivity extends AppCompatActivity {
 			@Override
 			public void run() {
 				try {
-					result = serverMessagingUtils.sendRequest(findViewById(R.id.container), "name="+URLEncoder.encode(username, "UTF-8")+"&command=newaccount&password="+URLEncoder.encode(password, "UTF-8")+"&class="+URLEncoder.encode(klasse, "UTF-8")+"&rights=student&androidid="+URLEncoder.encode(id, "UTF-8"));
+                    String klasse1 = klasse;
+					if(klasse1.equals(res.getString(R.string.no_class))) klasse1 = "no_class";
+					result = serverMessagingUtils.sendRequest(findViewById(R.id.container), "name="+URLEncoder.encode(username, "UTF-8")+"&command=newaccount&password="+URLEncoder.encode(password, "UTF-8")+"&class="+URLEncoder.encode(klasse1, "UTF-8")+"&rights="+URLEncoder.encode(rights, "UTF-8")+"&androidid="+URLEncoder.encode(id, "UTF-8"));
 					//Result auswerten
 					if(result.contains("Action Successful")) {
 						result = res.getString(R.string.account_creation_successful);

@@ -145,8 +145,6 @@ public class ImageFolderActivity extends AppCompatActivity {
                     startActivity(new Intent(ImageFolderActivity.this, ImagePickerActivity.class));
                 }
             });
-        } else {
-            findViewById(R.id.new_image).setVisibility(View.GONE);
         }
     }
 

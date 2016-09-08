@@ -654,6 +654,7 @@ public class MainActivity extends AppCompatActivity {
         } else if(User_rechte.equals("teacher")) {
             Profil_Rechte.setText(res.getString(R.string.teacher));
             klasse_wahlen.setText(res.getString(R.string.choose_class_1_)+User_klasse+")");
+            if(User_klasse.equals("no_class")) klasse_wahlen.setText(res.getString(R.string.choose_class));
         } else if(User_rechte.equals("administrator")) {
             Profil_Rechte.setText(res.getString(R.string.administrator));
             klasse_wahlen.setText(res.getString(R.string.choose_class_1_)+User_klasse+")");
@@ -1875,17 +1876,19 @@ public class MainActivity extends AppCompatActivity {
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                //Gallerie anzeigen
-                                gallery_view = (RecyclerView) findViewById(R.id.gallery_view);
-                                gallery_view_manager = new GridLayoutManager(MainActivity.this, 2);
-                                gallery_view.setLayoutManager(gallery_view_manager);
+                                try{
+                                    //Gallerie anzeigen
+                                    gallery_view = (RecyclerView) findViewById(R.id.gallery_view);
+                                    gallery_view_manager = new GridLayoutManager(MainActivity.this, 2);
+                                    gallery_view.setLayoutManager(gallery_view_manager);
 
-                                gallery_view_adapter = new GalleryViewAdapter_Folders();
-                                gallery_view.setAdapter(gallery_view_adapter);
-                                //ProgressBar und Laden ausblenden
-                                findViewById(R.id.laden).setVisibility(View.GONE);
-                                findViewById(R.id.progressBar1).setVisibility(View.GONE);
-                                if(new_folder != null) new_folder.setVisibility(View.VISIBLE);
+                                    gallery_view_adapter = new GalleryViewAdapter_Folders();
+                                    gallery_view.setAdapter(gallery_view_adapter);
+                                    //ProgressBar und Laden ausblenden
+                                    findViewById(R.id.laden).setVisibility(View.GONE);
+                                    findViewById(R.id.progressBar1).setVisibility(View.GONE);
+                                    if(new_folder != null) new_folder.setVisibility(View.VISIBLE);
+                                } catch(Exception e) {}
                             }
                         });
                     } catch(Exception e) {}

@@ -162,6 +162,7 @@
     <string name="administrator">Administrator</string>
     <string name="team_mrgames">Team (M&amp;R Games)</string>
     <string name="choose_class_1_">Klasse auswählen (Aktuell:\u0020</string>
+    <string name="choose_class">Klasse auswählen</string>
     <string name="lastSyncronisation_">Letzte Syncronisation:\u0020</string>
     <string name="timetable_from_">Stundenplan von:\u0020</string>
     <string name="please_wait_">Bitte warten ...</string>
@@ -263,5 +264,6 @@
     <string name="classteacher">Klassenlehrer</string>
     <string name="parent">Elternteil</string>
     <string name="account_check">Der Account wird von M&amp;R Games überprüft. Es kann ein paar Tage dauern, bis Sie die gewünschten Rechte besitzen.</string>
+    <string name="no_class">Keine Klasse</string>
 
 </resources>
