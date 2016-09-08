@@ -13,6 +13,7 @@ import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.SwitchCompat;
 import android.support.v7.widget.Toolbar;
 import android.telephony.TelephonyManager;
 import android.text.Editable;
@@ -150,7 +151,7 @@ public class RegistrationActivity extends AppCompatActivity {
                 }
 				
 				LayoutInflater inflater = getLayoutInflater();
-				View dialogView = inflater.inflate(R.layout.dialogview_class_chooser, null);
+				View dialogView = inflater.inflate(R.layout.dialogview_class_chooser_registration, null);
 				alert.setView(dialogView);
 				
 				final TextView schulart = (TextView) dialogView.findViewById(R.id.schulart);
@@ -162,6 +163,9 @@ public class RegistrationActivity extends AppCompatActivity {
 				SeekBar s1 = (SeekBar) dialogView.findViewById(R.id.seekBar1);
 				SeekBar s2 = (SeekBar) dialogView.findViewById(R.id.seekBar2);
 				SeekBar s3 = (SeekBar) dialogView.findViewById(R.id.seekBar3);
+                final SwitchCompat sw1 = (SwitchCompat) dialogView.findViewById(R.id.student);
+                final SwitchCompat sw2 = (SwitchCompat) dialogView.findViewById(R.id.classteacher);
+                final SwitchCompat sw3 = (SwitchCompat) dialogView.findViewById(R.id.teacher);
 				
 				s1.setOnSeekBarChangeListener(new OnSeekBarChangeListener() {
 					@Override
@@ -218,7 +222,34 @@ public class RegistrationActivity extends AppCompatActivity {
 						}
 					}
 				});
-				
+				sw1.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                    @Override
+                    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                        if(isChecked) {
+                            sw2.setChecked(false);
+                            sw3.setChecked(false);
+                        }
+                    }
+                });
+                sw2.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                    @Override
+                    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                        if(isChecked) {
+                            sw1.setChecked(false);
+                            sw3.setChecked(false);
+                        }
+                    }
+                });
+                sw3.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                    @Override
+                    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                        if(isChecked) {
+                            sw1.setChecked(false);
+                            sw2.setChecked(false);
+                        }
+                    }
+                });
+
 				alert.setTitle(res.getString(R.string.please_coose_your_class_));
 				
 				alert.setPositiveButton(res.getString(R.string.ok), new DialogInterface.OnClickListener() {
@@ -434,6 +465,8 @@ public class RegistrationActivity extends AppCompatActivity {
 							if(result.equals(res.getString(R.string.account_creation_successful))) {
 								if(auto_login.isChecked()) {
                                     SharedPreferences.Editor e = prefs.edit();
+										e.putString("Name", username);
+                                        e.putString("Password", password);
                                         e.putBoolean("Angemeldet bleiben", keep_logged_in.isChecked());
                                     e.commit();
 									LogInActivity.autologin = username + "," + password;
