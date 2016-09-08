@@ -1,4 +1,4 @@
-package com.mrgames13.jimdo.bsbz_app.App;
+package com.mrgames13.jimdo.bsbz_app.Services;
 
 import android.annotation.SuppressLint;
 import android.app.Notification;
@@ -15,6 +15,8 @@ import android.os.IBinder;
 import android.preference.PreferenceManager;
 import android.widget.Toast;
 
+import com.mrgames13.jimdo.bsbz_app.App.LogInActivity;
+import com.mrgames13.jimdo.bsbz_app.App.MainActivity;
 import com.mrgames13.jimdo.bsbz_app.R;
 import com.mrgames13.jimdo.bsbz_app.Tools.ServerMessagingUtils;
 

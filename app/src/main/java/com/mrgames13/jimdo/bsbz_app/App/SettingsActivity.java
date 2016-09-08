@@ -49,6 +49,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.mrgames13.jimdo.bsbz_app.R;
+import com.mrgames13.jimdo.bsbz_app.Services.PercentService;
+import com.mrgames13.jimdo.bsbz_app.Services.SyncronisationService;
 import com.mrgames13.jimdo.bsbz_app.Tools.ServerMessagingUtils;
 import com.mrgames13.jimdo.bsbz_app.Tools.ThemeUtils;
 

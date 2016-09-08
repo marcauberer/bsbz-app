@@ -123,9 +123,9 @@
         </activity>
 
         <!-- SyncronisationService -->
-        <service android:name=".App.SyncronisationService"/>
+        <service android:name=".Services.SyncronisationService"/>
         <!-- PercentService -->
-        <service android:name=".App.PercentService"/>
+        <service android:name=".Services.PercentService"/>
         <!-- BootCompletedReceiver -->
         <receiver android:name=".App.BootCompletedReceiver">
             <intent-filter>

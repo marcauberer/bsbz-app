@@ -1,4 +1,4 @@
-package com.mrgames13.jimdo.bsbz_app.App;
+package com.mrgames13.jimdo.bsbz_app.Services;
 
 import android.app.Notification;
 import android.app.NotificationManager;
@@ -12,6 +12,7 @@ import android.os.Build;
 import android.os.IBinder;
 import android.preference.PreferenceManager;
 
+import com.mrgames13.jimdo.bsbz_app.App.LogInActivity;
 import com.mrgames13.jimdo.bsbz_app.R;
 
 import java.text.DateFormat;

@@ -16,6 +16,8 @@ import android.net.Uri;
 import android.preference.PreferenceManager;
 
 import com.mrgames13.jimdo.bsbz_app.R;
+import com.mrgames13.jimdo.bsbz_app.Services.PercentService;
+import com.mrgames13.jimdo.bsbz_app.Services.SyncronisationService;
 import com.mrgames13.jimdo.bsbz_app.Tools.ServerMessagingUtils;
 
 import java.net.URLEncoder;

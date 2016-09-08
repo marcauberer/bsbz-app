@@ -12,7 +12,7 @@ import android.util.Log;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 import com.mrgames13.jimdo.bsbz_app.App.LogInActivity;
-import com.mrgames13.jimdo.bsbz_app.App.SyncronisationService;
+import com.mrgames13.jimdo.bsbz_app.Services.SyncronisationService;
 import com.mrgames13.jimdo.bsbz_app.R;
 
 public class FCM_Messaging_Service extends FirebaseMessagingService {

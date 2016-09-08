@@ -41,6 +41,7 @@ import android.widget.Toast;
 import com.google.firebase.messaging.FirebaseMessaging;
 import com.mrgames13.jimdo.bsbz_app.FirebaseMessaging.FCM_Instance_ID_Service;
 import com.mrgames13.jimdo.bsbz_app.R;
+import com.mrgames13.jimdo.bsbz_app.Services.SyncronisationService;
 import com.mrgames13.jimdo.bsbz_app.Tools.ServerMessagingUtils;
 
 import java.net.URLEncoder;

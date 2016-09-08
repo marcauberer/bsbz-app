@@ -64,6 +64,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.mrgames13.jimdo.bsbz_app.R;
+import com.mrgames13.jimdo.bsbz_app.Services.SyncronisationService;
 import com.mrgames13.jimdo.bsbz_app.Tools.GalleryViewAdapter_Folders;
 import com.mrgames13.jimdo.bsbz_app.Tools.ServerMessagingUtils;
 
@@ -1647,8 +1648,9 @@ public class MainActivity extends AppCompatActivity {
                         gallery_view_filenames.clear();
                         String rights = prefs.getString("Rights", "student");
                         String klasse = prefs.getString("Klasse", "no_class");
-                        for(int i = 0; i < 100; i++) {
-                            if(result.length() > 0) {
+                        if(result.length() > 0) {
+                            for(int i = 0; i < 100; i++) {
+
                                 int index1 = result.indexOf(":");
                                 int index2 = result.indexOf(";");
                                 //Auseinandernehmen
@@ -1672,6 +1674,17 @@ public class MainActivity extends AppCompatActivity {
                                 //Vorne abzwacken
                                 result = result.substring(index2 +1);
                             }
+                        } else {
+                            runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    //ProgressBar und Laden ausblenden
+                                    findViewById(R.id.laden).setVisibility(View.GONE);
+                                    findViewById(R.id.progressBar1).setVisibility(View.GONE);
+                                    //Keine Bilder in der Gallerie einblenden
+                                    findViewById(R.id.gallery_empty).setVisibility(View.VISIBLE);
+                                }
+                            });
                         }
                         runOnUiThread(new Runnable() {
                             @Override
@@ -1681,13 +1694,21 @@ public class MainActivity extends AppCompatActivity {
                                     gallery_view = (RecyclerView) findViewById(R.id.gallery_view);
                                     gallery_view_manager = new GridLayoutManager(MainActivity.this, 2);
                                     gallery_view.setLayoutManager(gallery_view_manager);
-
                                     gallery_view_adapter = new GalleryViewAdapter_Folders();
                                     gallery_view.setAdapter(gallery_view_adapter);
-                                    //ProgressBar und Laden ausblenden
-                                    findViewById(R.id.laden).setVisibility(View.GONE);
-                                    findViewById(R.id.progressBar1).setVisibility(View.GONE);
-                                    if(new_folder != null) new_folder.setVisibility(View.VISIBLE);
+                                    if(gallery_view_adapter.getItemCount() > 0) {
+                                        //ProgressBar und Laden ausblenden
+                                        findViewById(R.id.laden).setVisibility(View.GONE);
+                                        findViewById(R.id.progressBar1).setVisibility(View.GONE);
+                                        if(new_folder != null) new_folder.setVisibility(View.VISIBLE);
+                                    } else {
+                                        //ProgressBar und Laden ausblenden
+                                        findViewById(R.id.laden).setVisibility(View.GONE);
+                                        findViewById(R.id.progressBar1).setVisibility(View.GONE);
+                                        //Keine Bilder in der Gallerie einblenden
+                                        findViewById(R.id.no_internet_gallery).setVisibility(View.VISIBLE);
+                                    }
+
                                 } catch(Exception e) {}
                             }
                         });
@@ -1695,6 +1716,10 @@ public class MainActivity extends AppCompatActivity {
                 }
             }).start();
         } else {
+            //ProgressBar und Laden ausblenden
+            findViewById(R.id.laden).setVisibility(View.GONE);
+            findViewById(R.id.progressBar1).setVisibility(View.GONE);
+            //Keine Bilder in der Gallerie einblenden
             findViewById(R.id.no_internet_gallery).setVisibility(View.VISIBLE);
         }
     }
