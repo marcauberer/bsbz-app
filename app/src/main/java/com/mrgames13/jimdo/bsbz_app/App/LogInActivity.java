@@ -300,7 +300,7 @@ public class LogInActivity extends AppCompatActivity {
 			//startActivity(new Intent(LogInActivity.this,MainActivity.class));
 			startActivity(new Intent(LogInActivity.this,SplashActivity.class));
 			//Animierter Activitywechsel starten
-			overridePendingTransition(R.anim.animation_in_login, R.anim.animation_out_login);
+			overridePendingTransition(R.anim.in_login, R.anim.out_login);
 			finish();
 			return true;
 		}
@@ -383,7 +383,7 @@ public class LogInActivity extends AppCompatActivity {
                                             }
                                             startActivity(new Intent(LogInActivity.this,SplashActivity.class));
                                             //Animierter Activitywechsel starten
-                                            overridePendingTransition(R.anim.animation_in_login, R.anim.animation_out_login);
+                                            overridePendingTransition(R.anim.in_login, R.anim.out_login);
                                             finish();
                                         } else if(account_state.equals("2")) {
                                             pb.setVisibility(View.GONE);
@@ -437,7 +437,7 @@ public class LogInActivity extends AppCompatActivity {
                                             }
                                             startActivity(new Intent(LogInActivity.this,SplashActivity.class));
                                             //Animierter Activitywechsel starten
-                                            overridePendingTransition(R.anim.animation_in_login, R.anim.animation_out_login);
+                                            overridePendingTransition(R.anim.in_login, R.anim.out_login);
                                             finish();
                                         } else {
                                             pb.setVisibility(View.GONE);
