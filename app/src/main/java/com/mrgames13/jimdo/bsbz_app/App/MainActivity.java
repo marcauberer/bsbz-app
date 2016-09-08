@@ -1267,29 +1267,12 @@ public class MainActivity extends AppCompatActivity {
                 okt.setTextColor(Color.parseColor("#000000"));
                 nov.setTextColor(Color.parseColor("#000000"));
                 dez.setTextColor(Color.parseColor("#000000"));
-                //ListView mit Daten füllen
-                arraylist1.clear();
-                for(int i = 0; i < 101;i++) {
-                    try{
-                        if(arraylist.get(i).length() > 12) {
-                            if(arraylist.get(i).substring(3, 5).equals("01")) {
-                                arraylist1.add(arraylist.get(i));
-                            }
-                        }
-                    } catch(Exception e) {}
-                }
-
-                if(arraylist1.size() == 0) arraylist1.add(KEINE_TERMINE_MONAT);
-
-                Collections.sort(arraylist1);
-
-                adapter.notifyDataSetChanged();
-                adapter.clear();
-                adapter.notifyDataSetChanged();
-                for(String array : arraylist1) {
-                    adapter.add(array);
-                }
                 scrollView.smoothScrollTo(0,0);
+                //Fragment erstellen und anzeigen
+                TermineFragment_Jahresplan f = new TermineFragment_Jahresplan();
+                FragmentTransaction ft = fragmentManager.beginTransaction();
+                ft.replace(R.id.termine_jahresplan_container, f);
+                ft.commit();
             }
         });
         //Button Februar
@@ -1311,29 +1294,12 @@ public class MainActivity extends AppCompatActivity {
                 okt.setTextColor(Color.parseColor("#000000"));
                 nov.setTextColor(Color.parseColor("#000000"));
                 dez.setTextColor(Color.parseColor("#000000"));
-                //ListView mit Daten füllen
-                arraylist1.clear();
-                for(int i = 0; i < 101;i++) {
-                    try{
-                        if(arraylist.get(i).length() > 12) {
-                            if(arraylist.get(i).substring(3, 5).equals("02")) {
-                                arraylist1.add(arraylist.get(i));
-                            }
-                        }
-                    } catch(Exception e) {}
-                }
-
-                if(arraylist1.size() == 0) arraylist1.add(KEINE_TERMINE_MONAT);
-
-                Collections.sort(arraylist1);
-
-                adapter.notifyDataSetChanged();
-                adapter.clear();
-                adapter.notifyDataSetChanged();
-                for(String array : arraylist1) {
-                    adapter.add(array);
-                }
                 scrollView.smoothScrollTo(250,0);
+                //Fragment erstellen und anzeigen
+                TermineFragment_Jahresplan f = new TermineFragment_Jahresplan();
+                FragmentTransaction ft = fragmentManager.beginTransaction();
+                ft.replace(R.id.termine_jahresplan_container, f);
+                ft.commit();
             }
         });
         //Button März
@@ -1355,29 +1321,12 @@ public class MainActivity extends AppCompatActivity {
                 okt.setTextColor(Color.parseColor("#000000"));
                 nov.setTextColor(Color.parseColor("#000000"));
                 dez.setTextColor(Color.parseColor("#000000"));
-                //ListView mit Daten füllen
-                arraylist1.clear();
-                for(int i = 0; i < 101;i++) {
-                    try{
-                        if(arraylist.get(i).length() > 12) {
-                            if(arraylist.get(i).substring(3, 5).equals("03")) {
-                                arraylist1.add(arraylist.get(i));
-                            }
-                        }
-                    } catch(Exception e) {}
-                }
-
-                if(arraylist1.size() == 0) arraylist1.add(KEINE_TERMINE_MONAT);
-
-                Collections.sort(arraylist1);
-
-                adapter.notifyDataSetChanged();
-                adapter.clear();
-                adapter.notifyDataSetChanged();
-                for(String array : arraylist1) {
-                    adapter.add(array);
-                }
                 scrollView.smoothScrollTo(500,0);
+                //Fragment erstellen und anzeigen
+                TermineFragment_Jahresplan f = new TermineFragment_Jahresplan();
+                FragmentTransaction ft = fragmentManager.beginTransaction();
+                ft.replace(R.id.termine_jahresplan_container, f);
+                ft.commit();
             }
         });
         //Button April
@@ -1399,29 +1348,12 @@ public class MainActivity extends AppCompatActivity {
                 okt.setTextColor(Color.parseColor("#000000"));
                 nov.setTextColor(Color.parseColor("#000000"));
                 dez.setTextColor(Color.parseColor("#000000"));
-                //ListView mit Daten füllen
-                arraylist1.clear();
-                for(int i = 0; i < 101;i++) {
-                    try{
-                        if(arraylist.get(i).length() > 12) {
-                            if(arraylist.get(i).substring(3, 5).equals("04")) {
-                                arraylist1.add(arraylist.get(i));
-                            }
-                        }
-                    } catch(Exception e) {}
-                }
-
-                if(arraylist1.size() == 0) arraylist1.add(KEINE_TERMINE_MONAT);
-
-                Collections.sort(arraylist1);
-
-                adapter.notifyDataSetChanged();
-                adapter.clear();
-                adapter.notifyDataSetChanged();
-                for(String array : arraylist1) {
-                    adapter.add(array);
-                }
                 scrollView.smoothScrollTo(750,0);
+                //Fragment erstellen und anzeigen
+                TermineFragment_Jahresplan f = new TermineFragment_Jahresplan();
+                FragmentTransaction ft = fragmentManager.beginTransaction();
+                ft.replace(R.id.termine_jahresplan_container, f);
+                ft.commit();
             }
         });
         //Button Mai
@@ -1443,29 +1375,12 @@ public class MainActivity extends AppCompatActivity {
                 okt.setTextColor(Color.parseColor("#000000"));
                 nov.setTextColor(Color.parseColor("#000000"));
                 dez.setTextColor(Color.parseColor("#000000"));
-                //ListView mit Daten füllen
-                arraylist1.clear();
-                for(int i = 0; i < 101;i++) {
-                    try{
-                        if(arraylist.get(i).length() > 12) {
-                            if(arraylist.get(i).substring(3, 5).equals("05")) {
-                                arraylist1.add(arraylist.get(i));
-                            }
-                        }
-                    } catch(Exception e) {}
-                }
-
-                if(arraylist1.size() == 0) arraylist1.add(KEINE_TERMINE_MONAT);
-
-                Collections.sort(arraylist1);
-
-                adapter.notifyDataSetChanged();
-                adapter.clear();
-                adapter.notifyDataSetChanged();
-                for(String array : arraylist1) {
-                    adapter.add(array);
-                }
                 scrollView.smoothScrollTo(1000,0);
+                //Fragment erstellen und anzeigen
+                TermineFragment_Jahresplan f = new TermineFragment_Jahresplan();
+                FragmentTransaction ft = fragmentManager.beginTransaction();
+                ft.replace(R.id.termine_jahresplan_container, f);
+                ft.commit();
             }
         });
         //Button Juni
@@ -1487,29 +1402,12 @@ public class MainActivity extends AppCompatActivity {
                 okt.setTextColor(Color.parseColor("#000000"));
                 nov.setTextColor(Color.parseColor("#000000"));
                 dez.setTextColor(Color.parseColor("#000000"));
-                //ListView mit Daten füllen
-                arraylist1.clear();
-                for(int i = 0; i < 101;i++) {
-                    try{
-                        if(arraylist.get(i).length() > 12) {
-                            if(arraylist.get(i).substring(3, 5).equals("06")) {
-                                arraylist1.add(arraylist.get(i));
-                            }
-                        }
-                    } catch(Exception e) {}
-                }
-
-                if(arraylist1.size() == 0) arraylist1.add(KEINE_TERMINE_MONAT);
-
-                Collections.sort(arraylist1);
-
-                adapter.notifyDataSetChanged();
-                adapter.clear();
-                adapter.notifyDataSetChanged();
-                for(String array : arraylist1) {
-                    adapter.add(array);
-                }
                 scrollView.smoothScrollTo(1250,0);
+                //Fragment erstellen und anzeigen
+                TermineFragment_Jahresplan f = new TermineFragment_Jahresplan();
+                FragmentTransaction ft = fragmentManager.beginTransaction();
+                ft.replace(R.id.termine_jahresplan_container, f);
+                ft.commit();
             }
         });
         //Button Juli
@@ -1531,29 +1429,12 @@ public class MainActivity extends AppCompatActivity {
                 okt.setTextColor(Color.parseColor("#000000"));
                 nov.setTextColor(Color.parseColor("#000000"));
                 dez.setTextColor(Color.parseColor("#000000"));
-                //ListView mit Daten füllen
-                arraylist1.clear();
-                for(int i = 0; i < 101;i++) {
-                    try{
-                        if(arraylist.get(i).length() > 12) {
-                            if(arraylist.get(i).substring(3, 5).equals("07")) {
-                                arraylist1.add(arraylist.get(i));
-                            }
-                        }
-                    } catch(Exception e) {}
-                }
-
-                if(arraylist1.size() == 0) arraylist1.add(KEINE_TERMINE_MONAT);
-
-                Collections.sort(arraylist1);
-
-                adapter.notifyDataSetChanged();
-                adapter.clear();
-                adapter.notifyDataSetChanged();
-                for(String array : arraylist1) {
-                    adapter.add(array);
-                }
                 scrollView.smoothScrollTo(1500,0);
+                //Fragment erstellen und anzeigen
+                TermineFragment_Jahresplan f = new TermineFragment_Jahresplan();
+                FragmentTransaction ft = fragmentManager.beginTransaction();
+                ft.replace(R.id.termine_jahresplan_container, f);
+                ft.commit();
             }
         });
         //Button August
@@ -1575,29 +1456,12 @@ public class MainActivity extends AppCompatActivity {
                 okt.setTextColor(Color.parseColor("#000000"));
                 nov.setTextColor(Color.parseColor("#000000"));
                 dez.setTextColor(Color.parseColor("#000000"));
-                //ListView mit Daten füllen
-                arraylist1.clear();
-                for(int i = 0; i < 101;i++) {
-                    try{
-                        if(arraylist.get(i).length() > 12) {
-                            if(arraylist.get(i).substring(3, 5).equals("08")) {
-                                arraylist1.add(arraylist.get(i));
-                            }
-                        }
-                    } catch(Exception e) {}
-                }
-
-                if(arraylist1.size() == 0) arraylist1.add(KEINE_TERMINE_MONAT);
-
-                Collections.sort(arraylist1);
-
-                adapter.notifyDataSetChanged();
-                adapter.clear();
-                adapter.notifyDataSetChanged();
-                for(String array : arraylist1) {
-                    adapter.add(array);
-                }
                 scrollView.smoothScrollTo(1750,0);
+                //Fragment erstellen und anzeigen
+                TermineFragment_Jahresplan f = new TermineFragment_Jahresplan();
+                FragmentTransaction ft = fragmentManager.beginTransaction();
+                ft.replace(R.id.termine_jahresplan_container, f);
+                ft.commit();
             }
         });
         //Button September
@@ -1619,29 +1483,12 @@ public class MainActivity extends AppCompatActivity {
                 okt.setTextColor(Color.parseColor("#000000"));
                 nov.setTextColor(Color.parseColor("#000000"));
                 dez.setTextColor(Color.parseColor("#000000"));
-                //ListView mit Daten füllen
-                arraylist1.clear();
-                for(int i = 0; i < 101;i++) {
-                    try{
-                        if(arraylist.get(i).length() > 12) {
-                            if(arraylist.get(i).substring(3, 5).equals("09")) {
-                                arraylist1.add(arraylist.get(i));
-                            }
-                        }
-                    } catch(Exception e) {}
-                }
-
-                if(arraylist1.size() == 0) arraylist1.add(KEINE_TERMINE_MONAT);
-
-                Collections.sort(arraylist1);
-
-                adapter.notifyDataSetChanged();
-                adapter.clear();
-                adapter.notifyDataSetChanged();
-                for(String array : arraylist1) {
-                    adapter.add(array);
-                }
                 scrollView.smoothScrollTo(2000,0);
+                //Fragment erstellen und anzeigen
+                TermineFragment_Jahresplan f = new TermineFragment_Jahresplan();
+                FragmentTransaction ft = fragmentManager.beginTransaction();
+                ft.replace(R.id.termine_jahresplan_container, f);
+                ft.commit();
             }
         });
         //Button Oktober
@@ -1663,29 +1510,12 @@ public class MainActivity extends AppCompatActivity {
                 okt.setTextColor(Color.parseColor(color));
                 nov.setTextColor(Color.parseColor("#000000"));
                 dez.setTextColor(Color.parseColor("#000000"));
-                //ListView mit Daten füllen
-                arraylist1.clear();
-                for(int i = 0; i < 101;i++) {
-                    try{
-                        if(arraylist.get(i).length() > 12) {
-                            if(arraylist.get(i).substring(3, 5).equals("10")) {
-                                arraylist1.add(arraylist.get(i));
-                            }
-                        }
-                    } catch(Exception e) {}
-                }
-
-                if(arraylist1.size() == 0) arraylist1.add(KEINE_TERMINE_MONAT);
-
-                Collections.sort(arraylist1);
-
-                adapter.notifyDataSetChanged();
-                adapter.clear();
-                adapter.notifyDataSetChanged();
-                for(String array : arraylist1) {
-                    adapter.add(array);
-                }
                 scrollView.smoothScrollTo(2250,0);
+                //Fragment erstellen und anzeigen
+                TermineFragment_Jahresplan f = new TermineFragment_Jahresplan();
+                FragmentTransaction ft = fragmentManager.beginTransaction();
+                ft.replace(R.id.termine_jahresplan_container, f);
+                ft.commit();
             }
         });
         //Button November
@@ -1707,29 +1537,12 @@ public class MainActivity extends AppCompatActivity {
                 okt.setTextColor(Color.parseColor("#000000"));
                 nov.setTextColor(Color.parseColor(color));
                 dez.setTextColor(Color.parseColor("#000000"));
-                //ListView mit Daten füllen
-                arraylist1.clear();
-                for(int i = 0; i < 101;i++) {
-                    try{
-                        if(arraylist.get(i).length() > 12) {
-                            if(arraylist.get(i).substring(3, 5).equals("11")) {
-                                arraylist1.add(arraylist.get(i));
-                            }
-                        }
-                    } catch(Exception e) {}
-                }
-
-                if(arraylist1.size() == 0) arraylist1.add(KEINE_TERMINE_MONAT);
-
-                Collections.sort(arraylist1);
-
-                adapter.notifyDataSetChanged();
-                adapter.clear();
-                adapter.notifyDataSetChanged();
-                for(String array : arraylist1) {
-                    adapter.add(array);
-                }
                 scrollView.smoothScrollTo(2500,0);
+                //Fragment erstellen und anzeigen
+                TermineFragment_Jahresplan f = new TermineFragment_Jahresplan();
+                FragmentTransaction ft = fragmentManager.beginTransaction();
+                ft.replace(R.id.termine_jahresplan_container, f);
+                ft.commit();
             }
         });
         //Button Dezember
@@ -1751,29 +1564,12 @@ public class MainActivity extends AppCompatActivity {
                 okt.setTextColor(Color.parseColor("#000000"));
                 nov.setTextColor(Color.parseColor("#000000"));
                 dez.setTextColor(Color.parseColor(color));
-                //ListView mit Daten füllen
-                arraylist1.clear();
-                for(int i = 0; i < 101;i++) {
-                    try{
-                        if(arraylist.get(i).length() > 12) {
-                            if(arraylist.get(i).substring(3, 5).equals("12")) {
-                                arraylist1.add(arraylist.get(i));
-                            }
-                        }
-                    } catch(Exception e) {}
-                }
-
-                if(arraylist1.size() == 0) arraylist1.add(KEINE_TERMINE_MONAT);
-
-                Collections.sort(arraylist1);
-
-                adapter.notifyDataSetChanged();
-                adapter.clear();
-                adapter.notifyDataSetChanged();
-                for(String array : arraylist1) {
-                    adapter.add(array);
-                }
                 scrollView.smoothScrollTo(2750,0);
+                //Fragment erstellen und anzeigen
+                TermineFragment_Jahresplan f = new TermineFragment_Jahresplan();
+                FragmentTransaction ft = fragmentManager.beginTransaction();
+                ft.replace(R.id.termine_jahresplan_container, f);
+                ft.commit();
             }
         });
     }

@@ -300,7 +300,7 @@ public class LogInActivity extends AppCompatActivity {
 			//startActivity(new Intent(LogInActivity.this,MainActivity.class));
 			startActivity(new Intent(LogInActivity.this,SplashActivity.class));
 			//Animierter Activitywechsel starten
-			overridePendingTransition(R.anim.in_login, R.anim.out_login);
+			overridePendingTransition(R.anim.animation_in_login, R.anim.animation_out_login);
 			finish();
 			return true;
 		}
@@ -383,7 +383,7 @@ public class LogInActivity extends AppCompatActivity {
                                             }
                                             startActivity(new Intent(LogInActivity.this,SplashActivity.class));
                                             //Animierter Activitywechsel starten
-                                            overridePendingTransition(R.anim.in_login, R.anim.out_login);
+                                            overridePendingTransition(R.anim.animation_in_login, R.anim.animation_out_login);
                                             finish();
                                         } else if(account_state.equals("2")) {
                                             pb.setVisibility(View.GONE);
@@ -407,8 +407,6 @@ public class LogInActivity extends AppCompatActivity {
                                             e.putString("Rights", rights);
                                             e.putBoolean("Angemeldet bleiben", ab);
                                             e.commit();
-                                            //Toast ausgeben
-                                            //Toast.makeText(LogInActivity.this, "LogIn erfolgreich", Toast.LENGTH_SHORT).show();
                                             //Activities starten
                                             try {
                                                 String extra = getIntent().getStringExtra("Confirm");
@@ -439,7 +437,7 @@ public class LogInActivity extends AppCompatActivity {
                                             }
                                             startActivity(new Intent(LogInActivity.this,SplashActivity.class));
                                             //Animierter Activitywechsel starten
-                                            overridePendingTransition(R.anim.in_login, R.anim.out_login);
+                                            overridePendingTransition(R.anim.animation_in_login, R.anim.animation_out_login);
                                             finish();
                                         } else {
                                             pb.setVisibility(View.GONE);

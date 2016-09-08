@@ -86,7 +86,7 @@ public class SplashActivity extends AppCompatActivity {
 			public void run() {
 				startActivity(new Intent(SplashActivity.this,MainActivity.class));
 				//Animierter Activitywechsel starten
-				overridePendingTransition(R.anim.in_login, R.anim.out_login);
+				overridePendingTransition(R.anim.animation_in_login, R.anim.animation_out_login);
 				finish();
 			}
 		}, 3000);

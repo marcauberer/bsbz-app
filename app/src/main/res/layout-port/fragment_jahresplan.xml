@@ -149,7 +149,7 @@
             android:layout_weight="0.9"/>
 
         <!--<fragment
-            class="bsbz_app.jimdo.mrgames13.com.App.MainActivity$TermineFragment_Jahresplan"
+            class="com.mrgames13.jimdo.bsbz_app.App.MainActivity$TermineFragment_Jahresplan"
             android:id="@+id/termine_jahresplan"
         	android:layout_width="match_parent"
         	android:layout_height="0dp"
