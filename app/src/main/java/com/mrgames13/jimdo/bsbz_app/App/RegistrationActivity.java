@@ -29,6 +29,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 import android.widget.SeekBar.OnSeekBarChangeListener;
@@ -64,6 +65,7 @@ public class RegistrationActivity extends AppCompatActivity {
 	public static String id = "";
     private String result = "";
     private boolean pressedOnce;
+    private String rights;
 
 	@Override
 	public void onStart() {
@@ -160,13 +162,15 @@ public class RegistrationActivity extends AppCompatActivity {
 				
 				final TextView klasse1 = (TextView) dialogView.findViewById(R.id.klasse);
 				
-				SeekBar s1 = (SeekBar) dialogView.findViewById(R.id.seekBar1);
-				SeekBar s2 = (SeekBar) dialogView.findViewById(R.id.seekBar2);
-				SeekBar s3 = (SeekBar) dialogView.findViewById(R.id.seekBar3);
+				final SeekBar s1 = (SeekBar) dialogView.findViewById(R.id.seekBar1);
+				final SeekBar s2 = (SeekBar) dialogView.findViewById(R.id.seekBar2);
+				final SeekBar s3 = (SeekBar) dialogView.findViewById(R.id.seekBar3);
                 final SwitchCompat sw1 = (SwitchCompat) dialogView.findViewById(R.id.student);
                 final SwitchCompat sw2 = (SwitchCompat) dialogView.findViewById(R.id.classteacher);
                 final SwitchCompat sw3 = (SwitchCompat) dialogView.findViewById(R.id.teacher);
                 final SwitchCompat sw4 = (SwitchCompat) dialogView.findViewById(R.id.parent);
+                final ImageView warning_iv = (ImageView) findViewById(R.id.ic_warning) ;
+                final TextView warning_tv = (TextView) findViewById(R.id.warning);
 				
 				s1.setOnSeekBarChangeListener(new OnSeekBarChangeListener() {
 					@Override
@@ -230,6 +234,12 @@ public class RegistrationActivity extends AppCompatActivity {
                             sw2.setChecked(false);
                             sw3.setChecked(false);
                             sw4.setChecked(false);
+                            //SeekBars einblenden
+                            s1.setEnabled(true);
+                            s2.setEnabled(true);
+                            s3.setEnabled(true);
+                            //Rights anpassen
+                            rights = "student";
                         }
                     }
                 });
@@ -240,6 +250,12 @@ public class RegistrationActivity extends AppCompatActivity {
                             sw1.setChecked(false);
                             sw3.setChecked(false);
                             sw4.setChecked(false);
+                            //SeekBars einblenden
+                            s1.setEnabled(true);
+                            s2.setEnabled(true);
+                            s3.setEnabled(true);
+                            //Rights anpassen
+                            rights = "teacher";
                         }
                     }
                 });
@@ -250,6 +266,12 @@ public class RegistrationActivity extends AppCompatActivity {
                             sw1.setChecked(false);
                             sw2.setChecked(false);
                             sw4.setChecked(false);
+                            //SeekBars einblenden
+                            s1.setEnabled(false);
+                            s2.setEnabled(false);
+                            s3.setEnabled(false);
+                            //Rights anpassen
+                            rights = "teacher";
                         }
                     }
                 });
@@ -260,6 +282,12 @@ public class RegistrationActivity extends AppCompatActivity {
                             sw1.setChecked(false);
                             sw2.setChecked(false);
                             sw3.setChecked(false);
+                            //SeekBars einblenden
+                            s1.setEnabled(true);
+                            s2.setEnabled(true);
+                            s3.setEnabled(true);
+                            //Rights anpassen
+                            rights = "parent";
                         }
                     }
                 });
@@ -270,6 +298,14 @@ public class RegistrationActivity extends AppCompatActivity {
 					@Override
 					public void onClick(DialogInterface dialog, int which) {
 						klasse.setText(klasse1.getText().toString());
+                        if(sw2.isChecked() || sw3.isChecked()) {
+                            warning_iv.setVisibility(View.VISIBLE);
+                            warning_tv.setVisibility(View.VISIBLE);
+                        } else {
+                            warning_iv.setVisibility(View.GONE);
+                            warning_tv.setVisibility(View.GONE);
+                        }
+                        if(sw3.isChecked()) klasse.setText("Keine Klasse");
 						dialog.cancel();
 					}
 				});
