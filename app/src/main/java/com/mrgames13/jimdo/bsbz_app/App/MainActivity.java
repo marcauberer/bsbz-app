@@ -648,9 +648,13 @@ public class MainActivity extends AppCompatActivity {
         //Texte setzen
         Profil_name.setText(User_name);
         Profil_klasse.setText(User_klasse);
+        if(User_klasse.equals("no_class")) Profil_klasse.setText(res.getString(R.string.several_classes));
         if(User_rechte.equals("classspeaker")) {
             Profil_Rechte.setText(res.getString(R.string.classspeaker));
             klasse_wahlen.setVisibility(View.INVISIBLE);
+        } else if(User_rechte.equals("parent")) {
+            Profil_Rechte.setText(res.getString(R.string.parent));
+            klasse_wahlen.setText(res.getString(R.string.choose_class_1_)+User_klasse+")");
         } else if(User_rechte.equals("teacher")) {
             Profil_Rechte.setText(res.getString(R.string.teacher));
             klasse_wahlen.setText(res.getString(R.string.choose_class_1_)+User_klasse+")");

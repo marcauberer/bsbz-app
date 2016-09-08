@@ -265,5 +265,6 @@
     <string name="parent">Elternteil</string>
     <string name="account_check">Der Account wird von M&amp;R Games überprüft. Es kann ein paar Tage dauern, bis Sie die gewünschten Rechte besitzen.</string>
     <string name="no_class">Keine Klasse</string>
+    <string name="several_classes">Mehrere Klassen</string>
 
 </resources>
