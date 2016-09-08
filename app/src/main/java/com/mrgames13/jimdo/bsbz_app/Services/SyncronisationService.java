@@ -61,10 +61,6 @@ public class SyncronisationService extends Service {
 	@SuppressLint("UseValueOf")
 	@Override
 	public int onStartCommand(Intent intent, int flags, int startId) {
-		//Test
-		//Toast.makeText(getApplicationContext(), "Hintergrundservice wurde ausgeführt", Toast.LENGTH_SHORT).show();
-		//Log.d("CTB", "Hintergrundservice wurde ausgeführt");
-
 		//Kontext initialisieren
 		context = getApplicationContext();
 
