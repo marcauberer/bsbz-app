@@ -122,15 +122,20 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/classteacher"
-        android:layout_below="@+id/student"
-        android:checked="true"/>
+        android:layout_below="@+id/student"/>
 
     <android.support.v7.widget.SwitchCompat
         android:id="@+id/teacher"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/teacher"
-        android:layout_below="@+id/classteacher"
-        android:checked="true"/>
+        android:layout_below="@+id/classteacher"/>
+
+    <android.support.v7.widget.SwitchCompat
+        android:id="@+id/parent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/parent"
+        android:layout_below="@+id/teacher"/>
 
 </RelativeLayout>

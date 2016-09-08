@@ -166,6 +166,7 @@ public class RegistrationActivity extends AppCompatActivity {
                 final SwitchCompat sw1 = (SwitchCompat) dialogView.findViewById(R.id.student);
                 final SwitchCompat sw2 = (SwitchCompat) dialogView.findViewById(R.id.classteacher);
                 final SwitchCompat sw3 = (SwitchCompat) dialogView.findViewById(R.id.teacher);
+                final SwitchCompat sw4 = (SwitchCompat) dialogView.findViewById(R.id.parent);
 				
 				s1.setOnSeekBarChangeListener(new OnSeekBarChangeListener() {
 					@Override
@@ -228,6 +229,7 @@ public class RegistrationActivity extends AppCompatActivity {
                         if(isChecked) {
                             sw2.setChecked(false);
                             sw3.setChecked(false);
+                            sw4.setChecked(false);
                         }
                     }
                 });
@@ -237,6 +239,7 @@ public class RegistrationActivity extends AppCompatActivity {
                         if(isChecked) {
                             sw1.setChecked(false);
                             sw3.setChecked(false);
+                            sw4.setChecked(false);
                         }
                     }
                 });
@@ -246,6 +249,17 @@ public class RegistrationActivity extends AppCompatActivity {
                         if(isChecked) {
                             sw1.setChecked(false);
                             sw2.setChecked(false);
+                            sw4.setChecked(false);
+                        }
+                    }
+                });
+                sw4.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                    @Override
+                    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                        if(isChecked) {
+                            sw1.setChecked(false);
+                            sw2.setChecked(false);
+                            sw3.setChecked(false);
                         }
                     }
                 });
