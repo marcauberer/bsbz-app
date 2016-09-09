@@ -77,6 +77,7 @@ public class ServerMessagingUtils {
             try {
                 //Connection aufbauen
                 HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+                connection.setConnectTimeout(500);
                 connection.setDoOutput(true);
                 connection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
                 connection.setFixedLengthStreamingMode(param.getBytes().length);
@@ -104,7 +105,6 @@ public class ServerMessagingUtils {
         try {
             if(!imageName.endsWith(".jpg")) imageName = imageName + ".jpg";
             //Connection aufbauen
-            Log.d("BSBZ-App", SERVER_BASE_FOLDER + "images/" + URLEncoder.encode(imageFolder, "UTF-8") + "/" + URLEncoder.encode(imageName, "UTF-8"));
             URL url = new URL(SERVER_BASE_FOLDER + "images/" + URLEncoder.encode(imageFolder, "UTF-8") + "/" + URLEncoder.encode(imageName, "UTF-8"));
             URLConnection connection = url.openConnection();
             connection.connect();
