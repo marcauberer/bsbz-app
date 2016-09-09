@@ -510,7 +510,7 @@ public class LogInActivity extends AppCompatActivity {
                 String name = username;
                 if(username.equals("")) name = res.getString(R.string.guest);
                 try {
-                    result = serverMessagingUtils.sendRequest(findViewById(R.id.container), "name="+URLEncoder.encode(username, "UTF-8")+"&command=getserverinfo");
+                    result = serverMessagingUtils.sendRequest(findViewById(R.id.container), "name="+URLEncoder.encode(name, "UTF-8")+"&command=getserverinfo");
                     //Result auseinandernehmen
                     int index1 = result.indexOf(",");
                     int index2 = result.indexOf(",", index1 +1);
