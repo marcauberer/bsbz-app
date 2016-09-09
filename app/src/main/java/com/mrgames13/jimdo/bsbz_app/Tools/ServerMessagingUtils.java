@@ -77,7 +77,6 @@ public class ServerMessagingUtils {
             try {
                 //Connection aufbauen
                 HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-                connection.setConnectTimeout(500);
                 connection.setDoOutput(true);
                 connection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
                 connection.setFixedLengthStreamingMode(param.getBytes().length);

@@ -13,6 +13,7 @@ import android.net.ConnectivityManager;
 import android.os.Handler;
 import android.os.IBinder;
 import android.preference.PreferenceManager;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.mrgames13.jimdo.bsbz_app.App.LogInActivity;
@@ -61,7 +62,7 @@ public class SyncronisationService extends Service {
 	@SuppressLint("UseValueOf")
 	@Override
 	public int onStartCommand(Intent intent, int flags, int startId) {
-		//Kontext initialisieren
+        //Kontext initialisieren
 		context = getApplicationContext();
 
 		//Resourcen initilisieren
@@ -85,6 +86,8 @@ public class SyncronisationService extends Service {
 		username = prefs.getString("Name", res.getString(R.string.guest));
 		update = prefs.getBoolean("UpdateAvailable", false);
 		sync = prefs.getBoolean("Sync", true);
+
+        Log.d("BSBZ-App", klasse);
 
 		if(!sync) Toast.makeText(context, getResources().getString(R.string.account_sync_blocked), Toast.LENGTH_LONG).show();
 
@@ -154,6 +157,8 @@ public class SyncronisationService extends Service {
                 e.putString("Do", DO);
                 e.putString("Fr", FR);
                 e.commit();
+            } else {
+                Log.e("BSBZ-App", "Error occured");
             }
 		} catch(Exception e){}
 	}
@@ -183,6 +188,8 @@ public class SyncronisationService extends Service {
                     e.putString("Classtests_"+String.valueOf(i), classtest);
                 }
                 e.commit();
+            } else {
+                Log.e("BSBZ-App", "Error occured");
             }
 		} catch(Exception e) {}
 	}
@@ -212,6 +219,8 @@ public class SyncronisationService extends Service {
                     e.putString("Homeworks_"+String.valueOf(i), classtest);
                 }
                 e.commit();
+            } else {
+                Log.e("BSBZ-App", "Error occured");
             }
 		} catch(Exception e) {}
 	}
@@ -241,6 +250,8 @@ public class SyncronisationService extends Service {
                     e.putString("Events_"+String.valueOf(i), classtest);
                 }
                 e.commit();
+            } else {
+                Log.e("BSBZ-App", "Error occured");
             }
 		} catch(Exception e) {}
 	}
@@ -270,6 +281,8 @@ public class SyncronisationService extends Service {
                     e.putString("News_"+String.valueOf(i), news);
                 }
                 e.commit();
+            } else {
+                Log.e("BSBZ-App", "Error occured");
             }
 		} catch(Exception e) {}
 	}

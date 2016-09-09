@@ -8,8 +8,6 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager.NameNotFoundException;
 import android.content.res.Resources;
 import android.net.ConnectivityManager;
 import android.net.Uri;
@@ -60,7 +58,7 @@ public class BootCompletedReceiver extends BroadcastReceiver {
             //SyncFreq herausfinden
 			SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
 			String syncfreq = prefs.getString("SyncFreq", "60000");
-			
+
 			//Alarmmanager für Hintergrundprozess aufsetzen
 			AlarmManager alarmmanager_background_process = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
 			
@@ -91,63 +89,6 @@ public class BootCompletedReceiver extends BroadcastReceiver {
                 checkVersionAndAccountState(username);
             }
 		}
-	}
-	
-	public void checkVersion(final Context context) {
-		try {
-			PackageInfo pinfo = context.getPackageManager().getPackageInfo(context.getPackageName(), 0);
-			CURRENTVERSION = pinfo.versionName;
-		} catch (NameNotFoundException e) {}
-
-		new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    //Nutzernamen ermitteln
-                    String username = prefs.getString("Name", res.getString(R.string.guest));
-                    //Anfrage an Server senden
-                    result = serverMessagingUtils.sendRequest(null, "name="+ URLEncoder.encode(username, "UTF-8")+"&command=getserverinfo");
-                    //Result auseinandernehmen
-                    int index1 = result.indexOf(",");
-                    int index2 = result.indexOf(",", index1 +1);
-                    int index3 = result.indexOf(",", index2 +1);
-                    int index4 = result.indexOf(",", index3 +1);
-                    String client_name = result.substring(0, index1);
-                    String server_state = result.substring(index1 +1, index2);
-                    final String app_version = result.substring(index2 +1, index3);
-                    String adminconsole_version = result.substring(index3 +1, index4);
-                    String owners = result.substring(index4 +1);
-                    //Anfrage bearbeiten
-                    if(!app_version.equals(CURRENTVERSION)) {
-                        //In SharedPreferences eintragen
-                        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
-                        SharedPreferences.Editor e = prefs.edit();
-                        e.putBoolean("UpdateAvailable", true);
-                        e.commit();
-                        //Notification anzeigen
-                        Intent i = new Intent(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=" + context.getPackageName())));
-                        i.putExtra("Confirm", "Classtests");
-                        PendingIntent pi = PendingIntent.getActivity(context, (int) System.currentTimeMillis(), i, 0);
-
-                        NotificationManager nm = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
-                        Notification n = new Notification.Builder(context)
-                                .setContentTitle(res.getString(R.string.app_name))
-                                .setContentText(res.getString(R.string.update_available))
-                                .setSmallIcon(R.mipmap.ic_launcher)
-                                .setAutoCancel(true)
-                                .setContentIntent(pi)
-                                .getNotification();
-                        nm.notify(6, n);
-                    } else {
-                        //In SharedPreferences eintragen
-                        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
-                        SharedPreferences.Editor e = prefs.edit();
-                        e.putBoolean("UpdateAvailable", false);
-                        e.commit();
-                    }
-                } catch(Exception e) {}
-            }
-        }).start();
 	}
 
     public void checkVersionAndAccountState(final String username) {
