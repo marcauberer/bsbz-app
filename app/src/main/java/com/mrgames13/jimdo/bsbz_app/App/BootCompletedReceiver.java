@@ -104,11 +104,13 @@ public class BootCompletedReceiver extends BroadcastReceiver {
                     int index2 = result.indexOf(",", index1 +1);
                     int index3 = result.indexOf(",", index2 +1);
                     int index4 = result.indexOf(",", index3 +1);
+                    int index5 = result.indexOf(",", index4 +1);
                     String client_name = result.substring(0, index1);
                     String server_state = result.substring(index1 +1, index2);
-                    final String app_version = result.substring(index2 +1, index3);
+                    String app_version = result.substring(index2 +1, index3);
                     String adminconsole_version = result.substring(index3 +1, index4);
-                    String owners = result.substring(index4 +1);
+                    String supporturl = result.substring(index4 +1, index5);
+                    String owners = result.substring(index5 +1);
                     //AppVersion prüfen
                     if(!app_version.equals(CURRENTVERSION)) {
                         MainActivity.isUpdateAvailable = true;
@@ -116,6 +118,7 @@ public class BootCompletedReceiver extends BroadcastReceiver {
                         //In SharedPreferences eintragen
                         SharedPreferences.Editor e = prefs.edit();
                             e.putBoolean("UpdateAvailable", true);
+                            e.putString("SupportUrl", supporturl);
                         e.commit();
                     } else {
                         MainActivity.isUpdateAvailable = false;
@@ -135,6 +138,7 @@ public class BootCompletedReceiver extends BroadcastReceiver {
                         //In SharedPreferences eintragen
                         SharedPreferences.Editor e = prefs.edit();
                             e.putBoolean("UpdateAvailable", false);
+                            e.putString("SupportUrl", supporturl);
                         e.commit();
                     }
                     //Accountstate prüfen
@@ -157,10 +161,12 @@ public class BootCompletedReceiver extends BroadcastReceiver {
                     } else if(account_state.equals("3")) {
                         SharedPreferences.Editor e = prefs.edit();
                             e.putBoolean("Sync", false);
+                            e.putString("SupportUrl", supporturl);
                         e.commit();
                     } else {
                         SharedPreferences.Editor e = prefs.edit();
                             e.putBoolean("Sync", true);
+                            e.putString("SupportUrl", supporturl);
                         e.commit();
                     }
                 } catch(Exception e) {}

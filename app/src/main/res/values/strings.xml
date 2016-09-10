@@ -228,6 +228,7 @@
     <string name="app_version">App-Version</string>
     <string name="adminconsole_version">Adminkonsole-Version</string>
     <string name="owners">Serverinhaber</string>
+    <string name="support_url">Support-Url</string>
     <string name="serverstate_1">Server ist online</string>
     <string name="serverstate_2">Server ist offline</string>
     <string name="serverstate_3">Server wird gewartet</string>
@@ -268,5 +269,7 @@
     <string name="several_classes">Mehrere Klassen</string>
     <string name="gallery_empty">Die Gallerie enthält derzeit keine Bilder</string>
     <string name="forgot_password"><u>Passwort vergessen</u></string>
+    <string name="support">Support</string>
+    <string name="reset_password_m">Schreibe eine Nachricht an uns um dein Passwort zurückzusetzen</string>
 
 </resources>

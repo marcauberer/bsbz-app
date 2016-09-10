@@ -241,6 +241,18 @@ public class LogInActivity extends AppCompatActivity {
 				startActivity(new Intent(LogInActivity.this, RegistrationActivity.class));
 			}
 		});
+        //Passwort vergessen
+        final TextView forgot_password = (TextView) findViewById(R.id.forgot_password);
+        forgot_password.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(LogInActivity.this, res.getString(R.string.reset_password_m), Toast.LENGTH_LONG).show();
+                Intent i = new Intent(LogInActivity.this, WebActivity.class);
+                i.putExtra("Title", res.getString(R.string.support));
+                i.putExtra("Webside", prefs.getString("SupportUrl", "http://mrgames13.jimdo.com/feedback-kommentare/"));
+                startActivity(i);
+            }
+        });
 
         //ServerMessagingUtils initialisieren
         cm = (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE);
@@ -516,11 +528,13 @@ public class LogInActivity extends AppCompatActivity {
                     int index2 = result.indexOf(",", index1 +1);
                     int index3 = result.indexOf(",", index2 +1);
                     int index4 = result.indexOf(",", index3 +1);
+                    int index5 = result.indexOf(",", index4 +1);
                     String client_name = result.substring(0, index1);
                     String server_state = result.substring(index1 +1, index2);
                     final String app_version = result.substring(index2 +1, index3);
                     String adminconsole_version = result.substring(index3 +1, index4);
-                    String owners = result.substring(index4 +1);
+                    String supporturl = result.substring(index4 +1, index5);
+                    String owners = result.substring(index5 +1);
                     //Serverstatus prüfen
                     if(server_state.equals("1")) {
                         Log.i("BSBZ-App", "The server is online!");
@@ -558,6 +572,7 @@ public class LogInActivity extends AppCompatActivity {
                             //In SharedPreferences eintragen
                             SharedPreferences.Editor e = prefs.edit();
                                 e.putBoolean("UpdateAvailable", true);
+                                e.putString("SupportUrl", supporturl);
                             e.commit();
                         } else {
                             MainActivity.isUpdateAvailable = false;
@@ -581,6 +596,7 @@ public class LogInActivity extends AppCompatActivity {
                             SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(LogInActivity.this);
                             SharedPreferences.Editor e = prefs.edit();
                                 e.putBoolean("UpdateAvailable", false);
+                                e.putString("SupportUrl", supporturl);
                             e.commit();
                             //UpdateNews-Dialog anzeigen
                             runOnUiThread(new Runnable() {

@@ -2499,10 +2499,12 @@ public class MainActivity extends AppCompatActivity {
                     int index2 = result.indexOf(",", index1 +1);
                     int index3 = result.indexOf(",", index2 +1);
                     int index4 = result.indexOf(",", index3 +1);
+                    int index5 = result.indexOf(",", index4 +1);
                     String client_name = result.substring(0, index1);
                     String server_state = result.substring(index1 +1, index2);
                     final String app_version = result.substring(index2 +1, index3);
                     String adminconsole_version = result.substring(index3 +1, index4);
+                    String supporturl = result.substring(index4 +1, index5);
                     String owners = result.substring(index4 +1);
                     //Dialog für das Ergebnis anzeigen
                     if(showResultDialog) {

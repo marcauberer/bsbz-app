@@ -3,6 +3,7 @@ package com.mrgames13.jimdo.bsbz_app.App;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
@@ -27,7 +28,9 @@ import com.mrgames13.jimdo.bsbz_app.R;
 public class WebActivity extends AppCompatActivity {
 
 	//Variablen
-	Toolbar toolbar;
+	private Toolbar toolbar;
+    private Resources res;
+
 
 	@Override
 	protected void onStart() {
@@ -35,7 +38,7 @@ public class WebActivity extends AppCompatActivity {
 		
 		//Daten von den SharedPreferences abrufen
 		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(WebActivity.this);
-		String layout = prefs.getString("Layout", MainActivity.res.getString(R.string.bsbz_layout_orange));
+		String layout = prefs.getString("Layout", res.getString(R.string.bsbz_layout_orange));
 		String color = "#ea690c";
 		if(layout.equals("0")) {
 			color = "#ea690c";
@@ -68,6 +71,9 @@ public class WebActivity extends AppCompatActivity {
 		//Toolbar aufsetzen
 		toolbar = (Toolbar) findViewById(R.id.toolbar_web);
 		setSupportActionBar(toolbar);
+
+        //Resourcen initialsieren
+        res = getResources();
 
 		//Lade-TextView
 		final TextView laden = (TextView) findViewById(R.id.laden);

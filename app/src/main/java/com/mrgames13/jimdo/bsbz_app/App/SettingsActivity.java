@@ -601,11 +601,13 @@ public class SettingsActivity extends PreferenceActivity {
                         int index2 = result.indexOf(",", index1 +1);
                         int index3 = result.indexOf(",", index2 +1);
                         int index4 = result.indexOf(",", index3 +1);
+						int index5 = result.indexOf(",", index4 +1);
                         String client_name = result.substring(0, index1);
                         String server_state = result.substring(index1 +1, index2);
                         String app_version = result.substring(index2 +1, index3);
                         String adminconsole_version = result.substring(index3 +1, index4);
-                        String owners = result.substring(index4 +1);
+						String supporturl = result.substring(index4 +1, index5);
+                        String owners = result.substring(index5 +1);
                         //ServerState überschreiben
                         if(server_state.equals("1")) server_state = res.getString(R.string.serverstate_1);
                         if(server_state.equals("2")) server_state = res.getString(R.string.serverstate_2);
@@ -632,8 +634,6 @@ public class SettingsActivity extends PreferenceActivity {
             public boolean onPreferenceClick(Preference preference) {
                 SpannableString s = new SpannableString(res.getString(R.string.openSourceLicense));
                 Linkify.addLinks(s, Linkify.ALL);
-
-
                 AlertDialog d = new AlertDialog.Builder(SettingsActivity.this)
                         .setTitle(opensouce.getTitle())
                         .setMessage(Html.fromHtml(s.toString()))
@@ -781,11 +781,13 @@ public class SettingsActivity extends PreferenceActivity {
 			int index2 = result.indexOf(",", index1 +1);
 			int index3 = result.indexOf(",", index2 +1);
 			int index4 = result.indexOf(",", index3 +1);
+			int index5 = result.indexOf(",", index4 +1);
 			final String client_name = result.substring(0, index1);
 			final String server_state = result.substring(index1 +1, index2);
 			final String app_version = result.substring(index2 +1, index3);
 			final String adminconsole_version = result.substring(index3 +1, index4);
-			final String owners = result.substring(index4 +1);
+			final String supporturl = result.substring(index4 +1, index5);
+			final String owners = result.substring(index5 +1);
 			//Dialog für das Ergebnis anzeigen
 			if(showResultDialog) {
 				runOnUiThread(new Runnable() {
@@ -802,10 +804,11 @@ public class SettingsActivity extends PreferenceActivity {
                         String client_name_display = res.getString(R.string.client_name) + ": " + client_name;
 						String app_version_display = res.getString(R.string.app_version) + ": " + app_version;
 						String adminconsole_version_display = res.getString(R.string.adminconsole_version) + ": " + adminconsole_version;
+                        String support_display = res.getString(R.string.support_url) + ": " + supporturl;
 						String owners_display = res.getString(R.string.owners) + ": " + owners;
                         //String zusammensetzen und Dialog anzeigen
-                        final String info = client_name_display + "\n" + server_state_display + "\n" + app_version_display + "\n" + adminconsole_version_display + "\n" + owners_display;
-						android.support.v7.app.AlertDialog.Builder d_Result;
+                        final String info = client_name_display + "\n" + server_state_display + "\n" + app_version_display + "\n" + adminconsole_version_display + "\n" + support_display + "\n" + owners_display;
+                        android.support.v7.app.AlertDialog.Builder d_Result;
 						if(MainActivity.AppTheme == 0) {
 							d_Result = new android.support.v7.app.AlertDialog.Builder(SettingsActivity.this, R.style.FirstTheme_Dialog);
 						} else {
