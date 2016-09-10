@@ -267,5 +267,6 @@
     <string name="no_class">Keine Klasse</string>
     <string name="several_classes">Mehrere Klassen</string>
     <string name="gallery_empty">Die Gallerie enthält derzeit keine Bilder</string>
+    <string name="forgot_password"><u>Passwort vergessen</u></string>
 
 </resources>

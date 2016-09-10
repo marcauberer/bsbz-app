@@ -62,13 +62,6 @@
             android:text="@string/login"
             tools:ignore="HardcodedText,RtlHardcoded" />
 
-        <ProgressBar
-            android:id="@+id/login_in_progress"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/LogIn_LogIn"
-            android:visibility="gone"/>
-
         <Button
             android:id="@+id/LogIn_Registrieren"
             android:layout_width="wrap_content"
@@ -101,6 +94,24 @@
             android:layout_alignParentRight="true"
             android:text="@string/keepLoggedIn"
             tools:ignore="HardcodedText,RtlHardcoded" />
+
+        <TextView
+            android:id="@+id/forgot_password"
+            android:text="@string/forgot_password"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/LogIn_LogIn"
+            android:textColor="@color/colorAccent"
+            android:layout_marginTop="6dp"/>
+
+        <ProgressBar
+            android:id="@+id/login_in_progress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:layout_alignTop="@+id/forgot_password"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"/>
 
     </RelativeLayout>
 </RelativeLayout>
