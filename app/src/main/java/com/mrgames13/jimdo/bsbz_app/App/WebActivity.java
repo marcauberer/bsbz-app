@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -33,6 +34,7 @@ public class WebActivity extends AppCompatActivity {
     //Variablen als Objekte
     private Toolbar toolbar;
     private Resources res;
+    private WebView webside;
 
 	//Variablen
     private String title;
@@ -87,7 +89,7 @@ public class WebActivity extends AppCompatActivity {
 		laden.setVisibility(View.VISIBLE);
 		laden_progress_bar.setVisibility(View.VISIBLE);
 		//WebView
-		final WebView webside = (WebView) findViewById(R.id.Webside);
+		webside = (WebView) findViewById(R.id.Webside);
 		webside.setWebViewClient(new WebViewClient() {
 			@Override
 			public boolean shouldOverrideUrlLoading(WebView view, String url) {
@@ -145,7 +147,11 @@ public class WebActivity extends AppCompatActivity {
 			startActivity(new Intent(this, SettingsActivity.class));
 			return true;
 		} else if(id == android.R.id.home) {
-			finish();
+            if(webside.canGoBack()) {
+                webside.goBack();
+            } else {
+                finish();
+            }
 		}
 		return super.onOptionsItemSelected(item);
 	}
@@ -156,4 +162,17 @@ public class WebActivity extends AppCompatActivity {
 		view.removeAllViews();
 		super.finish();
 	}
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (event.getAction() == KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_BACK) {
+            if (webside.canGoBack()) {
+                webside.goBack();
+            } else {
+                finish();
+            }
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
+    }
 }
