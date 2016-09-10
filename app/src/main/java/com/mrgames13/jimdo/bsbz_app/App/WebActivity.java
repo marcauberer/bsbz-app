@@ -27,10 +27,16 @@ import com.mrgames13.jimdo.bsbz_app.R;
 @SuppressWarnings("deprecation")
 public class WebActivity extends AppCompatActivity {
 
-	//Variablen
-	private Toolbar toolbar;
+    //Konstanten
+    private final String NO_DATA_URL = "http://www.mrgames13.jimdo.com/";
+
+    //Variablen als Objekte
+    private Toolbar toolbar;
     private Resources res;
 
+	//Variablen
+    private String title;
+    private String webside_url = NO_DATA_URL;
 
 	@Override
 	protected void onStart() {
@@ -81,7 +87,7 @@ public class WebActivity extends AppCompatActivity {
 		laden.setVisibility(View.VISIBLE);
 		laden_progress_bar.setVisibility(View.VISIBLE);
 		//WebView
-		WebView webside = (WebView) findViewById(R.id.Webside);
+		final WebView webside = (WebView) findViewById(R.id.Webside);
 		webside.setWebViewClient(new WebViewClient() {
 			@Override
 			public boolean shouldOverrideUrlLoading(WebView view, String url) {
@@ -91,6 +97,7 @@ public class WebActivity extends AppCompatActivity {
 			
 			@Override
 			public void onPageFinished(WebView view, String url) {
+                if(title.equals(res.getString(R.string.loading))) getSupportActionBar().setTitle(webside.getTitle());
 				laden.setVisibility(View.INVISIBLE);
 				laden_progress_bar.setVisibility(View.INVISIBLE);
 			}
@@ -107,11 +114,22 @@ public class WebActivity extends AppCompatActivity {
 		webside.getSettings().setJavaScriptEnabled(true);
 		
 		//Extras im Intent auslesen
-		final String stringExtraWebside = getIntent().getStringExtra("Webside");
-		webside.loadUrl(stringExtraWebside);
+		webside_url = getIntent().getStringExtra("Webside");
 		//SeitenTitel aus dem Intent auslesen
-		final String stringExtraTitle = getIntent().getStringExtra("Title");
-		getSupportActionBar().setTitle(stringExtraTitle);
+		title = getIntent().getStringExtra("Title");
+
+        if(title == null && webside_url == null) {
+            webside_url = getIntent().getData().toString();
+            title = res.getString(R.string.loading);
+        }
+
+        if(title == null && webside_url == null) {
+            webside_url = getIntent().getData().toString();
+            title = res.getString(R.string.loading);
+        }
+
+        webside.loadUrl(webside_url);
+		getSupportActionBar().setTitle(title);
 	}
 
 	@Override

@@ -1650,7 +1650,6 @@ public class MainActivity extends AppCompatActivity {
                         String klasse = prefs.getString("Klasse", "no_class");
                         if(result.length() > 0) {
                             for(int i = 0; i < 100; i++) {
-
                                 int index1 = result.indexOf(":");
                                 int index2 = result.indexOf(";");
                                 //Auseinandernehmen
@@ -1709,10 +1708,14 @@ public class MainActivity extends AppCompatActivity {
                                         findViewById(R.id.no_internet_gallery).setVisibility(View.VISIBLE);
                                     }
 
-                                } catch(Exception e) {}
+                                } catch(Exception e) {
+                                    e.printStackTrace();
+                                }
                             }
                         });
-                    } catch(Exception e) {}
+                    } catch(Exception e) {
+                        e.printStackTrace();
+                    }
                 }
             }).start();
         } else {

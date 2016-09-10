@@ -98,11 +98,14 @@
         <TextView
             android:id="@+id/forgot_password"
             android:text="@string/forgot_password"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/LogIn_LogIn"
             android:textColor="@color/colorAccent"
-            android:layout_marginTop="6dp"/>
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="6dp"
+            android:gravity="center"/>
 
         <ProgressBar
             android:id="@+id/login_in_progress"

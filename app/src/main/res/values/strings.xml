@@ -271,5 +271,6 @@
     <string name="forgot_password"><u>Passwort vergessen</u></string>
     <string name="support">Support</string>
     <string name="reset_password_m">Schreibe eine Nachricht an uns um dein Passwort zurückzusetzen</string>
+    <string name="error_occured">Fehler aufgetreten</string>
 
 </resources>
