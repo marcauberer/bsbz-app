@@ -14,6 +14,17 @@
         android:visibility="gone"/>
 
     <TextView
+        android:id="@+id/gallery_empty"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        android:gravity="center"
+        android:textSize="20sp"
+        android:text="@string/gallery_empty"
+        android:visibility="gone"/>
+
+    <TextView
         android:id="@+id/laden"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
