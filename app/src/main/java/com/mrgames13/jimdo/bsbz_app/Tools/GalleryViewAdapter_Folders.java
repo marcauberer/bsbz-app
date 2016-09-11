@@ -61,8 +61,11 @@ public class GalleryViewAdapter_Folders extends RecyclerView.Adapter<GalleryView
                 } else {
                     firstImageName = MainActivity.gallery_view_filenames.get(pos).substring(0);
                 }
-                firstImage = MainActivity.serverMessagingUtils.downloadImage(MainActivity.gallery_view_foldernames.get(pos), firstImageName);
-                if(firstImage == null) firstImage = BitmapFactory.decodeResource(MainActivity.res, R.drawable.ic_image_48pt_2x);
+                if(!firstImageName.equals("")) {
+                    firstImage = MainActivity.serverMessagingUtils.downloadImage(MainActivity.gallery_view_foldernames.get(pos), firstImageName);
+                } else {
+                    firstImage = BitmapFactory.decodeResource(MainActivity.res, R.drawable.ic_image_48pt_2x);
+                }
                 h.post(new Runnable() {
                     @Override
                     public void run() {

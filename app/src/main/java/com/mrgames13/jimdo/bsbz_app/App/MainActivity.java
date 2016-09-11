@@ -1642,7 +1642,7 @@ public class MainActivity extends AppCompatActivity {
                         //Username aus den SharedPreferences auslesen
                         String username = prefs.getString("Name", res.getString(R.string.guest));
                         //ImageConfig herunterladen
-                        result = serverMessagingUtils.sendRequest(findViewById(R.id.container), "name="+URLEncoder.encode(username, "UTF-8")+"&command=getimageconfig");
+                        result = serverMessagingUtils.sendRequest(findViewById(R.id.container), "name="+URLEncoder.encode(username, "UTF-8")+"&command=getimageconfig").trim();
                         //Result auseinandernehmen
                         gallery_view_foldernames.clear();
                         gallery_view_filenames.clear();
@@ -1650,28 +1650,33 @@ public class MainActivity extends AppCompatActivity {
                         String klasse = prefs.getString("Klasse", "no_class");
                         if(result.length() > 0) {
                             for(int i = 0; i < 100; i++) {
-                                int index1 = result.indexOf(":");
-                                int index2 = result.indexOf(";");
-                                //Auseinandernehmen
-                                String dirname = result.substring(0, index1);
-                                String filenames = result.substring(index1 +1, index2);
-                                //In Arraylists speichern
-                                if(rights.equals("teacher") || rights.equals("administrator") || rights.equals("team")) {
-                                    gallery_view_foldernames.add(dirname);
-                                    gallery_view_filenames.add(filenames);
-                                } else {
-                                    if(dirname.contains(".")) {
-                                        if(dirname.equals("." + klasse)) {
+                                if(result.length() > 0) {
+                                    int index1 = result.indexOf(":");
+                                    int index2 = result.indexOf(";");
+                                    Log.d("BSBZ-App", "'"+result+"'");
+                                    Log.d("BSBZ-App", String.valueOf(index1));
+                                    Log.d("BSBZ-App", String.valueOf(index2));
+                                    //Auseinandernehmen
+                                    String dirname = result.substring(0, index1);
+                                    String filenames = result.substring(index1 +1, index2);
+                                    //In Arraylists speichern
+                                    if(rights.equals("teacher") || rights.equals("administrator") || rights.equals("team")) {
+                                        gallery_view_foldernames.add(dirname);
+                                        gallery_view_filenames.add(filenames);
+                                    } else {
+                                        if(dirname.contains(".")) {
+                                            if(dirname.equals("." + klasse)) {
+                                                gallery_view_foldernames.add(dirname);
+                                                gallery_view_filenames.add(filenames);
+                                            }
+                                        } else {
                                             gallery_view_foldernames.add(dirname);
                                             gallery_view_filenames.add(filenames);
                                         }
-                                    } else {
-                                        gallery_view_foldernames.add(dirname);
-                                        gallery_view_filenames.add(filenames);
                                     }
+                                    //Vorne abzwacken
+                                    result = result.substring(index2 +1);
                                 }
-                                //Vorne abzwacken
-                                result = result.substring(index2 +1);
                             }
                         } else {
                             runOnUiThread(new Runnable() {
