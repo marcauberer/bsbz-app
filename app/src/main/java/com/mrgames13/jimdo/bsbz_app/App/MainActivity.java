@@ -234,7 +234,7 @@ public class MainActivity extends AppCompatActivity {
                     case R.id.drawer_item_gallery: {
                         menuItem.setChecked(true);
                         selected_Menu_Item = 7;
-                        toolbar.setTitle(res.getString(R.string.gallery));
+                        toolbar.setTitle(res.getString(R.string.galery));
                         //Permission 'WRITE_EXTERNAL_STORAGE' abfragen
                         if(!(ActivityCompat.checkSelfPermission(MainActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED)) {
                             ActivityCompat.requestPermissions(MainActivity.this, new String[] {Manifest.permission.WRITE_EXTERNAL_STORAGE}, REQUEST_CODE_PERMISSION_WRITE_EXTERNAL_STORAGE);
@@ -295,7 +295,7 @@ public class MainActivity extends AppCompatActivity {
             getSupportActionBar().setTitle(res.getString(R.string.food_plan));
             launchFoodPlanFragment();
         } else if(selected_Menu_Item == 7) {
-            getSupportActionBar().setTitle(res.getString(R.string.gallery));
+            getSupportActionBar().setTitle(res.getString(R.string.galery));
             launchGalleryFragment();
         } else if(selected_Menu_Item == 8) {
             getSupportActionBar().setTitle(res.getString(R.string.bsbz_infos));
@@ -1707,7 +1707,7 @@ public class MainActivity extends AppCompatActivity {
                                         findViewById(R.id.laden).setVisibility(View.GONE);
                                         findViewById(R.id.progressBar1).setVisibility(View.GONE);
                                         //Keine Bilder in der Gallerie einblenden
-                                        findViewById(R.id.no_internet_gallery).setVisibility(View.VISIBLE);
+                                        findViewById(R.id.gallery_empty).setVisibility(View.VISIBLE);
                                     }
 
                                 } catch(Exception e) {

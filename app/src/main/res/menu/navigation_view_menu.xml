@@ -28,7 +28,7 @@
             android:icon="@drawable/ic_store_black_48dp"/>
         <item
             android:id="@+id/drawer_item_gallery"
-            android:title="@string/gallery"
+            android:title="@string/galery"
             android:icon="@drawable/ic_image_black_48dp"/>
         <item
             android:id="@+id/drawer_item_bsbz_infos"

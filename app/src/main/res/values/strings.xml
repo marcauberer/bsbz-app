@@ -34,7 +34,7 @@
     <string name="plan_of_the_year">Jahresplan</string>
     <string name="news">News</string>
     <string name="food_plan">Speiseplan</string>
-    <string name="gallery">Bildergallerie</string>
+    <string name="galery">Bildergalerie</string>
     <string name="bsbz_infos">BSBZ-Infos</string>
     <string name="the_developers">Die Entwickler</string>
     <string name="guest">Gast</string>
@@ -251,7 +251,7 @@
     <string name="upload_changes">Änderungen hochladen</string>
     <string name="delete_folder">Ordner löschen</string>
     <string name="delete_folder_m">Möchtest du diesen Ordner wirklich unwiederuflich löschen?</string>
-    <string name="need_internet_gallery">Du brauchst du eine Internetverbindung um auf die Gallerie zuzugreifen</string>
+    <string name="need_internet_galery">Du brauchst eine Internetverbindung um auf die Galerie zuzugreifen</string>
     <string name="pick_image">Bild auswählen ...</string>
     <string name="upload_image">Bild hochladen</string>
     <string name="new_image">Neues Bild</string>
@@ -266,7 +266,7 @@
     <string name="account_check">Der Account wird von M&amp;R Games geprüft. Es kann ein paar Tage dauern, bis Sie die gewünschten Rechte besitzen.</string>
     <string name="no_class">Keine Klasse</string>
     <string name="several_classes">Mehrere Klassen</string>
-    <string name="gallery_empty">Die Gallerie enthält derzeit keine Bilder</string>
+    <string name="galery_empty">Die ie enthält derzeit keine Bilder</string>
     <string name="forgot_password"><u>Passwort vergessen</u></string>
     <string name="support">Support</string>
     <string name="reset_password_m">Schreibe eine Nachricht an uns um dein Passwort zurückzusetzen</string>

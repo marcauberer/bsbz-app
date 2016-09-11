@@ -11,7 +11,7 @@
         android:layout_centerHorizontal="true"
         android:gravity="center"
         android:textSize="20sp"
-        android:text="@string/need_internet_gallery"
+        android:text="@string/need_internet_galery"
         android:visibility="gone"/>
 
     <TextView
@@ -22,7 +22,7 @@
         android:layout_centerHorizontal="true"
         android:gravity="center"
         android:textSize="20sp"
-        android:text="@string/gallery_empty"
+        android:text="@string/galery_empty"
         android:visibility="gone"/>
 
     <TextView
