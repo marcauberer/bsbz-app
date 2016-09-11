@@ -117,8 +117,6 @@ public class ImageFolderActivity extends AppCompatActivity {
         gallery_view_adapter = new GalleryViewAdapter_Files();
         gallery_view.setAdapter(gallery_view_adapter);
 
-        if(gallery_view_adapter.getItemCount() == 0) findViewById(R.id.dir_empty).setVisibility(View.VISIBLE);
-
         //ArrayList Filenames anlegen und befüllen
         folderName = getIntent().getExtras().getString("foldername").toString();
         String filenames_string = getIntent().getExtras().getString("filenames");
@@ -148,6 +146,7 @@ public class ImageFolderActivity extends AppCompatActivity {
                 }
             });
         }
+        if(gallery_view_adapter.getItemCount() == 0) findViewById(R.id.dir_empty).setVisibility(View.VISIBLE);
     }
 
     @Override

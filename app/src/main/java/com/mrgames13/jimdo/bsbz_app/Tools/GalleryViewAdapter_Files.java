@@ -52,8 +52,11 @@ public class GalleryViewAdapter_Files extends RecyclerView.Adapter<GalleryViewAd
             public void run() {
                 try{
                     String imageName = ImageFolderActivity.filenames.get(pos);
-                    image = MainActivity.serverMessagingUtils.downloadImage(ImageFolderActivity.folderName, imageName);
-                    if(image == null) image = BitmapFactory.decodeResource(MainActivity.res, R.drawable.ic_broken_image_48pt_2x);
+                    if(!imageName.equals("")) {
+                        image = MainActivity.serverMessagingUtils.downloadImage(ImageFolderActivity.folderName, imageName);
+                    } else {
+                        image = BitmapFactory.decodeResource(MainActivity.res, R.drawable.ic_broken_image_48pt_2x);
+                    }
                     h.post(new Runnable() {
                         @Override
                         public void run() {

@@ -1653,9 +1653,6 @@ public class MainActivity extends AppCompatActivity {
                                 if(result.length() > 0) {
                                     int index1 = result.indexOf(":");
                                     int index2 = result.indexOf(";");
-                                    Log.d("BSBZ-App", "'"+result+"'");
-                                    Log.d("BSBZ-App", String.valueOf(index1));
-                                    Log.d("BSBZ-App", String.valueOf(index2));
                                     //Auseinandernehmen
                                     String dirname = result.substring(0, index1);
                                     String filenames = result.substring(index1 +1, index2);
