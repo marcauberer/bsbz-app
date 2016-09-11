@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">BSBZ-App</string>
-    <string name="update_news_message">Die Version 3.1.3 der BSBZ-App ist da! Es gab eine Menge Fehlerbehebungen und 2 Neuerungen: Manuelle Updateprüfung, Serverinfos sind über die Einstellungen abrufbar.</string>
+    <string name="update_news_message">Die Version 3.2 der BSBZ-App ist da!\n\nNeuerungen:\n- Die Bildergallerie\n- Neues Rechtesystem (Mehr Infos hier: http://goo.gl/0pulAl)\n- Die BSBZ-App ist nun Opensource (Code einsehen hier: http://goo.gl/MJFgt9)\n- Passwort-vergessen-Funtion\n\nVerbesserungen:\n- Performanceoptimierungen\n- Optimierungen zur Serverentlastung\n- Fehler bei der Synchronisation behoben\n\nViel Spaß mit der BSBZ-App wünscht\nDas M&#38;R Games Team</string>
     <string name="ok">OK</string>
     <string name="yes">Ja</string>
     <string name="no">Nein</string>

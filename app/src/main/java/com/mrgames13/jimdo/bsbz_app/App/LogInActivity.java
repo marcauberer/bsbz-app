@@ -21,7 +21,10 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
+import android.text.SpannableString;
 import android.text.TextWatcher;
+import android.text.method.LinkMovementMethod;
+import android.text.util.Linkify;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
@@ -492,9 +495,11 @@ public class LogInActivity extends AppCompatActivity {
 
 	private void showUpdateNews() {
 		if(!prefs.getBoolean("startedOnce_"+androidversion, false)) {
+            SpannableString message = new SpannableString(res.getString(R.string.update_news_message));
+            Linkify.addLinks(message, Linkify.WEB_URLS);
             android.support.v7.app.AlertDialog d = new android.support.v7.app.AlertDialog.Builder(LogInActivity.this, R.style.FirstTheme_Dialog)
                     .setTitle(res.getString(R.string.update_news))
-                    .setMessage(res.getString(R.string.update_news_message))
+                    .setMessage(message)
                     .setPositiveButton(res.getString(R.string.ok), new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
@@ -505,6 +510,7 @@ public class LogInActivity extends AppCompatActivity {
                     })
                     .create();
             d.show();
+            ((TextView)d.findViewById(android.R.id.message)).setMovementMethod(LinkMovementMethod.getInstance());
 
             SharedPreferences.Editor e = prefs.edit();
                 e.putBoolean("startedOnce_"+androidversion, true);
