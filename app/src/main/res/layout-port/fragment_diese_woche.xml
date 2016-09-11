@@ -45,50 +45,446 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
         android:text="@string/monday"
-        tools:ignore="RtlHardcoded" />
+        tools:ignore="RtlHardcoded"
+        android:layout_toLeftOf="@+id/container_Mo"
+        android:layout_toStartOf="@+id/container_Mo"/>
+
+    <RelativeLayout
+        android:layout_alignParentRight="true"
+        android:id="@+id/container_Mo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/Mo"
+        android:layout_alignBottom="@+id/Mo">
+
+        <ImageView
+            android:id="@+id/Mo_K"
+            android:layout_width="30dp"
+            android:layout_height="wrap_content"
+            android:src="@drawable/icon_k"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentTop="true"
+            android:visibility="gone"/>
+
+        <TextView
+            android:id="@+id/Mo_K_Text"
+            android:layout_width="30dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentTop="true"
+            android:gravity="center"
+            android:text="K0"
+            android:textStyle="bold"
+            android:visibility="gone"/>
+
+        <ImageView
+            android:id="@+id/Mo_H"
+            android:layout_width="30dp"
+            android:layout_height="wrap_content"
+            android:src="@drawable/icon_h"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentTop="true"
+            android:layout_toRightOf="@+id/Mo_K"
+            android:layout_marginLeft="3dp"
+            tools:visibility="gone"/>
+
+        <TextView
+            android:id="@+id/Mo_H_Text"
+            android:layout_width="30dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentTop="true"
+            android:gravity="center"
+            android:layout_toRightOf="@+id/Mo_K"
+            android:layout_marginLeft="3dp"
+            android:text="H0"
+            android:textStyle="bold"
+            android:visibility="gone"/>
+
+        <ImageView
+            android:id="@+id/Mo_T"
+            android:layout_width="30dp"
+            android:layout_height="wrap_content"
+            android:src="@drawable/icon_t"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentTop="true"
+            android:layout_toRightOf="@+id/Mo_H"
+            android:layout_marginLeft="3dp"
+            tools:visibility="gone"/>
+
+
+        <TextView
+            android:id="@+id/Mo_T_Text"
+            android:layout_width="30dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentTop="true"
+            android:gravity="center"
+            android:layout_toRightOf="@+id/Mo_H"
+            android:layout_marginLeft="3dp"
+            android:text="T0"
+            android:textStyle="bold"
+            android:visibility="gone"/>
+    </RelativeLayout>
 
     <Button
         android:id="@+id/Di"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true"
         android:layout_below="@+id/Mo"
         android:text="@string/tuesday"
-        tools:ignore="RtlHardcoded" />
+        tools:ignore="RtlHardcoded"
+        android:layout_toLeftOf="@+id/container_Di"
+        android:layout_toStartOf="@+id/container_Di"/>
+
+    <RelativeLayout
+        android:layout_alignParentRight="true"
+        android:id="@+id/container_Di"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/Di"
+        android:layout_alignBottom="@+id/Di">
+
+        <ImageView
+            android:id="@+id/Di_K"
+            android:layout_width="30dp"
+            android:layout_height="wrap_content"
+            android:src="@drawable/icon_k"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentTop="true"
+            android:visibility="gone"/>
+
+        <TextView
+            android:id="@+id/Di_K_Text"
+            android:layout_width="30dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentTop="true"
+            android:gravity="center"
+            android:text="K0"
+            android:textStyle="bold"
+            android:visibility="gone"/>
+
+        <ImageView
+            android:id="@+id/Di_H"
+            android:layout_width="30dp"
+            android:layout_height="wrap_content"
+            android:src="@drawable/icon_h"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentTop="true"
+            android:layout_toRightOf="@+id/Di_K"
+            android:layout_marginLeft="3dp"
+            tools:visibility="gone"/>
+
+        <TextView
+            android:id="@+id/Di_H_Text"
+            android:layout_width="30dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentTop="true"
+            android:gravity="center"
+            android:layout_toRightOf="@+id/Di_K"
+            android:layout_marginLeft="3dp"
+            android:text="H0"
+            android:textStyle="bold"
+            android:visibility="gone"/>
+
+        <ImageView
+            android:id="@+id/Di_T"
+            android:layout_width="30dp"
+            android:layout_height="wrap_content"
+            android:src="@drawable/icon_t"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentTop="true"
+            android:layout_toRightOf="@+id/Di_H"
+            android:layout_marginLeft="3dp"
+            tools:visibility="gone"/>
+
+
+        <TextView
+            android:id="@+id/Di_T_Text"
+            android:layout_width="30dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentTop="true"
+            android:gravity="center"
+            android:layout_toRightOf="@+id/Di_H"
+            android:layout_marginLeft="3dp"
+            android:text="T0"
+            android:textStyle="bold"
+            android:visibility="gone"
+            tools:visibility="gone"/>
+    </RelativeLayout>
 
     <Button
         android:id="@+id/Mi"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/Di"
-        android:layout_alignParentRight="true"
+        android:layout_alignParentLeft="true"
         android:layout_below="@+id/Di"
         android:text="@string/wednesday"
-        tools:ignore="RtlHardcoded" />
+        tools:ignore="RtlHardcoded"
+        android:layout_toLeftOf="@+id/container_Mi"
+        android:layout_toStartOf="@+id/container_Mi"/>
+
+    <RelativeLayout
+        android:layout_alignParentRight="true"
+        android:id="@+id/container_Mi"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/Mi"
+        android:layout_alignBottom="@+id/Mi">
+
+        <ImageView
+            android:id="@+id/Mi_K"
+            android:layout_width="30dp"
+            android:layout_height="wrap_content"
+            android:src="@drawable/icon_k"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentTop="true"
+            tools:visibility="gone"/>
+
+        <TextView
+            android:id="@+id/Mi_K_Text"
+            android:layout_width="30dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentTop="true"
+            android:gravity="center"
+            android:text="K0"
+            android:textStyle="bold"
+            android:visibility="gone"/>
+
+        <ImageView
+            android:id="@+id/Mi_H"
+            android:layout_width="30dp"
+            android:layout_height="wrap_content"
+            android:src="@drawable/icon_h"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentTop="true"
+            android:layout_toRightOf="@+id/Mi_K"
+            android:layout_marginLeft="3dp"
+            tools:visibility="gone"/>
+
+        <TextView
+            android:id="@+id/Mi_H_Text"
+            android:layout_width="30dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentTop="true"
+            android:gravity="center"
+            android:layout_toRightOf="@+id/Mi_K"
+            android:layout_marginLeft="3dp"
+            android:text="H0"
+            android:textStyle="bold"
+            android:visibility="gone"/>
+
+        <ImageView
+            android:id="@+id/Mi_T"
+            android:layout_width="30dp"
+            android:layout_height="wrap_content"
+            android:src="@drawable/icon_t"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentTop="true"
+            android:layout_toRightOf="@+id/Mi_H"
+            android:layout_marginLeft="3dp"
+            tools:visibility="gone"/>
+
+
+        <TextView
+            android:id="@+id/Mi_T_Text"
+            android:layout_width="30dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentTop="true"
+            android:gravity="center"
+            android:layout_toRightOf="@+id/Mi_H"
+            android:layout_marginLeft="3dp"
+            android:text="T0"
+            android:textStyle="bold"
+            android:visibility="gone"/>
+    </RelativeLayout>
 
     <Button
         android:id="@+id/Do"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/Mi"
-        android:layout_alignParentRight="true"
+        android:layout_alignParentLeft="true"
         android:layout_below="@+id/Mi"
         android:text="@string/thursday"
-        tools:ignore="RtlHardcoded" />
+        tools:ignore="RtlHardcoded"
+        android:layout_toLeftOf="@+id/container_Do"
+        android:layout_toStartOf="@+id/container_Do"/>
 
     <Button
         android:id="@+id/Fr"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true"
         android:layout_below="@+id/Do"
         android:text="@string/friday"
-        tools:ignore="RtlHardcoded" />
+        tools:ignore="RtlHardcoded"
+        android:layout_toLeftOf="@+id/container_Fr"
+        android:layout_toStartOf="@+id/container_Fr"/>
+
+    <RelativeLayout
+        android:layout_alignParentRight="true"
+        android:id="@+id/container_Fr"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/Fr"
+        android:layout_alignBottom="@+id/Fr">
+
+        <ImageView
+            android:id="@+id/Fr_K"
+            android:layout_width="30dp"
+            android:layout_height="wrap_content"
+            android:src="@drawable/icon_k"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentTop="true"
+            tools:visibility="gone"/>
+
+        <TextView
+            android:id="@+id/Fr_K_Text"
+            android:layout_width="30dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentTop="true"
+            android:gravity="center"
+            android:text="K0"
+            android:textStyle="bold"
+            android:visibility="gone"/>
+
+        <ImageView
+            android:id="@+id/Fr_H"
+            android:layout_width="30dp"
+            android:layout_height="wrap_content"
+            android:src="@drawable/icon_h"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentTop="true"
+            android:layout_toRightOf="@+id/Fr_K"
+            android:layout_marginLeft="3dp"
+            tools:visibility="gone"/>
+
+        <TextView
+            android:id="@+id/Fr_H_Text"
+            android:layout_width="30dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentTop="true"
+            android:gravity="center"
+            android:layout_toRightOf="@+id/Fr_K"
+            android:layout_marginLeft="3dp"
+            android:text="H0"
+            android:textStyle="bold"
+            android:visibility="gone"/>
+
+        <ImageView
+            android:id="@+id/Fr_T"
+            android:layout_width="30dp"
+            android:layout_height="wrap_content"
+            android:src="@drawable/icon_t"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentTop="true"
+            android:layout_toRightOf="@+id/Fr_H"
+            android:layout_marginLeft="3dp"
+            tools:visibility="gone"/>
+
+
+        <TextView
+            android:id="@+id/Fr_T_Text"
+            android:layout_width="30dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentTop="true"
+            android:gravity="center"
+            android:layout_toRightOf="@+id/Fr_H"
+            android:layout_marginLeft="3dp"
+            android:text="T0"
+            android:textStyle="bold"
+            android:visibility="gone"/>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_alignParentRight="true"
+        android:id="@+id/container_Do"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/Do"
+        android:layout_alignBottom="@+id/Do">
+
+        <ImageView
+            android:id="@+id/Do_K"
+            android:layout_width="30dp"
+            android:layout_height="wrap_content"
+            android:src="@drawable/icon_k"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentTop="true"
+            tools:visibility="gone"/>
+
+        <TextView
+            android:id="@+id/Do_K_Text"
+            android:layout_width="30dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentTop="true"
+            android:gravity="center"
+            android:text="K0"
+            android:textStyle="bold"
+            android:visibility="gone"/>
+
+        <ImageView
+            android:id="@+id/Do_H"
+            android:layout_width="30dp"
+            android:layout_height="wrap_content"
+            android:src="@drawable/icon_h"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentTop="true"
+            android:layout_toRightOf="@+id/Do_K"
+            android:layout_marginLeft="3dp"
+            tools:visibility="gone"/>
+
+        <TextView
+            android:id="@+id/Do_H_Text"
+            android:layout_width="30dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentTop="true"
+            android:gravity="center"
+            android:layout_toRightOf="@+id/Do_K"
+            android:layout_marginLeft="3dp"
+            android:text="H0"
+            android:textStyle="bold"
+            android:visibility="gone"/>
+
+        <ImageView
+            android:id="@+id/Do_T"
+            android:layout_width="30dp"
+            android:layout_height="wrap_content"
+            android:src="@drawable/icon_t"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentTop="true"
+            android:layout_toRightOf="@+id/Do_H"
+            android:layout_marginLeft="3dp"
+            tools:visibility="gone"/>
+
+
+        <TextView
+            android:id="@+id/Do_T_Text"
+            android:layout_width="30dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentTop="true"
+            android:gravity="center"
+            android:layout_toRightOf="@+id/Do_H"
+            android:layout_marginLeft="3dp"
+            android:text="T0"
+            android:textStyle="bold"
+            android:visibility="gone"/>
+    </RelativeLayout>
 
     <Button
         android:id="@+id/Stundenplan"
