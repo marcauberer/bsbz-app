@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 
 import com.mrgames13.jimdo.bsbz_app.App.ImageFolderActivity;
 import com.mrgames13.jimdo.bsbz_app.App.ImageFullscreenActivity;
@@ -29,10 +30,12 @@ public class GalleryViewAdapter_Files extends RecyclerView.Adapter<GalleryViewAd
     public class ViewHolderClass extends RecyclerView.ViewHolder {
         //Variablen als Objekte
         private ImageView item_icon;
+        private ProgressBar item_progress;
 
         public ViewHolderClass(View itemView) {
             super(itemView);
             item_icon = (ImageView) itemView.findViewById(R.id.gallery_file_icon);
+            item_progress = (ProgressBar) itemView.findViewById(R.id.gallery_file_progress);
         }
     }
 
@@ -61,6 +64,7 @@ public class GalleryViewAdapter_Files extends RecyclerView.Adapter<GalleryViewAd
                         @Override
                         public void run() {
                             holder.item_icon.setImageBitmap(image);
+                            holder.item_progress.setVisibility(View.GONE);
                         }
                     });
                 } catch(Exception e) {}
