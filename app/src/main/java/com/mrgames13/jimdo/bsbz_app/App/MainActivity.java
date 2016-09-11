@@ -57,6 +57,7 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.HorizontalScrollView;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.SeekBar;
@@ -1085,6 +1086,339 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(i);
             }
         });
+        //Hint-Items befüllen
+        ArrayList<String> arraylist = new ArrayList<String>();
+        //Montag
+            //Klassenarbeiten
+            for(int i = 0;i < 101;i++) {
+                String classtest = prefs.getString("Classtests_"+String.valueOf(i), "-");
+                if(!classtest.equals("-")) {
+                    int index1 = classtest.indexOf(",");
+                    int index2 = classtest.indexOf(",", index1 +1);
+                    int index3 = classtest.indexOf(",", index2 +1);
+                    String item_date = classtest.substring(0, index1);
+                    String item_title = classtest.substring(index1 +1, index2);
+                    if(!item_title.equals("-") && item_date.equals(mo2) && !item_title.equals("") &&!item_date.equals("")) {
+                        arraylist.add(item_date +": "+ item_title);
+                    }
+                }
+            }
+            if(arraylist.size() > 0) {
+                ImageView hintitem_iv = (ImageView) findViewById(R.id.Mo_K);
+                TextView hintitem_tv = (TextView) findViewById(R.id.Mo_K_Text);
+                hintitem_iv.setVisibility(View.VISIBLE);
+                hintitem_tv.setVisibility(View.VISIBLE);
+                hintitem_tv.setText("K"+String.valueOf(arraylist.size()));
+            }
+            //Hausaufgaben
+            arraylist.clear();
+            for(int i = 0;i < 101;i++) {
+                String classtest = prefs.getString("Homeworks_"+String.valueOf(i), "-");
+                if(!classtest.equals("-")) {
+                    int index1 = classtest.indexOf(",");
+                    int index2 = classtest.indexOf(",", index1 +1);
+                    int index3 = classtest.indexOf(",", index2 +1);
+                    String item_date = classtest.substring(0, index1);
+                    String item_title = classtest.substring(index1 +1, index2);
+                    if(!item_title.equals("-") && item_date.equals(mo2) && !item_title.equals("") &&!item_date.equals("")) {
+                        arraylist.add(item_date +": "+ item_title);
+                    }
+                }
+            }
+            if(arraylist.size() > 0) {
+                ImageView hintitem_iv = (ImageView) findViewById(R.id.Mo_H);
+                TextView hintitem_tv = (TextView) findViewById(R.id.Mo_H_Text);
+                hintitem_iv.setVisibility(View.VISIBLE);
+                hintitem_tv.setVisibility(View.VISIBLE);
+                hintitem_tv.setText("H"+String.valueOf(arraylist.size()));
+            }
+            //Termine
+            arraylist.clear();
+            for(int i = 0;i < 101;i++) {
+                String classtest = prefs.getString("Events_"+String.valueOf(i), "-");
+                if(!classtest.equals("-")) {
+                    int index1 = classtest.indexOf(",");
+                    int index2 = classtest.indexOf(",", index1 +1);
+                    int index3 = classtest.indexOf(",", index2 +1);
+                    String item_date = classtest.substring(0, index1);
+                    String item_title = classtest.substring(index1 +1, index2);
+                    if(!item_title.equals("-") && item_date.equals(mo2) && !item_title.equals("") &&!item_date.equals("")) {
+                        arraylist.add(item_date +": "+ item_title);
+                    }
+                }
+            }
+            if(arraylist.size() > 0) {
+                ImageView hintitem_iv = (ImageView) findViewById(R.id.Mo_T);
+                TextView hintitem_tv = (TextView) findViewById(R.id.Mo_T_Text);
+                hintitem_iv.setVisibility(View.VISIBLE);
+                hintitem_tv.setVisibility(View.VISIBLE);
+                hintitem_tv.setText("T"+String.valueOf(arraylist.size()));
+            }
+        //Dienstag
+            //Klassenarbeiten
+            for(int i = 0;i < 101;i++) {
+                String classtest = prefs.getString("Classtests_"+String.valueOf(i), "-");
+                if(!classtest.equals("-")) {
+                    int index1 = classtest.indexOf(",");
+                    int index2 = classtest.indexOf(",", index1 +1);
+                    int index3 = classtest.indexOf(",", index2 +1);
+                    String item_date = classtest.substring(0, index1);
+                    String item_title = classtest.substring(index1 +1, index2);
+                    if(!item_title.equals("-") && item_date.equals(di2) && !item_title.equals("") &&!item_date.equals("")) {
+                        arraylist.add(item_date +": "+ item_title);
+                    }
+                }
+            }
+            if(arraylist.size() > 0) {
+                ImageView hintitem_iv = (ImageView) findViewById(R.id.Di_K);
+                TextView hintitem_tv = (TextView) findViewById(R.id.Di_K_Text);
+                hintitem_iv.setVisibility(View.VISIBLE);
+                hintitem_tv.setVisibility(View.VISIBLE);
+                hintitem_tv.setText("K"+String.valueOf(arraylist.size()));
+            }
+            //Hausaufgaben
+            arraylist.clear();
+            for(int i = 0;i < 101;i++) {
+                String classtest = prefs.getString("Homeworks_"+String.valueOf(i), "-");
+                if(!classtest.equals("-")) {
+                    int index1 = classtest.indexOf(",");
+                    int index2 = classtest.indexOf(",", index1 +1);
+                    int index3 = classtest.indexOf(",", index2 +1);
+                    String item_date = classtest.substring(0, index1);
+                    String item_title = classtest.substring(index1 +1, index2);
+                    if(!item_title.equals("-") && item_date.equals(di2) && !item_title.equals("") &&!item_date.equals("")) {
+                        arraylist.add(item_date +": "+ item_title);
+                    }
+                }
+            }
+            if(arraylist.size() > 0) {
+                ImageView hintitem_iv = (ImageView) findViewById(R.id.Di_H);
+                TextView hintitem_tv = (TextView) findViewById(R.id.Di_H_Text);
+                hintitem_iv.setVisibility(View.VISIBLE);
+                hintitem_tv.setVisibility(View.VISIBLE);
+                hintitem_tv.setText("H"+String.valueOf(arraylist.size()));
+            }
+            //Termine
+            arraylist.clear();
+            for(int i = 0;i < 101;i++) {
+                String classtest = prefs.getString("Events_"+String.valueOf(i), "-");
+                if(!classtest.equals("-")) {
+                    int index1 = classtest.indexOf(",");
+                    int index2 = classtest.indexOf(",", index1 +1);
+                    int index3 = classtest.indexOf(",", index2 +1);
+                    String item_date = classtest.substring(0, index1);
+                    String item_title = classtest.substring(index1 +1, index2);
+                    if(!item_title.equals("-") && item_date.equals(di2) && !item_title.equals("") &&!item_date.equals("")) {
+                        arraylist.add(item_date +": "+ item_title);
+                    }
+                }
+            }
+            if(arraylist.size() > 0) {
+                ImageView hintitem_iv = (ImageView) findViewById(R.id.Di_T);
+                TextView hintitem_tv = (TextView) findViewById(R.id.Di_T_Text);
+                hintitem_iv.setVisibility(View.VISIBLE);
+                hintitem_tv.setVisibility(View.VISIBLE);
+                hintitem_tv.setText("T"+String.valueOf(arraylist.size()));
+            }
+        //Mittwoch
+            //Klassenarbeiten
+            for(int i = 0;i < 101;i++) {
+                String classtest = prefs.getString("Classtests_"+String.valueOf(i), "-");
+                if(!classtest.equals("-")) {
+                    int index1 = classtest.indexOf(",");
+                    int index2 = classtest.indexOf(",", index1 +1);
+                    int index3 = classtest.indexOf(",", index2 +1);
+                    String item_date = classtest.substring(0, index1);
+                    String item_title = classtest.substring(index1 +1, index2);
+                    if(!item_title.equals("-") && item_date.equals(mi2) && !item_title.equals("") &&!item_date.equals("")) {
+                        arraylist.add(item_date +": "+ item_title);
+                    }
+                }
+            }
+            if(arraylist.size() > 0) {
+                ImageView hintitem_iv = (ImageView) findViewById(R.id.Mi_K);
+                TextView hintitem_tv = (TextView) findViewById(R.id.Mi_K_Text);
+                hintitem_iv.setVisibility(View.VISIBLE);
+                hintitem_tv.setVisibility(View.VISIBLE);
+                hintitem_tv.setText("K"+String.valueOf(arraylist.size()));
+            }
+            //Hausaufgaben
+            arraylist.clear();
+            for(int i = 0;i < 101;i++) {
+                String classtest = prefs.getString("Homeworks_"+String.valueOf(i), "-");
+                if(!classtest.equals("-")) {
+                    int index1 = classtest.indexOf(",");
+                    int index2 = classtest.indexOf(",", index1 +1);
+                    int index3 = classtest.indexOf(",", index2 +1);
+                    String item_date = classtest.substring(0, index1);
+                    String item_title = classtest.substring(index1 +1, index2);
+                    if(!item_title.equals("-") && item_date.equals(mi2) && !item_title.equals("") &&!item_date.equals("")) {
+                        arraylist.add(item_date +": "+ item_title);
+                    }
+                }
+            }
+            if(arraylist.size() > 0) {
+                ImageView hintitem_iv = (ImageView) findViewById(R.id.Mi_H);
+                TextView hintitem_tv = (TextView) findViewById(R.id.Mi_H_Text);
+                hintitem_iv.setVisibility(View.VISIBLE);
+                hintitem_tv.setVisibility(View.VISIBLE);
+                hintitem_tv.setText("H"+String.valueOf(arraylist.size()));
+            }
+            //Termine
+            arraylist.clear();
+            for(int i = 0;i < 101;i++) {
+                String classtest = prefs.getString("Events_"+String.valueOf(i), "-");
+                if(!classtest.equals("-")) {
+                    int index1 = classtest.indexOf(",");
+                    int index2 = classtest.indexOf(",", index1 +1);
+                    int index3 = classtest.indexOf(",", index2 +1);
+                    String item_date = classtest.substring(0, index1);
+                    String item_title = classtest.substring(index1 +1, index2);
+                    if(!item_title.equals("-") && item_date.equals(mi2) && !item_title.equals("") &&!item_date.equals("")) {
+                        arraylist.add(item_date +": "+ item_title);
+                    }
+                }
+            }
+            if(arraylist.size() > 0) {
+                ImageView hintitem_iv = (ImageView) findViewById(R.id.Mi_T);
+                TextView hintitem_tv = (TextView) findViewById(R.id.Mi_T_Text);
+                hintitem_iv.setVisibility(View.VISIBLE);
+                hintitem_tv.setVisibility(View.VISIBLE);
+                hintitem_tv.setText("T"+String.valueOf(arraylist.size()));
+            }
+        //Donnerstag
+            //Klassenarbeiten
+            for(int i = 0;i < 101;i++) {
+                String classtest = prefs.getString("Classtests_"+String.valueOf(i), "-");
+                if(!classtest.equals("-")) {
+                    int index1 = classtest.indexOf(",");
+                    int index2 = classtest.indexOf(",", index1 +1);
+                    int index3 = classtest.indexOf(",", index2 +1);
+                    String item_date = classtest.substring(0, index1);
+                    String item_title = classtest.substring(index1 +1, index2);
+                    if(!item_title.equals("-") && item_date.equals(do2) && !item_title.equals("") &&!item_date.equals("")) {
+                        arraylist.add(item_date +": "+ item_title);
+                    }
+                }
+            }
+            if(arraylist.size() > 0) {
+                ImageView hintitem_iv = (ImageView) findViewById(R.id.Do_K);
+                TextView hintitem_tv = (TextView) findViewById(R.id.Do_K_Text);
+                hintitem_iv.setVisibility(View.VISIBLE);
+                hintitem_tv.setVisibility(View.VISIBLE);
+                hintitem_tv.setText("K"+String.valueOf(arraylist.size()));
+            }
+            //Hausaufgaben
+            arraylist.clear();
+            for(int i = 0;i < 101;i++) {
+                String classtest = prefs.getString("Homeworks_"+String.valueOf(i), "-");
+                if(!classtest.equals("-")) {
+                    int index1 = classtest.indexOf(",");
+                    int index2 = classtest.indexOf(",", index1 +1);
+                    int index3 = classtest.indexOf(",", index2 +1);
+                    String item_date = classtest.substring(0, index1);
+                    String item_title = classtest.substring(index1 +1, index2);
+                    if(!item_title.equals("-") && item_date.equals(do2) && !item_title.equals("") &&!item_date.equals("")) {
+                        arraylist.add(item_date +": "+ item_title);
+                    }
+                }
+            }
+            if(arraylist.size() > 0) {
+                ImageView hintitem_iv = (ImageView) findViewById(R.id.Do_H);
+                TextView hintitem_tv = (TextView) findViewById(R.id.Do_H_Text);
+                hintitem_iv.setVisibility(View.VISIBLE);
+                hintitem_tv.setVisibility(View.VISIBLE);
+                hintitem_tv.setText("H"+String.valueOf(arraylist.size()));
+            }
+            //Termine
+            arraylist.clear();
+            for(int i = 0;i < 101;i++) {
+                String classtest = prefs.getString("Events_"+String.valueOf(i), "-");
+                if(!classtest.equals("-")) {
+                    int index1 = classtest.indexOf(",");
+                    int index2 = classtest.indexOf(",", index1 +1);
+                    int index3 = classtest.indexOf(",", index2 +1);
+                    String item_date = classtest.substring(0, index1);
+                    String item_title = classtest.substring(index1 +1, index2);
+                    if(!item_title.equals("-") && item_date.equals(do2) && !item_title.equals("") &&!item_date.equals("")) {
+                        arraylist.add(item_date +": "+ item_title);
+                    }
+                }
+            }
+            if(arraylist.size() > 0) {
+                ImageView hintitem_iv = (ImageView) findViewById(R.id.Do_T);
+                TextView hintitem_tv = (TextView) findViewById(R.id.Do_T_Text);
+                hintitem_iv.setVisibility(View.VISIBLE);
+                hintitem_tv.setVisibility(View.VISIBLE);
+                hintitem_tv.setText("T"+String.valueOf(arraylist.size()));
+            }
+        //Freitag
+            //Klassenarbeiten
+            for(int i = 0;i < 101;i++) {
+                String classtest = prefs.getString("Classtests_"+String.valueOf(i), "-");
+                if(!classtest.equals("-")) {
+                    int index1 = classtest.indexOf(",");
+                    int index2 = classtest.indexOf(",", index1 +1);
+                    int index3 = classtest.indexOf(",", index2 +1);
+                    String item_date = classtest.substring(0, index1);
+                    String item_title = classtest.substring(index1 +1, index2);
+                    if(!item_title.equals("-") && item_date.equals(fr2) && !item_title.equals("") &&!item_date.equals("")) {
+                        arraylist.add(item_date +": "+ item_title);
+                    }
+                }
+            }
+            if(arraylist.size() > 0) {
+                ImageView hintitem_iv = (ImageView) findViewById(R.id.Fr_K);
+                TextView hintitem_tv = (TextView) findViewById(R.id.Fr_K_Text);
+                hintitem_iv.setVisibility(View.VISIBLE);
+                hintitem_tv.setVisibility(View.VISIBLE);
+                hintitem_tv.setText("K"+String.valueOf(arraylist.size()));
+            }
+            //Hausaufgaben
+            arraylist.clear();
+            for(int i = 0;i < 101;i++) {
+                String classtest = prefs.getString("Homeworks_"+String.valueOf(i), "-");
+                if(!classtest.equals("-")) {
+                    int index1 = classtest.indexOf(",");
+                    int index2 = classtest.indexOf(",", index1 +1);
+                    int index3 = classtest.indexOf(",", index2 +1);
+                    String item_date = classtest.substring(0, index1);
+                    String item_title = classtest.substring(index1 +1, index2);
+                    if(!item_title.equals("-") && item_date.equals(fr2) && !item_title.equals("") &&!item_date.equals("")) {
+                        arraylist.add(item_date +": "+ item_title);
+                    }
+                }
+            }
+            if(arraylist.size() > 0) {
+                ImageView hintitem_iv = (ImageView) findViewById(R.id.Fr_H);
+                TextView hintitem_tv = (TextView) findViewById(R.id.Fr_H_Text);
+                hintitem_iv.setVisibility(View.VISIBLE);
+                hintitem_tv.setVisibility(View.VISIBLE);
+                hintitem_tv.setText("H"+String.valueOf(arraylist.size()));
+            }
+            //Termine
+            arraylist.clear();
+            for(int i = 0;i < 101;i++) {
+                String classtest = prefs.getString("Events_"+String.valueOf(i), "-");
+                if(!classtest.equals("-")) {
+                    int index1 = classtest.indexOf(",");
+                    int index2 = classtest.indexOf(",", index1 +1);
+                    int index3 = classtest.indexOf(",", index2 +1);
+                    String item_date = classtest.substring(0, index1);
+                    String item_title = classtest.substring(index1 +1, index2);
+                    if(!item_title.equals("-") && item_date.equals(fr2) && !item_title.equals("") &&!item_date.equals("")) {
+                        arraylist.add(item_date +": "+ item_title);
+                    }
+                }
+            }
+            if(arraylist.size() > 0) {
+                ImageView hintitem_iv = (ImageView) findViewById(R.id.Fr_T);
+                TextView hintitem_tv = (TextView) findViewById(R.id.Fr_T_Text);
+                hintitem_iv.setVisibility(View.VISIBLE);
+                hintitem_tv.setVisibility(View.VISIBLE);
+                hintitem_tv.setText("T"+String.valueOf(arraylist.size()));
+            }
+
         //Stundenplan
         Button Stundenplan = (Button) findViewById(R.id.Stundenplan);
         Stundenplan.setOnClickListener(new View.OnClickListener() {

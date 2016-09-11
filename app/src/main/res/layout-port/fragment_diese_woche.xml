@@ -319,6 +319,84 @@
         android:layout_toLeftOf="@+id/container_Do"
         android:layout_toStartOf="@+id/container_Do"/>
 
+    <RelativeLayout
+        android:layout_alignParentRight="true"
+        android:id="@+id/container_Do"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/Do"
+        android:layout_alignBottom="@+id/Do">
+
+        <ImageView
+            android:id="@+id/Do_K"
+            android:layout_width="30dp"
+            android:layout_height="wrap_content"
+            android:src="@drawable/icon_k"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentTop="true"
+            tools:visibility="gone"/>
+
+        <TextView
+            android:id="@+id/Do_K_Text"
+            android:layout_width="30dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentTop="true"
+            android:gravity="center"
+            android:text="K0"
+            android:textStyle="bold"
+            android:visibility="gone"/>
+
+        <ImageView
+            android:id="@+id/Do_H"
+            android:layout_width="30dp"
+            android:layout_height="wrap_content"
+            android:src="@drawable/icon_h"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentTop="true"
+            android:layout_toRightOf="@+id/Do_K"
+            android:layout_marginLeft="3dp"
+            tools:visibility="gone"/>
+
+        <TextView
+            android:id="@+id/Do_H_Text"
+            android:layout_width="30dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentTop="true"
+            android:gravity="center"
+            android:layout_toRightOf="@+id/Do_K"
+            android:layout_marginLeft="3dp"
+            android:text="H0"
+            android:textStyle="bold"
+            android:visibility="gone"/>
+
+        <ImageView
+            android:id="@+id/Do_T"
+            android:layout_width="30dp"
+            android:layout_height="wrap_content"
+            android:src="@drawable/icon_t"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentTop="true"
+            android:layout_toRightOf="@+id/Do_H"
+            android:layout_marginLeft="3dp"
+            tools:visibility="gone"/>
+
+
+        <TextView
+            android:id="@+id/Do_T_Text"
+            android:layout_width="30dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentTop="true"
+            android:gravity="center"
+            android:layout_toRightOf="@+id/Do_H"
+            android:layout_marginLeft="3dp"
+            android:text="T0"
+            android:textStyle="bold"
+            android:visibility="gone"/>
+    </RelativeLayout>
+
     <Button
         android:id="@+id/Fr"
         android:layout_width="wrap_content"
@@ -402,84 +480,6 @@
             android:layout_alignParentTop="true"
             android:gravity="center"
             android:layout_toRightOf="@+id/Fr_H"
-            android:layout_marginLeft="3dp"
-            android:text="T0"
-            android:textStyle="bold"
-            android:visibility="gone"/>
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:layout_alignParentRight="true"
-        android:id="@+id/container_Do"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/Do"
-        android:layout_alignBottom="@+id/Do">
-
-        <ImageView
-            android:id="@+id/Do_K"
-            android:layout_width="30dp"
-            android:layout_height="wrap_content"
-            android:src="@drawable/icon_k"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentTop="true"
-            tools:visibility="gone"/>
-
-        <TextView
-            android:id="@+id/Do_K_Text"
-            android:layout_width="30dp"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentTop="true"
-            android:gravity="center"
-            android:text="K0"
-            android:textStyle="bold"
-            android:visibility="gone"/>
-
-        <ImageView
-            android:id="@+id/Do_H"
-            android:layout_width="30dp"
-            android:layout_height="wrap_content"
-            android:src="@drawable/icon_h"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentTop="true"
-            android:layout_toRightOf="@+id/Do_K"
-            android:layout_marginLeft="3dp"
-            tools:visibility="gone"/>
-
-        <TextView
-            android:id="@+id/Do_H_Text"
-            android:layout_width="30dp"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentTop="true"
-            android:gravity="center"
-            android:layout_toRightOf="@+id/Do_K"
-            android:layout_marginLeft="3dp"
-            android:text="H0"
-            android:textStyle="bold"
-            android:visibility="gone"/>
-
-        <ImageView
-            android:id="@+id/Do_T"
-            android:layout_width="30dp"
-            android:layout_height="wrap_content"
-            android:src="@drawable/icon_t"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentTop="true"
-            android:layout_toRightOf="@+id/Do_H"
-            android:layout_marginLeft="3dp"
-            tools:visibility="gone"/>
-
-
-        <TextView
-            android:id="@+id/Do_T_Text"
-            android:layout_width="30dp"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentTop="true"
-            android:gravity="center"
-            android:layout_toRightOf="@+id/Do_H"
             android:layout_marginLeft="3dp"
             android:text="T0"
             android:textStyle="bold"
