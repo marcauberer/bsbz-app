@@ -87,7 +87,7 @@
     <string name="pref_title_app_layout1">App Farbschema</string>
     <string name="pref_summary_delete_account">Aktiven Account löschen</string>
     <string name="pref_summary_app_layout">Ändert das Layout der gesamten App</string>
-    <string name="pref_summary_sync_frequency">Ändert den Abstand der automatischen synchronisation</string>
+    <string name="pref_summary_sync_frequency">Ändert den Abstand der automatischen Synchronisation</string>
     <string name="pref_summary_send_notifications">Die BSBZ-App sendet Nachrichten in die Statusleiste, wenn es z.B.: eine Stundenplanänderung gab</string>
     <string name="pref_summary_app_version">Version</string>
     <string name="pref_summary_developer">M&amp;R Games</string>
