@@ -648,6 +648,10 @@ public class SettingsActivity extends PreferenceActivity {
                 return false;
             }
         });
+
+		Preference custom_startpage = findPreference("CustomStartPage");
+        String startpage = prefs.getString("CustomStartPage", "Mein Profil (Standard)");
+        custom_startpage.setSummary(startpage.replace(" (Standard)", ""));
 	}
 	
 	@Override

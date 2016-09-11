@@ -11,7 +11,17 @@
         	android:positiveButtonText="@null"
         	android:title="@string/pref_title_app_layout"
         	android:summary="@string/pref_summary_app_layout" />
-    	
+
+		<ListPreference
+			android:defaultValue="0"
+			android:entries="@array/pref_app_layout1_titles"
+			android:entryValues="@array/pref_app_layout1_values"
+			android:key="AppTheme"
+			android:negativeButtonText="@null"
+			android:positiveButtonText="@null"
+			android:title="@string/pref_title_app_layout1"
+			android:summary="@string/pref_summary_app_layout1" />
+
     	<ListPreference
        		android:defaultValue="3"
         	android:entries="@array/pref_sync_frequency_titles"
@@ -21,15 +31,15 @@
         	android:positiveButtonText="@null"
         	android:title="@string/pref_title_sync_frequency"
         	android:summary="@string/pref_summary_sync_frequency" />
-    	
-    	<ListPreference
-       		android:defaultValue="0"
-        	android:entries="@array/pref_app_layout1_titles"
-        	android:entryValues="@array/pref_app_layout1_values"
-        	android:key="AppTheme"
-        	android:negativeButtonText="@null"
-        	android:positiveButtonText="@null"
-        	android:title="@string/pref_title_app_layout1"
-        	android:summary="@string/pref_summary_app_layout1" />
+
+        <ListPreference
+            android:defaultValue="0"
+            android:entries="@array/pref_startpage_titles"
+            android:entryValues="@array/pref_startpage_values"
+            android:key="CustomStartPage"
+            android:negativeButtonText="@null"
+            android:positiveButtonText="@null"
+            android:title="@string/pref_custom_startpage"
+            android:summary="@string/loading" />
     </PreferenceCategory>
 </PreferenceScreen>
