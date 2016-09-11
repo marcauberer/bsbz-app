@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.net.ConnectivityManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -23,6 +24,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.mrgames13.jimdo.bsbz_app.R;
+import com.mrgames13.jimdo.bsbz_app.Tools.ServerMessagingUtils;
 
 @SuppressLint("SetJavaScriptEnabled")
 @SuppressWarnings("deprecation")
@@ -35,6 +37,8 @@ public class WebActivity extends AppCompatActivity {
     private Toolbar toolbar;
     private Resources res;
     private WebView webside;
+	private ConnectivityManager cm;
+	private ServerMessagingUtils serverMessagingUtils;
 
 	//Variablen
     private String title;
@@ -82,6 +86,11 @@ public class WebActivity extends AppCompatActivity {
 
         //Resourcen initialsieren
         res = getResources();
+
+		//ServerMessagingUtils initialisieren
+		cm = (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE);
+		serverMessagingUtils = new ServerMessagingUtils(cm, WebActivity.this);
+        serverMessagingUtils.checkConnection(findViewById(R.id.container));
 
 		//Lade-TextView
 		final TextView laden = (TextView) findViewById(R.id.laden);
