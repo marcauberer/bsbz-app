@@ -1086,6 +1086,38 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(i);
             }
         });
+        //Hint-Items verstecken
+        findViewById(R.id.Mo_K).setVisibility(View.GONE);
+        findViewById(R.id.Mo_K_Text).setVisibility(View.GONE);
+        findViewById(R.id.Mo_H).setVisibility(View.GONE);
+        findViewById(R.id.Mo_H_Text).setVisibility(View.GONE);
+        findViewById(R.id.Mo_T).setVisibility(View.GONE);
+        findViewById(R.id.Mo_T_Text).setVisibility(View.GONE);
+        findViewById(R.id.Di_K).setVisibility(View.GONE);
+        findViewById(R.id.Di_K_Text).setVisibility(View.GONE);
+        findViewById(R.id.Di_H).setVisibility(View.GONE);
+        findViewById(R.id.Di_H_Text).setVisibility(View.GONE);
+        findViewById(R.id.Di_T).setVisibility(View.GONE);
+        findViewById(R.id.Di_T_Text).setVisibility(View.GONE);
+        findViewById(R.id.Mi_K).setVisibility(View.GONE);
+        findViewById(R.id.Mi_K_Text).setVisibility(View.GONE);
+        findViewById(R.id.Mi_H).setVisibility(View.GONE);
+        findViewById(R.id.Mi_H_Text).setVisibility(View.GONE);
+        findViewById(R.id.Mi_T).setVisibility(View.GONE);
+        findViewById(R.id.Mi_T_Text).setVisibility(View.GONE);
+        findViewById(R.id.Do_K).setVisibility(View.GONE);
+        findViewById(R.id.Do_K_Text).setVisibility(View.GONE);
+        findViewById(R.id.Do_H).setVisibility(View.GONE);
+        findViewById(R.id.Do_H_Text).setVisibility(View.GONE);
+        findViewById(R.id.Do_T).setVisibility(View.GONE);
+        findViewById(R.id.Do_T_Text).setVisibility(View.GONE);
+        findViewById(R.id.Fr_K).setVisibility(View.GONE);
+        findViewById(R.id.Fr_K_Text).setVisibility(View.GONE);
+        findViewById(R.id.Fr_H).setVisibility(View.GONE);
+        findViewById(R.id.Fr_H_Text).setVisibility(View.GONE);
+        findViewById(R.id.Fr_T).setVisibility(View.GONE);
+        findViewById(R.id.Fr_T_Text).setVisibility(View.GONE);
+
         //Hint-Items befüllen
         ArrayList<String> arraylist = new ArrayList<String>();
         //Montag
