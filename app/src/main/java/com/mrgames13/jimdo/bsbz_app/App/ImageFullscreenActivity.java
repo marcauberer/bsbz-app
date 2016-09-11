@@ -193,15 +193,17 @@ public class ImageFullscreenActivity extends AppCompatActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        final ImageView iv = (ImageView) findViewById(R.id.image_fullscreen);
-                        iv.setImageBitmap(bitmap);
-                        //VibrantColor herausfinden und auf Toolbar übertragen
-                        Palette palette = Palette.from(bitmap).generate();
-                        vibrantColor = palette.getVibrantColor(Color.parseColor("#ea690c"));
-                        getSupportActionBar().setBackgroundDrawable(new ColorDrawable(vibrantColor));
-                        if(Build.VERSION.SDK_INT >= 21) getWindow().setStatusBarColor(MainActivity.darkenColor(vibrantColor));
-                        //ProgressBar ausblenden
-                        findViewById(R.id.progressBar1).setVisibility(View.GONE);
+                        try{
+                            final ImageView iv = (ImageView) findViewById(R.id.image_fullscreen);
+                            iv.setImageBitmap(bitmap);
+                            //VibrantColor herausfinden und auf Toolbar übertragen
+                            Palette palette = Palette.from(bitmap).generate();
+                            vibrantColor = palette.getVibrantColor(Color.parseColor("#ea690c"));
+                            getSupportActionBar().setBackgroundDrawable(new ColorDrawable(vibrantColor));
+                            if(Build.VERSION.SDK_INT >= 21) getWindow().setStatusBarColor(MainActivity.darkenColor(vibrantColor));
+                            //ProgressBar ausblenden
+                            findViewById(R.id.progressBar1).setVisibility(View.GONE);
+                        } catch(Exception e) {}
                     }
                 });
             }

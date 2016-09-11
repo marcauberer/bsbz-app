@@ -807,7 +807,8 @@ public class SettingsActivity extends PreferenceActivity {
                         String support_display = res.getString(R.string.support_url) + ": " + supporturl;
 						String owners_display = res.getString(R.string.owners) + ": " + owners;
                         //String zusammensetzen und Dialog anzeigen
-                        final String info = client_name_display + "\n" + server_state_display + "\n" + app_version_display + "\n" + adminconsole_version_display + "\n" + support_display + "\n" + owners_display;
+                        final SpannableString info = new SpannableString(client_name_display + "\n" + server_state_display + "\n" + app_version_display + "\n" + adminconsole_version_display + "\n" + support_display + "\n" + owners_display);
+                        Linkify.addLinks(info, Linkify.WEB_URLS);
                         android.support.v7.app.AlertDialog.Builder d_Result;
 						if(MainActivity.AppTheme == 0) {
 							d_Result = new android.support.v7.app.AlertDialog.Builder(SettingsActivity.this, R.style.FirstTheme_Dialog);
@@ -823,7 +824,8 @@ public class SettingsActivity extends PreferenceActivity {
 									}
 								})
 								.create();
-						d_Result.show();
+						AlertDialog d = d_Result.show();
+                        ((TextView)d.findViewById(android.R.id.message)).setMovementMethod(LinkMovementMethod.getInstance());
 					}
 				});
 			}
