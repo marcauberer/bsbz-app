@@ -275,36 +275,6 @@ public class MainActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         drawer_toggle.syncState();
 
-        //Seite der MainActivity voreinstellen
-        if(selected_Menu_Item == 1) {
-            getSupportActionBar().setTitle(res.getString(R.string.my_profile));
-            launchProfileFragment();
-        } else if(selected_Menu_Item == 2) {
-            getSupportActionBar().setTitle(res.getString(R.string.my_profile));
-            launchProfileFragment();
-        } else if(selected_Menu_Item == 3) {
-            getSupportActionBar().setTitle(res.getString(R.string.this_week));
-            launchThisWeekFragment();
-        } else if(selected_Menu_Item == 4) {
-            getSupportActionBar().setTitle(res.getString(R.string.my_profile));
-            launchProfileFragment();
-        } else if(selected_Menu_Item == 5) {
-            getSupportActionBar().setTitle(res.getString(R.string.my_profile));
-            launchProfileFragment();
-        } else if(selected_Menu_Item == 6) {
-            getSupportActionBar().setTitle(res.getString(R.string.food_plan));
-            launchFoodPlanFragment();
-        } else if(selected_Menu_Item == 7) {
-            getSupportActionBar().setTitle(res.getString(R.string.galery));
-            launchGalleryFragment();
-        } else if(selected_Menu_Item == 8) {
-            getSupportActionBar().setTitle(res.getString(R.string.bsbz_infos));
-            launchBSBZInfoFragment();
-        } else if(selected_Menu_Item == 9) {
-            getSupportActionBar().setTitle(res.getString(R.string.the_developers));
-            launchDeveloperFragment();
-        }
-
         //FragmentManager initialisieren
         fragmentManager = getSupportFragmentManager();
 
@@ -336,6 +306,47 @@ public class MainActivity extends AppCompatActivity {
         } catch(NullPointerException e) {}
 
         if(AppTheme != 0) findViewById(R.id.copyright).setBackgroundColor(Color.GRAY);
+
+        String custom_startpage = prefs.getString("CustomStartPage", "Mein Profil (Standard)");
+        if(custom_startpage.equals("Mein Profil (Standard)")) selected_Menu_Item = 1;
+        if(custom_startpage.equals("Heute")) selected_Menu_Item = 2;
+        if(custom_startpage.equals("Diese Woche")) selected_Menu_Item = 3;
+        if(custom_startpage.equals("Jahresplan")) selected_Menu_Item = 4;
+        if(custom_startpage.equals("News")) selected_Menu_Item = 5;
+        if(custom_startpage.equals("Speiseplan")) selected_Menu_Item = 6;
+        if(custom_startpage.equals("Bildergalerie")) selected_Menu_Item = 7;
+        if(custom_startpage.equals("BSBZ-Infos")) selected_Menu_Item = 8;
+        if(custom_startpage.equals("Die Entwickler")) selected_Menu_Item = 9;
+
+        //Seite der MainActivity voreinstellen
+        if(selected_Menu_Item == 1) {
+            getSupportActionBar().setTitle(res.getString(R.string.my_profile));
+            launchProfileFragment();
+        } else if(selected_Menu_Item == 2) {
+            getSupportActionBar().setTitle(res.getString(R.string.today));
+            launchTodayFragment();
+        } else if(selected_Menu_Item == 3) {
+            getSupportActionBar().setTitle(res.getString(R.string.this_week));
+            launchThisWeekFragment();
+        } else if(selected_Menu_Item == 4) {
+            getSupportActionBar().setTitle(res.getString(R.string.plan_of_the_year));
+            launchPlanOfTheYearFragment();
+        } else if(selected_Menu_Item == 5) {
+            getSupportActionBar().setTitle(res.getString(R.string.news));
+            launchNewsFragment();
+        } else if(selected_Menu_Item == 6) {
+            getSupportActionBar().setTitle(res.getString(R.string.food_plan));
+            launchFoodPlanFragment();
+        } else if(selected_Menu_Item == 7) {
+            getSupportActionBar().setTitle(res.getString(R.string.galery));
+            launchGalleryFragment();
+        } else if(selected_Menu_Item == 8) {
+            getSupportActionBar().setTitle(res.getString(R.string.bsbz_infos));
+            launchBSBZInfoFragment();
+        } else if(selected_Menu_Item == 9) {
+            getSupportActionBar().setTitle(res.getString(R.string.the_developers));
+            launchDeveloperFragment();
+        }
     }
 
     @Override
@@ -1644,6 +1655,8 @@ public class MainActivity extends AppCompatActivity {
                         //ImageConfig herunterladen
                         result = serverMessagingUtils.sendRequest(findViewById(R.id.container), "name="+URLEncoder.encode(username, "UTF-8")+"&command=getimageconfig").trim();
                         //Result auseinandernehmen
+                        if(gallery_view_foldernames == null) gallery_view_foldernames = new ArrayList<String>();
+                        if(gallery_view_filenames == null) gallery_view_filenames = new ArrayList<String>();
                         gallery_view_foldernames.clear();
                         gallery_view_filenames.clear();
                         String rights = prefs.getString("Rights", "student");
