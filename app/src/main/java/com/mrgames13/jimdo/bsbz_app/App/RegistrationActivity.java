@@ -166,9 +166,10 @@ public class RegistrationActivity extends AppCompatActivity {
 				final SeekBar s2 = (SeekBar) dialogView.findViewById(R.id.seekBar2);
 				final SeekBar s3 = (SeekBar) dialogView.findViewById(R.id.seekBar3);
                 final SwitchCompat sw1 = (SwitchCompat) dialogView.findViewById(R.id.student);
-                final SwitchCompat sw2 = (SwitchCompat) dialogView.findViewById(R.id.classteacher);
-                final SwitchCompat sw3 = (SwitchCompat) dialogView.findViewById(R.id.teacher);
-                final SwitchCompat sw4 = (SwitchCompat) dialogView.findViewById(R.id.parent);
+				final SwitchCompat sw2 = (SwitchCompat) dialogView.findViewById(R.id.classspeaker);
+                final SwitchCompat sw3 = (SwitchCompat) dialogView.findViewById(R.id.classteacher);
+                final SwitchCompat sw4 = (SwitchCompat) dialogView.findViewById(R.id.teacher);
+                final SwitchCompat sw5 = (SwitchCompat) dialogView.findViewById(R.id.parent);
                 final ImageView warning_iv = (ImageView) findViewById(R.id.ic_warning) ;
                 final TextView warning_tv = (TextView) findViewById(R.id.warning);
 				
@@ -234,6 +235,7 @@ public class RegistrationActivity extends AppCompatActivity {
                             sw2.setChecked(false);
                             sw3.setChecked(false);
                             sw4.setChecked(false);
+                            sw5.setChecked(false);
                             //SeekBars einblenden
                             s1.setEnabled(true);
                             s2.setEnabled(true);
@@ -250,12 +252,13 @@ public class RegistrationActivity extends AppCompatActivity {
                             sw1.setChecked(false);
                             sw3.setChecked(false);
                             sw4.setChecked(false);
+                            sw5.setChecked(false);
                             //SeekBars einblenden
                             s1.setEnabled(true);
                             s2.setEnabled(true);
                             s3.setEnabled(true);
                             //Rights anpassen
-                            rights = "wants_to_be_a_teacher";
+                            rights = "wants_to_be_a_classspeaker";
                         }
                     }
                 });
@@ -266,10 +269,11 @@ public class RegistrationActivity extends AppCompatActivity {
                             sw1.setChecked(false);
                             sw2.setChecked(false);
                             sw4.setChecked(false);
+                            sw5.setChecked(false);
                             //SeekBars einblenden
-                            s1.setEnabled(false);
-                            s2.setEnabled(false);
-                            s3.setEnabled(false);
+                            s1.setEnabled(true);
+                            s2.setEnabled(true);
+                            s3.setEnabled(true);
                             //Rights anpassen
                             rights = "wants_to_be_a_teacher";
                         }
@@ -282,6 +286,24 @@ public class RegistrationActivity extends AppCompatActivity {
                             sw1.setChecked(false);
                             sw2.setChecked(false);
                             sw3.setChecked(false);
+                            sw5.setChecked(false);
+                            //SeekBars einblenden
+                            s1.setEnabled(false);
+                            s2.setEnabled(false);
+                            s3.setEnabled(false);
+                            //Rights anpassen
+                            rights = "wants_to_be_a_teacher";
+                        }
+                    }
+                });
+                sw5.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                    @Override
+                    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                        if(isChecked) {
+                            sw1.setChecked(false);
+                            sw2.setChecked(false);
+                            sw3.setChecked(false);
+                            sw4.setChecked(false);
                             //SeekBars einblenden
                             s1.setEnabled(true);
                             s2.setEnabled(true);
@@ -298,14 +320,14 @@ public class RegistrationActivity extends AppCompatActivity {
 					@Override
 					public void onClick(DialogInterface dialog, int which) {
 						klasse.setText(klasse1.getText().toString());
-                        if(sw2.isChecked() || sw3.isChecked()) {
+                        if(sw2.isChecked() || sw3.isChecked() || sw4.isChecked()) {
                             warning_iv.setVisibility(View.VISIBLE);
                             warning_tv.setVisibility(View.VISIBLE);
                         } else {
                             warning_iv.setVisibility(View.GONE);
                             warning_tv.setVisibility(View.GONE);
                         }
-                        if(sw3.isChecked()) klasse.setText(res.getString(R.string.no_class));
+                        if(sw4.isChecked()) klasse.setText(res.getString(R.string.no_class));
 						dialog.cancel();
 					}
 				});

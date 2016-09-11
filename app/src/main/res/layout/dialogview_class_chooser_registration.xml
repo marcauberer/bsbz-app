@@ -118,11 +118,18 @@
         android:checked="true"/>
 
     <android.support.v7.widget.SwitchCompat
+        android:id="@+id/classspeaker"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/classspeaker"
+        android:layout_below="@+id/student"/>
+
+    <android.support.v7.widget.SwitchCompat
         android:id="@+id/classteacher"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/classteacher"
-        android:layout_below="@+id/student"/>
+        android:layout_below="@+id/classspeaker"/>
 
     <android.support.v7.widget.SwitchCompat
         android:id="@+id/teacher"

@@ -357,6 +357,8 @@ public class LogInActivity extends AppCompatActivity {
                                             //Topic deabonniren
                                             try{ FirebaseMessaging.getInstance().unsubscribeFromTopic(prefs.getString("Klasse", "")); } catch(Exception e1) {}
                                             //Accountdaten in die SharedPreferences eintragen
+                                            if(rights.equals("wants to be a teacher") || rights.equals("wants_to_be_a_teacher")) rights = "student";
+                                            if(rights.equals("wants to be a classspeaker") || rights.equals("wants_to_be_a_classspeaker")) rights = "student";
                                             e.putString("Name", username);
                                             e.putString("Klasse", klasse);
                                             e.putString("Password", password);
@@ -482,7 +484,8 @@ public class LogInActivity extends AppCompatActivity {
                 e.putBoolean("appAlreadyStarted", true);
             e.commit();
         } else {
-            if(serverMessagingUtils.isInternetAvailable()) autoLogin();
+
+            if(prefs.getBoolean("Angemeldet bleiben", false) && serverMessagingUtils.isInternetAvailable()) autoLogin();
         }
     }
 
@@ -723,7 +726,6 @@ public class LogInActivity extends AppCompatActivity {
 	
 	public void autoLogin() {
 		//Angemeldet bleiben abfragen
-		boolean ab = prefs.getBoolean("Angemeldet bleiben", false);
 		String username = prefs.getString("Name", res.getString(R.string.guest));
 		String password_string = prefs.getString("Password", "");
 
@@ -735,8 +737,8 @@ public class LogInActivity extends AppCompatActivity {
             autologin = "";
         }
 		
-		if((ab == true && !username.equals(res.getString(R.string.guest)) && MainActivity.isUpdateAvailable == false) || !autologin.equals("")) {
-            LogIn(username, password_string, androidversion, CURRENTVERSION, ab);
+		if((!username.equals(res.getString(R.string.guest)) && MainActivity.isUpdateAvailable == false) || !autologin.equals("")) {
+            LogIn(username, password_string, androidversion, CURRENTVERSION, prefs.getBoolean("Angemeldet bleiben", false));
 		}
 	}
 
