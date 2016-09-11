@@ -96,15 +96,17 @@ public class SyncronisationService extends Service {
 			public void run() {
 				if(klasse.substring(0, 1).equals("R") && update == false && sync && serverMessagingUtils.isInternetAvailable()) {
 					//Stundenplan von Server herunterladen
-					downloadTimetable();
+					//downloadTimetable();
 					//Klassenarbeiten vom Server herunterladen
-					downloadClasstests();
+					//downloadClasstests();
 					//Hausaufgaben vom Server herunterladen
-					downloadHomeworks();
+					//downloadHomeworks();
 					//Termine vom Server herunterladen
-					downloadEvents();
+					//downloadEvents();
 					//News vom Server herunterladen
-					downloadNews();
+					//downloadNews();
+                    //Snchronisieren
+                    sync();
 					//SyncTime eintragen
 					EnterLastSyncTime();
 					//Fertig
@@ -129,7 +131,139 @@ public class SyncronisationService extends Service {
 	public IBinder onBind(Intent i) {
 		return null;
 	}
-	
+
+	private void sync() {
+		try{
+			result = serverMessagingUtils.sendRequest(null, "name="+ URLEncoder.encode(username, "UTF-8")+"&command=sync&class="+URLEncoder.encode(klasse, "UTF-8"));
+			if(!result.equals("") && !result.contains("Error") && !result.contains("Warning")) {
+                //Result auseinandernehmen
+                final int index1 = result.indexOf("#", 0);
+                final int index2 = result.indexOf("#", index1 +1);
+                final int index3 = result.indexOf("#", index2 +1);
+                final int index4 = result.indexOf("#", index3 +1);
+                //Stundenplan
+                    String timetable_str = result.substring(0, index1);
+                    //Stundenplan vergleichen und ggf. eine Nachricht in der Statusleiste anzeigen
+                    compareTimetables(timetable_str);
+                    //in SharedPreferences eintragen
+                    SharedPreferences.Editor e = prefs.edit();
+                    e.putString("Timetables", timetable_str);
+                    e.commit();
+                    //Daten auseinandernehmen
+                    int i1 = timetable_str.indexOf(";", 0);
+                    int i2 = timetable_str.indexOf(";", i1 +1);
+                    int i3 = timetable_str.indexOf(";", i2 +1);
+                    int i4 = timetable_str.indexOf(";", i3 +1);
+                    String MO = timetable_str.substring(0, i1);
+                    String DI = timetable_str.substring(i1 +1, i2);
+                    String MI = timetable_str.substring(i2 +1, i3);
+                    String DO = timetable_str.substring(i3 +1, i4);
+                    String FR = timetable_str.substring(i4 +1);
+                    //in SharedPreferences eintragen
+                    e.putString("Mo", MO);
+                    e.putString("Di", DI);
+                    e.putString("Mi", MI);
+                    e.putString("Do", DO);
+                    e.putString("Fr", FR);
+                    e.commit();
+                //Klassenarbeiten
+                    String classtests_str = result.substring(index1 +1, index2);
+                    //Classtests vergleichen und ggf. eine Nachricht in die Statusleiste senden
+                    compareClasstests(classtests_str);
+                    //Alte Klasstests in den SharedPreferences durch neue ersetzen
+                    e = prefs.edit();
+                    e.putString("Classtests", classtests_str);
+                    e.commit();
+                    //Daten auseinandernehmen
+                    ArrayList<String> arraylist = new ArrayList<String>();
+                    //In einzelne Klassenarbeiten unterteilen
+                    while(classtests_str.contains(";")) {
+                        int index = classtests_str.indexOf(";");
+                        arraylist.add(classtests_str.substring(0, index));
+                        classtests_str = classtests_str.substring(index +1);
+                    }
+                    //Klassenarbeiten in die SharedPreferences eintragen
+                    for(int i = 0; i < 101; i++) {
+                        String classtest = "-";
+                        try{ classtest = arraylist.get(i); } catch(Exception e1){}
+                        e.putString("Classtests_"+String.valueOf(i), classtest);
+                    }
+                    e.commit();
+                //Hausaufgaben
+                    String homeworks_str = result.substring(index2 +1, index3);
+                    //Homeworks vergleichen und ggf. eine Nachricht in die Statusleiste senden
+                    compareHomeworks(homeworks_str);
+                    //Alte Homeworks in den SharedPreferences durch neue ersetzen
+                    e = prefs.edit();
+                    e.putString("Homeworks", homeworks_str);
+                    e.commit();
+                    //Daten auseinandernehmen
+                    arraylist = new ArrayList<String>();
+                    //In einzelne Hausaufgaben unterteilen
+                    while(homeworks_str.contains(";")) {
+                        int index = homeworks_str.indexOf(";");
+                        arraylist.add(homeworks_str.substring(0, index));
+                        homeworks_str = homeworks_str.substring(index +1);
+                    }
+                    //Hausaufgaben in die SharedPreferences eintragen
+                    for(int i = 0; i < 101; i++) {
+                        String classtest = "-";
+                        try{ classtest = arraylist.get(i); } catch(Exception e1){}
+                        e.putString("Homeworks_"+String.valueOf(i), classtest);
+                    }
+                    e.commit();
+                //Termine
+                    String termine_str = result.substring(index3 +1, index4);
+                    //Events vergleichen und ggf. eine Nachricht in die Statusleiste senden
+                    compareEvents(termine_str);
+                    //Alte Events in den SharedPreferences durch neue ersetzen
+                    e = prefs.edit();
+                    e.putString("Events", termine_str);
+                    e.commit();
+                    //Daten auseinandernehmen
+                    arraylist = new ArrayList<String>();
+                    //In einzelne Events unterteilen
+                    while(termine_str.contains(";")) {
+                        int index = termine_str.indexOf(";");
+                        arraylist.add(termine_str.substring(0, index));
+                        termine_str = termine_str.substring(index +1);
+                    }
+                    //Events in die SharedPreferences eintragen
+                    for(int i = 0; i < 101; i++) {
+                        String classtest = "-";
+                        try{ classtest = arraylist.get(i); } catch(Exception e1){}
+                        e.putString("Events_"+String.valueOf(i), classtest);
+                    }
+                    e.commit();
+                //News
+                    String news_str = result.substring(index4 +1);
+                    //News vergleichen und ggf. eine Nachricht in die Statusleiste senden
+                    compareNews(news_str);
+                    //Alte News in den SharedPreferences durch neue ersetzen
+                    e = prefs.edit();
+                    e.putString("News", news_str);
+                    e.commit();
+                    //Daten auseinandernehmen
+                    arraylist = new ArrayList<String>();
+                    //In einzelne News unterteilen
+                    while(news_str.contains(";")) {
+                        int index = news_str.indexOf(";");
+                        arraylist.add(news_str.substring(0, index));
+                        news_str = news_str.substring(index +1);
+                    }
+                    //News in die SharedPreferences eintragen
+                    for(int i = 0; i < 101; i++) {
+                        String news = "-";
+                        try{ news = arraylist.get(i); } catch(Exception e1){}
+                        e.putString("News_"+String.valueOf(i), news);
+                    }
+                    e.commit();
+			}
+		} catch(Exception e) {
+            Log.e("BSBZ-App", "Error occured", e);
+		}
+	}
+
 	private void downloadTimetable() {
 		try{
 			result = serverMessagingUtils.sendRequest(null, "name="+ URLEncoder.encode(username, "UTF-8")+"&command=gettimetable&class="+URLEncoder.encode(klasse, "UTF-8"));
