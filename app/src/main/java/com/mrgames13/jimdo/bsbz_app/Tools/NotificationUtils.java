@@ -1,7 +1,9 @@
 package com.mrgames13.jimdo.bsbz_app.Tools;
 
 import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.Resources;
 import android.support.v4.app.NotificationCompat;
 
@@ -22,6 +24,9 @@ public class NotificationUtils {
         //Vibrations
         public final int VIBRATION_SHORT = 300;
         public final int VIBRATION_LONG = 600;
+        //Lights
+        public final int LIGHT_SHORT = 500;
+        public final int LIGHT_LONG = 1000;
 
 
     //Variablen als Objekte
@@ -38,16 +43,22 @@ public class NotificationUtils {
         nm = (NotificationManager) context.getSystemService(NOTIFICATION_SERVICE);
     }
 
-    public void displayNotification(String title, String message, int id, int mode, int priority) {
+    public void displayNotification(String title, String message, int id, Intent i, int mode, int priority, int light_lenght, long[] vibration) {
         //ID ermitteln
         if(id == 0) id = (int) ((Math.random()) * Integer.MAX_VALUE + 1);
         //Notification aufbauen
         NotificationCompat.Builder n = buildNotification(title, message);
+        if(i != null) {
+            PendingIntent pi = PendingIntent.getActivity(context, 0, i, 0);
+            n.setContentIntent(pi);
+        }
         if(mode == MODE_ANNOUNCE_UPDATE) {
 
         }
         if(priority == PRIORITY_HIGH) {
             n.setPriority(NotificationCompat.PRIORITY_HIGH);
+            n.setLights(res.getColor(R.color.colorAccent), light_lenght, light_lenght);
+            n.setVibrate(vibration);
         } else if(priority == PRIORITY_NORMAL) {
             n.setPriority(NotificationCompat.PRIORITY_DEFAULT);
         } else if(priority == PRIORITY_LOW) {

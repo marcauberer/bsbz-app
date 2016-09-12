@@ -1,7 +1,5 @@
 package com.mrgames13.jimdo.bsbz_app.App;
 
-import java.util.ArrayList;
-
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -22,6 +20,8 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.mrgames13.jimdo.bsbz_app.R;
+
+import java.util.ArrayList;
 
 public class DayDetailsActivity extends AppCompatActivity {
 
