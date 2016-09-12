@@ -27,9 +27,11 @@ public class NotificationUtils {
         public final int MODE_ANNOUNCE_UPDATE = 101;
         public final int MODE_SHOW_TODAY_PROGRESS_FINISH = 102;
         //Priorities
+        public final int PRIORITY_MAX = 2;
         public final int PRIORITY_HIGH = 1;
         public final int PRIORITY_NORMAL = 0;
         public final int PRIORITY_LOW = -1;
+        public final int PRIORITY_MIN = -2;
         //Vibrations
         public final int VIBRATION_SHORT = 300;
         public final int VIBRATION_LONG = 600;
@@ -73,14 +75,19 @@ public class NotificationUtils {
         nm.notify(id, n.build());
     }
 
-    public void displayProgressMessage(String title, String message, int id, int progress, Intent i) {
+    public void displayProgressMessage(String title, String message, int id, int progress, Intent i, int priority) {
+        if(priority == PRIORITY_MIN) priority = NotificationCompat.PRIORITY_MIN;
+        if(priority == PRIORITY_LOW) priority = NotificationCompat.PRIORITY_LOW;
+        if(priority == PRIORITY_NORMAL) priority = NotificationCompat.PRIORITY_DEFAULT;
+        if(priority == PRIORITY_HIGH) priority = NotificationCompat.PRIORITY_HIGH;
+        if(priority == PRIORITY_MAX) priority = NotificationCompat.PRIORITY_MAX;
         PendingIntent pi = PendingIntent.getActivity(context, 0, i, 0);
         Notification n = new NotificationCompat.Builder(context)
                 .setContentTitle(title)
                 .setContentText(message)
                 .setSmallIcon(R.mipmap.ic_launcher)
                 .setAutoCancel(false)
-                .setPriority(NotificationCompat.PRIORITY_MAX)
+                .setPriority(priority)
                 .setOngoing(true)
                 .setProgress(100, progress, false)
                 .setContentIntent(pi)
@@ -101,6 +108,7 @@ public class NotificationUtils {
                 .setContentTitle(title)
                 .setContentText(message)
                 .setSmallIcon(R.mipmap.ic_launcher)
+                .setStyle(new NotificationCompat.BigTextStyle().bigText(message))
                 .setColor(res.getColor(R.color.colorAccent));
     }
 }

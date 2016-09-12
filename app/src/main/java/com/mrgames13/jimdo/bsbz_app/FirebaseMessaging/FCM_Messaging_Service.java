@@ -41,7 +41,7 @@ public class FCM_Messaging_Service extends FirebaseMessagingService {
             if (command.equals("display_notification")) {
                 String message_title = remoteMessage.getData().get("title");
                 String message_text = remoteMessage.getData().get("message");
-                nu.displayNotification(message_title, message_text, 0, null, 0, nu.PRIORITY_HIGH, nu.LIGHT_LONG, new long[0]);
+                nu.displayNotification(message_title, message_text, 0, null, 0, nu.PRIORITY_HIGH, nu.LIGHT_LONG, new long[]{0, nu.VIBRATION_SHORT, nu.VIBRATION_SHORT, nu.VIBRATION_SHORT});
             } else if (command.equals("announce_update")) {
                 String version = remoteMessage.getData().get("version");
                 String message_text = remoteMessage.getData().get("message");

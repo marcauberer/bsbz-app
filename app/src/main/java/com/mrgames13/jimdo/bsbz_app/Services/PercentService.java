@@ -59,7 +59,7 @@ public class PercentService extends Service {
 			Intent i = new Intent(this, LogInActivity.class);
 			i.putExtra("Confirm", "Today");
 
-			nu.displayProgressMessage(res.getString(R.string.app_name), res.getString(R.string.so_much_schooltime_is_over_) + Integer.toString(progress) + "%", nu.ID_SHOW_TODAY_PROGRESS, progress, i);
+			nu.displayProgressMessage(res.getString(R.string.app_name), res.getString(R.string.so_much_schooltime_is_over_) + Integer.toString(progress) + "%", nu.ID_SHOW_TODAY_PROGRESS, progress, i, nu.PRIORITY_MAX);
 			//show auf true setzen
 			Editor e = prefs.edit();
 				e.putBoolean("send", true);
