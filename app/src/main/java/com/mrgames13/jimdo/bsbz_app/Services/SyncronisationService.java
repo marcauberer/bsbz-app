@@ -1,7 +1,6 @@
 package com.mrgames13.jimdo.bsbz_app.Services;
 
 import android.annotation.SuppressLint;
-import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
@@ -100,21 +99,10 @@ public class SyncronisationService extends Service {
 			@Override
 			public void run() {
 				if(update == false && sync && serverMessagingUtils.isInternetAvailable()) {
-					//Stundenplan von Server herunterladen
-					//downloadTimetable();
-					//Klassenarbeiten vom Server herunterladen
-					//downloadClasstests();
-					//Hausaufgaben vom Server herunterladen
-					//downloadHomeworks();
-					//Termine vom Server herunterladen
-					//downloadEvents();
-					//News vom Server herunterladen
-					//downloadNews();
                     //Snchronisieren
                     sync();
 					//SyncTime eintragen
 					EnterLastSyncTime();
-					//Fertig
 				}
 				//Menu Item der MainActivity auf null setzen
 				MainActivity.isRunning = false;
@@ -269,163 +257,6 @@ public class SyncronisationService extends Service {
 		}
 	}
 
-	private void downloadTimetable() {
-		try{
-			result = serverMessagingUtils.sendRequest(null, "name="+ URLEncoder.encode(username, "UTF-8")+"&command=gettimetable&class="+URLEncoder.encode(klasse, "UTF-8"));
-			if(!result.equals("") && !result.contains("Error") && !result.contains("Warning")) {
-                //Stundenplan vergleichen und ggf. eine Nachricht in der Statusleiste anzeigen
-                compareTimetables(result);
-                //in SharedPreferences eintragen
-                SharedPreferences.Editor e = prefs.edit();
-                e.putString("Timetables", result);
-                e.commit();
-                //Daten auseinandernehmen
-                int index1 = result.indexOf(";", 0);
-                int index2 = result.indexOf(";", index1 +1);
-                int index3 = result.indexOf(";", index2 +1);
-                int index4 = result.indexOf(";", index3 +1);
-                String MO = result.substring(0, index1);
-                String DI = result.substring(index1 +1, index2);
-                String MI = result.substring(index2 +1, index3);
-                String DO = result.substring(index3 +1, index4);
-                String FR = result.substring(index4 +1);
-                //in SharedPreferences eintragen
-                e.putString("Mo", MO);
-                e.putString("Di", DI);
-                e.putString("Mi", MI);
-                e.putString("Do", DO);
-                e.putString("Fr", FR);
-                e.commit();
-            } else {
-                Log.e("BSBZ-App", "Error occured");
-            }
-		} catch(Exception e){}
-	}
-	
-	private void downloadClasstests() {
-		try {
-			result = serverMessagingUtils.sendRequest(null, "name="+ URLEncoder.encode(username, "UTF-8")+"&command=getclasstests&class="+URLEncoder.encode(klasse, "UTF-8"));
-            if(!result.equals("") && !result.contains("Error") && !result.contains("Warning")) {
-                //Classtests vergleichen und ggf. eine Nachricht in die Statusleiste senden
-                compareClasstests(result);
-                //Alte Klasstests in den SharedPreferences durch neue ersetzen
-                SharedPreferences.Editor e = prefs.edit();
-                e.putString("Classtests", result);
-                e.commit();
-                //Daten auseinandernehmen
-                ArrayList<String> arraylist = new ArrayList<String>();
-                //In einzelne Klassenarbeiten unterteilen
-                while(result.contains(";")) {
-                    int index = result.indexOf(";");
-                    arraylist.add(result.substring(0, index));
-                    result = result.substring(index +1);
-                }
-                //Klassenarbeiten in die SharedPreferences eintragen
-                for(int i = 0; i < 101; i++) {
-                    String classtest = "-";
-                    try{ classtest = arraylist.get(i); } catch(Exception e1){}
-                    e.putString("Classtests_"+String.valueOf(i), classtest);
-                }
-                e.commit();
-            } else {
-                Log.e("BSBZ-App", "Error occured");
-            }
-		} catch(Exception e) {}
-	}
-	
-	private void downloadHomeworks() {
-		try {
-			result = serverMessagingUtils.sendRequest(null, "name="+ URLEncoder.encode(username, "UTF-8")+"&command=gethomeworks&class="+URLEncoder.encode(klasse, "UTF-8"));
-            if(!result.equals("") && !result.contains("Error") && !result.contains("Warning")) {
-                //Homeworks vergleichen und ggf. eine Nachricht in die Statusleiste senden
-                compareHomeworks(result);
-                //Alte Homeworks in den SharedPreferences durch neue ersetzen
-                SharedPreferences.Editor e = prefs.edit();
-                e.putString("Homeworks", result);
-                e.commit();
-                //Daten auseinandernehmen
-                ArrayList<String> arraylist = new ArrayList<String>();
-                //In einzelne Hausaufgaben unterteilen
-                while(result.contains(";")) {
-                    int index = result.indexOf(";");
-                    arraylist.add(result.substring(0, index));
-                    result = result.substring(index +1);
-                }
-                //Hausaufgaben in die SharedPreferences eintragen
-                for(int i = 0; i < 101; i++) {
-                    String classtest = "-";
-                    try{ classtest = arraylist.get(i); } catch(Exception e1){}
-                    e.putString("Homeworks_"+String.valueOf(i), classtest);
-                }
-                e.commit();
-            } else {
-                Log.e("BSBZ-App", "Error occured");
-            }
-		} catch(Exception e) {}
-	}
-	
-	private void downloadEvents() {
-		try {
-			result = serverMessagingUtils.sendRequest(null, "name="+ URLEncoder.encode(username, "UTF-8")+"&command=getevents&class="+URLEncoder.encode(klasse, "UTF-8"));
-            if(!result.equals("") && !result.contains("Error") && !result.contains("Warning")) {
-                //Events vergleichen und ggf. eine Nachricht in die Statusleiste senden
-                compareEvents(result);
-                //Alte Events in den SharedPreferences durch neue ersetzen
-                SharedPreferences.Editor e = prefs.edit();
-                e.putString("Events", result);
-                e.commit();
-                //Daten auseinandernehmen
-                ArrayList<String> arraylist = new ArrayList<String>();
-                //In einzelne Events unterteilen
-                while(result.contains(";")) {
-                    int index = result.indexOf(";");
-                    arraylist.add(result.substring(0, index));
-                    result = result.substring(index +1);
-                }
-                //Events in die SharedPreferences eintragen
-                for(int i = 0; i < 101; i++) {
-                    String classtest = "-";
-                    try{ classtest = arraylist.get(i); } catch(Exception e1){}
-                    e.putString("Events_"+String.valueOf(i), classtest);
-                }
-                e.commit();
-            } else {
-                Log.e("BSBZ-App", "Error occured");
-            }
-		} catch(Exception e) {}
-	}
-	
-	private void downloadNews() {
-		try {
-			result = serverMessagingUtils.sendRequest(null, "name="+ URLEncoder.encode(username, "UTF-8")+"&command=getnews&class="+URLEncoder.encode(klasse, "UTF-8"));
-            if(!result.equals("") && !result.contains("Error") && !result.contains("Warning")) {
-                //News vergleichen und ggf. eine Nachricht in die Statusleiste senden
-                compareNews(result);
-                //Alte News in den SharedPreferences durch neue ersetzen
-                SharedPreferences.Editor e = prefs.edit();
-                e.putString("News", result);
-                e.commit();
-                //Daten auseinandernehmen
-                ArrayList<String> arraylist = new ArrayList<String>();
-                //In einzelne News unterteilen
-                while(result.contains(";")) {
-                    int index = result.indexOf(";");
-                    arraylist.add(result.substring(0, index));
-                    result = result.substring(index +1);
-                }
-                //News in die SharedPreferences eintragen
-                for(int i = 0; i < 101; i++) {
-                    String news = "-";
-                    try{ news = arraylist.get(i); } catch(Exception e1){}
-                    e.putString("News_"+String.valueOf(i), news);
-                }
-                e.commit();
-            } else {
-                Log.e("BSBZ-App", "Error occured");
-            }
-		} catch(Exception e) {}
-	}
-
 	private void compareTimetables(String timetable) {
 		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
 		String timetable_old = prefs.getString("Timetables", timetable);
@@ -484,16 +315,6 @@ public class SyncronisationService extends Service {
 			//Notification senden
 			Intent i = new Intent(this, LogInActivity.class);
 			i.putExtra("Confirm", "Events");
-			PendingIntent pi = PendingIntent.getActivity(this, (int) System.currentTimeMillis(), i, 0);
-
-			Notification n = new Notification.Builder(this)
-					.setContentTitle(res.getString(R.string.app_name))
-					.setContentText(res.getString(R.string.event_changings))
-					.setSmallIcon(R.mipmap.ic_launcher)
-					.setAutoCancel(true)
-					.setContentIntent(pi)
-					.getNotification();
-			nm.notify(NOTIFICATION_ID_EVENTS, n);
 
             nu.displayNotification(res.getString(R.string.app_name), res.getString(R.string.event_changings), nu.ID_COMP_EVENTS, i, 0, nu.PRIORITY_LOW, 0, new long[0]);
 		}
@@ -509,16 +330,6 @@ public class SyncronisationService extends Service {
 			//Notification senden
 			Intent i = new Intent(this, LogInActivity.class);
 			i.putExtra("Confirm", "News");
-			PendingIntent pi = PendingIntent.getActivity(this, (int) System.currentTimeMillis(), i, 0);
-
-			Notification n = new Notification.Builder(this)
-					.setContentTitle(res.getString(R.string.app_name))
-					.setContentText(res.getString(R.string.news_changings))
-					.setSmallIcon(R.mipmap.ic_launcher)
-					.setAutoCancel(true)
-					.setContentIntent(pi)
-					.getNotification();
-			nm.notify(NOTIFICATION_ID_NEWS, n);
 
             nu.displayNotification(res.getString(R.string.app_name), res.getString(R.string.news_changings), nu.ID_COMP_NEWS, i, 0, nu.PRIORITY_LOW, 0, new long[0]);
 		}
