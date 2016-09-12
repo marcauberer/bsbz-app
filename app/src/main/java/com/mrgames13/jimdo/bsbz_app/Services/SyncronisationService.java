@@ -19,6 +19,7 @@ import android.widget.Toast;
 import com.mrgames13.jimdo.bsbz_app.App.LogInActivity;
 import com.mrgames13.jimdo.bsbz_app.App.MainActivity;
 import com.mrgames13.jimdo.bsbz_app.R;
+import com.mrgames13.jimdo.bsbz_app.Tools.NotificationUtils;
 import com.mrgames13.jimdo.bsbz_app.Tools.ServerMessagingUtils;
 
 import java.net.URLEncoder;
@@ -38,15 +39,16 @@ public class SyncronisationService extends Service {
 	private final int NOTIFICATION_ID_NEWS = 105;
 
 	//Variablen als Objekte
-	ConnectivityManager cm;
-	ServerMessagingUtils serverMessagingUtils;
-	SharedPreferences prefs;
-	Context context;
-	Handler handler;
-	NotificationManager nm;
-	Resources res;
+	private ConnectivityManager cm;
+    private ServerMessagingUtils serverMessagingUtils;
+    private SharedPreferences prefs;
+    private Context context;
+    private Handler handler;
+    private NotificationManager nm;
+    private Resources res;
+    private NotificationUtils nu;
 
-	//Variablen
+    //Variablen
 	private String klasse = "";
 	private String username = "";
 	private boolean update = false;
@@ -67,6 +69,9 @@ public class SyncronisationService extends Service {
 
 		//Resourcen initilisieren
 		res = getResources();
+
+        //NotificationUtils initialisieren
+        nu = new NotificationUtils(this);
 
 		//SharedPreferences initialisieren
 		prefs = PreferenceManager.getDefaultSharedPreferences(context);
@@ -432,16 +437,8 @@ public class SyncronisationService extends Service {
 			//Notification senden
 			Intent i = new Intent(this, LogInActivity.class);
 			i.putExtra("Confirm", "Timetable");
-			PendingIntent pi = PendingIntent.getActivity(this, (int) System.currentTimeMillis(), i, 0);
 
-			Notification n = new Notification.Builder(this)
-					.setContentTitle(res.getString(R.string.app_name))
-					.setContentText(res.getString(R.string.timetable_changings))
-					.setSmallIcon(R.mipmap.ic_launcher)
-					.setAutoCancel(true)
-					.setContentIntent(pi)
-					.getNotification();
-			nm.notify(NOTIFICATION_ID_TIMETABLES, n);
+            nu.displayNotification(res.getString(R.string.app_name), res.getString(R.string.timetable_changings), nu.ID_COMP_TIMETABLES, i, 0, nu.PRIORITY_LOW, 0, new long[0]);
 		}
 	}
 
@@ -457,14 +454,7 @@ public class SyncronisationService extends Service {
 			i.putExtra("Confirm", "Classtests");
 			PendingIntent pi = PendingIntent.getActivity(this, (int) System.currentTimeMillis(), i, 0);
 
-			Notification n = new Notification.Builder(this)
-					.setContentTitle(res.getString(R.string.app_name))
-					.setContentText(res.getString(R.string.classtest_changings))
-					.setSmallIcon(R.mipmap.ic_launcher)
-					.setAutoCancel(true)
-					.setContentIntent(pi)
-					.getNotification();
-			nm.notify(NOTIFICATION_ID_CLASSTESTS, n);
+            nu.displayNotification(res.getString(R.string.app_name), res.getString(R.string.classtest_changings), nu.ID_COMP_CLASSTESTS, i, 0, nu.PRIORITY_LOW, 0, new long[0]);
 		}
 	}
 
@@ -480,14 +470,7 @@ public class SyncronisationService extends Service {
 			i.putExtra("Confirm", "Homework");
 			PendingIntent pi = PendingIntent.getActivity(this, (int) System.currentTimeMillis(), i, 0);
 
-			Notification n = new Notification.Builder(this)
-					.setContentTitle(res.getString(R.string.app_name))
-					.setContentText(res.getString(R.string.homework_changings))
-					.setSmallIcon(R.mipmap.ic_launcher)
-					.setAutoCancel(true)
-					.setContentIntent(pi)
-					.getNotification();
-			nm.notify(NOTIFICATION_ID_HOMEWORKS, n);
+            nu.displayNotification(res.getString(R.string.app_name), res.getString(R.string.homework_changings), nu.ID_COMP_HOMEWORKS, i, 0, nu.PRIORITY_LOW, 0, new long[0]);
 		}
 	}
 	
@@ -511,6 +494,8 @@ public class SyncronisationService extends Service {
 					.setContentIntent(pi)
 					.getNotification();
 			nm.notify(NOTIFICATION_ID_EVENTS, n);
+
+            nu.displayNotification(res.getString(R.string.app_name), res.getString(R.string.event_changings), nu.ID_COMP_EVENTS, i, 0, nu.PRIORITY_LOW, 0, new long[0]);
 		}
 	}
 
@@ -534,6 +519,8 @@ public class SyncronisationService extends Service {
 					.setContentIntent(pi)
 					.getNotification();
 			nm.notify(NOTIFICATION_ID_NEWS, n);
+
+            nu.displayNotification(res.getString(R.string.app_name), res.getString(R.string.news_changings), nu.ID_COMP_NEWS, i, 0, nu.PRIORITY_LOW, 0, new long[0]);
 		}
 	}
 	
