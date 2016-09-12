@@ -1,12 +1,9 @@
 package com.mrgames13.jimdo.bsbz_app.FirebaseMessaging;
 
-import android.app.Notification;
-import android.app.NotificationManager;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.preference.PreferenceManager;
-import android.support.v4.app.NotificationCompat;
 
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
@@ -31,7 +28,7 @@ public class FCM_Messaging_Service extends FirebaseMessagingService {
         super.onCreate();
         res = getResources();
         prefs = PreferenceManager.getDefaultSharedPreferences(this);
-        notificationUtils = new NotificationUtils();
+        notificationUtils = new NotificationUtils(this);
     }
 
     @Override
@@ -43,11 +40,11 @@ public class FCM_Messaging_Service extends FirebaseMessagingService {
             if (command.equals("display_notification")) {
                 String message_title = remoteMessage.getData().get("title");
                 String message_text = remoteMessage.getData().get("message");
-                notificationUtils.displayNotification(message_title, message_text);
+                notificationUtils.displayNotification(message_title, message_text, 0, 0, notificationUtils.PRIORITY_HIGH);
             } else if (command.equals("announce_update")) {
                 String version = remoteMessage.getData().get("version");
                 String message_text = remoteMessage.getData().get("message");
-                displayNotification(res.getString(R.string.update_to_version) + version, message_text, 106);
+                notificationUtils.displayNotification(res.getString(R.string.update_to_version) + version, message_text, notificationUtils.ID_ANNOUNCE_UPDATE, notificationUtils.MODE_ANNOUNCE_UPDATE, notificationUtils.PRIORITY_NORMAL);
             } else if (command.equals("initiate_sync")) {
                 startService(new Intent(this, SyncronisationService.class));
             } else if (command.equals("start_app")) {
@@ -55,25 +52,10 @@ public class FCM_Messaging_Service extends FirebaseMessagingService {
                 dialogIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(dialogIntent);
             } else if (command.equals("clear_notifications")) {
-                clearNotifications();
+                notificationUtils.clearNotifications();
             }
         } catch (Exception e) {
         }
         stopSelf();
-    }
-
-    private void displayNotification(String title, String message, int id) {
-        Notification n = new NotificationCompat.Builder(this)
-                .setContentTitle(title)
-                .setContentText(message)
-                .setSmallIcon(R.mipmap.ic_launcher)
-                .build();
-        NotificationManager nm = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-        nm.notify(id, n);
-    }
-
-    private void clearNotifications() {
-        NotificationManager nm = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-        nm.cancelAll();
     }
 }

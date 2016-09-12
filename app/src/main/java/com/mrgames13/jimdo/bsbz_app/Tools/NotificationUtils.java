@@ -12,7 +12,7 @@ import static android.content.Context.NOTIFICATION_SERVICE;
 public class NotificationUtils {
     //Konstanten
         //IDs
-        private final int ID_ANNOUNCE_UPDATE = 10001;
+        public final int ID_ANNOUNCE_UPDATE = 10001;
         //Modes
         public final int MODE_ANNOUNCE_UPDATE = 101;
         //Priorities
