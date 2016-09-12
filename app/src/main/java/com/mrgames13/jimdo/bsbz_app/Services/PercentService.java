@@ -1,19 +1,16 @@
 package com.mrgames13.jimdo.bsbz_app.Services;
 
-import android.app.Notification;
-import android.app.NotificationManager;
-import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.content.res.Resources;
-import android.os.Build;
 import android.os.IBinder;
 import android.preference.PreferenceManager;
 
 import com.mrgames13.jimdo.bsbz_app.App.LogInActivity;
 import com.mrgames13.jimdo.bsbz_app.R;
+import com.mrgames13.jimdo.bsbz_app.Tools.NotificationUtils;
 
 import java.text.DateFormat;
 import java.util.Calendar;
@@ -26,6 +23,7 @@ public class PercentService extends Service {
 	private SharedPreferences prefs;
 	private boolean show;
 	private Resources res;
+	private NotificationUtils nu;
 	
 	@Override
 	public int onStartCommand(Intent intent, int flags, int startId) {
@@ -53,7 +51,6 @@ public class PercentService extends Service {
 	
 	private void sendNotification(final int progress) {
 		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(PercentService.this);
-		NotificationManager nm = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
 		
 		boolean send = prefs.getBoolean("send_percent_notification", false);
 		
@@ -61,42 +58,8 @@ public class PercentService extends Service {
 			//Notification senden
 			Intent i = new Intent(this, LogInActivity.class);
 			i.putExtra("Confirm", "Today");
-			PendingIntent pi = PendingIntent.getActivity(this, (int) System.currentTimeMillis(), i, 0);
 
-			if(Build.VERSION.SDK_INT >= 16) {
-				Notification n = new Notification.Builder(this)
-						.setContentTitle(res.getString(R.string.app_name))
-						.setContentText(res.getString(R.string.so_much_schooltime_is_over_) + Integer.toString(progress) + "%")
-						.setSmallIcon(R.mipmap.ic_launcher)
-						.setAutoCancel(false)
-						.setPriority(Notification.PRIORITY_HIGH)
-						.setOngoing(true)
-						.setProgress(100, progress, false)
-						.setContentIntent(pi)
-						.getNotification();
-				nm.notify(4, n);
-			} else if(Build.VERSION.SDK_INT >= 14) {
-				Notification n = new Notification.Builder(this)
-						.setContentTitle(res.getString(R.string.app_name))
-						.setContentText(res.getString(R.string.so_much_schooltime_is_over_) + Integer.toString(progress) + "%")
-						.setSmallIcon(R.mipmap.ic_launcher)
-						.setAutoCancel(false)
-						.setOngoing(true)
-						.setProgress(100, progress, false)
-						.setContentIntent(pi)
-						.getNotification();
-				nm.notify(4, n);
-			} else {
-				Notification n = new Notification.Builder(this)
-						.setContentTitle(res.getString(R.string.app_name))
-						.setContentText(res.getString(R.string.so_much_schooltime_is_over_) + Integer.toString(progress) + "%")
-						.setSmallIcon(R.mipmap.ic_launcher)
-						.setAutoCancel(false)
-						.setOngoing(true)
-						.setContentIntent(pi)
-						.getNotification();
-				nm.notify(4, n);
-			}
+			nu.displayProgressMessage(res.getString(R.string.app_name), res.getString(R.string.so_much_schooltime_is_over_) + Integer.toString(progress) + "%", nu.ID_SHOW_TODAY_PROGRESS, progress, i);
 			//show auf true setzen
 			Editor e = prefs.edit();
 				e.putBoolean("send", true);
@@ -105,24 +68,15 @@ public class PercentService extends Service {
 			//Notification senden
 			Intent i = new Intent(this, LogInActivity.class);
 			i.putExtra("Confirm", "Today");
-			PendingIntent pi = PendingIntent.getActivity(this, (int) System.currentTimeMillis(), i, 0);
-			
-			Notification n = new Notification.Builder(this)
-					.setContentTitle(res.getString(R.string.app_name))
-					.setContentText(res.getString(R.string.congradulations_schoolday_is_over))
-					.setSmallIcon(R.mipmap.ic_launcher)
-					.setAutoCancel(false)
-					//.setPriority(1)
-					.setContentIntent(pi)
-					.getNotification();
-			nm.notify(4, n);
+
+            nu.displayNotification(res.getString(R.string.app_name), res.getString(R.string.congradulations_schoolday_is_over), nu.ID_SHOW_TODAY_PROGRESS_FINISH, i, nu.ID_SHOW_TODAY_PROGRESS_FINISH, nu.PRIORITY_HIGH, 0, new long[0]);
 			
 			//show auf false setzten
 			Editor e = prefs.edit();
 				e.putBoolean("send", false);
 			e.commit();
 		} else {
-			nm.cancel(4);
+			nu.clearNotification(nu.ID_SHOW_TODAY_PROGRESS);
 		}
 	}
 	

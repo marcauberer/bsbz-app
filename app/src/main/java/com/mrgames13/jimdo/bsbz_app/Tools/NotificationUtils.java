@@ -1,5 +1,6 @@
 package com.mrgames13.jimdo.bsbz_app.Tools;
 
+import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
@@ -15,8 +16,11 @@ public class NotificationUtils {
     //Konstanten
         //IDs
         public final int ID_ANNOUNCE_UPDATE = 10001;
+        public final int ID_SHOW_TODAY_PROGRESS = 10002;
+        public final int ID_SHOW_TODAY_PROGRESS_FINISH = 10003;
         //Modes
         public final int MODE_ANNOUNCE_UPDATE = 101;
+        public final int MODE_SHOW_TODAY_PROGRESS_FINISH = 102;
         //Priorities
         public final int PRIORITY_HIGH = 1;
         public final int PRIORITY_NORMAL = 0;
@@ -52,9 +56,6 @@ public class NotificationUtils {
             PendingIntent pi = PendingIntent.getActivity(context, 0, i, 0);
             n.setContentIntent(pi);
         }
-        if(mode == MODE_ANNOUNCE_UPDATE) {
-
-        }
         if(priority == PRIORITY_HIGH) {
             n.setPriority(NotificationCompat.PRIORITY_HIGH);
             n.setLights(res.getColor(R.color.colorAccent), light_lenght, light_lenght);
@@ -65,6 +66,21 @@ public class NotificationUtils {
             n.setPriority(NotificationCompat.PRIORITY_DEFAULT);
         }
         nm.notify(id, n.build());
+    }
+
+    public void displayProgressMessage(String title, String message, int id, int progress, Intent i) {
+        PendingIntent pi = PendingIntent.getActivity(context, 0, i, 0);
+        Notification n = new NotificationCompat.Builder(context)
+                .setContentTitle(title)
+                .setContentText(message)
+                .setSmallIcon(R.mipmap.ic_launcher)
+                .setAutoCancel(false)
+                .setPriority(NotificationCompat.PRIORITY_MAX)
+                .setOngoing(true)
+                .setProgress(100, progress, false)
+                .setContentIntent(pi)
+                .build();
+        nm.notify(id, n);
     }
 
     public void clearNotification(int id) {
