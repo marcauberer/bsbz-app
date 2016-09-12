@@ -99,7 +99,7 @@ public class SyncronisationService extends Service {
 		Thread t = new Thread(new Runnable() {
 			@Override
 			public void run() {
-				if(klasse.substring(0, 1).equals("R") && update == false && sync && serverMessagingUtils.isInternetAvailable()) {
+				if(update == false && sync && serverMessagingUtils.isInternetAvailable()) {
 					//Stundenplan von Server herunterladen
 					//downloadTimetable();
 					//Klassenarbeiten vom Server herunterladen
