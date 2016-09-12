@@ -118,7 +118,8 @@
                 android:gravity="center"
                 android:text="K0"
                 android:textStyle="bold"
-                android:visibility="gone"/>
+                android:visibility="gone"
+                android:textColor="@color/black"/>
 
             <ImageView
                 android:id="@+id/Mo_H"
@@ -142,7 +143,8 @@
                 android:layout_marginLeft="3dp"
                 android:text="H0"
                 android:textStyle="bold"
-                android:visibility="gone"/>
+                android:visibility="gone"
+                android:textColor="@color/black"/>
 
             <ImageView
                 android:id="@+id/Mo_T"
@@ -167,7 +169,8 @@
                 android:layout_marginLeft="3dp"
                 android:text="T0"
                 android:textStyle="bold"
-                android:visibility="gone"/>
+                android:visibility="gone"
+                android:textColor="@color/black"/>
         </RelativeLayout>
 
         <RelativeLayout
@@ -197,7 +200,8 @@
                 android:gravity="center"
                 android:text="K0"
                 android:textStyle="bold"
-                android:visibility="gone"/>
+                android:visibility="gone"
+                android:textColor="@color/black"/>
 
             <ImageView
                 android:id="@+id/Di_H"
@@ -221,7 +225,8 @@
                 android:layout_marginLeft="3dp"
                 android:text="H0"
                 android:textStyle="bold"
-                android:visibility="gone"/>
+                android:visibility="gone"
+                android:textColor="@color/black"/>
 
             <ImageView
                 android:id="@+id/Di_T"
@@ -246,7 +251,8 @@
                 android:layout_marginLeft="3dp"
                 android:text="T0"
                 android:textStyle="bold"
-                android:visibility="gone"/>
+                android:visibility="gone"
+                android:textColor="@color/black"/>
         </RelativeLayout>
 
         <RelativeLayout
@@ -276,7 +282,8 @@
                 android:gravity="center"
                 android:text="K0"
                 android:textStyle="bold"
-                android:visibility="gone"/>
+                android:visibility="gone"
+                android:textColor="@color/black"/>
 
             <ImageView
                 android:id="@+id/Mi_H"
@@ -300,7 +307,8 @@
                 android:layout_marginLeft="3dp"
                 android:text="H0"
                 android:textStyle="bold"
-                android:visibility="gone"/>
+                android:visibility="gone"
+                android:textColor="@color/black"/>
 
             <ImageView
                 android:id="@+id/Mi_T"
@@ -325,7 +333,8 @@
                 android:layout_marginLeft="3dp"
                 android:text="T0"
                 android:textStyle="bold"
-                android:visibility="gone"/>
+                android:visibility="gone"
+                android:textColor="@color/black"/>
         </RelativeLayout>
 
         <RelativeLayout
@@ -355,7 +364,8 @@
                 android:gravity="center"
                 android:text="K0"
                 android:textStyle="bold"
-                android:visibility="gone"/>
+                android:visibility="gone"
+                android:textColor="@color/black"/>
 
             <ImageView
                 android:id="@+id/Do_H"
@@ -379,7 +389,8 @@
                 android:layout_marginLeft="3dp"
                 android:text="H0"
                 android:textStyle="bold"
-                android:visibility="gone"/>
+                android:visibility="gone"
+                android:textColor="@color/black"/>
 
             <ImageView
                 android:id="@+id/Do_T"
@@ -404,7 +415,8 @@
                 android:layout_marginLeft="3dp"
                 android:text="T0"
                 android:textStyle="bold"
-                android:visibility="gone"/>
+                android:visibility="gone"
+                android:textColor="@color/black"/>
         </RelativeLayout>
 
         <RelativeLayout
@@ -434,7 +446,8 @@
                 android:gravity="center"
                 android:text="K0"
                 android:textStyle="bold"
-                android:visibility="gone"/>
+                android:visibility="gone"
+                android:textColor="@color/black"/>
 
             <ImageView
                 android:id="@+id/Fr_H"
@@ -458,7 +471,8 @@
                 android:layout_marginLeft="3dp"
                 android:text="H0"
                 android:textStyle="bold"
-                android:visibility="gone"/>
+                android:visibility="gone"
+                android:textColor="@color/black"/>
 
             <ImageView
                 android:id="@+id/Fr_T"
@@ -483,7 +497,8 @@
                 android:layout_marginLeft="3dp"
                 android:text="T0"
                 android:textStyle="bold"
-                android:visibility="gone"/>
+                android:visibility="gone"
+                android:textColor="@color/black"/>
         </RelativeLayout>
     </LinearLayout>
 
