@@ -360,7 +360,7 @@ public class LogInActivity extends AppCompatActivity {
                                             if(rights.equals("wants to be a teacher") || rights.equals("wants_to_be_a_teacher")) rights = "student";
                                             if(rights.equals("wants to be a classspeaker") || rights.equals("wants_to_be_a_classspeaker")) rights = "student";
                                             e.putString("Name", username);
-                                            e.putString("Klasse", klasse);
+                                            if(!klasse.equals("no_class")) e.putString("Klasse", klasse);
                                             e.putString("Password", password);
                                             e.putString("Rights", rights);
                                             e.putBoolean("Angemeldet bleiben", ab);

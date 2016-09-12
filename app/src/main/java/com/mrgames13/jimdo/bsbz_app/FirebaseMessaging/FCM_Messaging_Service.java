@@ -7,13 +7,13 @@ import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.preference.PreferenceManager;
 import android.support.v4.app.NotificationCompat;
-import android.util.Log;
 
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 import com.mrgames13.jimdo.bsbz_app.App.LogInActivity;
-import com.mrgames13.jimdo.bsbz_app.Services.SyncronisationService;
 import com.mrgames13.jimdo.bsbz_app.R;
+import com.mrgames13.jimdo.bsbz_app.Services.SyncronisationService;
+import com.mrgames13.jimdo.bsbz_app.Tools.NotificationUtils;
 
 public class FCM_Messaging_Service extends FirebaseMessagingService {
     //Konstanten
@@ -21,6 +21,7 @@ public class FCM_Messaging_Service extends FirebaseMessagingService {
     //Variablen als Objekte
     Resources res;
     SharedPreferences prefs;
+    NotificationUtils notificationUtils;
 
     //Variablen
 
@@ -30,6 +31,7 @@ public class FCM_Messaging_Service extends FirebaseMessagingService {
         super.onCreate();
         res = getResources();
         prefs = PreferenceManager.getDefaultSharedPreferences(this);
+        notificationUtils = new NotificationUtils();
     }
 
     @Override
@@ -41,8 +43,7 @@ public class FCM_Messaging_Service extends FirebaseMessagingService {
             if (command.equals("display_notification")) {
                 String message_title = remoteMessage.getData().get("title");
                 String message_text = remoteMessage.getData().get("message");
-                Log.d("BSBZ-App", message_title + "," + message_text);
-                displayNotification(message_title, message_text, (int) ((Math.random()) * 1000000 + 1));
+                notificationUtils.displayNotification(message_title, message_text);
             } else if (command.equals("announce_update")) {
                 String version = remoteMessage.getData().get("version");
                 String message_text = remoteMessage.getData().get("message");
@@ -54,7 +55,6 @@ public class FCM_Messaging_Service extends FirebaseMessagingService {
                 dialogIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(dialogIntent);
             } else if (command.equals("clear_notifications")) {
-                Log.d("BSBZ-App", command);
                 clearNotifications();
             }
         } catch (Exception e) {
