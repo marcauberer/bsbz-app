@@ -1122,6 +1122,7 @@ public class MainActivity extends AppCompatActivity {
         ArrayList<String> arraylist = new ArrayList<String>();
         //Montag
             //Klassenarbeiten
+            arraylist.clear();
             for(int i = 0;i < 101;i++) {
                 String classtest = prefs.getString("Classtests_"+String.valueOf(i), "-");
                 if(!classtest.equals("-")) {
@@ -1132,6 +1133,7 @@ public class MainActivity extends AppCompatActivity {
                     String item_title = classtest.substring(index1 +1, index2);
                     if(!item_title.equals("-") && item_date.equals(mo2) && !item_title.equals("") &&!item_date.equals("")) {
                         arraylist.add(item_date +": "+ item_title);
+                        Log.d("BSBZ-App", "Title:"+item_title);
                     }
                 }
             }
@@ -1188,6 +1190,7 @@ public class MainActivity extends AppCompatActivity {
             }
         //Dienstag
             //Klassenarbeiten
+            arraylist.clear();
             for(int i = 0;i < 101;i++) {
                 String classtest = prefs.getString("Classtests_"+String.valueOf(i), "-");
                 if(!classtest.equals("-")) {
@@ -1254,6 +1257,7 @@ public class MainActivity extends AppCompatActivity {
             }
         //Mittwoch
             //Klassenarbeiten
+            arraylist.clear();
             for(int i = 0;i < 101;i++) {
                 String classtest = prefs.getString("Classtests_"+String.valueOf(i), "-");
                 if(!classtest.equals("-")) {
@@ -1320,6 +1324,7 @@ public class MainActivity extends AppCompatActivity {
             }
         //Donnerstag
             //Klassenarbeiten
+            arraylist.clear();
             for(int i = 0;i < 101;i++) {
                 String classtest = prefs.getString("Classtests_"+String.valueOf(i), "-");
                 if(!classtest.equals("-")) {
@@ -1386,6 +1391,7 @@ public class MainActivity extends AppCompatActivity {
             }
         //Freitag
             //Klassenarbeiten
+            arraylist.clear();
             for(int i = 0;i < 101;i++) {
                 String classtest = prefs.getString("Classtests_"+String.valueOf(i), "-");
                 if(!classtest.equals("-")) {
