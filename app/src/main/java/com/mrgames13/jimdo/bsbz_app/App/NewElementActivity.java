@@ -22,6 +22,7 @@ import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.CompoundButton;
+import android.widget.EditText;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -31,6 +32,9 @@ import com.mrgames13.jimdo.bsbz_app.Tools.ServerMessagingUtils;
 
 public class NewElementActivity extends AppCompatActivity {
     //Konstanten
+    public final int MODE_CLASSTEST = 1;
+    public final int MODE_HOMEWORK = 2;
+    public final int MODE_EVENT = 3;
 
     //Variablen als Objekte
     private ServerMessagingUtils serverMessagingUtils;
@@ -41,6 +45,7 @@ public class NewElementActivity extends AppCompatActivity {
 
     //Variablen
     private boolean pressedOnce;
+    private int mode;
 
     @Override
     protected void onStart() {
@@ -101,151 +106,163 @@ public class NewElementActivity extends AppCompatActivity {
         toolbar = (Toolbar) findViewById(R.id.toolbar_new_element);
         setSupportActionBar(toolbar);
 
+        //Mode aus dem Intent auslesen
+        mode = getIntent().getIntExtra("mode", MODE_CLASSTEST);
+
+        //Writer-Textfeld initialisieren
+        EditText writer = (EditText) findViewById(R.id.new_element_writer);
+        writer.setText(prefs.getString("Name", res.getString(R.string.guest)));
+
         //ChooseReceiver-Button initialisieren
         final Button choose_receiver = (Button) findViewById(R.id.new_element_choose_receiver);
-        choose_receiver.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                AlertDialog.Builder alert;
-                if(MainActivity.AppTheme == 0) {
-                    alert = new AlertDialog.Builder(NewElementActivity.this, R.style.FirstTheme_Dialog);
-                } else {
-                    alert = new AlertDialog.Builder(NewElementActivity.this, R.style.SecondTheme_Dialog);
-                }
-
-                LayoutInflater inflater = getLayoutInflater();
-                View dialogView = inflater.inflate(R.layout.dialogview_class_chooser_admin, null);
-                alert.setView(dialogView);
-
-                final TextView schulart = (TextView) dialogView.findViewById(R.id.schulart);
-                final TextView klassenstufe = (TextView) dialogView.findViewById(R.id.klassenstufe);
-                final TextView klassenart = (TextView) dialogView.findViewById(R.id.klassenart);
-
-                final TextView klasse1 = (TextView) dialogView.findViewById(R.id.klasse);
-
-                final TextView schulart_lbl = (TextView) dialogView.findViewById(R.id.l_Rechte);
-                final TextView klassenstufe_lbl = (TextView) dialogView.findViewById(R.id.textView2);
-                final TextView klassenart_lbl = (TextView) dialogView.findViewById(R.id.textView3);
-
-                final SeekBar s1 = (SeekBar) dialogView.findViewById(R.id.seekBar1);
-                final SeekBar s2 = (SeekBar) dialogView.findViewById(R.id.seekBar2);
-                final SeekBar s3 = (SeekBar) dialogView.findViewById(R.id.seekBar3);
-
-                s1.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-                    @Override
-                    public void onStopTrackingTouch(SeekBar seekBar) {}
-
-                    @Override
-                    public void onStartTrackingTouch(SeekBar seekBar) {}
-
-                    @Override
-                    public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                        if(fromUser) {
-                            if(progress == 0) schulart.setText("W");
-                            if(progress == 1) schulart.setText("R");
-                            if(progress == 2) schulart.setText("G");
-                            klasse1.setText(schulart.getText().toString() + klassenstufe.getText().toString() + klassenart.getText().toString());
-                        }
+        String rights = prefs.getString("Rights", "student");
+        if(rights.equals("classspeaker")) {
+            choose_receiver.setText(prefs.getString("Klasse", "no_class"));
+            choose_receiver.setEnabled(false);
+        } else {
+            choose_receiver.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    AlertDialog.Builder alert;
+                    if(MainActivity.AppTheme == 0) {
+                        alert = new AlertDialog.Builder(NewElementActivity.this, R.style.FirstTheme_Dialog);
+                    } else {
+                        alert = new AlertDialog.Builder(NewElementActivity.this, R.style.SecondTheme_Dialog);
                     }
-                });
-                s2.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-                    @Override
-                    public void onStopTrackingTouch(SeekBar seekBar) {}
 
-                    @Override
-                    public void onStartTrackingTouch(SeekBar seekBar) {}
+                    LayoutInflater inflater = getLayoutInflater();
+                    View dialogView = inflater.inflate(R.layout.dialogview_class_chooser_admin, null);
+                    alert.setView(dialogView);
 
-                    @Override
-                    public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                        if(fromUser) {
-                            if(progress == 0) klassenstufe.setText("5");
-                            if(progress == 1) klassenstufe.setText("6");
-                            if(progress == 2) klassenstufe.setText("7");
-                            if(progress == 3) klassenstufe.setText("8");
-                            if(progress == 4) klassenstufe.setText("9");
-                            if(progress == 5) klassenstufe.setText("10");
-                            if(progress == 6) klassenstufe.setText("11");
-                            if(progress == 7) klassenstufe.setText("12");
-                            klasse1.setText(schulart.getText().toString() + klassenstufe.getText().toString() + klassenart.getText().toString());
+                    final TextView schulart = (TextView) dialogView.findViewById(R.id.schulart);
+                    final TextView klassenstufe = (TextView) dialogView.findViewById(R.id.klassenstufe);
+                    final TextView klassenart = (TextView) dialogView.findViewById(R.id.klassenart);
+
+                    final TextView klasse1 = (TextView) dialogView.findViewById(R.id.klasse);
+
+                    final TextView schulart_lbl = (TextView) dialogView.findViewById(R.id.l_Rechte);
+                    final TextView klassenstufe_lbl = (TextView) dialogView.findViewById(R.id.textView2);
+                    final TextView klassenart_lbl = (TextView) dialogView.findViewById(R.id.textView3);
+
+                    final SeekBar s1 = (SeekBar) dialogView.findViewById(R.id.seekBar1);
+                    final SeekBar s2 = (SeekBar) dialogView.findViewById(R.id.seekBar2);
+                    final SeekBar s3 = (SeekBar) dialogView.findViewById(R.id.seekBar3);
+
+                    s1.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+                        @Override
+                        public void onStopTrackingTouch(SeekBar seekBar) {}
+
+                        @Override
+                        public void onStartTrackingTouch(SeekBar seekBar) {}
+
+                        @Override
+                        public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                            if(fromUser) {
+                                if(progress == 0) schulart.setText("W");
+                                if(progress == 1) schulart.setText("R");
+                                if(progress == 2) schulart.setText("G");
+                                klasse1.setText(schulart.getText().toString() + klassenstufe.getText().toString() + klassenart.getText().toString());
+                            }
                         }
-                    }
-                });
-                s3.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-                    @Override
-                    public void onStopTrackingTouch(SeekBar seekBar) {}
+                    });
+                    s2.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+                        @Override
+                        public void onStopTrackingTouch(SeekBar seekBar) {}
 
-                    @Override
-                    public void onStartTrackingTouch(SeekBar seekBar) {}
+                        @Override
+                        public void onStartTrackingTouch(SeekBar seekBar) {}
 
-                    @Override
-                    public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                        if(fromUser) {
-                            if(progress == 0) klassenart.setText("a");
-                            if(progress == 1) klassenart.setText("b");
-                            klasse1.setText(schulart.getText().toString() + klassenstufe.getText().toString() + klassenart.getText().toString());
+                        @Override
+                        public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                            if(fromUser) {
+                                if(progress == 0) klassenstufe.setText("5");
+                                if(progress == 1) klassenstufe.setText("6");
+                                if(progress == 2) klassenstufe.setText("7");
+                                if(progress == 3) klassenstufe.setText("8");
+                                if(progress == 4) klassenstufe.setText("9");
+                                if(progress == 5) klassenstufe.setText("10");
+                                if(progress == 6) klassenstufe.setText("11");
+                                if(progress == 7) klassenstufe.setText("12");
+                                klasse1.setText(schulart.getText().toString() + klassenstufe.getText().toString() + klassenart.getText().toString());
+                            }
                         }
-                    }
-                });
+                    });
+                    s3.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+                        @Override
+                        public void onStopTrackingTouch(SeekBar seekBar) {}
 
-                final SwitchCompat all_classes = (SwitchCompat) dialogView.findViewById(R.id.all_classes);
-                all_classes.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-                    @Override
-                    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                        s1.setEnabled(!isChecked);
-                        s2.setEnabled(!isChecked);
-                        s3.setEnabled(!isChecked);
-                        klassenstufe.setEnabled(!isChecked);
-                        schulart.setEnabled(!isChecked);
-                        klassenart.setEnabled(!isChecked);
-                        klassenstufe_lbl.setEnabled(!isChecked);
-                        schulart_lbl.setEnabled(!isChecked);
-                        klassenart_lbl.setEnabled(!isChecked);
-                        klasse1.setText(res.getString(R.string.all_classes));
-                        if(isChecked) {
+                        @Override
+                        public void onStartTrackingTouch(SeekBar seekBar) {}
+
+                        @Override
+                        public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                            if(fromUser) {
+                                if(progress == 0) klassenart.setText("a");
+                                if(progress == 1) klassenart.setText("b");
+                                klasse1.setText(schulart.getText().toString() + klassenstufe.getText().toString() + klassenart.getText().toString());
+                            }
+                        }
+                    });
+
+                    final SwitchCompat all_classes = (SwitchCompat) dialogView.findViewById(R.id.all_classes);
+                    all_classes.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                        @Override
+                        public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                            s1.setEnabled(!isChecked);
+                            s2.setEnabled(!isChecked);
+                            s3.setEnabled(!isChecked);
+                            klassenstufe.setEnabled(!isChecked);
+                            schulart.setEnabled(!isChecked);
+                            klassenart.setEnabled(!isChecked);
+                            klassenstufe_lbl.setEnabled(!isChecked);
+                            schulart_lbl.setEnabled(!isChecked);
+                            klassenart_lbl.setEnabled(!isChecked);
                             klasse1.setText(res.getString(R.string.all_classes));
-                        } else {
-                            klasse1.setText(schulart.getText().toString() + klassenstufe.getText().toString() + klassenart.getText().toString());
+                            if(isChecked) {
+                                klasse1.setText(res.getString(R.string.all_classes));
+                            } else {
+                                klasse1.setText(schulart.getText().toString() + klassenstufe.getText().toString() + klassenart.getText().toString());
+                            }
                         }
-                    }
-                });
+                    });
 
-                s1.setEnabled(false);
-                s2.setEnabled(false);
-                s3.setEnabled(false);
-                klassenstufe.setEnabled(false);
-                schulart.setEnabled(false);
-                klassenart.setEnabled(false);
-                klassenstufe_lbl.setEnabled(false);
-                schulart_lbl.setEnabled(false);
-                klassenart_lbl.setEnabled(false);
+                    s1.setEnabled(false);
+                    s2.setEnabled(false);
+                    s3.setEnabled(false);
+                    klassenstufe.setEnabled(false);
+                    schulart.setEnabled(false);
+                    klassenart.setEnabled(false);
+                    klassenstufe_lbl.setEnabled(false);
+                    schulart_lbl.setEnabled(false);
+                    klassenart_lbl.setEnabled(false);
 
-                if(all_classes.isChecked()) klasse1.setText(res.getString(R.string.all_classes));
+                    if(all_classes.isChecked()) klasse1.setText(res.getString(R.string.all_classes));
 
-                alert.setTitle(res.getString(R.string.please_coose_your_class_));
+                    alert.setTitle(res.getString(R.string.please_coose_your_class_));
 
-                alert.setPositiveButton(res.getString(R.string.ok), new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        choose_receiver.setText(klasse1.getText().toString());
-                        dialog.cancel();
-                    }
-                });
-                alert.setNegativeButton(res.getString(R.string.cancel), new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.cancel();
-                    }
-                });
+                    alert.setPositiveButton(res.getString(R.string.ok), new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            choose_receiver.setText(klasse1.getText().toString());
+                            dialog.cancel();
+                        }
+                    });
+                    alert.setNegativeButton(res.getString(R.string.cancel), new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.cancel();
+                        }
+                    });
 
-                alert.create().show();
-            }
-        });
-
+                    alert.create().show();
+                }
+            });
+        }
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.new_new, menu);
+        getMenuInflater().inflate(R.menu.new_element, menu);
         return true;
     }
 
