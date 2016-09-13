@@ -524,7 +524,7 @@ public class RegistrationActivity extends AppCompatActivity {
 				try {
                     String klasse1 = klasse;
 					if(klasse1.equals(res.getString(R.string.no_class))) klasse1 = "no_class";
-					result = serverMessagingUtils.sendRequest(findViewById(R.id.container), "name="+URLEncoder.encode(username, "UTF-8")+"&command=newaccount&password="+URLEncoder.encode(password, "UTF-8")+"&class="+URLEncoder.encode(klasse1, "UTF-8")+"&rights="+URLEncoder.encode(rights, "UTF-8")+"&androidid="+URLEncoder.encode(id, "UTF-8"));
+					result = serverMessagingUtils.sendRequest(findViewById(R.id.container), "name="+URLEncoder.encode(username.trim(), "UTF-8")+"&command=newaccount&password="+URLEncoder.encode(password.trim(), "UTF-8")+"&class="+URLEncoder.encode(klasse1, "UTF-8")+"&rights="+URLEncoder.encode(rights, "UTF-8")+"&androidid="+URLEncoder.encode(id, "UTF-8"));
 					//Result auswerten
 					if(result.contains("Action Successful")) {
 						result = res.getString(R.string.account_creation_successful);

@@ -376,7 +376,7 @@ public class NewNewActivity extends AppCompatActivity {
         });
 
         //FloatingActionButton initialisieren
-        fab = (FloatingActionButton) findViewById(R.id.fab_create_new);
+        fab = (FloatingActionButton) findViewById(R.id.new_new);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

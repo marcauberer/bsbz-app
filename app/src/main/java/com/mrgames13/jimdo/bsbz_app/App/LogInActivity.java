@@ -333,7 +333,7 @@ public class LogInActivity extends AppCompatActivity {
                 @Override
                 public void run() {
                     try {
-                        result = serverMessagingUtils.sendRequest(findViewById(R.id.container), "name="+URLEncoder.encode(username, "UTF-8")+"&command=findaccount&password="+URLEncoder.encode(password, "UTF-8")+"&androidversion="+URLEncoder.encode(androidversion, "UTF-8")+"&appversion="+URLEncoder.encode(appversion, "UTF-8")+"&fcm_token="+URLEncoder.encode(prefs.getString(FCM_Instance_ID_Service.token_preference_key, "no_token"), "UTF-8"));
+                        result = serverMessagingUtils.sendRequest(findViewById(R.id.container), "name="+URLEncoder.encode(username.trim(), "UTF-8")+"&command=findaccount&password="+URLEncoder.encode(password.trim(), "UTF-8")+"&androidversion="+URLEncoder.encode(androidversion, "UTF-8")+"&appversion="+URLEncoder.encode(appversion, "UTF-8")+"&fcm_token="+URLEncoder.encode(prefs.getString(FCM_Instance_ID_Service.token_preference_key, "no_token"), "UTF-8"));
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {

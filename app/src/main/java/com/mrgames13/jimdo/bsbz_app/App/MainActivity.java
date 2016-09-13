@@ -1544,6 +1544,18 @@ public class MainActivity extends AppCompatActivity {
         FragmentTransaction ft = fragmentManager.beginTransaction();
         ft.replace(R.id.termine_jahresplan_container, f);
         ft.commit();
+
+        if(rights.equals("classspeaker") || rights.equals("teacher") || rights.equals("administrator") || rights.equals("team")) {
+            //FloatingAction Button
+            FloatingActionButton new_element = (FloatingActionButton) findViewById(R.id.new_element);
+            new_element.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    startActivity(new Intent(MainActivity.this, NewElementActivity.class));
+                }
+            });
+        }
+
         //Buttons
         final Button jan = (Button) findViewById(R.id.januar);
         final Button feb = (Button) findViewById(R.id.februar);
