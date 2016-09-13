@@ -1,5 +1,6 @@
 package com.mrgames13.jimdo.bsbz_app.App;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
@@ -10,11 +11,19 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.preference.PreferenceManager;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.SwitchCompat;
 import android.support.v7.widget.Toolbar;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.Window;
+import android.widget.Button;
+import android.widget.CompoundButton;
+import android.widget.SeekBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.mrgames13.jimdo.bsbz_app.R;
@@ -91,6 +100,147 @@ public class NewElementActivity extends AppCompatActivity {
         //Toolbar aufsetzen
         toolbar = (Toolbar) findViewById(R.id.toolbar_new_element);
         setSupportActionBar(toolbar);
+
+        //ChooseReceiver-Button initialisieren
+        final Button choose_receiver = (Button) findViewById(R.id.new_element_choose_receiver);
+        choose_receiver.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlertDialog.Builder alert;
+                if(MainActivity.AppTheme == 0) {
+                    alert = new AlertDialog.Builder(NewElementActivity.this, R.style.FirstTheme_Dialog);
+                } else {
+                    alert = new AlertDialog.Builder(NewElementActivity.this, R.style.SecondTheme_Dialog);
+                }
+
+                LayoutInflater inflater = getLayoutInflater();
+                View dialogView = inflater.inflate(R.layout.dialogview_class_chooser_admin, null);
+                alert.setView(dialogView);
+
+                final TextView schulart = (TextView) dialogView.findViewById(R.id.schulart);
+                final TextView klassenstufe = (TextView) dialogView.findViewById(R.id.klassenstufe);
+                final TextView klassenart = (TextView) dialogView.findViewById(R.id.klassenart);
+
+                final TextView klasse1 = (TextView) dialogView.findViewById(R.id.klasse);
+
+                final TextView schulart_lbl = (TextView) dialogView.findViewById(R.id.l_Rechte);
+                final TextView klassenstufe_lbl = (TextView) dialogView.findViewById(R.id.textView2);
+                final TextView klassenart_lbl = (TextView) dialogView.findViewById(R.id.textView3);
+
+                final SeekBar s1 = (SeekBar) dialogView.findViewById(R.id.seekBar1);
+                final SeekBar s2 = (SeekBar) dialogView.findViewById(R.id.seekBar2);
+                final SeekBar s3 = (SeekBar) dialogView.findViewById(R.id.seekBar3);
+
+                s1.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+                    @Override
+                    public void onStopTrackingTouch(SeekBar seekBar) {}
+
+                    @Override
+                    public void onStartTrackingTouch(SeekBar seekBar) {}
+
+                    @Override
+                    public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                        if(fromUser) {
+                            if(progress == 0) schulart.setText("W");
+                            if(progress == 1) schulart.setText("R");
+                            if(progress == 2) schulart.setText("G");
+                            klasse1.setText(schulart.getText().toString() + klassenstufe.getText().toString() + klassenart.getText().toString());
+                        }
+                    }
+                });
+                s2.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+                    @Override
+                    public void onStopTrackingTouch(SeekBar seekBar) {}
+
+                    @Override
+                    public void onStartTrackingTouch(SeekBar seekBar) {}
+
+                    @Override
+                    public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                        if(fromUser) {
+                            if(progress == 0) klassenstufe.setText("5");
+                            if(progress == 1) klassenstufe.setText("6");
+                            if(progress == 2) klassenstufe.setText("7");
+                            if(progress == 3) klassenstufe.setText("8");
+                            if(progress == 4) klassenstufe.setText("9");
+                            if(progress == 5) klassenstufe.setText("10");
+                            if(progress == 6) klassenstufe.setText("11");
+                            if(progress == 7) klassenstufe.setText("12");
+                            klasse1.setText(schulart.getText().toString() + klassenstufe.getText().toString() + klassenart.getText().toString());
+                        }
+                    }
+                });
+                s3.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+                    @Override
+                    public void onStopTrackingTouch(SeekBar seekBar) {}
+
+                    @Override
+                    public void onStartTrackingTouch(SeekBar seekBar) {}
+
+                    @Override
+                    public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                        if(fromUser) {
+                            if(progress == 0) klassenart.setText("a");
+                            if(progress == 1) klassenart.setText("b");
+                            klasse1.setText(schulart.getText().toString() + klassenstufe.getText().toString() + klassenart.getText().toString());
+                        }
+                    }
+                });
+
+                final SwitchCompat all_classes = (SwitchCompat) dialogView.findViewById(R.id.all_classes);
+                all_classes.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                    @Override
+                    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                        s1.setEnabled(!isChecked);
+                        s2.setEnabled(!isChecked);
+                        s3.setEnabled(!isChecked);
+                        klassenstufe.setEnabled(!isChecked);
+                        schulart.setEnabled(!isChecked);
+                        klassenart.setEnabled(!isChecked);
+                        klassenstufe_lbl.setEnabled(!isChecked);
+                        schulart_lbl.setEnabled(!isChecked);
+                        klassenart_lbl.setEnabled(!isChecked);
+                        klasse1.setText(res.getString(R.string.all_classes));
+                        if(isChecked) {
+                            klasse1.setText(res.getString(R.string.all_classes));
+                        } else {
+                            klasse1.setText(schulart.getText().toString() + klassenstufe.getText().toString() + klassenart.getText().toString());
+                        }
+                    }
+                });
+
+                s1.setEnabled(false);
+                s2.setEnabled(false);
+                s3.setEnabled(false);
+                klassenstufe.setEnabled(false);
+                schulart.setEnabled(false);
+                klassenart.setEnabled(false);
+                klassenstufe_lbl.setEnabled(false);
+                schulart_lbl.setEnabled(false);
+                klassenart_lbl.setEnabled(false);
+
+                if(all_classes.isChecked()) klasse1.setText(res.getString(R.string.all_classes));
+
+                alert.setTitle(res.getString(R.string.please_coose_your_class_));
+
+                alert.setPositiveButton(res.getString(R.string.ok), new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        choose_receiver.setText(klasse1.getText().toString());
+                        dialog.cancel();
+                    }
+                });
+                alert.setNegativeButton(res.getString(R.string.cancel), new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                });
+
+                alert.create().show();
+            }
+        });
+
     }
 
     @Override
