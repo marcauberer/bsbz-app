@@ -1557,6 +1557,7 @@ public class MainActivity extends AppCompatActivity {
         if(rights.equals("classspeaker") || rights.equals("teacher") || rights.equals("administrator") || rights.equals("team")) {
             //FloatingAction Button
             FloatingActionButton new_element = (FloatingActionButton) findViewById(R.id.new_classtest_homework_event);
+            registerForContextMenu(new_element);
             new_element.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

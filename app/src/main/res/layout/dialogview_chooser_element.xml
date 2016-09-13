@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/dialogview"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="12dp" >
+
+    <android.support.v7.widget.SwitchCompat
+        android:id="@+id/chooser_element_classtest"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/new_classtest"/>
+
+    <android.support.v7.widget.SwitchCompat
+        android:id="@+id/chooser_element_homework"
+        android:layout_below="@+id/chooser_element_classtest"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/new_homework"/>
+
+    <android.support.v7.widget.SwitchCompat
+        android:id="@+id/chooser_element_event"
+        android:layout_below="@+id/chooser_element_homework"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/new_event"/>
+</RelativeLayout>
