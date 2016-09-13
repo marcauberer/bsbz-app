@@ -271,5 +271,8 @@
     <string name="support">Support</string>
     <string name="reset_password_m">Schreibe eine Nachricht an uns um dein Passwort zurückzusetzen</string>
     <string name="error_occured">Fehler aufgetreten</string>
+    <string name="new_classtest">Neue Klassenarbeit</string>
+    <string name="new_homework">Neue Hausaufgabe</string>
+    <string name="new_event">Neuer Termin</string>
 
 </resources>

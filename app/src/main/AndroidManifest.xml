@@ -54,14 +54,17 @@
             </intent-filter>
         </activity>
         <!-- WebActivity -->
-        <activity android:name=".App.WebActivity"
-                  android:windowSoftInputMode="adjustPan">
+        <activity
+            android:name=".App.WebActivity"
+            android:windowSoftInputMode="adjustPan">
             <intent-filter>
-                <action android:name="android.intent.action.VIEW" />
-                <category android:name="android.intent.category.DEFAULT" />
-                <category android:name="android.intent.category.BROWSABLE" />
-                <data android:scheme="http" />
-                <data android:scheme="https" />
+                <action android:name="android.intent.action.VIEW"/>
+
+                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.BROWSABLE"/>
+
+                <data android:scheme="http"/>
+                <data android:scheme="https"/>
             </intent-filter>
         </activity>
         <!-- StundenplanActivity -->
@@ -174,6 +177,8 @@
         <activity android:name=".App.ImageFullscreenActivity">
         </activity>
         <activity android:name=".App.ImagePickerActivity">
+        </activity>
+        <activity android:name=".App.NewElementActivity">
         </activity>
     </application>
 

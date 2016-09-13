@@ -50,6 +50,7 @@
                 android:hint="@string/descreption"
                 android:lines="20"
                 android:gravity="clip_vertical"/>
+
         </ScrollView>
 
         <android.support.design.widget.FloatingActionButton
@@ -75,69 +76,6 @@
             android:layout_toRightOf="@+id/choose_activation_date"
             android:layout_toEndOf="@+id/choose_activation_date"/>
 
-        <LinearLayout
-            android:id="@+id/seperator"
-            android:layout_above="@+id/switch_timed_activation"
-            android:layout_width="match_parent"
-            android:layout_height="1.5dp"
-            android:background="#80828A"
-            android:orientation="vertical"
-            android:layout_marginTop="6dp"
-            android:layout_marginBottom="6dp">
-        </LinearLayout>
-
-        <android.support.v7.widget.SwitchCompat
-            android:id="@+id/switch_timed_activation"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/timed_activation"
-            android:layout_above="@+id/choose_activation_date"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true"
-            android:textAppearance="?android:attr/textAppearanceMedium"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="@string/activation_"
-            android:id="@+id/choose_activation_date"
-            android:layout_above="@+id/btn_choose_expiration_date"
-            android:layout_alignBottom="@+id/btn_choose_activation_date"
-            android:layout_alignParentLeft="true"
-            android:gravity="center"
-            android:layout_alignTop="@+id/btn_choose_activation_date"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="@string/expiration_"
-            android:id="@+id/choose_expiration_date"
-            android:layout_alignBottom="@+id/btn_choose_expiration_date"
-            android:layout_alignParentLeft="true"
-            android:gravity="center"
-            android:layout_alignTop="@+id/btn_choose_expiration_date"/>
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/choose_date"
-            android:id="@+id/btn_choose_activation_date"
-            android:layout_above="@+id/btn_choose_expiration_date"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true"
-            android:layout_marginTop="6dp"/>
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/choose_date"
-            android:id="@+id/btn_choose_expiration_date"
-            android:layout_above="@+id/new_new"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true"/>
-
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -155,7 +93,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/choose_receiver_"
-            android:layout_above="@+id/seperator"/>
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"/>
 
     </RelativeLayout>
 </RelativeLayout>
