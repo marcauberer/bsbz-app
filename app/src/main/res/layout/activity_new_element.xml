@@ -15,7 +15,7 @@
         android:fitsSystemWindows="true"/>
 
     <RelativeLayout
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:padding="10dp"
         android:layout_below="@+id/toolbar_new_element"
@@ -65,18 +65,6 @@
             android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true"/>
 
-        <TextView
-            android:id="@+id/new_element_lblWriter"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="@string/writer_"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:gravity="center"
-            android:layout_alignTop="@+id/new_element_writer"
-            android:layout_above="@+id/new_element_choose_receiver"/>
-
         <Button
             android:id="@+id/new_element_choose_receiver"
             android:layout_width="match_parent"
@@ -89,15 +77,14 @@
 
         <EditText
             android:id="@+id/new_element_writer"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textCapSentences"
             android:layout_above="@+id/new_element_choose_receiver"
+            android:layout_marginBottom="6dp"
             android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true"
-            android:layout_toRightOf="@+id/new_element_lblWriter"
-            android:layout_toEndOf="@+id/new_element_lblWriter"
-            android:layout_marginLeft="20dp"/>
+            android:hint="@string/writer"/>
 
     </RelativeLayout>
 </RelativeLayout>
