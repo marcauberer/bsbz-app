@@ -45,26 +45,26 @@ public class NewNewActivity extends AppCompatActivity {
 
 
     //Variablen als Objekte
-    Resources res;
-    FloatingActionButton fab;
-    SharedPreferences prefs;
-    Calendar calendar;
-    DatePickerDialog datePickerDialog;
-    ConnectivityManager cm;
+    private Resources res;
+    private FloatingActionButton fab;
+    private SharedPreferences prefs;
+    private Calendar calendar;
+    private DatePickerDialog datePickerDialog;
+    private ConnectivityManager cm;
 
     //Utils-Pakete
-    ServerMessagingUtils serverMessagingUtils;
+    private ServerMessagingUtils serverMessagingUtils;
 
     //Komponenten
-    Toolbar toolbar;
-    SwitchCompat switch_timed_activation;
-    Button btn_choose_date_activation, btn_choose_date_expiration, btn_choose_receiver;
-    EditText etSubject, etDescription, etWriter;
+    private Toolbar toolbar;
+    private SwitchCompat switch_timed_activation;
+    private Button btn_choose_date_activation, btn_choose_date_expiration, btn_choose_receiver;
+    private EditText etSubject, etDescription, etWriter;
 
 
     //Variablen
     private boolean pressedOnce;
-    String result;
+    private String result;
 
     @Override
     protected void onStart() {

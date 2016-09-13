@@ -130,6 +130,23 @@
             </intent-filter>
         </activity>
 
+        <activity android:name=".App.ImageFullscreenActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+            </intent-filter>
+        </activity>
+        <activity android:name=".App.ImagePickerActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".App.NewElementActivity"
+            android:windowSoftInputMode="adjustPan" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+            </intent-filter>
+        </activity>
         <!-- SyncronisationService -->
         <service android:name=".Services.SyncronisationService"/>
         <!-- PercentService -->
@@ -173,13 +190,5 @@
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version"/>
-
-        <activity android:name=".App.ImageFullscreenActivity">
-        </activity>
-        <activity android:name=".App.ImagePickerActivity">
-        </activity>
-        <activity android:name=".App.NewElementActivity">
-        </activity>
     </application>
-
 </manifest>
