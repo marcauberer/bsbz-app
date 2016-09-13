@@ -1533,7 +1533,12 @@ public class MainActivity extends AppCompatActivity {
         //Container leeren
         container.removeAllViews();
         //Layout-Datei entfalten
-        layoutInflater.inflate(R.layout.fragment_jahresplan, container);
+        String rights = prefs.getString("Rights", "student");
+        if(rights.equals("classspeaker") || rights.equals("teacher") || rights.equals("administrator") || rights.equals("team")) {
+            layoutInflater.inflate(R.layout.fragment_jahresplan_admin, container);
+        } else {
+            layoutInflater.inflate(R.layout.fragment_jahresplan, container);
+        }
         //Fragment erstellen und anzeigen
         TermineFragment_Jahresplan f = new TermineFragment_Jahresplan();
         FragmentTransaction ft = fragmentManager.beginTransaction();

@@ -1,20 +1,20 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin" >
+    android:padding="6dp">
 
     <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
         android:orientation="vertical"
+        android:padding="10dp"
         tools:ignore="RtlHardcoded,UselessLeaf,UselessParent" >
 
         <HorizontalScrollView
@@ -40,85 +40,73 @@
                         
                         <Button
                             android:id="@+id/januar"
-                            android:layout_width="wrap_content"
-                            android:minWidth="250px"
+                            android:layout_width="250px"
                             android:layout_height="wrap_content"
                             android:text="@string/january" />
                         
                         <Button
                             android:id="@+id/februar"
-                            android:layout_width="wrap_content"
-                            android:minWidth="250px"
+                            android:layout_width="250px"
                             android:layout_height="wrap_content"
                             android:text="@string/february" />
                         
                         <Button
                             android:id="@+id/maerz"
-                            android:layout_width="wrap_content"
-                            android:minWidth="250px"
+                            android:layout_width="250px"
                             android:layout_height="wrap_content"
                             android:text="@string/march" />
                         
                         <Button
                             android:id="@+id/april"
-                            android:layout_width="wrap_content"
-                            android:minWidth="250px"
+                            android:layout_width="250px"
                             android:layout_height="wrap_content"
                             android:text="@string/april" />
                         
                         <Button
                             android:id="@+id/mai"
-                            android:layout_width="wrap_content"
-                            android:minWidth="250px"
+                            android:layout_width="250px"
                             android:layout_height="wrap_content"
                             android:text="@string/may" />
                         
                         <Button
                             android:id="@+id/juni"
-                            android:layout_width="wrap_content"
-                            android:minWidth="250px"
+                            android:layout_width="250px"
                             android:layout_height="wrap_content"
                             android:text="@string/june" />
                         
                         <Button
                             android:id="@+id/juli"
-                            android:layout_width="wrap_content"
-                            android:minWidth="250px"
+                            android:layout_width="250px"
                             android:layout_height="wrap_content"
                             android:text="@string/july" />
                         
                         <Button
                             android:id="@+id/august"
-                            android:layout_width="wrap_content"
-                            android:minWidth="250px"
+                            android:layout_width="250px"
                             android:layout_height="wrap_content"
                             android:text="@string/august" />
                         
                         <Button
                             android:id="@+id/september"
-                            android:layout_width="wrap_content"
-                            android:minWidth="250px"
+                            android:layout_width="250px"
                             android:layout_height="wrap_content"
                             android:text="@string/september" />
                         
                         <Button
                             android:id="@+id/oktober"
-                            android:layout_width="wrap_content"
-                            android:minWidth="250px"
+                            android:layout_width="250px"
                             android:layout_height="wrap_content"
                             android:text="@string/october" />
                         
                         <Button
                             android:id="@+id/november"
-                            android:layout_width="wrap_content"
-                            android:minWidth="250px"
+                            android:layout_width="250px"
                             android:layout_height="wrap_content"
                             android:text="@string/november" />
                         
                         <Button
                             android:id="@+id/dezember"
-                            android:layout_width="wrap_content"
-                            android:minWidth="250px"
+                            android:layout_width="250px"
                             android:layout_height="wrap_content"
                             android:text="@string/december" />
                         
@@ -147,6 +135,17 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="0.9"/>
-
     </LinearLayout>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/new_classtest_homework_event"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_add_white_48pt"
+        android:theme="@style/toolbarStyle"
+        app:backgroundTint="@color/colorPrimary"
+        android:layout_gravity="right|bottom"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"/>
 </RelativeLayout>
