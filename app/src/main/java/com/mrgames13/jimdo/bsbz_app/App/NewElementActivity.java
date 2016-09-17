@@ -11,6 +11,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.preference.PreferenceManager;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.SwitchCompat;
@@ -32,9 +33,12 @@ import com.mrgames13.jimdo.bsbz_app.Tools.ServerMessagingUtils;
 
 public class NewElementActivity extends AppCompatActivity {
     //Konstanten
-    public final int MODE_CLASSTEST = 1;
-    public final int MODE_HOMEWORK = 2;
-    public final int MODE_EVENT = 3;
+    public static final int MODE_CREATE_CLASSTEST = 1;
+    public static final int MODE_CREATE_HOMEWORK = 2;
+    public static final int MODE_CREATE_EVENT = 3;
+    public static final int MODE_EDIT_CLASSTEST = 4;
+    public static final int MODE_EDIT_HOMEWORK = 5;
+    public static final int MODE_EDIT_EVENT = 6;
 
     //Variablen als Objekte
     private ServerMessagingUtils serverMessagingUtils;
@@ -107,7 +111,7 @@ public class NewElementActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         //Mode aus dem Intent auslesen
-        mode = getIntent().getIntExtra("mode", MODE_CLASSTEST);
+        mode = getIntent().getIntExtra("mode", MODE_CREATE_CLASSTEST);
 
         //ActivityTitle aus dem Intent auslesen
         activity_title = getIntent().getStringExtra("title");
@@ -208,36 +212,41 @@ public class NewElementActivity extends AppCompatActivity {
                     });
 
                     final SwitchCompat all_classes = (SwitchCompat) dialogView.findViewById(R.id.all_classes);
-                    all_classes.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-                        @Override
-                        public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                            s1.setEnabled(!isChecked);
-                            s2.setEnabled(!isChecked);
-                            s3.setEnabled(!isChecked);
-                            klassenstufe.setEnabled(!isChecked);
-                            schulart.setEnabled(!isChecked);
-                            klassenart.setEnabled(!isChecked);
-                            klassenstufe_lbl.setEnabled(!isChecked);
-                            schulart_lbl.setEnabled(!isChecked);
-                            klassenart_lbl.setEnabled(!isChecked);
-                            klasse1.setText(res.getString(R.string.all_classes));
-                            if(isChecked) {
+                    if(mode != MODE_CREATE_EVENT && mode != MODE_EDIT_EVENT) {
+                        all_classes.setVisibility(View.GONE);
+                        all_classes.setChecked(false);
+                    } else {
+                        all_classes.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                            @Override
+                            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                                s1.setEnabled(!isChecked);
+                                s2.setEnabled(!isChecked);
+                                s3.setEnabled(!isChecked);
+                                klassenstufe.setEnabled(!isChecked);
+                                schulart.setEnabled(!isChecked);
+                                klassenart.setEnabled(!isChecked);
+                                klassenstufe_lbl.setEnabled(!isChecked);
+                                schulart_lbl.setEnabled(!isChecked);
+                                klassenart_lbl.setEnabled(!isChecked);
                                 klasse1.setText(res.getString(R.string.all_classes));
-                            } else {
-                                klasse1.setText(schulart.getText().toString() + klassenstufe.getText().toString() + klassenart.getText().toString());
+                                if(isChecked) {
+                                    klasse1.setText(res.getString(R.string.all_classes));
+                                } else {
+                                    klasse1.setText(schulart.getText().toString() + klassenstufe.getText().toString() + klassenart.getText().toString());
+                                }
                             }
-                        }
-                    });
+                        });
 
-                    s1.setEnabled(false);
-                    s2.setEnabled(false);
-                    s3.setEnabled(false);
-                    klassenstufe.setEnabled(false);
-                    schulart.setEnabled(false);
-                    klassenart.setEnabled(false);
-                    klassenstufe_lbl.setEnabled(false);
-                    schulart_lbl.setEnabled(false);
-                    klassenart_lbl.setEnabled(false);
+                        s1.setEnabled(false);
+                        s2.setEnabled(false);
+                        s3.setEnabled(false);
+                        klassenstufe.setEnabled(false);
+                        schulart.setEnabled(false);
+                        klassenart.setEnabled(false);
+                        klassenstufe_lbl.setEnabled(false);
+                        schulart_lbl.setEnabled(false);
+                        klassenart_lbl.setEnabled(false);
+                    }
 
                     if(all_classes.isChecked()) klasse1.setText(res.getString(R.string.all_classes));
 
@@ -257,10 +266,21 @@ public class NewElementActivity extends AppCompatActivity {
                         }
                     });
 
-                    alert.create().show();
+                    AlertDialog d = alert.create();
+                    d.show();
                 }
             });
         }
+
+        FloatingActionButton fab_create = (FloatingActionButton) findViewById(R.id.new_element_create);
+        fab_create.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(mode == MODE_CREATE_CLASSTEST) {
+
+                }
+            }
+        });
     }
 
     @Override
