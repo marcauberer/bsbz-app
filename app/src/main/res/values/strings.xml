@@ -3,6 +3,7 @@
     <string name="ok">OK</string>
     <string name="yes">Ja</string>
     <string name="no">Nein</string>
+    <string name="next">Weiter</string>
     <string name="cancel">Abbrechen</string>
     <string name="delete">Löschen</string>
     <string name="open">Öffnen</string>
@@ -281,6 +282,5 @@
     <string name="classtest_short">KA</string>
     <string name="homework_short">HA</string>
     <string name="event_short">Termin</string>
-    <string name="element_creation_m">Was soll erstellt werden?</string>
 
 </resources>

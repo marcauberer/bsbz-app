@@ -35,6 +35,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SwitchCompat;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -1549,7 +1550,7 @@ public class MainActivity extends AppCompatActivity {
             layoutInflater.inflate(R.layout.fragment_jahresplan, container);
         }
         //Fragment erstellen und anzeigen
-        TermineFragment_Jahresplan f = new TermineFragment_Jahresplan();
+        final TermineFragment_Jahresplan f = new TermineFragment_Jahresplan();
         FragmentTransaction ft = fragmentManager.beginTransaction();
         ft.replace(R.id.termine_jahresplan_container, f);
         ft.commit();
@@ -1561,35 +1562,72 @@ public class MainActivity extends AppCompatActivity {
             new_element.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    AlertDialog d = new AlertDialog.Builder(MainActivity.this)
+                    final AlertDialog d = new AlertDialog.Builder(MainActivity.this)
                             .setTitle(res.getString(R.string.create_))
-                            .setMessage(res.getString(R.string.element_creation_m))
-                            .setPositiveButton(res.getString(R.string.classtest_short), new DialogInterface.OnClickListener() {
+                            .setView(R.layout.dialogview_chooser_element)
+                            .setNegativeButton(res.getString(R.string.cancel), new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
-                                    Intent i = new Intent(MainActivity.this, NewElementActivity.class);
-                                    i.putExtra("title", res.getString(R.string.new_classtest));
-                                    startActivity(i);
+                                    dialog.dismiss();
                                 }
                             })
-                            .setNegativeButton(res.getString(R.string.homework_short), new DialogInterface.OnClickListener() {
+                            .setPositiveButton(res.getString(R.string.next), new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
-                                    Intent i = new Intent(MainActivity.this, NewElementActivity.class);
-                                    i.putExtra("title", res.getString(R.string.new_homework));
-                                    startActivity(i);
-                                }
-                            })
-                            .setNeutralButton(res.getString(R.string.event_short), new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-                                    Intent i = new Intent(MainActivity.this, NewElementActivity.class);
-                                    i.putExtra("title", res.getString(R.string.new_event));
-                                    startActivity(i);
+                                    SwitchCompat sw1 = (SwitchCompat) ((AlertDialog) dialog).findViewById(R.id.chooser_element_classtest);
+                                    SwitchCompat sw2 = (SwitchCompat) ((AlertDialog) dialog).findViewById(R.id.chooser_element_homework);
+                                    SwitchCompat sw3 = (SwitchCompat) ((AlertDialog) dialog).findViewById(R.id.chooser_element_event);
+                                    if(sw1.isChecked()) {
+                                        Intent i = new Intent(MainActivity.this, NewElementActivity.class);
+                                        i.putExtra("title", res.getString(R.string.new_classtest));
+                                        startActivity(i);
+                                    } else if(sw2.isChecked()) {
+                                        Intent i = new Intent(MainActivity.this, NewElementActivity.class);
+                                        i.putExtra("title", res.getString(R.string.new_homework));
+                                        startActivity(i);
+                                    } else if(sw3.isChecked()) {
+                                        Intent i = new Intent(MainActivity.this, NewElementActivity.class);
+                                        i.putExtra("title", res.getString(R.string.new_event));
+                                        startActivity(i);
+                                    }
                                 }
                             })
                             .create();
                     d.show();
+
+                    final SwitchCompat sw1 = (SwitchCompat) d.findViewById(R.id.chooser_element_classtest);
+                    final SwitchCompat sw2 = (SwitchCompat) d.findViewById(R.id.chooser_element_homework);
+                    final SwitchCompat sw3 = (SwitchCompat) d.findViewById(R.id.chooser_element_event);
+                    sw1.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                        @Override
+                        public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                            if(isChecked) {
+                                sw1.setChecked(isChecked);
+                                sw2.setChecked(false);
+                                sw3.setChecked(false);
+                            }
+                        }
+                    });
+                    sw2.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                        @Override
+                        public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                            if(isChecked) {
+                                sw1.setChecked(false);
+                                sw2.setChecked(isChecked);
+                                sw3.setChecked(false);
+                            }
+                        }
+                    });
+                    sw3.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                        @Override
+                        public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                            if(isChecked) {
+                                sw1.setChecked(false);
+                                sw2.setChecked(false);
+                                sw3.setChecked(isChecked);
+                            }
+                        }
+                    });
                 }
             });
         }

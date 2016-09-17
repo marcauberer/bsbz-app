@@ -75,7 +75,7 @@ public class NewElementActivity extends AppCompatActivity {
         }
 
         // ToolBar Titel festlegen
-        toolbar.setTitle(activity_title);
+        getSupportActionBar().setTitle(activity_title);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
@@ -108,6 +108,9 @@ public class NewElementActivity extends AppCompatActivity {
 
         //Mode aus dem Intent auslesen
         mode = getIntent().getIntExtra("mode", MODE_CLASSTEST);
+
+        //ActivityTitle aus dem Intent auslesen
+        activity_title = getIntent().getStringExtra("title");
 
         //Writer-Textfeld initialisieren
         EditText writer = (EditText) findViewById(R.id.new_element_writer);
@@ -258,9 +261,6 @@ public class NewElementActivity extends AppCompatActivity {
                 }
             });
         }
-
-        //ActivityTitle festlegen
-        activity_title = getIntent().getStringExtra("title");
     }
 
     @Override
