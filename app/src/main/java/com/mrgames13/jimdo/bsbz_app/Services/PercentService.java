@@ -31,6 +31,8 @@ public class PercentService extends Service {
 		res = getResources();
 		//SharedPreferences initialisieren
 		prefs = PreferenceManager.getDefaultSharedPreferences(this);
+		//NotificationUtils initialisieren
+		nu = new NotificationUtils(getApplicationContext());
 		//show aus den SharedPreferences ermitteln
 		show = prefs.getBoolean("send", true);
 		//Prozentanzahl berechnen

@@ -274,5 +274,13 @@
     <string name="new_classtest">Neue Klassenarbeit</string>
     <string name="new_homework">Neue Hausaufgabe</string>
     <string name="new_event">Neuer Termin</string>
+    <string name="create_">Erstellen ...</string>
+    <string name="classtest">Klassenarbeit</string>
+    <string name="homework">Hausaufgabe</string>
+    <string name="event">Termin</string>
+    <string name="classtest_short">KA</string>
+    <string name="homework_short">HA</string>
+    <string name="event_short">Termin</string>
+    <string name="element_creation_m">Was soll erstellt werden?</string>
 
 </resources>

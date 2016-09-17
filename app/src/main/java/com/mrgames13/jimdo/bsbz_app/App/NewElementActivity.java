@@ -46,6 +46,7 @@ public class NewElementActivity extends AppCompatActivity {
     //Variablen
     private boolean pressedOnce;
     private int mode;
+    private String activity_title;
 
     @Override
     protected void onStart() {
@@ -67,7 +68,6 @@ public class NewElementActivity extends AppCompatActivity {
             color = "#00007f";
         }
         toolbar.setBackgroundDrawable(new ColorDrawable(Color.parseColor(color)));
-        toolbar.setTitle(res.getString(R.string.title_activity_new_new));
 
         if(Build.VERSION.SDK_INT >= 21) {
             Window window = getWindow();
@@ -75,7 +75,7 @@ public class NewElementActivity extends AppCompatActivity {
         }
 
         // ToolBar Titel festlegen
-        toolbar.setTitle(getIntent().getStringExtra("title"));
+        toolbar.setTitle(activity_title);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
@@ -258,6 +258,9 @@ public class NewElementActivity extends AppCompatActivity {
                 }
             });
         }
+
+        //ActivityTitle festlegen
+        activity_title = getIntent().getStringExtra("title");
     }
 
     @Override

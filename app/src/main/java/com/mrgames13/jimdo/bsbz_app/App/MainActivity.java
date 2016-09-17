@@ -1561,7 +1561,35 @@ public class MainActivity extends AppCompatActivity {
             new_element.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    startActivity(new Intent(MainActivity.this, NewElementActivity.class));
+                    AlertDialog d = new AlertDialog.Builder(MainActivity.this)
+                            .setTitle(res.getString(R.string.create_))
+                            .setMessage(res.getString(R.string.element_creation_m))
+                            .setPositiveButton(res.getString(R.string.classtest_short), new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    Intent i = new Intent(MainActivity.this, NewElementActivity.class);
+                                    i.putExtra("title", res.getString(R.string.new_classtest));
+                                    startActivity(i);
+                                }
+                            })
+                            .setNegativeButton(res.getString(R.string.homework_short), new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    Intent i = new Intent(MainActivity.this, NewElementActivity.class);
+                                    i.putExtra("title", res.getString(R.string.new_homework));
+                                    startActivity(i);
+                                }
+                            })
+                            .setNeutralButton(res.getString(R.string.event_short), new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    Intent i = new Intent(MainActivity.this, NewElementActivity.class);
+                                    i.putExtra("title", res.getString(R.string.new_event));
+                                    startActivity(i);
+                                }
+                            })
+                            .create();
+                    d.show();
                 }
             });
         }

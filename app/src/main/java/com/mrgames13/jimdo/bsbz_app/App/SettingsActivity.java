@@ -538,35 +538,37 @@ public class SettingsActivity extends PreferenceActivity {
 			@Override
 			public boolean onPreferenceChange(Preference preference, final Object newValue) {
 				//Dialog anzeigen
-                android.support.v7.app.AlertDialog.Builder builder = new android.support.v7.app.AlertDialog.Builder(SettingsActivity.this);
-				builder.setCancelable(true);
-				builder.setTitle(res.getString(R.string.restart));
-				builder.setMessage(res.getString(R.string.changings_will_be_visible_after_restart));
-				builder.setPositiveButton(res.getString(R.string.pref_reboot_title), new DialogInterface.OnClickListener() {
-					@Override
-					public void onClick(DialogInterface dialog, int which) {
-						Intent i = getBaseContext().getPackageManager().getLaunchIntentForPackage(getBaseContext().getPackageName());
-						i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-						startActivity(i);
-					}
-				});
-				builder.setNegativeButton(res.getString(R.string.pref_later), new DialogInterface.OnClickListener() {
-					@Override
-					public void onClick(DialogInterface dialog, int which) {
-						dialog.dismiss();
-						if(newValue.toString().equals("0")) {
-							MainActivity.AppTheme = 0;
-							ThemeUtils.changeToTheme(SettingsActivity.this, 0);
-						} else if(newValue.toString().equals("1")) {
-							MainActivity.AppTheme = 1;
-							ThemeUtils.changeToTheme(SettingsActivity.this, 1);
-						} else if(newValue.toString().equals("2")) {
-							MainActivity.AppTheme = 2;
-							ThemeUtils.changeToTheme(SettingsActivity.this, 2);
+				if(!prefs.getString("AppTheme", "Helles Schema (Standard)").equals(newValue)) {
+					android.support.v7.app.AlertDialog.Builder builder = new android.support.v7.app.AlertDialog.Builder(SettingsActivity.this);
+					builder.setCancelable(true);
+					builder.setTitle(res.getString(R.string.restart));
+					builder.setMessage(res.getString(R.string.changings_will_be_visible_after_restart));
+					builder.setPositiveButton(res.getString(R.string.pref_reboot_title), new DialogInterface.OnClickListener() {
+						@Override
+						public void onClick(DialogInterface dialog, int which) {
+							Intent i = getBaseContext().getPackageManager().getLaunchIntentForPackage(getBaseContext().getPackageName());
+							i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+							startActivity(i);
 						}
-					}
-				});
-				builder.create().show();
+					});
+					builder.setNegativeButton(res.getString(R.string.pref_later), new DialogInterface.OnClickListener() {
+						@Override
+						public void onClick(DialogInterface dialog, int which) {
+							dialog.dismiss();
+							if(newValue.toString().equals("0")) {
+								MainActivity.AppTheme = 0;
+								ThemeUtils.changeToTheme(SettingsActivity.this, 0);
+							} else if(newValue.toString().equals("1")) {
+								MainActivity.AppTheme = 1;
+								ThemeUtils.changeToTheme(SettingsActivity.this, 1);
+							} else if(newValue.toString().equals("2")) {
+								MainActivity.AppTheme = 2;
+								ThemeUtils.changeToTheme(SettingsActivity.this, 2);
+							}
+						}
+					});
+					builder.create().show();
+				}
 				return true;
 			}
 		});
