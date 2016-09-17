@@ -51,6 +51,9 @@ public class NewElementActivity extends AppCompatActivity {
     private boolean pressedOnce;
     private int mode;
     private String activity_title;
+    private String old_title;
+    private String old_discription;
+    private String old_receiver;
 
     @Override
     protected void onStart() {
@@ -112,6 +115,11 @@ public class NewElementActivity extends AppCompatActivity {
 
         //Mode aus dem Intent auslesen
         mode = getIntent().getIntExtra("mode", MODE_CREATE_CLASSTEST);
+
+        //Beim Editieren Daten aus dem Intent lesen
+        old_title = getIntent().getStringExtra("old_title");
+        old_discription = getIntent().getStringExtra("old_description");
+        old_receiver = getIntent().getStringExtra("old_receiver");
 
         //ActivityTitle aus dem Intent auslesen
         activity_title = getIntent().getStringExtra("title");
@@ -250,6 +258,8 @@ public class NewElementActivity extends AppCompatActivity {
 
                     if(all_classes.isChecked()) klasse1.setText(res.getString(R.string.all_classes));
 
+                    if(old_receiver != null) choose_receiver.setText(old_receiver);
+
                     alert.setTitle(res.getString(R.string.please_coose_your_class_));
 
                     alert.setPositiveButton(res.getString(R.string.ok), new DialogInterface.OnClickListener() {
@@ -266,8 +276,7 @@ public class NewElementActivity extends AppCompatActivity {
                         }
                     });
 
-                    AlertDialog d = alert.create();
-                    d.show();
+                    alert.create().show();
                 }
             });
         }
