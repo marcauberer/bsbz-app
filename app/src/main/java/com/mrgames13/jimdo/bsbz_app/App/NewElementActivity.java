@@ -33,6 +33,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.mrgames13.jimdo.bsbz_app.R;
+import com.mrgames13.jimdo.bsbz_app.Services.SyncronisationService;
 import com.mrgames13.jimdo.bsbz_app.Tools.ServerMessagingUtils;
 
 import java.net.URLEncoder;
@@ -395,6 +396,7 @@ public class NewElementActivity extends AppCompatActivity {
                                 //Je nach Result handeln
                                 if(result) {
                                     pd.dismiss();
+                                    startService(new Intent(NewElementActivity.this, SyncronisationService.class));
                                     finish();
                                 } else {
                                     pd.dismiss();

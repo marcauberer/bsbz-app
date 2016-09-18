@@ -2761,7 +2761,7 @@ public class MainActivity extends AppCompatActivity {
                     int index4 = news.indexOf(",", index3 +1);
                     int index5 = news.indexOf(",", index4 +1);
                     int index6 = news.indexOf(",", index5 +1);
-                    item_subject = news.substring(0, index1);
+                    item_subject = news.substring(0, index1).trim();
                     item_description = news.substring(index1 +1, index2);
                     item_from = news.substring(index2 +1, index3);
                     item_state = news.substring(index3 +1, index4);
@@ -2836,7 +2836,7 @@ public class MainActivity extends AppCompatActivity {
                                     int index4 = news.indexOf(",", index3 +1);
                                     int index5 = news.indexOf(",", index4 +1);
                                     int index6 = news.indexOf(",", index5 +1);
-                                    item_subject = news.substring(0, index1);
+                                    item_subject = news.substring(0, index1).trim();
                                     item_description = news.substring(index1 +1, index2);
                                     item_from = news.substring(index2 +1, index3);
                                     item_state = news.substring(index3 +1, index4);
@@ -2899,7 +2899,7 @@ public class MainActivity extends AppCompatActivity {
                                             }
                                             //Nachricht vom Server löschen
                                             String username = prefs.getString("Name", res.getString(R.string.guest));
-                                            result = serverMessagingUtils.sendRequest(null, "name="+ URLEncoder.encode(username, "UTF-8")+"&command=deletenew&subject="+URLEncoder.encode(item_subject, "UTF-8"));
+                                            result = serverMessagingUtils.sendRequest(null, "name="+ URLEncoder.encode(username, "UTF-8")+"&command=deletenew&subject="+URLEncoder.encode(item_subject.trim(), "UTF-8"));
                                             if(result.equals("Action Successful")) {
                                                 result = res.getString(R.string.new_successfully_created);
                                                 getActivity().startService(new Intent(getActivity(), SyncronisationService.class));
@@ -2961,7 +2961,7 @@ public class MainActivity extends AppCompatActivity {
                     int index4 = news.indexOf(",", index3 +1);
                     int index5 = news.indexOf(",", index4 +1);
                     int index6 = news.indexOf(",", index5 +1);
-                    item_subject = news.substring(0, index1);
+                    item_subject = news.substring(0, index1).trim();
                     item_description = news.substring(index1 +1, index2);
                     item_from = news.substring(index2 +1, index3);
                     item_state = news.substring(index3 +1, index4);
