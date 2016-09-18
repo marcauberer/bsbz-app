@@ -1579,17 +1579,14 @@ public class MainActivity extends AppCompatActivity {
                                     SwitchCompat sw3 = (SwitchCompat) ((AlertDialog) dialog).findViewById(R.id.chooser_element_event);
                                     if(sw1.isChecked()) {
                                         Intent i = new Intent(MainActivity.this, NewElementActivity.class);
-                                        i.putExtra("title", res.getString(R.string.new_classtest));
                                         i.putExtra("mode", NewElementActivity.MODE_CREATE_CLASSTEST);
                                         startActivity(i);
                                     } else if(sw2.isChecked()) {
                                         Intent i = new Intent(MainActivity.this, NewElementActivity.class);
-                                        i.putExtra("title", res.getString(R.string.new_homework));
                                         i.putExtra("mode", NewElementActivity.MODE_CREATE_HOMEWORK);
                                         startActivity(i);
                                     } else if(sw3.isChecked()) {
                                         Intent i = new Intent(MainActivity.this, NewElementActivity.class);
-                                        i.putExtra("title", res.getString(R.string.new_event));
                                         i.putExtra("mode", NewElementActivity.MODE_CREATE_EVENT);
                                         startActivity(i);
                                     }

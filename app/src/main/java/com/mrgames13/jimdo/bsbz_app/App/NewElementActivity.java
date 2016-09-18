@@ -136,8 +136,20 @@ public class NewElementActivity extends AppCompatActivity {
         old_discription = getIntent().getStringExtra("old_description");
         old_receiver = getIntent().getStringExtra("old_receiver");
 
-        //ActivityTitle aus dem Intent auslesen
-        activity_title = getIntent().getStringExtra("title");
+        //ActivityTitle festlegen
+        if(mode == MODE_CREATE_CLASSTEST) {
+            activity_title = res.getString(R.string.new_classtest);
+        } else if(mode == MODE_CREATE_HOMEWORK) {
+            activity_title = res.getString(R.string.new_homework);
+        } else if(mode == MODE_CREATE_EVENT) {
+            activity_title = res.getString(R.string.new_event);
+        } else if(mode == MODE_EDIT_CLASSTEST) {
+            activity_title = res.getString(R.string.edit_classtest);
+        } else if(mode == MODE_EDIT_HOMEWORK) {
+            activity_title = res.getString(R.string.edit_classtest);
+        } else if(mode == MODE_EDIT_EVENT) {
+            activity_title = res.getString(R.string.edit_classtest);
+        }
 
         //Writer-Textfeld initialisieren
         EditText writer = (EditText) findViewById(R.id.new_element_writer);
@@ -376,6 +388,22 @@ public class NewElementActivity extends AppCompatActivity {
                             String receiver = choose_receiver.getText().toString();
                             if(receiver.equals(res.getString(R.string.all_classes))) receiver = "Alle";
                             result = createEvent(name, date, subject, description, receiver);
+                        } else if(mode == MODE_EDIT_CLASSTEST) {
+                            String subject = betreff.getText().toString();
+                            String description = beschreibung.getText().toString();
+                            String date = choose_date.getText().toString();
+                            String receiver = choose_receiver.getText().toString();
+                        } else if(mode == MODE_EDIT_HOMEWORK) {
+                            String subject = betreff.getText().toString();
+                            String description = beschreibung.getText().toString();
+                            String date = choose_date.getText().toString();
+                            String receiver = choose_receiver.getText().toString();
+                        } else if(mode == MODE_EDIT_EVENT) {
+                            String subject = betreff.getText().toString();
+                            String description = beschreibung.getText().toString();
+                            String date = choose_date.getText().toString();
+                            String receiver = choose_receiver.getText().toString();
+                            if(receiver.equals(res.getString(R.string.all_classes))) receiver = "Alle";
                         }
                         runOnUiThread(new Runnable() {
                             @Override
@@ -467,6 +495,14 @@ public class NewElementActivity extends AppCompatActivity {
     private boolean createEvent(final String name, final String date, final String title, final String text, final String receiver) {
         try{
             String result = serverMessagingUtils.sendRequest(null, "name="+ URLEncoder.encode(name, "UTF-8")+"&command=newevent&date="+URLEncoder.encode(date, "UTF-8")+"&title="+URLEncoder.encode(title, "UTF-8")+"&text="+URLEncoder.encode(text, "UTF-8")+"&class="+URLEncoder.encode(receiver, "UTF-8"));
+            if(result.equals("Action Successful")) return true;
+        } catch(Exception e) {}
+        return false;
+    }
+
+    private boolean editClasstest(final String name, final String date, final String title, final String text, final String receiver) {
+        try{
+            String result = serverMessagingUtils.sendRequest(null, "name="+ URLEncoder.encode(name, "UTF-8")+"&command=newclasstest&date="+URLEncoder.encode(date, "UTF-8")+"&title="+URLEncoder.encode(title, "UTF-8")+"&text="+URLEncoder.encode(text, "UTF-8")+"&class="+URLEncoder.encode(receiver, "UTF-8"));
             if(result.equals("Action Successful")) return true;
         } catch(Exception e) {}
         return false;

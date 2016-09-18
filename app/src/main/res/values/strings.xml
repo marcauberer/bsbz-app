@@ -276,6 +276,9 @@
     <string name="new_classtest">Neue Klassenarbeit</string>
     <string name="new_homework">Neue Hausaufgabe</string>
     <string name="new_event">Neuer Termin</string>
+    <string name="edit_classtest">Klassenarbeit bearbeiten</string>
+    <string name="edit_homework">Hausaufgabe bearbeiten</string>
+    <string name="edit_event">Termin bearbeiten</string>
     <string name="create_">Erstellen ...</string>
     <string name="classtest">Klassenarbeit</string>
     <string name="homework">Hausaufgabe</string>
