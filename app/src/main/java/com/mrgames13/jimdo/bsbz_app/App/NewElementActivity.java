@@ -1,6 +1,7 @@
 package com.mrgames13.jimdo.bsbz_app.App;
 
 import android.app.DatePickerDialog;
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -54,6 +55,8 @@ public class NewElementActivity extends AppCompatActivity {
     private ConnectivityManager cm;
     private Calendar calendar;
     private DatePickerDialog datePickerDialog;
+    private Handler h = new Handler();
+    private ProgressDialog pd;
 
     //Variablen
     private boolean pressedOnce;
@@ -62,6 +65,7 @@ public class NewElementActivity extends AppCompatActivity {
     private String old_title;
     private String old_discription;
     private String old_receiver;
+    private boolean result;
 
     @Override
     protected void onStart() {
@@ -138,6 +142,9 @@ public class NewElementActivity extends AppCompatActivity {
         //Writer-Textfeld initialisieren
         EditText writer = (EditText) findViewById(R.id.new_element_writer);
         writer.setText(prefs.getString("Name", res.getString(R.string.guest)));
+
+        final EditText betreff = (EditText) findViewById(R.id.new_element_betreff);
+        final EditText beschreibung = (EditText) findViewById(R.id.new_element_description);
 
         //ChooseReceiver-Button initialisieren
         final Button choose_receiver = (Button) findViewById(R.id.new_element_choose_receiver);
@@ -334,16 +341,57 @@ public class NewElementActivity extends AppCompatActivity {
         fab_create.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                try{
-                    String name = prefs.getString("Name", res.getString(R.string.guest));
-                    if(mode == MODE_CREATE_CLASSTEST) {
-                        serverMessagingUtils.sendRequest(null, "name="+ URLEncoder.encode(name, "UTF-8")+"&command=newclasstest&date");
-                    } else if(mode == MODE_CREATE_HOMEWORK) {
-
-                    } else if(mode == MODE_CREATE_EVENT) {
-
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                //ProgressDialog anzeigen
+                                pd = new ProgressDialog(NewElementActivity.this);
+                                pd.setIndeterminate(true);
+                                pd.show();
+                            }
+                        });
+                        //Name aus den SharedPreferences auslesen
+                        String name = prefs.getString("Name", res.getString(R.string.guest));
+                        //Je nach Modus Element hochladen
+                        result = false;
+                        if(mode == MODE_CREATE_CLASSTEST) {
+                            String subject = betreff.getText().toString();
+                            String description = beschreibung.getText().toString();
+                            String date = choose_date.getText().toString();
+                            String receiver = choose_receiver.getText().toString();
+                            result = createClasstest(name, date, subject, description, receiver);
+                        } else if(mode == MODE_CREATE_HOMEWORK) {
+                            String subject = betreff.getText().toString();
+                            String description = beschreibung.getText().toString();
+                            String date = choose_date.getText().toString();
+                            String receiver = choose_receiver.getText().toString();
+                            result = createHomework(name, date, subject, description, receiver);
+                        } else if(mode == MODE_CREATE_EVENT) {
+                            String subject = betreff.getText().toString();
+                            String description = beschreibung.getText().toString();
+                            String date = choose_date.getText().toString();
+                            String receiver = choose_receiver.getText().toString();
+                            if(receiver.equals(res.getString(R.string.all_classes))) receiver = "Alle";
+                            result = createEvent(name, date, subject, description, receiver);
+                        }
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                //Je nach Result handeln
+                                if(result) {
+                                    pd.dismiss();
+                                    finish();
+                                } else {
+                                    pd.dismiss();
+                                    Toast.makeText(NewElementActivity.this, res.getString(R.string.error_occured_try_again), Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                        });
                     }
-                } catch(Exception e) {}
+                }).start();
             }
         });
     }
@@ -398,5 +446,29 @@ public class NewElementActivity extends AppCompatActivity {
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private boolean createClasstest(final String name, final String date, final String title, final String text, final String receiver) {
+        try{
+            String result = serverMessagingUtils.sendRequest(null, "name="+ URLEncoder.encode(name, "UTF-8")+"&command=newclasstest&date="+URLEncoder.encode(date, "UTF-8")+"&title="+URLEncoder.encode(title, "UTF-8")+"&text="+URLEncoder.encode(text, "UTF-8")+"&class="+URLEncoder.encode(receiver, "UTF-8"));
+            if(result.equals("Action Successful")) return true;
+        } catch(Exception e) {}
+        return false;
+    }
+
+    private boolean createHomework(final String name, final String date, final String title, final String text, final String receiver) {
+        try{
+            String result = serverMessagingUtils.sendRequest(null, "name="+ URLEncoder.encode(name, "UTF-8")+"&command=newhomework&date="+URLEncoder.encode(date, "UTF-8")+"&title="+URLEncoder.encode(title, "UTF-8")+"&text="+URLEncoder.encode(text, "UTF-8")+"&class="+URLEncoder.encode(receiver, "UTF-8"));
+            if(result.equals("Action Successful")) return true;
+        } catch(Exception e) {}
+        return false;
+    }
+
+    private boolean createEvent(final String name, final String date, final String title, final String text, final String receiver) {
+        try{
+            String result = serverMessagingUtils.sendRequest(null, "name="+ URLEncoder.encode(name, "UTF-8")+"&command=newevent&date="+URLEncoder.encode(date, "UTF-8")+"&title="+URLEncoder.encode(title, "UTF-8")+"&text="+URLEncoder.encode(text, "UTF-8")+"&class="+URLEncoder.encode(receiver, "UTF-8"));
+            if(result.equals("Action Successful")) return true;
+        } catch(Exception e) {}
+        return false;
     }
 }
