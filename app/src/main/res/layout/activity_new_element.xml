@@ -41,7 +41,7 @@
             android:layout_below="@+id/new_element_betreff"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
-            android:layout_above="@+id/new_element_writer">
+            android:layout_above="@+id/new_element_choose_date">
 
             <EditText
                 android:id="@+id/new_element_description"
@@ -52,6 +52,15 @@
                 android:gravity="clip_vertical"/>
 
         </ScrollView>
+
+        <Button
+            android:id="@+id/new_element_choose_date"
+            android:text="@string/choose_date"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_above="@+id/new_element_writer"/>
 
         <android.support.design.widget.FloatingActionButton
             android:id="@+id/new_element_create"
@@ -85,6 +94,5 @@
             android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true"
             android:hint="@string/writer"/>
-
     </RelativeLayout>
 </RelativeLayout>

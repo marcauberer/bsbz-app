@@ -31,6 +31,8 @@ import android.widget.Toast;
 import com.mrgames13.jimdo.bsbz_app.R;
 import com.mrgames13.jimdo.bsbz_app.Tools.ServerMessagingUtils;
 
+import java.net.URLEncoder;
+
 public class NewElementActivity extends AppCompatActivity {
     //Konstanten
     public static final int MODE_CREATE_CLASSTEST = 1;
@@ -285,9 +287,16 @@ public class NewElementActivity extends AppCompatActivity {
         fab_create.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(mode == MODE_CREATE_CLASSTEST) {
+                try{
+                    String name = prefs.getString("Name", res.getString(R.string.guest));
+                    if(mode == MODE_CREATE_CLASSTEST) {
+                        serverMessagingUtils.sendRequest(null, "name="+ URLEncoder.encode(name, "UTF-8")+"&command=newclasstest&date");
+                    } else if(mode == MODE_CREATE_HOMEWORK) {
 
-                }
+                    } else if(mode == MODE_CREATE_EVENT) {
+
+                    }
+                } catch(Exception e) {}
             }
         });
     }

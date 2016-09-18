@@ -86,12 +86,10 @@ public class SyncronisationService extends Service {
 		handler = new Handler();
 
 		show_notifications = prefs.getBoolean("send_notifications", true);
-		klasse = prefs.getString("Klasse", "---");
+		klasse = prefs.getString("Klasse", "no_class");
 		username = prefs.getString("Name", res.getString(R.string.guest));
 		update = prefs.getBoolean("UpdateAvailable", false);
 		sync = prefs.getBoolean("Sync", true);
-
-        Log.d("BSBZ-App", klasse);
 
 		if(!sync) Toast.makeText(context, getResources().getString(R.string.account_sync_blocked), Toast.LENGTH_LONG).show();
 

@@ -647,7 +647,8 @@ public class SettingsActivity extends PreferenceActivity {
         });
 
 		final Preference custom_startpage = findPreference("CustomStartPage");
-        String startpage = prefs.getString("CustomStartPage", "Mein Profil");
+        String startpage = prefs.getString("CustomStartPage", "0");
+		if(startpage.equals("0")) startpage = "Mein Profil";
         custom_startpage.setSummary(startpage.replace(" (Standard)", ""));
         custom_startpage.setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
             @Override
