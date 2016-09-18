@@ -2382,6 +2382,9 @@ public class MainActivity extends AppCompatActivity {
     @SuppressLint("InlinedApi")
     public static class TermineFragment_Jahresplan extends ListFragment {
 
+        //Variablen
+        String item_text;
+
         @Override
         public void onActivityCreated(Bundle savedInstanceState) {
             super.onActivityCreated(savedInstanceState);
@@ -2454,6 +2457,21 @@ public class MainActivity extends AppCompatActivity {
             //Adapter aufsetzen und der Liste zuweisen
             adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_activated_1, arraylist);
             setListAdapter(adapter);
+
+            String rights = prefs.getString("Rights", "student");
+            if(rights.equals("classspeaker") || rights.equals("teacher") || rights.equals("administrator") || rights.equals("team")) {
+                registerForContextMenu(getListView());
+                getListView().setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+                    @Override
+                    public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                        item_text = getListView().getItemAtPosition(position).toString();
+                        if(!item_text.equals(KEINE_TERMINE_MONAT)) {
+                            getListView().showContextMenu();
+                        }
+                        return true;
+                    }
+                });
+            }
         }
 
         @Override
@@ -2469,20 +2487,73 @@ public class MainActivity extends AppCompatActivity {
             if(activity instanceof MainActivity) {
                 switch (item.getItemId()){
                     case R.id.context_menu_edit_element:
-                        String item_title = item.getTitle().toString();
-                        String old_date = item_title.substring(0, item_title.indexOf(":"));
-                        String old_title = item_title.substring(item_title.indexOf(":" +2));
                         //Daten aus den SharedPreferences herausfiltern
+                        String item_subject = "No Data";
+                        String item_description = "No Data";
+                        String item_writer = "No Data";
+                        String item_date = "No Data";
+                        String item_receiver = "No Data";
+                        //Klassenarbeiten filtern
+                        int mode = NewElementActivity.MODE_EDIT_CLASSTEST;
+                        for(int i = 0; i < 101; i++) {
+                            String news = prefs.getString("Classtests_"+Integer.toString(i), "-");
+                            if(!news.equals("-")) {
+                                int index1 = news.indexOf(",");
+                                int index2 = news.indexOf(",", index1 +1);
+                                int index3 = news.indexOf(",", index2 +1);
+                                item_date = news.substring(0, index1);
+                                item_subject = news.substring(index1 +1, index2);
+                                item_description = news.substring(index2 +1, index3);
+                                item_writer = news.substring(index3 +1);
+                                if(item_text.equals(item_date + ": " + item_subject)) break;
+                            }
+                        }
+                        //Hausaufgaben filtern
+                        if(!item_text.equals(item_date + ": " + item_subject)) {
+                            mode = NewElementActivity.MODE_EDIT_HOMEWORK;
+                            for(int i = 0; i < 101; i++) {
+                                String news = prefs.getString("Homeworks_"+Integer.toString(i), "-");
+                                if(!news.equals("-")) {
+                                    int index1 = news.indexOf(",");
+                                    int index2 = news.indexOf(",", index1 +1);
+                                    int index3 = news.indexOf(",", index2 +1);
+                                    item_date = news.substring(0, index1);
+                                    item_subject = news.substring(index1 +1, index2);
+                                    item_description = news.substring(index2 +1, index3);
+                                    item_writer = news.substring(index3 +1);
+                                    if(item_text.equals(item_date + ": " + item_subject)) break;
+                                }
+                            }
+                        }
+                        //Termine filtern
+                        if(!item_text.equals(item_date + ": " + item_subject)) {
+                            mode = NewElementActivity.MODE_EDIT_EVENT;
+                            for(int i = 0; i < 101; i++) {
+                                String news = prefs.getString("Events_"+Integer.toString(i), "-");
+                                if(!news.equals("-")) {
+                                    int index1 = news.indexOf(",");
+                                    int index2 = news.indexOf(",", index1 +1);
+                                    int index3 = news.indexOf(",", index2 +1);
+                                    item_date = news.substring(0, index1);
+                                    item_subject = news.substring(index1 +1, index2);
+                                    item_description = news.substring(index2 +1, index3);
+                                    item_writer = news.substring(index3 +1);
+                                    if(item_text.equals(item_date + ": " + item_subject)) break;
+                                }
+                            }
+                        }
 
-
-                        //Activity starten
+                        //Activity starten und Daten übergeben
                         Intent i = new Intent(getActivity(), NewElementActivity.class);
-                        i.putExtra("old_title", old_title);
-                        i.putExtra("old_date", old_date);
+                        i.putExtra("old_title", item_subject);
+                        i.putExtra("old_date", item_date);
+                        i.putExtra("old_description", item_description);
+                        i.putExtra("old_writer", item_writer);
+                        i.putExtra("mode", mode);
                         startActivity(i);
                         return true;
                     case R.id.context_menu_delete_element:
-                        android.support.v7.app.AlertDialog.Builder d = new android.support.v7.app.AlertDialog.Builder(getActivity());
+                        /*android.support.v7.app.AlertDialog.Builder d = new android.support.v7.app.AlertDialog.Builder(getActivity());
                         d.setTitle(res.getString(R.string.delete_new));
                         d.setMessage(res.getString(R.string.do_you_want_to_delete_new));
                         d.setPositiveButton(res.getString(R.string.delete), new DialogInterface.OnClickListener() {
@@ -2549,7 +2620,7 @@ public class MainActivity extends AppCompatActivity {
                                 dialog.dismiss();
                             }
                         });
-                        d.create().show();
+                        d.create().show();*/
                         return true;
                     default:
                         return super.onContextItemSelected(item);

@@ -63,8 +63,8 @@ public class NewElementActivity extends AppCompatActivity {
     private int mode;
     private String activity_title;
     private String old_title;
-    private String old_discription;
-    private String old_receiver;
+    private String old_description;
+    private String old_writer;
     private String old_date;
     private boolean result;
 
@@ -134,8 +134,8 @@ public class NewElementActivity extends AppCompatActivity {
 
         //Beim Editieren Daten aus dem Intent lesen
         old_title = getIntent().getStringExtra("old_title");
-        old_discription = getIntent().getStringExtra("old_description");
-        old_receiver = getIntent().getStringExtra("old_receiver");
+        old_description = getIntent().getStringExtra("old_description");
+        old_writer = getIntent().getStringExtra("old_writer");
         old_date = getIntent().getStringExtra("old_date");
 
         //ActivityTitle festlegen
@@ -148,21 +148,24 @@ public class NewElementActivity extends AppCompatActivity {
         } else if(mode == MODE_EDIT_CLASSTEST) {
             activity_title = res.getString(R.string.edit_classtest);
         } else if(mode == MODE_EDIT_HOMEWORK) {
-            activity_title = res.getString(R.string.edit_classtest);
+            activity_title = res.getString(R.string.edit_homework);
         } else if(mode == MODE_EDIT_EVENT) {
-            activity_title = res.getString(R.string.edit_classtest);
+            activity_title = res.getString(R.string.edit_event);
         }
 
         //Writer-Textfeld initialisieren
-        EditText writer = (EditText) findViewById(R.id.new_element_writer);
+        final EditText writer = (EditText) findViewById(R.id.new_element_writer);
         writer.setText(prefs.getString("Name", res.getString(R.string.guest)));
+        if(old_writer != null) writer.setText(old_writer);
 
         final EditText betreff = (EditText) findViewById(R.id.new_element_betreff);
         final EditText beschreibung = (EditText) findViewById(R.id.new_element_description);
+        if(old_title != null) betreff.setText(old_title);
+        if(old_description != null) beschreibung.setText(old_description);
 
         //ChooseReceiver-Button initialisieren
         final Button choose_receiver = (Button) findViewById(R.id.new_element_choose_receiver);
-        String rights = prefs.getString("Rights", "student");
+        final String rights = prefs.getString("Rights", "student");
         if(rights.equals("classspeaker")) {
             choose_receiver.setText(prefs.getString("Klasse", "no_class"));
             choose_receiver.setEnabled(false);
@@ -290,8 +293,6 @@ public class NewElementActivity extends AppCompatActivity {
 
                     if(all_classes.isChecked()) klasse1.setText(res.getString(R.string.all_classes));
 
-                    if(old_receiver != null) choose_receiver.setText(old_receiver);
-
                     alert.setTitle(res.getString(R.string.please_coose_your_class_));
 
                     alert.setPositiveButton(res.getString(R.string.ok), new DialogInterface.OnClickListener() {
@@ -314,6 +315,7 @@ public class NewElementActivity extends AppCompatActivity {
         }
 
         final Button choose_date = (Button) findViewById(R.id.new_element_choose_date);
+        if(old_date != null) choose_date.setText(old_date);
         choose_date.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -363,6 +365,11 @@ public class NewElementActivity extends AppCompatActivity {
                             public void run() {
                                 //ProgressDialog anzeigen
                                 pd = new ProgressDialog(NewElementActivity.this);
+                                pd.setTitle(res.getString(R.string.please_wait_));
+                                if(mode == MODE_CREATE_CLASSTEST)pd.setMessage(res.getString(R.string.classtest_creating_));
+                                if(mode == MODE_CREATE_HOMEWORK)pd.setMessage(res.getString(R.string.homework_creating_));
+                                if(mode == MODE_CREATE_EVENT)pd.setMessage(res.getString(R.string.event_creating_));
+                                if(mode == MODE_EDIT_CLASSTEST || mode == MODE_EDIT_HOMEWORK || mode == MODE_EDIT_EVENT)pd.setMessage(res.getString(R.string.changings_uploading_));
                                 pd.setIndeterminate(true);
                                 pd.show();
                             }
@@ -469,7 +476,7 @@ public class NewElementActivity extends AppCompatActivity {
             String element = "editclasstest";
             if(mode == MODE_EDIT_HOMEWORK) element = "edithomework";
             if(mode == MODE_EDIT_EVENT) element = "editevent";
-            String result = serverMessagingUtils.sendRequest(null, "name="+ URLEncoder.encode(name, "UTF-8")+"&command="+element+"&old_title="+URLEncoder.encode(old_title, "UTF-8")+"&date="+URLEncoder.encode(date, "UTF-8")+"&title="+URLEncoder.encode(title, "UTF-8")+"&text="+URLEncoder.encode(text, "UTF-8")+"&class="+URLEncoder.encode(receiver, "UTF-8"));
+            String result = serverMessagingUtils.sendRequest(null, "name="+ URLEncoder.encode(name, "UTF-8")+"&command="+element+"&old_title="+URLEncoder.encode(old_title, "UTF-8")+"&new_date="+URLEncoder.encode(date, "UTF-8")+"&new_title="+URLEncoder.encode(title, "UTF-8")+"&new_text="+URLEncoder.encode(text, "UTF-8")+"&new_class="+URLEncoder.encode(receiver, "UTF-8"));
             if(result.equals("Action Successful")) return true;
         } catch(Exception e) {}
         return false;

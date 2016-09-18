@@ -494,10 +494,12 @@ public class NewNewActivity extends AppCompatActivity {
                         Toast.makeText(NewNewActivity.this, result, Toast.LENGTH_SHORT).show();
                     }
                 });
-                //Activity beenden
-                if(result.equals(res.getString(R.string.new_successfully_created))) finish();
-                //Synchronisieren
-                startService(new Intent(NewNewActivity.this, SyncronisationService.class));
+                if(result.equals(res.getString(R.string.new_successfully_created))) {
+                    //Activity beenden
+                    finish();
+                    //Synchronisieren
+                    startService(new Intent(NewNewActivity.this, SyncronisationService.class));
+                }
             }
         }).start();
     }

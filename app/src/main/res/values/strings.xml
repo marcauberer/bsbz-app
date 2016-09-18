@@ -287,5 +287,9 @@
     <string name="classtest_short">KA</string>
     <string name="homework_short">HA</string>
     <string name="event_short">Termin</string>
+    <string name="classtest_creating_">Klassenarbeit wird erstellt ...</string>
+    <string name="homework_creating_">Hausaufgabe wird erstellt ...</string>
+    <string name="event_creating_">Termin wird erstellt ...</string>
+    <string name="changings_uploading_">Änderungen werden hochgeladen ...</string>
 
 </resources>
