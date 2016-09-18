@@ -10,10 +10,11 @@
         android:id="@+id/item_icon"
         android:layout_width="40dp"
         android:layout_height="40dp"
-        android:background="@drawable/icon_h"
-        android:text="H"
+        android:background="@drawable/icon_k"
+        android:text="K"
         android:gravity="center"
-        android:textSize="20sp"/>
+        android:textSize="20sp"
+        android:textColor="@color/black"/>
 
     <TextView
         android:id="@+id/item_subject"
