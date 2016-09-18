@@ -1,5 +1,6 @@
 package com.mrgames13.jimdo.bsbz_app.App;
 
+import android.app.DatePickerDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -16,6 +17,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.SwitchCompat;
 import android.support.v7.widget.Toolbar;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -23,6 +25,7 @@ import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.CompoundButton;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.SeekBar;
 import android.widget.TextView;
@@ -32,6 +35,7 @@ import com.mrgames13.jimdo.bsbz_app.R;
 import com.mrgames13.jimdo.bsbz_app.Tools.ServerMessagingUtils;
 
 import java.net.URLEncoder;
+import java.util.Calendar;
 
 public class NewElementActivity extends AppCompatActivity {
     //Konstanten
@@ -48,6 +52,8 @@ public class NewElementActivity extends AppCompatActivity {
     private SharedPreferences prefs;
     private Resources res;
     private ConnectivityManager cm;
+    private Calendar calendar;
+    private DatePickerDialog datePickerDialog;
 
     //Variablen
     private boolean pressedOnce;
@@ -103,6 +109,9 @@ public class NewElementActivity extends AppCompatActivity {
 
         //Resourcen initialisieren
         res = getResources();
+
+        //Calendar initialisieren
+        calendar = Calendar.getInstance();
 
         //SharedPreferences initialisieren
         prefs = PreferenceManager.getDefaultSharedPreferences(NewElementActivity.this);
@@ -283,6 +292,44 @@ public class NewElementActivity extends AppCompatActivity {
             });
         }
 
+        final Button choose_date = (Button) findViewById(R.id.new_element_choose_date);
+        choose_date.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(MainActivity.AppTheme == 0) {
+                    datePickerDialog = new DatePickerDialog(NewElementActivity.this, R.style.FirstTheme_Dialog, new DatePickerDialog.OnDateSetListener() {
+                        @Override
+                        public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                            //Datum formatieren
+                            String year_string = String.valueOf(year);
+                            String month_string = String.valueOf(monthOfYear +1);
+                            String day_string = String.valueOf(dayOfMonth);
+                            if(month_string.length() < 2) month_string = "0" + month_string;
+                            if(day_string.length() < 2) day_string = "0" + day_string;
+                            //Button Aufschrift setzen
+                            choose_date.setText(day_string + "." + month_string + "." + year_string);
+                        }
+                    }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
+                    datePickerDialog.show();
+                } else {
+                    datePickerDialog = new DatePickerDialog(NewElementActivity.this, R.style.SecondTheme_Dialog, new DatePickerDialog.OnDateSetListener() {
+                        @Override
+                        public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                            //Datum formatieren
+                            String year_string = String.valueOf(year);
+                            String month_string = String.valueOf(monthOfYear +1);
+                            String day_string = String.valueOf(dayOfMonth);
+                            if(month_string.length() < 2) month_string = "0" + month_string;
+                            if(day_string.length() < 2) day_string = "0" + day_string;
+                            //Button Aufschrift setzen
+                            choose_date.setText(day_string + "." + month_string + "." + year_string);
+                        }
+                    }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
+                    datePickerDialog.show();
+                }
+            }
+        });
+
         FloatingActionButton fab_create = (FloatingActionButton) findViewById(R.id.new_element_create);
         fab_create.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -299,6 +346,27 @@ public class NewElementActivity extends AppCompatActivity {
                 } catch(Exception e) {}
             }
         });
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            if (!pressedOnce) {
+                pressedOnce = true;
+                Toast.makeText(NewElementActivity.this, R.string.press_again_to_go_back_delete_entry, Toast.LENGTH_SHORT).show();
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        pressedOnce = false;
+                    }
+                }, 2500);
+            } else {
+                pressedOnce = false;
+                onBackPressed();
+            }
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
     }
 
     @Override
