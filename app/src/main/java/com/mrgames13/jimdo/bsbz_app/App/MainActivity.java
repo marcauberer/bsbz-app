@@ -2457,6 +2457,108 @@ public class MainActivity extends AppCompatActivity {
         }
 
         @Override
+        public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+            super.onCreateContextMenu(menu, v, menuInfo);
+            MenuInflater inflater = this.getActivity().getMenuInflater();
+            inflater.inflate(R.menu.plan_of_the_year_fragment_context_menu, menu);
+        }
+
+        @Override
+        public boolean onContextItemSelected(MenuItem item) {
+            Activity activity = getActivity();
+            if(activity instanceof MainActivity) {
+                switch (item.getItemId()){
+                    case R.id.context_menu_edit_element:
+                        String item_title = item.getTitle().toString();
+                        String old_date = item_title.substring(0, item_title.indexOf(":"));
+                        String old_title = item_title.substring(item_title.indexOf(":" +2));
+                        //Daten aus den SharedPreferences herausfiltern
+
+
+                        //Activity starten
+                        Intent i = new Intent(getActivity(), NewElementActivity.class);
+                        i.putExtra("old_title", old_title);
+                        i.putExtra("old_date", old_date);
+                        startActivity(i);
+                        return true;
+                    case R.id.context_menu_delete_element:
+                        android.support.v7.app.AlertDialog.Builder d = new android.support.v7.app.AlertDialog.Builder(getActivity());
+                        d.setTitle(res.getString(R.string.delete_new));
+                        d.setMessage(res.getString(R.string.do_you_want_to_delete_new));
+                        d.setPositiveButton(res.getString(R.string.delete), new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                new Thread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        try {
+                                            //Daten aus den SharedPreferences herausfiltern
+                                            String item_subject = "No Data";
+                                            String item_description = "No Data";
+                                            String item_from = "No Data";
+                                            String item_state = "No Data";
+                                            String item_activation_date = "No Data";
+                                            String item_expiration_date = "No Data";
+                                            String item_receiver = "No Data";
+                                            for(int i = 0; i < 101; i++) {
+                                                String news = prefs.getString("News_"+Integer.toString(i), "-");
+                                                if(!news.equals("-")) {
+                                                    int index1 = news.indexOf(",");
+                                                    int index2 = news.indexOf(",", index1 +1);
+                                                    int index3 = news.indexOf(",", index2 +1);
+                                                    int index4 = news.indexOf(",", index3 +1);
+                                                    int index5 = news.indexOf(",", index4 +1);
+                                                    int index6 = news.indexOf(",", index5 +1);
+                                                    item_subject = news.substring(0, index1);
+                                                    item_description = news.substring(index1 +1, index2);
+                                                    item_from = news.substring(index2 +1, index3);
+                                                    item_state = news.substring(index3 +1, index4);
+                                                    item_activation_date = news.substring(index4 +1, index5);
+                                                    item_expiration_date = news.substring(index5 +1, index6);
+                                                    item_receiver = news.substring(index6);
+
+                                                    if(item_text.equals(item_from + ": " + item_subject)) break;
+                                                }
+                                            }
+                                            //Nachricht vom Server löschen
+                                            String username = prefs.getString("Name", res.getString(R.string.guest));
+                                            result = serverMessagingUtils.sendRequest(null, "name="+ URLEncoder.encode(username, "UTF-8")+"&command=deletenew&subject="+URLEncoder.encode(item_subject, "UTF-8"));
+                                            if(result.equals("Action Successful")) {
+                                                result = res.getString(R.string.new_successfully_created);
+                                                getActivity().startService(new Intent(getActivity(), SyncronisationService.class));
+                                            } else {
+                                                result = res.getString(R.string.error_try_again);
+                                            }
+                                            new Handler().post(new Runnable() {
+                                                @Override
+                                                public void run() {
+                                                    Toast.makeText(getActivity(), result, Toast.LENGTH_SHORT).show();
+                                                }
+                                            });
+                                        } catch (Exception e) {
+                                            result = res.getString(R.string.error_try_again);
+                                        }
+                                    }
+                                }).start();
+                                dialog.dismiss();
+                            }
+                        });
+                        d.setNegativeButton(res.getString(R.string.cancel), new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                            }
+                        });
+                        d.create().show();
+                        return true;
+                    default:
+                        return super.onContextItemSelected(item);
+                }
+            }
+            return super.onContextItemSelected(item);
+        }
+
+        @Override
         public void onListItemClick(ListView listView, View v, int position, long id) {
             super.onListItemClick(listView, v, position, id);
 

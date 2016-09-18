@@ -6,6 +6,7 @@
     <string name="next">Weiter</string>
     <string name="cancel">Abbrechen</string>
     <string name="delete">Löschen</string>
+    <string name="edit">Bearbeiten</string>
     <string name="open">Öffnen</string>
     <string name="close">Schließen</string>
     <string name="error_occured_try_again">Fehler. Bitte erneut versuchen</string>

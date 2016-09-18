@@ -65,6 +65,7 @@ public class NewElementActivity extends AppCompatActivity {
     private String old_title;
     private String old_discription;
     private String old_receiver;
+    private String old_date;
     private boolean result;
 
     @Override
@@ -135,6 +136,7 @@ public class NewElementActivity extends AppCompatActivity {
         old_title = getIntent().getStringExtra("old_title");
         old_discription = getIntent().getStringExtra("old_description");
         old_receiver = getIntent().getStringExtra("old_receiver");
+        old_date = getIntent().getStringExtra("old_date");
 
         //ActivityTitle festlegen
         if(mode == MODE_CREATE_CLASSTEST) {
@@ -369,41 +371,16 @@ public class NewElementActivity extends AppCompatActivity {
                         String name = prefs.getString("Name", res.getString(R.string.guest));
                         //Je nach Modus Element hochladen
                         result = false;
-                        if(mode == MODE_CREATE_CLASSTEST) {
-                            String subject = betreff.getText().toString();
-                            String description = beschreibung.getText().toString();
-                            String date = choose_date.getText().toString();
-                            String receiver = choose_receiver.getText().toString();
-                            result = createClasstest(name, date, subject, description, receiver);
-                        } else if(mode == MODE_CREATE_HOMEWORK) {
-                            String subject = betreff.getText().toString();
-                            String description = beschreibung.getText().toString();
-                            String date = choose_date.getText().toString();
-                            String receiver = choose_receiver.getText().toString();
-                            result = createHomework(name, date, subject, description, receiver);
-                        } else if(mode == MODE_CREATE_EVENT) {
-                            String subject = betreff.getText().toString();
-                            String description = beschreibung.getText().toString();
-                            String date = choose_date.getText().toString();
-                            String receiver = choose_receiver.getText().toString();
+                        String subject = betreff.getText().toString();
+                        String description = beschreibung.getText().toString();
+                        String date = choose_date.getText().toString();
+                        String receiver = choose_receiver.getText().toString();
+                        if(mode == MODE_CREATE_CLASSTEST || mode == MODE_CREATE_HOMEWORK || mode == MODE_CREATE_EVENT) {
                             if(receiver.equals(res.getString(R.string.all_classes))) receiver = "Alle";
-                            result = createEvent(name, date, subject, description, receiver);
-                        } else if(mode == MODE_EDIT_CLASSTEST) {
-                            String subject = betreff.getText().toString();
-                            String description = beschreibung.getText().toString();
-                            String date = choose_date.getText().toString();
-                            String receiver = choose_receiver.getText().toString();
-                        } else if(mode == MODE_EDIT_HOMEWORK) {
-                            String subject = betreff.getText().toString();
-                            String description = beschreibung.getText().toString();
-                            String date = choose_date.getText().toString();
-                            String receiver = choose_receiver.getText().toString();
-                        } else if(mode == MODE_EDIT_EVENT) {
-                            String subject = betreff.getText().toString();
-                            String description = beschreibung.getText().toString();
-                            String date = choose_date.getText().toString();
-                            String receiver = choose_receiver.getText().toString();
+                            result = createElement(name, date, subject, description, receiver);
+                        } else if(mode == MODE_EDIT_CLASSTEST || mode == MODE_EDIT_HOMEWORK || mode == MODE_EDIT_EVENT) {
                             if(receiver.equals(res.getString(R.string.all_classes))) receiver = "Alle";
+                            result = editElement(old_title, name, date, subject, description, receiver);
                         }
                         runOnUiThread(new Runnable() {
                             @Override
@@ -476,33 +453,23 @@ public class NewElementActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    private boolean createClasstest(final String name, final String date, final String title, final String text, final String receiver) {
+    private boolean createElement(final String name, final String date, final String title, final String text, final String receiver) {
         try{
-            String result = serverMessagingUtils.sendRequest(null, "name="+ URLEncoder.encode(name, "UTF-8")+"&command=newclasstest&date="+URLEncoder.encode(date, "UTF-8")+"&title="+URLEncoder.encode(title, "UTF-8")+"&text="+URLEncoder.encode(text, "UTF-8")+"&class="+URLEncoder.encode(receiver, "UTF-8"));
+            String element = "newclasstest";
+            if(mode == MODE_CREATE_HOMEWORK) element = "newhomework";
+            if(mode == MODE_CREATE_EVENT) element = "newevent";
+            String result = serverMessagingUtils.sendRequest(null, "name="+ URLEncoder.encode(name, "UTF-8")+"&command="+element+"&date="+URLEncoder.encode(date, "UTF-8")+"&title="+URLEncoder.encode(title, "UTF-8")+"&text="+URLEncoder.encode(text, "UTF-8")+"&class="+URLEncoder.encode(receiver, "UTF-8"));
             if(result.equals("Action Successful")) return true;
         } catch(Exception e) {}
         return false;
     }
 
-    private boolean createHomework(final String name, final String date, final String title, final String text, final String receiver) {
+    private boolean editElement(final String old_title, final String name, final String date, final String title, final String text, final String receiver) {
         try{
-            String result = serverMessagingUtils.sendRequest(null, "name="+ URLEncoder.encode(name, "UTF-8")+"&command=newhomework&date="+URLEncoder.encode(date, "UTF-8")+"&title="+URLEncoder.encode(title, "UTF-8")+"&text="+URLEncoder.encode(text, "UTF-8")+"&class="+URLEncoder.encode(receiver, "UTF-8"));
-            if(result.equals("Action Successful")) return true;
-        } catch(Exception e) {}
-        return false;
-    }
-
-    private boolean createEvent(final String name, final String date, final String title, final String text, final String receiver) {
-        try{
-            String result = serverMessagingUtils.sendRequest(null, "name="+ URLEncoder.encode(name, "UTF-8")+"&command=newevent&date="+URLEncoder.encode(date, "UTF-8")+"&title="+URLEncoder.encode(title, "UTF-8")+"&text="+URLEncoder.encode(text, "UTF-8")+"&class="+URLEncoder.encode(receiver, "UTF-8"));
-            if(result.equals("Action Successful")) return true;
-        } catch(Exception e) {}
-        return false;
-    }
-
-    private boolean editClasstest(final String name, final String date, final String title, final String text, final String receiver) {
-        try{
-            String result = serverMessagingUtils.sendRequest(null, "name="+ URLEncoder.encode(name, "UTF-8")+"&command=newclasstest&date="+URLEncoder.encode(date, "UTF-8")+"&title="+URLEncoder.encode(title, "UTF-8")+"&text="+URLEncoder.encode(text, "UTF-8")+"&class="+URLEncoder.encode(receiver, "UTF-8"));
+            String element = "editclasstest";
+            if(mode == MODE_EDIT_HOMEWORK) element = "edithomework";
+            if(mode == MODE_EDIT_EVENT) element = "editevent";
+            String result = serverMessagingUtils.sendRequest(null, "name="+ URLEncoder.encode(name, "UTF-8")+"&command="+element+"&old_title="+URLEncoder.encode(old_title, "UTF-8")+"&date="+URLEncoder.encode(date, "UTF-8")+"&title="+URLEncoder.encode(title, "UTF-8")+"&text="+URLEncoder.encode(text, "UTF-8")+"&class="+URLEncoder.encode(receiver, "UTF-8"));
             if(result.equals("Action Successful")) return true;
         } catch(Exception e) {}
         return false;
