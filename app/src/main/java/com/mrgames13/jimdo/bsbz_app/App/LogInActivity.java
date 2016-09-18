@@ -327,6 +327,13 @@ public class LogInActivity extends AppCompatActivity {
         //ProgressBar sichtbar machen
         pb = (ProgressBar) findViewById(R.id.login_in_progress);
         pb.setVisibility(View.VISIBLE);
+        //Komponenten unsichtbar machen
+        enableComponents(false);
+        //Inhalt der Variablen in die Komponenten übertragen
+        EditText et_username = (EditText) findViewById(R.id.LogIn_User_Name);
+        EditText et_password = (EditText) findViewById(R.id.LogIn_Password);
+        et_username.setText(username);
+        et_password.setText(password);
 
         if(serverMessagingUtils.isInternetAvailable()) {
             new Thread(new Runnable() {
@@ -340,9 +347,13 @@ public class LogInActivity extends AppCompatActivity {
                                 if(result.equals("account is not existing")) {
                                     Toast.makeText(LogInActivity.this, res.getString(R.string.account_do_not_exist), Toast.LENGTH_SHORT).show();
                                     pb.setVisibility(View.GONE);
+                                    //Komponenten sichtbar machen
+                                    enableComponents(true);
                                 } else if(result.equals("password wrong")) {
                                     Toast.makeText(LogInActivity.this, res.getString(R.string.wrong_password), Toast.LENGTH_SHORT).show();
                                     pb.setVisibility(View.GONE);
+                                    //Komponenten sichtbar machen
+                                    enableComponents(true);
                                 } else {
                                     try{
                                         int index1 = result.indexOf(",");
@@ -411,6 +422,8 @@ public class LogInActivity extends AppCompatActivity {
                                             e.commit();
                                             //Nachricht an den Nutzer ausgeben, dass sein Account gesperrt wurde
                                             Toast.makeText(LogInActivity.this, res.getString(R.string.account_locked), Toast.LENGTH_LONG).show();
+                                            //Komponenten sichtbar machen
+                                            enableComponents(true);
                                         } else if(account_state.equals("3")) {
                                             pb.setVisibility(View.GONE);
                                             //Nachricht an den Nutzer ausgeben, dass seine Synchronisation blockiert wurde
@@ -459,6 +472,7 @@ public class LogInActivity extends AppCompatActivity {
                                             finish();
                                         } else {
                                             pb.setVisibility(View.GONE);
+                                            Toast.makeText(LogInActivity.this, res.getString(R.string.error_occured_try_again), Toast.LENGTH_SHORT).show();
                                             Log.e("BSBZ-App", "Error: Accountstate not recognized");
                                         }
                                     } catch(Exception e) {
@@ -749,5 +763,14 @@ public class LogInActivity extends AppCompatActivity {
         if(requestCode == REQUEST_CODE_PERMISSION_READ_PHONE_STATE && grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
             startService(new Intent(LogInActivity.this, FCM_Instance_ID_Service.class));
         }
+    }
+
+    private void enableComponents(boolean e) {
+        findViewById(R.id.LogIn_User_Name).setEnabled(e);
+        findViewById(R.id.LogIn_Password).setEnabled(e);
+        findViewById(R.id.LogIn_LogIn).setEnabled(e);
+        findViewById(R.id.LogIn_Registrieren).setEnabled(e);
+        findViewById(R.id.angemeldet_bleiben).setEnabled(e);
+        findViewById(R.id.forgot_password).setEnabled(e);
     }
 }
