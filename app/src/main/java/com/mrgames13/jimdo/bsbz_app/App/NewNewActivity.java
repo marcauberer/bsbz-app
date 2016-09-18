@@ -95,7 +95,7 @@ public class NewNewActivity extends AppCompatActivity {
         }
 
         // ToolBar Titel festlegen
-        toolbar.setTitle(res.getString(R.string.title_activity_new_new));
+        getSupportActionBar().setTitle(res.getString(R.string.title_activity_new_new));
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
