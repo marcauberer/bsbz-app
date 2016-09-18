@@ -56,7 +56,7 @@ public class SyncronisationService extends Service {
 	boolean show_notifications = true;
 
 	//Interfaces
-	public interface onSyncronisationFinishedListener {
+	public interface onSyncFinishedListener {
 		void onSyncFinished();
 	}
 

@@ -108,7 +108,7 @@ public class MainActivity extends AppCompatActivity {
     public static SharedPreferences prefs;
     private static FragmentManager fragmentManager;
     private static ConnectivityManager cm;
-    public static SyncronisationService.onSyncronisationFinishedListener syncFinishedListener;
+    public static SyncronisationService.onSyncFinishedListener syncFinishedListener;
     public static Resources res;
     private ProgressDialog pd_Progress;
     private RecyclerView gallery_view;
@@ -410,7 +410,7 @@ public class MainActivity extends AppCompatActivity {
                         }
                     }).start();
                     progress_menu_item.setActionView(R.layout.menu_item_layout);
-                    syncFinishedListener = new SyncronisationService.onSyncronisationFinishedListener() {
+                    syncFinishedListener = new SyncronisationService.onSyncFinishedListener() {
                         @Override
                         public void onSyncFinished() {
                             progress_menu_item.setActionView(null);
