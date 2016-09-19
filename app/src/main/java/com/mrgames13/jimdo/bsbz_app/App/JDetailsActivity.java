@@ -55,6 +55,14 @@ public class JDetailsActivity extends ActionBarActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+
+		//Theme setzen
+		if(MainActivity.AppTheme == 0) {
+			setTheme(R.style.FirstTheme);
+		} else if(MainActivity.AppTheme == 1) {
+			setTheme(R.style.SecondTheme);
+		}
+
 		setContentView(R.layout.activity_jdetails);
 
 		//Resourcen aufsetzen

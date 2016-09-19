@@ -79,7 +79,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/choose_receiver_"
-            android:layout_alignParentBottom="true"
+            android:layout_below="@+id/new_element_writer"
             android:layout_centerHorizontal="true"
             android:layout_toLeftOf="@+id/new_element_create"
             android:layout_marginRight="6dp"/>
