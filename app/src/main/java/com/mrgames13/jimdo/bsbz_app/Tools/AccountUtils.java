@@ -15,25 +15,25 @@ public class AccountUtils {
     public String acc_username;
     public String acc_password;
     public String acc_class;
-    public String acc_rights;
+    public int acc_rights;
 
-    public AccountUtils() {
-
+    public AccountUtils(StorageUtils su) {
+        this.su = su;
     }
 
     public String getAccUsername() {
-
+        return acc_username;
     }
 
-    public void getAccPassword() {
-
+    public String getAccPassword() {
+        return acc_password;
     }
 
-    public void getAccClass() {
-
+    public String getAccClass() {
+        return acc_class;
     }
 
-    public void getAccRights() {
-
+    public int getAccRights() {
+        return acc_rights;
     }
 }
