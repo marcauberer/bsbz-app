@@ -39,9 +39,11 @@ import java.util.ArrayList;
 
 public class ServerMessagingUtils {
     //Konstanten
-    private final String SERVER_BASE_FOLDER = "http://mrgamesserver.esy.es/bsbz_app_masterserver/";
-    private final String SERVER_MAIN_SCRIPT = "http://mrgamesserver.esy.es/bsbz_app_masterserver/ServerScript.php";
-    private final String SERVER_UPLOAD_SCRIPT = "http://mrgamesserver.esy.es/bsbz_app_masterserver/UploadReceiver.php";
+    private final String SERVER_ADRESS = "http://mrgames-server.de/";
+    private final String ALTERNATIVE_SERVER_ADRESS = "http://mrgamesserver.esy.es/";
+    private final String SERVER_BASE_FOLDER = SERVER_ADRESS + "bsbz_app_masterserver/";
+    private final String SERVER_MAIN_SCRIPT = SERVER_BASE_FOLDER + "ServerScript.php";
+    private final String SERVER_UPLOAD_SCRIPT = SERVER_BASE_FOLDER + "UploadReceiver.php";
     private final int UPLOAD_BLOCK_SIZE = 256;
     private final int IMAGE_COMPRESSION_QUALITY = 70;
 
