@@ -3,25 +3,18 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="?attr/selectableItemBackground"
     android:padding="6dp">
 
     <TextView
-        android:id="@+id/item_icon"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:text="N"
-        android:gravity="center"
-        android:background="@drawable/icon_n"
-        android:textSize="20sp"
-        android:textColor="@color/black"/>
-
-    <TextView
         android:id="@+id/item_subject"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_toRightOf="@+id/item_icon"
+        android:layout_toLeftOf="@+id/item_dropdown_arrow"
         android:layout_marginLeft="18dp"
+        android:layout_marginRight="6dp"
         android:text="@string/loading"
         android:textSize="20sp"/>
 
@@ -43,6 +36,80 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentRight="true"/>
 
+    <TextView
+        android:id="@+id/item_receiver"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/item_description"
+        android:text="@string/all_classes"/>
 
+    <TextView
+        android:id="@+id/item_writer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/loading"
+        android:layout_alignLeft="@+id/item_subject"
+        android:layout_below="@+id/item_description"
+        android:layout_toLeftOf="@+id/item_receiver"/>
 
+    <TextView
+        android:id="@+id/item_description"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="sdlkfjsdf\nsdfsdf\nsdfsdf\nsdfsdf\nsdfsdfsdfsdfsdf"
+        android:layout_alignLeft="@+id/item_subject"
+        android:layout_alignRight="@+id/item_subject"
+        android:layout_below="@+id/item_date"
+        android:layout_marginTop="6dp" />
+
+    <TextView
+        android:id="@+id/item_icon"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:text="N"
+        android:gravity="center"
+        android:background="@drawable/icon_n"
+        android:textSize="20sp"
+        android:textColor="@color/black"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"/>
+
+    <RelativeLayout
+        android:id="@+id/item_button_container"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignBottom="@+id/item_writer"
+        android:layout_alignRight="@+id/item_icon"
+        android:layout_below="@+id/item_icon"
+        android:layout_marginTop="4dp">
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/item_edit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_edit_white_48dp"
+            android:theme="@style/toolbarStyle"
+            app:backgroundTint="@color/colorPrimary"
+            android:layout_gravity="right|bottom"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_above="@+id/item_delete"
+            android:layout_marginBottom="4dp"/>
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/item_delete"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_delete_white_48dp"
+            android:theme="@style/toolbarStyle"
+            app:backgroundTint="@color/colorPrimary"
+            android:layout_gravity="right|bottom"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"/>
+
+    </RelativeLayout>
 </RelativeLayout>
