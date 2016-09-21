@@ -34,6 +34,7 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SwitchCompat;
 import android.support.v7.widget.Toolbar;
@@ -66,6 +67,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.mrgames13.jimdo.bsbz_app.R;
+import com.mrgames13.jimdo.bsbz_app.RecyclerViewAdapters.NewsViewAdapter;
 import com.mrgames13.jimdo.bsbz_app.Services.SyncronisationService;
 import com.mrgames13.jimdo.bsbz_app.RecyclerViewAdapters.GalleryViewAdapter_Folders;
 import com.mrgames13.jimdo.bsbz_app.Tools.ServerMessagingUtils;
@@ -111,8 +113,11 @@ public class MainActivity extends AppCompatActivity {
     public static Resources res;
     private ProgressDialog pd_Progress;
     private RecyclerView gallery_view;
+    private RecyclerView news_view;
     private RecyclerView.Adapter gallery_view_adapter;
+    private RecyclerView.Adapter news_view_adapter;
     private RecyclerView.LayoutManager gallery_view_manager;
+    private RecyclerView.LayoutManager news_view_manager;
     private FloatingActionButton new_folder;
 
     //UtilsPakete
@@ -1507,11 +1512,12 @@ public class MainActivity extends AppCompatActivity {
         } else {
             layoutInflater.inflate(R.layout.fragment_news, container);
         }
-        //Fragment erstellen und anzeigen
-        NewsFragment f = new NewsFragment();
-        FragmentTransaction ft = fragmentManager.beginTransaction();
-        ft.replace(R.id.fragment_news_container, f);
-        ft.commit();
+        //NewsRecyclerView anzeigen
+        news_view = (RecyclerView) findViewById(R.id.news_view);
+        news_view_manager = new LinearLayoutManager(MainActivity.this);
+        news_view.setLayoutManager(news_view_manager);
+        news_view_adapter = new NewsViewAdapter();
+        news_view.setAdapter(news_view_adapter);
 
         //Aktionen, die nur für Admins oder Team-Mitglieder vorgesehen sind
         if(rights.equals("teacher") || rights.equals("administrator") || rights.equals("team")) {
