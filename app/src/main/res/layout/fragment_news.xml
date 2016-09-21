@@ -18,5 +18,14 @@
             android:gravity="center"
             android:id="@+id/tv_tap_on_new"
             android:layout_gravity="center_horizontal|bottom"/>
+
+        <TextView
+            android:id="@+id/no_active_news"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="@string/keine_aktiven_news"
+            android:gravity="center"
+            android:layout_centerInParent="true"
+            android:visibility="gone"/>
     </FrameLayout>
 </RelativeLayout>

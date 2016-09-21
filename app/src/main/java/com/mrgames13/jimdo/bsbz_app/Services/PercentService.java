@@ -71,7 +71,7 @@ public class PercentService extends Service {
 			Intent i = new Intent(this, LogInActivity.class);
 			i.putExtra("Confirm", "Today");
 
-            nu.displayNotification(res.getString(R.string.app_name), res.getString(R.string.congradulations_schoolday_is_over), nu.ID_SHOW_TODAY_PROGRESS_FINISH, i, nu.ID_SHOW_TODAY_PROGRESS_FINISH, nu.PRIORITY_HIGH, 0, new long[0]);
+            nu.displayNotification(res.getString(R.string.app_name), res.getString(R.string.congradulations_schoolday_is_over), nu.ID_SHOW_TODAY_PROGRESS, i, nu.ID_SHOW_TODAY_PROGRESS, nu.PRIORITY_HIGH, 0, new long[0]);
 			
 			//show auf false setzten
 			Editor e = prefs.edit();

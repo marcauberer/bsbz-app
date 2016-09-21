@@ -17,15 +17,13 @@ public class NotificationUtils {
         //IDs
         public final int ID_ANNOUNCE_UPDATE = 10001;
         public final int ID_SHOW_TODAY_PROGRESS = 10002;
-        public final int ID_SHOW_TODAY_PROGRESS_FINISH = 10003;
-        public final int ID_COMP_TIMETABLES = 10004;
-        public final int ID_COMP_CLASSTESTS = 10005;
-        public final int ID_COMP_HOMEWORKS = 10006;
-        public final int ID_COMP_EVENTS = 10007;
-        public final int ID_COMP_NEWS = 10008;
+        public final int ID_COMP_TIMETABLES = 10003;
+        public final int ID_COMP_CLASSTESTS = 10004;
+        public final int ID_COMP_HOMEWORKS = 10005;
+        public final int ID_COMP_EVENTS = 10006;
+        public final int ID_COMP_NEWS = 10007;
         //Modes
         public final int MODE_ANNOUNCE_UPDATE = 101;
-        public final int MODE_SHOW_TODAY_PROGRESS_FINISH = 102;
         //Priorities
         public final int PRIORITY_MAX = 2;
         public final int PRIORITY_HIGH = 1;
