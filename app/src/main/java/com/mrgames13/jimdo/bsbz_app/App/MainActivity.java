@@ -67,7 +67,7 @@ import android.widget.Toast;
 
 import com.mrgames13.jimdo.bsbz_app.R;
 import com.mrgames13.jimdo.bsbz_app.Services.SyncronisationService;
-import com.mrgames13.jimdo.bsbz_app.Tools.GalleryViewAdapter_Folders;
+import com.mrgames13.jimdo.bsbz_app.RecyclerViewAdapters.GalleryViewAdapter_Folders;
 import com.mrgames13.jimdo.bsbz_app.Tools.ServerMessagingUtils;
 
 import java.io.UnsupportedEncodingException;

@@ -22,7 +22,7 @@ import android.view.Window;
 import android.widget.Toast;
 
 import com.mrgames13.jimdo.bsbz_app.R;
-import com.mrgames13.jimdo.bsbz_app.Tools.GalleryViewAdapter_Files;
+import com.mrgames13.jimdo.bsbz_app.RecyclerViewAdapters.GalleryViewAdapter_Files;
 
 import java.net.URLEncoder;
 import java.util.ArrayList;

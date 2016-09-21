@@ -1,4 +1,4 @@
-package com.mrgames13.jimdo.bsbz_app.Tools;
+package com.mrgames13.jimdo.bsbz_app.RecyclerViewAdapters;
 
 import android.content.Context;
 import android.content.Intent;
