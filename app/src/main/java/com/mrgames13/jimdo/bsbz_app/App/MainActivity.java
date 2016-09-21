@@ -90,7 +90,6 @@ public class MainActivity extends AppCompatActivity {
     public static String KEINE_TERMINE_TAG = "";
     public static String KEINE_KLASSENARBEITEN_TAG = "";
     public static String KEINE_HAUSAUFGABEN_TAG = "";
-    public static String KEINE_NEWS_AKTIV = "";
 
     //Objekte als Variablen
     private Toolbar toolbar;
@@ -287,7 +286,6 @@ public class MainActivity extends AppCompatActivity {
         KEINE_TERMINE_TAG = res.getString(R.string.keine_termine_heute);
         KEINE_KLASSENARBEITEN_TAG = res.getString(R.string.keine_klassenarbeiten_heute);
         KEINE_HAUSAUFGABEN_TAG = res.getString(R.string.keine_hausaufgaben_heute);
-        KEINE_NEWS_AKTIV = res.getString(R.string.keine_aktiven_news);
 
         //ServerMessagingUtils initialisieren
         cm = (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE);
@@ -2782,7 +2780,7 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
 
-            if(arraylist.size() == 0) arraylist.add(MainActivity.KEINE_NEWS_AKTIV);
+            if(arraylist.size() == 0) getActivity().findViewById(R.id.no_active_news).setVisibility(View.VISIBLE);
 
             Collections.sort(arraylist);
 
@@ -2796,9 +2794,7 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
                         item_text = getListView().getItemAtPosition(position).toString();
-                        if(!item_text.equals(KEINE_NEWS_AKTIV)) {
-                            getListView().showContextMenu();
-                        }
+                        getListView().showContextMenu();
                         return true;
                     }
                 });
@@ -2818,45 +2814,43 @@ public class MainActivity extends AppCompatActivity {
             if(activity instanceof MainActivity) {
                 switch (item.getItemId()){
                     case R.id.context_menu_edit_new:
-                        if(!item_text.equals(KEINE_NEWS_AKTIV)) {
-                            //Daten aus den SharedPreferences herausfiltern
-                            String item_subject = "No Data";
-                            String item_description = "No Data";
-                            String item_from = "No Data";
-                            String item_state = "No Data";
-                            String item_activation_date = "No Data";
-                            String item_expiration_date = "No Data";
-                            String item_receiver = "No Data";
-                            for(int i = 0; i < 101; i++) {
-                                String news = prefs.getString("News_"+Integer.toString(i), "-");
-                                if(!news.equals("-")) {
-                                    int index1 = news.indexOf(",");
-                                    int index2 = news.indexOf(",", index1 +1);
-                                    int index3 = news.indexOf(",", index2 +1);
-                                    int index4 = news.indexOf(",", index3 +1);
-                                    int index5 = news.indexOf(",", index4 +1);
-                                    int index6 = news.indexOf(",", index5 +1);
-                                    item_subject = news.substring(0, index1).trim();
-                                    item_description = news.substring(index1 +1, index2);
-                                    item_from = news.substring(index2 +1, index3);
-                                    item_state = news.substring(index3 +1, index4);
-                                    item_activation_date = news.substring(index4 +1, index5);
-                                    item_expiration_date = news.substring(index5 +1, index6);
-                                    item_receiver = news.substring(index6 +1);
+                        //Daten aus den SharedPreferences herausfiltern
+                        String item_subject = "No Data";
+                        String item_description = "No Data";
+                        String item_from = "No Data";
+                        String item_state = "No Data";
+                        String item_activation_date = "No Data";
+                        String item_expiration_date = "No Data";
+                        String item_receiver = "No Data";
+                        for(int i = 0; i < 101; i++) {
+                            String news = prefs.getString("News_"+Integer.toString(i), "-");
+                            if(!news.equals("-")) {
+                                int index1 = news.indexOf(",");
+                                int index2 = news.indexOf(",", index1 +1);
+                                int index3 = news.indexOf(",", index2 +1);
+                                int index4 = news.indexOf(",", index3 +1);
+                                int index5 = news.indexOf(",", index4 +1);
+                                int index6 = news.indexOf(",", index5 +1);
+                                item_subject = news.substring(0, index1).trim();
+                                item_description = news.substring(index1 +1, index2);
+                                item_from = news.substring(index2 +1, index3);
+                                item_state = news.substring(index3 +1, index4);
+                                item_activation_date = news.substring(index4 +1, index5);
+                                item_expiration_date = news.substring(index5 +1, index6);
+                                item_receiver = news.substring(index6 +1);
 
-                                    if(item_text.equals(item_from + ": " + item_subject)) break;
-                                }
+                                if(item_text.equals(item_from + ": " + item_subject)) break;
                             }
-                            //Activity starten und Daten übergeben
-                            Intent i = new Intent(getActivity(), EditNewActivity.class);
-                                i.putExtra("Subject", item_subject);
-                                i.putExtra("Description", item_description);
-                                i.putExtra("Writer", item_from);
-                                i.putExtra("Activation Date", item_activation_date);
-                                i.putExtra("Expiration Date", item_expiration_date);
-                                i.putExtra("Receiver", item_receiver);
-                            startActivity(i);
                         }
+                        //Activity starten und Daten übergeben
+                        Intent i = new Intent(getActivity(), EditNewActivity.class);
+                        i.putExtra("Subject", item_subject);
+                        i.putExtra("Description", item_description);
+                        i.putExtra("Writer", item_from);
+                        i.putExtra("Activation Date", item_activation_date);
+                        i.putExtra("Expiration Date", item_expiration_date);
+                        i.putExtra("Receiver", item_receiver);
+                        startActivity(i);
                         return true;
                     case R.id.context_menu_delete_new:
                         android.support.v7.app.AlertDialog.Builder d = new android.support.v7.app.AlertDialog.Builder(getActivity());
@@ -2990,7 +2984,7 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
 
-            if(arraylist.size() == 0) arraylist.add(MainActivity.KEINE_NEWS_AKTIV);
+            if(arraylist.size() == 0) getActivity().findViewById(R.id.no_active_news).setVisibility(View.VISIBLE);
 
             Collections.sort(arraylist);
 
