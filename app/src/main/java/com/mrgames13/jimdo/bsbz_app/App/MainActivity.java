@@ -66,11 +66,14 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.mrgames13.jimdo.bsbz_app.ComponentClasses.New;
 import com.mrgames13.jimdo.bsbz_app.R;
 import com.mrgames13.jimdo.bsbz_app.RecyclerViewAdapters.NewsViewAdapter;
 import com.mrgames13.jimdo.bsbz_app.Services.SyncronisationService;
 import com.mrgames13.jimdo.bsbz_app.RecyclerViewAdapters.GalleryViewAdapter_Folders;
+import com.mrgames13.jimdo.bsbz_app.Tools.NotificationUtils;
 import com.mrgames13.jimdo.bsbz_app.Tools.ServerMessagingUtils;
+import com.mrgames13.jimdo.bsbz_app.Tools.StorageUtils;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
@@ -93,7 +96,7 @@ public class MainActivity extends AppCompatActivity {
     public static String KEINE_KLASSENARBEITEN_TAG = "";
     public static String KEINE_HAUSAUFGABEN_TAG = "";
 
-    //Objekte als Variablen
+    //Variablen als Objekte
     private Toolbar toolbar;
     private DrawerLayout drawer_layout_gesamt;
     private ActionBarDrawerToggle drawer_toggle;
@@ -119,9 +122,12 @@ public class MainActivity extends AppCompatActivity {
     private RecyclerView.LayoutManager gallery_view_manager;
     private RecyclerView.LayoutManager news_view_manager;
     private FloatingActionButton new_folder;
+    public static ArrayList<New> news;
 
     //UtilsPakete
     public static ServerMessagingUtils serverMessagingUtils;
+    private StorageUtils su;
+    private NotificationUtils nu;
 
     //Variablen
     private boolean pressedOnce = false;
@@ -181,6 +187,12 @@ public class MainActivity extends AppCompatActivity {
 
         //SharedPreferences initialisieren
         prefs = PreferenceManager.getDefaultSharedPreferences(MainActivity.this);
+
+        //StorageUtils initialisieren
+        su = new StorageUtils(MainActivity.this);
+
+        //NotificationUtils initialisieren
+        nu = new NotificationUtils(MainActivity.this);
 
         //DrawerLayout finden
         drawer_layout_gesamt = (DrawerLayout) findViewById(R.id.drawer_layout_gesamt);
@@ -1512,6 +1524,9 @@ public class MainActivity extends AppCompatActivity {
         } else {
             layoutInflater.inflate(R.layout.fragment_news, container);
         }
+
+        news = su.parseNews();
+
         //NewsRecyclerView anzeigen
         news_view = (RecyclerView) findViewById(R.id.news_view);
         news_view_manager = new LinearLayoutManager(MainActivity.this);

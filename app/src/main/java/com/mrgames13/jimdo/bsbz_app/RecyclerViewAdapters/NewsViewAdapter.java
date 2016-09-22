@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.mrgames13.jimdo.bsbz_app.App.ImageFolderActivity;
+import com.mrgames13.jimdo.bsbz_app.App.MainActivity;
 import com.mrgames13.jimdo.bsbz_app.R;
 
 public class NewsViewAdapter extends RecyclerView.Adapter<NewsViewAdapter.ViewHolderClass> {
@@ -56,6 +56,6 @@ public class NewsViewAdapter extends RecyclerView.Adapter<NewsViewAdapter.ViewHo
 
     @Override
     public int getItemCount() {
-        return ImageFolderActivity.filenames.size();
+        return MainActivity.news.size();
     }
 }

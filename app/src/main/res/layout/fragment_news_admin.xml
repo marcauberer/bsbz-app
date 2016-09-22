@@ -19,7 +19,7 @@
         android:layout_height="match_parent"
         android:text="@string/keine_aktiven_news"
         android:gravity="center"
-        android:visibility="visible"
+        android:visibility="gone"
         android:layout_above="@+id/new_new"
         android:layout_marginBottom="12dp"/>
 
