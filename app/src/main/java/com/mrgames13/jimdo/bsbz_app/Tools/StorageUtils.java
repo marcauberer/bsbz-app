@@ -108,4 +108,8 @@ public class StorageUtils {
         }
         return news;
     }
+
+    public void setNewsCount(int count) {
+        putInt("NCount", count);
+    }
 }

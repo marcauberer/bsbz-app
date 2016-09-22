@@ -7,6 +7,7 @@ public class New {
 
     //Variablen
     private int new_id;
+    private int new_state;
     private String new_subject;
     private String new_description;
     private String new_activation_date;
@@ -15,8 +16,9 @@ public class New {
     private String new_writer;
 
 
-    public New(int id, String subject, String description, String receiver, String writer, String activation_date, String expiration_date) {
+    public New(int id, int state, String subject, String description, String receiver, String writer, String activation_date, String expiration_date) {
         this.new_id = id;
+        this.new_state = state;
         this.new_subject = subject;
         this.new_description = description;
         this.new_receiver = receiver;
@@ -27,6 +29,10 @@ public class New {
 
     public int getID() {
         return new_id;
+    }
+
+    public int getState() {
+        return new_state;
     }
 
     public String getSubject() {

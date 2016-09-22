@@ -31,11 +31,6 @@ import java.util.Locale;
 public class SyncronisationService extends Service {
 	
 	//Konstanten
-	private final int NOTIFICATION_ID_TIMETABLES = 101;
-	private final int NOTIFICATION_ID_CLASSTESTS = 102;
-	private final int NOTIFICATION_ID_HOMEWORKS = 103;
-	private final int NOTIFICATION_ID_EVENTS = 104;
-	private final int NOTIFICATION_ID_NEWS = 105;
 
 	//Variablen als Objekte
 	private ConnectivityManager cm;
@@ -243,11 +238,20 @@ public class SyncronisationService extends Service {
                         news_str = news_str.substring(index +1);
                     }
                     //News in die SharedPreferences eintragen
-                    for(int i = 0; i < 101; i++) {
-                        String news = "-";
-                        try{ news = arraylist.get(i); } catch(Exception e1){}
-                        e.putString("News_"+String.valueOf(i), news);
-                    }
+                    for(String c_new : arraylist) {
+                        //Indexe finden
+						int index1_1 = c_new.indexOf(",");
+                        int index2_2 = c_new.indexOf(",", index1_1 +1);
+                        int index3_3 = c_new.indexOf(",", index2_2 +1);
+                        int index4_4 = c_new.indexOf(",", index3_3 +1);
+                        int index5_5 = c_new.indexOf(",", index4_4 +1);
+                        int index6_6 = c_new.indexOf(",", index5_5 +1);
+                        //String zerteilen
+                        String c_new_subject = c_new.substring(0, index1_1);
+                        String c_new_description = c_new.substring(index1_1 +1, index2_2);
+                        String c_new_writer = c_new.substring(index2_2 +1, index3_3);
+                        String c_new_
+					}
                     e.commit();
 			}
 		} catch(Exception e) {
