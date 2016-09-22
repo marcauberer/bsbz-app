@@ -243,6 +243,7 @@ public class SyncronisationService extends Service {
                         news_str = news_str.substring(index +1);
                     }
                     //News in die SharedPreferences eintragen
+                    int i = 0;
                     for(String c_new : arraylist) {
                         //Indexe finden
 						int index1_1 = c_new.indexOf(",");
@@ -252,7 +253,7 @@ public class SyncronisationService extends Service {
                         int index5_5 = c_new.indexOf(",", index4_4 +1);
                         int index6_6 = c_new.indexOf(",", index5_5 +1);
                         //String zerteilen
-                        int c_new_id = su.getInt("NCount") +1;
+                        int c_new_id = i +1;
                         String c_new_subject = c_new.substring(0, index1_1);
                         String c_new_description = c_new.substring(index1_1 +1, index2_2);
                         String c_new_writer = c_new.substring(index2_2 +1, index3_3);
@@ -260,9 +261,19 @@ public class SyncronisationService extends Service {
                         String c_new_activation_date = c_new.substring(index4_4 +1, index5_5);
                         String c_new_expiration_date = c_new.substring(index5_5 +1, index6_6);
                         String c_new_receiver = c_new.substring(index6_6 +1);
+                        Log.d("BSBZ-App", c_new_subject);
+                        Log.d("BSBZ-App", c_new_description);
+                        Log.d("BSBZ-App", String.valueOf(c_new_state));
+                        Log.d("BSBZ-App", String.valueOf(c_new_id));
+                        Log.d("BSBZ-App", c_new_receiver);
+                        Log.d("BSBZ-App", c_new_writer);
+                        Log.d("BSBZ-App", c_new_activation_date);
+                        Log.d("BSBZ-App", c_new_expiration_date);
                         //News-Objekt einspeichern
                         su.addNew(c_new_id, c_new_state, c_new_subject, c_new_description, c_new_receiver, c_new_writer, c_new_activation_date, c_new_expiration_date);
-					}
+					    i++;
+                    }
+                    su.setNewsCount(i);
                     e.commit();
 			}
 		} catch(Exception e) {

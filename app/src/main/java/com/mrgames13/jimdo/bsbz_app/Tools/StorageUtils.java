@@ -111,6 +111,10 @@ public class StorageUtils {
         return news;
     }
 
+    public int getNewsCount() {
+        return getInt("NCount");
+    }
+
     public void setNewsCount(int count) {
         putInt("NCount", count);
     }
