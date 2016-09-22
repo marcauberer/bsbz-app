@@ -71,9 +71,9 @@ public class StorageUtils {
 
     //-----------------------------------------News-Funktionen--------------------------------------
 
-    public void addNew(int id, String subject, String description, String receiver, String writer, String activation_date, String expitration_date) {
+    public void addNew(int id, int state, String subject, String description, String receiver, String writer, String activation_date, String expitration_date) {
         //New-Daten in die SharedPreferences speichern
-        String complete_new_string = String.valueOf(id) + "," + subject + "," + description + "," + receiver + "," + writer + "," + activation_date + "," + expitration_date;
+        String complete_new_string = String.valueOf(id) + "," + String.valueOf(state) + "," + subject + "," + description + "," + receiver + "," + writer + "," + activation_date + "," + expitration_date;
         putString("N" + String.valueOf(id), complete_new_string);
         //News-Anzahl in den SharedPreferences um eins erhöhen
         putInt("NCount", getInt("NCount") +1);
@@ -91,16 +91,18 @@ public class StorageUtils {
                 int index4 = current_new.indexOf(",", index3 +1);
                 int index5 = current_new.indexOf(",", index4 +1);
                 int index6 = current_new.indexOf(",", index5 +1);
+                int index7 = current_new.indexOf(",", index6 +1);
                 //Unterteilen
                 int current_new_id = Integer.parseInt(current_new.substring(0, index1));
-                String current_new_subject = current_new.substring(index1 +1, index2);
-                String current_new_description = current_new.substring(index2 +1, index3);
-                String current_new_receiver = current_new.substring(index3 +1, index4);
-                String current_new_writer = current_new.substring(index4 +1, index5);
-                String current_new_activation_date = current_new.substring(index5 +1, index6);
-                String current_new_expiration_date = current_new.substring(index6 +1);
+                int current_new_state = Integer.parseInt(current_new.substring(index1 +1, index2));
+                String current_new_subject = current_new.substring(index2 +1, index3);
+                String current_new_description = current_new.substring(index3 +1, index4);
+                String current_new_receiver = current_new.substring(index4 +1, index5);
+                String current_new_writer = current_new.substring(index5 +1, index6);
+                String current_new_activation_date = current_new.substring(index6 +1, index7);
+                String current_new_expiration_date = current_new.substring(index7 +1);
                 //New-Objekt erstellen und der ArrayList hinzufügen
-                news.add(new New(current_new_id, current_new_subject, current_new_description, current_new_receiver, current_new_writer, current_new_activation_date, current_new_expiration_date));
+                news.add(new New(current_new_id, current_new_state, current_new_subject, current_new_description, current_new_receiver, current_new_writer, current_new_activation_date, current_new_expiration_date));
             } else {
                 putInt("NCount", i - 1);
                 break;

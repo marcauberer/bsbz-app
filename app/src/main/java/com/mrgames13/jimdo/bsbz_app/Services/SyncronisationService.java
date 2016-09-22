@@ -20,6 +20,7 @@ import com.mrgames13.jimdo.bsbz_app.App.MainActivity;
 import com.mrgames13.jimdo.bsbz_app.R;
 import com.mrgames13.jimdo.bsbz_app.Tools.NotificationUtils;
 import com.mrgames13.jimdo.bsbz_app.Tools.ServerMessagingUtils;
+import com.mrgames13.jimdo.bsbz_app.Tools.StorageUtils;
 
 import java.net.URLEncoder;
 import java.text.DateFormat;
@@ -41,6 +42,7 @@ public class SyncronisationService extends Service {
     private NotificationManager nm;
     private Resources res;
     private NotificationUtils nu;
+    private StorageUtils su;
 
     //Variablen
 	private String klasse = "";
@@ -63,6 +65,9 @@ public class SyncronisationService extends Service {
 
 		//Resourcen initilisieren
 		res = getResources();
+
+        //StoratgeUtils initialisieren
+        su = new StorageUtils(this);
 
         //NotificationUtils initialisieren
         nu = new NotificationUtils(this);
@@ -247,10 +252,16 @@ public class SyncronisationService extends Service {
                         int index5_5 = c_new.indexOf(",", index4_4 +1);
                         int index6_6 = c_new.indexOf(",", index5_5 +1);
                         //String zerteilen
+                        int c_new_id = su.getInt("NCount") +1;
                         String c_new_subject = c_new.substring(0, index1_1);
                         String c_new_description = c_new.substring(index1_1 +1, index2_2);
                         String c_new_writer = c_new.substring(index2_2 +1, index3_3);
-                        String c_new_
+                        int c_new_state = Integer.parseInt(c_new.substring(index3_3 +1, index4_4));
+                        String c_new_activation_date = c_new.substring(index4_4 +1, index5_5);
+                        String c_new_expiration_date = c_new.substring(index5_5 +1, index6_6);
+                        String c_new_receiver = c_new.substring(index6_6 +1);
+                        //News-Objekt einspeichern
+                        su.addNew(c_new_id, c_new_subject, c_new_description, );
 					}
                     e.commit();
 			}
