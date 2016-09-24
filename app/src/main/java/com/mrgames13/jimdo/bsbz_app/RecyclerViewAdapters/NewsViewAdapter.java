@@ -20,6 +20,9 @@ import android.widget.Toast;
 
 import com.mrgames13.jimdo.bsbz_app.App.EditNewActivity;
 import com.mrgames13.jimdo.bsbz_app.App.MainActivity;
+import com.mrgames13.jimdo.bsbz_app.ComponentClasses.Classtest;
+import com.mrgames13.jimdo.bsbz_app.ComponentClasses.Event;
+import com.mrgames13.jimdo.bsbz_app.ComponentClasses.Homework;
 import com.mrgames13.jimdo.bsbz_app.ComponentClasses.New;
 import com.mrgames13.jimdo.bsbz_app.R;
 import com.mrgames13.jimdo.bsbz_app.Services.SyncronisationService;
@@ -90,26 +93,53 @@ public class NewsViewAdapter extends RecyclerView.Adapter<NewsViewAdapter.ViewHo
     @Override
     public void onBindViewHolder(final ViewHolderClass holder, final int pos) {
         //Daten befüllen
-        New n = MainActivity.news.get(pos);
-        holder.item_subject.setText(n.getSubject());
-        holder.item_description.setText(n.getDescription());
-        holder.item_date.setText(n.getActivationDate());
-        holder.item_receiver.setText(n.getReceiver());
-        holder.item_writer.setText(n.getWriter());
+        if(mode == MODE_CLASSTEST) {
+            Classtest c = MainActivity.classtests.get(pos);
+            holder.item_subject.setText(c.getSubject());
+            holder.item_description.setText(c.getDescription());
+            holder.item_date.setText(c.getDate());
+            holder.item_receiver.setText(c.getReceiver());
+            holder.item_writer.setText(c.getWriter());
+        } else if(mode == MODE_HOMEWORK) {
+            Homework h = MainActivity.homeworks.get(pos);
+            holder.item_subject.setText(h.getSubject());
+            holder.item_description.setText(h.getDescription());
+            holder.item_date.setText(h.getDate());
+            holder.item_receiver.setText(h.getReceiver());
+            holder.item_writer.setText(h.getWriter());
+        } else if(mode == MODE_EVENT) {
+            Event e = MainActivity.events.get(pos);
+            holder.item_subject.setText(e.getSubject());
+            holder.item_description.setText(e.getDescription());
+            holder.item_date.setText(e.getDate());
+            holder.item_receiver.setText(e.getReceiver());
+            holder.item_writer.setText(e.getWriter());
+        } else if(mode == MODE_NEW) {
+            New n = MainActivity.news.get(pos);
+            holder.item_subject.setText(n.getSubject());
+            holder.item_description.setText(n.getDescription());
+            holder.item_date.setText(n.getActivationDate());
+            holder.item_receiver.setText(n.getReceiver());
+            holder.item_writer.setText(n.getWriter());
+        }
 
         holder.item_edit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                New n = MainActivity.news.get(pos);
-                //Activity starten und Daten übergeben
-                Intent i = new Intent(context, EditNewActivity.class);
-                i.putExtra("Subject", n.getSubject());
-                i.putExtra("Description", n.getDescription());
-                i.putExtra("Writer", n.getWriter());
-                i.putExtra("Activation Date", n.getActivationDate());
-                i.putExtra("Expiration Date", n.getExpirationDate());
-                i.putExtra("Receiver", n.getReceiver());
-                context.startActivity(i);
+                if(mode == MODE_NEW) {
+                    New n = MainActivity.news.get(pos);
+                    //Activity starten und Daten übergeben
+                    Intent i = new Intent(context, EditNewActivity.class);
+                    i.putExtra("Subject", n.getSubject());
+                    i.putExtra("Description", n.getDescription());
+                    i.putExtra("Writer", n.getWriter());
+                    i.putExtra("Activation Date", n.getActivationDate());
+                    i.putExtra("Expiration Date", n.getExpirationDate());
+                    i.putExtra("Receiver", n.getReceiver());
+                    context.startActivity(i);
+                } else if(mode == MODE_CLASSTEST || mode == MODE_HOMEWORK || mode == MODE_EVENT) {
+
+                }
             }
         });
 

@@ -291,6 +291,7 @@
     <string name="homework_creating_">Hausaufgabe wird erstellt ...</string>
     <string name="event_creating_">Termin wird erstellt ...</string>
     <string name="changings_uploading_">Änderungen werden hochgeladen ...</string>
-    <string name="really_delete_new">Soll die Nachricht wirklich gelöscht werden?</string>
+    <string name="delete_element">Element löschen</string>
+    <string name="really_delete_element">Soll das Element wirklich gelöscht werden?</string>
 
 </resources>

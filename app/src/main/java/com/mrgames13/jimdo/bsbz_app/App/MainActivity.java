@@ -65,6 +65,9 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.mrgames13.jimdo.bsbz_app.ComponentClasses.Classtest;
+import com.mrgames13.jimdo.bsbz_app.ComponentClasses.Event;
+import com.mrgames13.jimdo.bsbz_app.ComponentClasses.Homework;
 import com.mrgames13.jimdo.bsbz_app.ComponentClasses.New;
 import com.mrgames13.jimdo.bsbz_app.R;
 import com.mrgames13.jimdo.bsbz_app.RecyclerViewAdapters.GalleryViewAdapter_Folders;
@@ -122,6 +125,9 @@ public class MainActivity extends AppCompatActivity {
     private RecyclerView.LayoutManager gallery_view_manager;
     private RecyclerView.LayoutManager news_view_manager;
     private FloatingActionButton new_folder;
+    public static ArrayList<Classtest> classtests;
+    public static ArrayList<Homework> homeworks;
+    public static ArrayList<Event> events;
     public static ArrayList<New> news;
 
     //UtilsPakete
@@ -1535,7 +1541,7 @@ public class MainActivity extends AppCompatActivity {
         news_view = (RecyclerView) findViewById(R.id.news_view);
         news_view_manager = new LinearLayoutManager(MainActivity.this);
         news_view.setLayoutManager(news_view_manager);
-        news_view_adapter = new NewsViewAdapter(MainActivity.this);
+        news_view_adapter = new NewsViewAdapter(MainActivity.this, NewsViewAdapter.MODE_NEW);
         news_view.setAdapter(news_view_adapter);
 
         //Aktionen, die nur für Admins oder Team-Mitglieder vorgesehen sind
