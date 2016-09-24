@@ -13,6 +13,7 @@ import android.widget.TextView;
 import com.mrgames13.jimdo.bsbz_app.App.MainActivity;
 import com.mrgames13.jimdo.bsbz_app.ComponentClasses.New;
 import com.mrgames13.jimdo.bsbz_app.R;
+import com.mrgames13.jimdo.bsbz_app.Tools.SimpleAnimationListener;
 
 public class NewsViewAdapter extends RecyclerView.Adapter<NewsViewAdapter.ViewHolderClass> {
     //Konstanten
@@ -73,13 +74,30 @@ public class NewsViewAdapter extends RecyclerView.Adapter<NewsViewAdapter.ViewHo
                     holder.itemView.findViewById(R.id.item_area_description).setVisibility(View.GONE);
                     holder.itemView.findViewById(R.id.item_button_container).setVisibility(View.GONE);
                     //Rotations-Animation für DropDown-Arrow starten
+                    holder.item_dropdown_arrow.setImageResource(R.drawable.ic_arrow_drop_down_black_36dp);
                     Animation rot = AnimationUtils.loadAnimation(holder.itemView.getContext(), R.anim.item_element_rotation);
-
+                    rot.setAnimationListener(new SimpleAnimationListener() {
+                        @Override
+                        public void onAnimationEnd(Animation animation) {
+                            //holder.item_dropdown_arrow.setImageResource(R.drawable.ic_arrow_drop_down_black_36dp);
+                        }
+                    });
+                    holder.item_dropdown_arrow.startAnimation(rot);
                 } else {
                     //Expand item
                     holder.itemView.findViewById(R.id.item_area_description).setVisibility(View.VISIBLE);
                     String rights = MainActivity.su.getString("Rights", MainActivity.res.getString(R.string.guest));
                     if(rights.equals("classspeaker") || rights.equals("teacher") || rights.equals("administrator") || rights.equals("team")) holder.itemView.findViewById(R.id.item_button_container).setVisibility(View.VISIBLE);
+                    //Rotations-Animation für DropDown-Arrow starten
+                    holder.item_dropdown_arrow.setImageResource(R.drawable.ic_arrow_drop_up_36pt);
+                    Animation rot = AnimationUtils.loadAnimation(holder.itemView.getContext(), R.anim.item_element_rotation);
+                    rot.setAnimationListener(new SimpleAnimationListener() {
+                        @Override
+                        public void onAnimationEnd(Animation animation) {
+                            //holder.item_dropdown_arrow.setImageResource(R.drawable.ic_arrow_drop_up_36pt);
+                        }
+                    });
+                    holder.item_dropdown_arrow.startAnimation(rot);
                 }
                 holder.item_expanded = !holder.item_expanded;
             }
