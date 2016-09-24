@@ -62,7 +62,7 @@
             android:layout_height="wrap_content"
             android:text="@string/loading"
             android:layout_below="@+id/item_description"
-            android:layout_marginTop="4dp"
+            android:layout_marginTop="6dp"
             android:layout_toLeftOf="@+id/item_receiver"/>
 
         <TextView
@@ -100,7 +100,8 @@
             app:backgroundTint="@color/colorPrimary"
             android:layout_gravity="center"
             android:layout_above="@+id/item_delete"
-            android:layout_marginBottom="4dp"/>
+            android:layout_marginBottom="4dp"
+            app:fabSize="mini"/>
 
         <android.support.design.widget.FloatingActionButton
             android:id="@+id/item_delete"
@@ -110,7 +111,8 @@
             android:theme="@style/toolbarStyle"
             app:backgroundTint="@color/colorPrimary"
             android:layout_gravity="center"
-            android:layout_alignParentBottom="true"/>
+            android:layout_alignParentBottom="true"
+            app:fabSize="mini"/>
 
     </RelativeLayout>
 </RelativeLayout>

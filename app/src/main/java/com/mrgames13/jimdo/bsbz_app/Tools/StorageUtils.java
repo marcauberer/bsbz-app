@@ -3,7 +3,6 @@ package com.mrgames13.jimdo.bsbz_app.Tools;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
-import android.util.Log;
 
 import com.mrgames13.jimdo.bsbz_app.ComponentClasses.New;
 
@@ -115,7 +114,6 @@ public class StorageUtils {
     }
 
     public int getNewsCount() {
-        Log.d("BSBZ-App", "NewsCount " + String.valueOf(getInt("NCount")));
         return getInt("NCount");
     }
 

@@ -2,6 +2,8 @@ package com.mrgames13.jimdo.bsbz_app.RecyclerViewAdapters;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
@@ -13,11 +15,15 @@ import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.mrgames13.jimdo.bsbz_app.App.MainActivity;
 import com.mrgames13.jimdo.bsbz_app.ComponentClasses.New;
 import com.mrgames13.jimdo.bsbz_app.R;
+import com.mrgames13.jimdo.bsbz_app.Services.SyncronisationService;
 import com.mrgames13.jimdo.bsbz_app.Tools.SimpleAnimationListener;
+
+import java.net.URLEncoder;
 
 public class NewsViewAdapter extends RecyclerView.Adapter<NewsViewAdapter.ViewHolderClass> {
     //Konstanten
@@ -26,6 +32,7 @@ public class NewsViewAdapter extends RecyclerView.Adapter<NewsViewAdapter.ViewHo
     private Context context;
 
     //Variablen
+    private String result;
 
     public class ViewHolderClass extends RecyclerView.ViewHolder {
         //Variablen als Objekte
@@ -99,7 +106,27 @@ public class NewsViewAdapter extends RecyclerView.Adapter<NewsViewAdapter.ViewHo
                         .setPositiveButton(MainActivity.res.getString(R.string.yes), new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-
+                                new Thread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        try{
+                                            String username = MainActivity.prefs.getString("Name", MainActivity.res.getString(R.string.guest));
+                                            result = MainActivity.serverMessagingUtils.sendRequest(null, "name="+ URLEncoder.encode(username, "UTF-8")+"&command=deletenew&subject="+URLEncoder.encode(MainActivity.news.get(pos).getSubject().trim(), "UTF-8"));
+                                            if(result.equals("Action Successful")) {
+                                                result = MainActivity.res.getString(R.string.new_successfully_created);
+                                                context.startService(new Intent(context, SyncronisationService.class));
+                                            } else {
+                                                result = MainActivity.res.getString(R.string.error_try_again);
+                                            }
+                                            new Handler().post(new Runnable() {
+                                                @Override
+                                                public void run() {
+                                                    Toast.makeText(context, result, Toast.LENGTH_SHORT).show();
+                                                }
+                                            });
+                                        } catch(Exception e) {}
+                                    }
+                                }).start();
                             }
                         })
                         .create();
