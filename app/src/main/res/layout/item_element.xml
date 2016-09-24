@@ -45,7 +45,7 @@
         android:id="@+id/item_dropdown_arrow"
         android:layout_width="wrap_content"
         android:layout_height="40dp"
-        android:src="@drawable/ic_arrow_drop_up_36pt"
+        android:src="@drawable/ic_arrow_drop_down_black_36dp"
         android:layout_alignParentTop="true"
         android:layout_alignParentRight="true"/>
 

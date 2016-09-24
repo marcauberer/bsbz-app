@@ -57,15 +57,26 @@ public class NewsViewAdapter extends RecyclerView.Adapter<NewsViewAdapter.ViewHo
         //Daten befüllen
         New n = MainActivity.news.get(pos);
         holder.item_subject.setText(n.getSubject());
+        holder.item_description.setText(n.getDescription());
         holder.item_date.setText(n.getActivationDate());
+        holder.item_receiver.setText(n.getReceiver());
+        holder.item_writer.setText(n.getWriter());
 
         //OnClickListener setzen
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                holder.itemView.findViewById(R.id.item_area_description).setVisibility(View.VISIBLE);
-                String rights = MainActivity.su.getString("Rights", MainActivity.res.getString(R.string.guest));
-                if(rights.equals("classspeaker") || rights.equals("teacher") || rights.equals("administrator") || rights.equals("team"))holder.itemView.findViewById(R.id.item_button_container).setVisibility(View.VISIBLE);
+                if(holder.item_expanded) {
+                    //Collapse item
+                    holder.itemView.findViewById(R.id.item_area_description).setVisibility(View.GONE);
+                    holder.itemView.findViewById(R.id.item_button_container).setVisibility(View.GONE);
+                } else {
+                    //Expand item
+                    holder.itemView.findViewById(R.id.item_area_description).setVisibility(View.VISIBLE);
+                    String rights = MainActivity.su.getString("Rights", MainActivity.res.getString(R.string.guest));
+                    if(rights.equals("classspeaker") || rights.equals("teacher") || rights.equals("administrator") || rights.equals("team")) holder.itemView.findViewById(R.id.item_button_container).setVisibility(View.VISIBLE);
+                }
+                holder.item_expanded = !holder.item_expanded;
             }
         });
     }
