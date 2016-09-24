@@ -3,6 +3,7 @@ package com.mrgames13.jimdo.bsbz_app.RecyclerViewAdapters;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AlertDialog;
@@ -150,6 +151,15 @@ public class NewsViewAdapter extends RecyclerView.Adapter<NewsViewAdapter.ViewHo
             }
         });
 
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
+            ViewGroup.MarginLayoutParams p = (ViewGroup.MarginLayoutParams) holder.item_edit.getLayoutParams();
+            p.setMargins(0, 0, 0, 0);
+            holder.item_edit.setLayoutParams(p);
+            p = (ViewGroup.MarginLayoutParams) holder.item_delete.getLayoutParams();
+            p.setMargins(0, 0, 0, 0);
+            holder.item_delete.setLayoutParams(p);
+        }
+
         //OnClickListener setzen
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -196,5 +206,10 @@ public class NewsViewAdapter extends RecyclerView.Adapter<NewsViewAdapter.ViewHo
     @Override
     public int getItemCount() {
         return MainActivity.news.size();
+    }
+
+    private int dpToPx(float dp) {
+        float scale = MainActivity.res.getDisplayMetrics().density;
+        return (int) ((dp * scale) + 0.5f);
     }
 }
