@@ -5,6 +5,8 @@ import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
 import com.mrgames13.jimdo.bsbz_app.ComponentClasses.Classtest;
+import com.mrgames13.jimdo.bsbz_app.ComponentClasses.Event;
+import com.mrgames13.jimdo.bsbz_app.ComponentClasses.Homework;
 import com.mrgames13.jimdo.bsbz_app.ComponentClasses.New;
 
 import java.util.ArrayList;
@@ -103,7 +105,7 @@ public class StorageUtils {
                 //New-Objekt erstellen und der ArrayList hinzufügen
                 classtests.add(c);
             } else {
-                setNewsCount(i -1);
+                setClasstestCount(i -1);
                 break;
             }
         }
@@ -120,7 +122,99 @@ public class StorageUtils {
 
     //-------------------------------------Hausaufgaben-Funktionen----------------------------------
 
+    public void addHomework(int id, String subject, String description, String receiver, String writer, String date) {
+        //Classtest-Daten in die SharedPreferences speichern
+        String complete_homework_string = String.valueOf(id) + "," + subject + "," + description + "," + receiver + "," + writer + "," + date;
+        putString("H" + String.valueOf(id), complete_homework_string);
+        //Classtest-Anzahl in den SharedPreferences um eins erhöhen
+        putInt("HCount", getHomeworkCount() +1);
+    }
+
+    public ArrayList<Homework> parseHomeworks() {
+        ArrayList<Homework> homeworks = new ArrayList<>();
+        int h_count = getHomeworkCount();
+        for(int i = 1; i <= h_count; i++) {
+            String current_homework = getString("H" + String.valueOf(i), null);
+            if(current_homework != null) {
+                //Aktuelle Nachricht zerteilen
+                int index1 = current_homework.indexOf(",");
+                int index2 = current_homework.indexOf(",", index1 +1);
+                int index3 = current_homework.indexOf(",", index2 +1);
+                int index4 = current_homework.indexOf(",", index3 +1);
+                int index5 = current_homework.indexOf(",", index4 +1);
+                //Unterteilen
+                int current_homework_id = Integer.parseInt(current_homework.substring(0, index1));
+                String current_homework_subject = current_homework.substring(index1 +1, index2);
+                String current_homework_description = current_homework.substring(index2 +1, index3);
+                String current_homework_receiver = current_homework.substring(index3 +1, index4);
+                String current_homework_writer = current_homework.substring(index4 +1, index5);
+                String current_homework_date = current_homework.substring(index5 +1);
+                Homework h = new Homework(current_homework_id, current_homework_subject, current_homework_description, current_homework_receiver, current_homework_writer, current_homework_date);
+                //New-Objekt erstellen und der ArrayList hinzufügen
+                homeworks.add(h);
+            } else {
+                setHomeworkCount(i -1);
+                break;
+            }
+        }
+        return homeworks;
+    }
+
+    public int getHomeworkCount() {
+        return getInt("HCount");
+    }
+
+    public void setHomeworkCount(int count) {
+        putInt("HCount", count);
+    }
+
     //----------------------------------------Termine-Funktionen------------------------------------
+
+    public void addEvent(int id, String subject, String description, String receiver, String writer, String date) {
+        //Classtest-Daten in die SharedPreferences speichern
+        String complete_event_string = String.valueOf(id) + "," + subject + "," + description + "," + receiver + "," + writer + "," + date;
+        putString("E" + String.valueOf(id), complete_event_string);
+        //Classtest-Anzahl in den SharedPreferences um eins erhöhen
+        putInt("ECount", getEventCount() +1);
+    }
+
+    public ArrayList<Event> parseEvents() {
+        ArrayList<Event> events = new ArrayList<>();
+        int e_count = getEventCount();
+        for(int i = 1; i <= e_count; i++) {
+            String current_event = getString("E" + String.valueOf(i), null);
+            if(current_event != null) {
+                //Aktuelle Nachricht zerteilen
+                int index1 = current_event.indexOf(",");
+                int index2 = current_event.indexOf(",", index1 +1);
+                int index3 = current_event.indexOf(",", index2 +1);
+                int index4 = current_event.indexOf(",", index3 +1);
+                int index5 = current_event.indexOf(",", index4 +1);
+                //Unterteilen
+                int current_event_id = Integer.parseInt(current_event.substring(0, index1));
+                String current_event_subject = current_event.substring(index1 +1, index2);
+                String current_event_description = current_event.substring(index2 +1, index3);
+                String current_event_receiver = current_event.substring(index3 +1, index4);
+                String current_event_writer = current_event.substring(index4 +1, index5);
+                String current_event_date = current_event.substring(index5 +1);
+                Event e = new Event(current_event_id, current_event_subject, current_event_description, current_event_receiver, current_event_writer, current_event_date);
+                //New-Objekt erstellen und der ArrayList hinzufügen
+                events.add(e);
+            } else {
+                setEventCount(i -1);
+                break;
+            }
+        }
+        return events;
+    }
+
+    public int getEventCount() {
+        return getInt("ECount");
+    }
+
+    public void setEventCount(int count) {
+        putInt("ECount", count);
+    }
 
     //-----------------------------------------News-Funktionen--------------------------------------
 
