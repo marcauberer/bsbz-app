@@ -174,11 +174,25 @@ public class SyncronisationService extends Service {
                         classtests_str = classtests_str.substring(index +1);
                     }
                     //Klassenarbeiten in die SharedPreferences eintragen
-                    for(int i = 0; i < 101; i++) {
-                        String classtest = "-";
-                        try{ classtest = arraylist.get(i); } catch(Exception e1){}
-                        e.putString("Classtests_"+String.valueOf(i), classtest);
+                    int i = 0;
+                    for(String c_classtest : arraylist) {
+                        //Indexe finden
+                        int index1_1 = c_classtest.indexOf(",");
+                        int index2_2 = c_classtest.indexOf(",", index1_1 +1);
+                        int index3_3 = c_classtest.indexOf(",", index2_2 +1);
+                        int index4_4 = c_classtest.indexOf(",", index3_3 +1);
+                        //String zerteilen
+                        int c_classtest_id = i +1;
+                        String c_classtest_subject = c_classtest.substring(0, index1_1);
+                        String c_classtest_description = c_classtest.substring(index1_1 +1, index2_2);
+                        String c_classtest_writer = c_classtest.substring(index2_2 +1, index3_3);
+                        String c_classtest_date = c_classtest.substring(index3_3 +1, index4_4);
+                        String c_classtest_receiver = c_classtest.substring(index4_4 +1);
+                        //Classtest-Objekt einspeichern
+                        su.addClasstest(c_classtest_id, c_classtest_subject, c_classtest_description, c_classtest_receiver, c_classtest_writer, c_classtest_date);
+                        i++;
                     }
+                    su.setClasstestCount(i);
                     e.commit();
                 //Hausaufgaben
                     String homeworks_str = result.substring(index2 +1, index3);
@@ -197,11 +211,25 @@ public class SyncronisationService extends Service {
                         homeworks_str = homeworks_str.substring(index +1);
                     }
                     //Hausaufgaben in die SharedPreferences eintragen
-                    for(int i = 0; i < 101; i++) {
-                        String classtest = "-";
-                        try{ classtest = arraylist.get(i); } catch(Exception e1){}
-                        e.putString("Homeworks_"+String.valueOf(i), classtest);
+                    i = 0;
+                    for(String c_homework : arraylist) {
+                        //Indexe finden
+                        int index1_1 = c_homework.indexOf(",");
+                        int index2_2 = c_homework.indexOf(",", index1_1 +1);
+                        int index3_3 = c_homework.indexOf(",", index2_2 +1);
+                        int index4_4 = c_homework.indexOf(",", index3_3 +1);
+                        //String zerteilen
+                        int c_homework_id = i +1;
+                        String c_homework_subject = c_homework.substring(0, index1_1);
+                        String c_homework_description = c_homework.substring(index1_1 +1, index2_2);
+                        String c_homework_writer = c_homework.substring(index2_2 +1, index3_3);
+                        String c_homework_date = c_homework.substring(index3_3 +1, index4_4);
+                        String c_homework_receiver = c_homework.substring(index4_4 +1);
+                        //Homework-Objekt einspeichern
+                        su.addHomework(c_homework_id, c_homework_subject, c_homework_description, c_homework_receiver, c_homework_writer, c_homework_date);
+                        i++;
                     }
+                    su.setHomeworkCount(i);
                     e.commit();
                 //Termine
                     String termine_str = result.substring(index3 +1, index4);
@@ -220,11 +248,25 @@ public class SyncronisationService extends Service {
                         termine_str = termine_str.substring(index +1);
                     }
                     //Events in die SharedPreferences eintragen
-                    for(int i = 0; i < 101; i++) {
-                        String classtest = "-";
-                        try{ classtest = arraylist.get(i); } catch(Exception e1){}
-                        e.putString("Events_"+String.valueOf(i), classtest);
+                    i = 0;
+                    for(String c_event : arraylist) {
+                        //Indexe finden
+                        int index1_1 = c_event.indexOf(",");
+                        int index2_2 = c_event.indexOf(",", index1_1 +1);
+                        int index3_3 = c_event.indexOf(",", index2_2 +1);
+                        int index4_4 = c_event.indexOf(",", index3_3 +1);
+                        //String zerteilen
+                        int c_homework_id = i +1;
+                        String c_event_subject = c_event.substring(0, index1_1);
+                        String c_event_description = c_event.substring(index1_1 +1, index2_2);
+                        String c_event_writer = c_event.substring(index2_2 +1, index3_3);
+                        String c_event_date = c_event.substring(index3_3 +1, index4_4);
+                        String c_event_receiver = c_event.substring(index4_4 +1);
+                        //Event-Objekt einspeichern
+                        su.addEvent(c_homework_id, c_event_subject, c_event_description, c_event_receiver, c_event_writer, c_event_date);
+                        i++;
                     }
+                    su.setEventCount(i);
                     e.commit();
                 //News
                     String news_str = result.substring(index4 +1).trim();
@@ -243,7 +285,7 @@ public class SyncronisationService extends Service {
                         news_str = news_str.substring(index +1);
                     }
                     //News in die SharedPreferences eintragen
-                    int i = 0;
+                    i = 0;
                     for(String c_new : arraylist) {
                         //Indexe finden
 						int index1_1 = c_new.indexOf(",");
