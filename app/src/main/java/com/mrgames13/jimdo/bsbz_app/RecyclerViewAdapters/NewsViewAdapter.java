@@ -13,7 +13,6 @@ import android.widget.TextView;
 import com.mrgames13.jimdo.bsbz_app.App.MainActivity;
 import com.mrgames13.jimdo.bsbz_app.ComponentClasses.New;
 import com.mrgames13.jimdo.bsbz_app.R;
-import com.mrgames13.jimdo.bsbz_app.Tools.SimpleAnimationListener;
 
 public class NewsViewAdapter extends RecyclerView.Adapter<NewsViewAdapter.ViewHolderClass> {
     //Konstanten
@@ -76,13 +75,10 @@ public class NewsViewAdapter extends RecyclerView.Adapter<NewsViewAdapter.ViewHo
                     //Rotations-Animation für DropDown-Arrow starten
                     holder.item_dropdown_arrow.setImageResource(R.drawable.ic_arrow_drop_down_black_36dp);
                     Animation rot = AnimationUtils.loadAnimation(holder.itemView.getContext(), R.anim.item_element_rotation);
-                    rot.setAnimationListener(new SimpleAnimationListener() {
-                        @Override
-                        public void onAnimationEnd(Animation animation) {
-                            //holder.item_dropdown_arrow.setImageResource(R.drawable.ic_arrow_drop_down_black_36dp);
-                        }
-                    });
                     holder.item_dropdown_arrow.startAnimation(rot);
+                    //Expand-Animation für Item starten
+                    Animation exp = AnimationUtils.loadAnimation(holder.itemView.getContext(), R.anim.item_element_expand);
+                    holder.itemView.startAnimation(exp);
                 } else {
                     //Expand item
                     holder.itemView.findViewById(R.id.item_area_description).setVisibility(View.VISIBLE);
@@ -91,13 +87,10 @@ public class NewsViewAdapter extends RecyclerView.Adapter<NewsViewAdapter.ViewHo
                     //Rotations-Animation für DropDown-Arrow starten
                     holder.item_dropdown_arrow.setImageResource(R.drawable.ic_arrow_drop_up_36pt);
                     Animation rot = AnimationUtils.loadAnimation(holder.itemView.getContext(), R.anim.item_element_rotation);
-                    rot.setAnimationListener(new SimpleAnimationListener() {
-                        @Override
-                        public void onAnimationEnd(Animation animation) {
-                            //holder.item_dropdown_arrow.setImageResource(R.drawable.ic_arrow_drop_up_36pt);
-                        }
-                    });
                     holder.item_dropdown_arrow.startAnimation(rot);
+                    //Expand-Animation für Item starten
+                    Animation exp = AnimationUtils.loadAnimation(holder.itemView.getContext(), R.anim.item_element_expand);
+                    holder.itemView.startAnimation(exp);
                 }
                 holder.item_expanded = !holder.item_expanded;
             }
