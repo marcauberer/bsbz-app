@@ -78,8 +78,6 @@ public class StorageUtils {
         putString("N" + String.valueOf(id), complete_new_string);
         //News-Anzahl in den SharedPreferences um eins erhöhen
         putInt("NCount", getNewsCount() +1);
-        Log.d("BSBZ-App", "Added New");
-        Log.d("BSBZ-App", String.valueOf(id));
     }
 
     public ArrayList<New> parseNews() {
@@ -108,13 +106,10 @@ public class StorageUtils {
                 New n = new New(current_new_id, current_new_state, current_new_subject, current_new_description, current_new_receiver, current_new_writer, current_new_activation_date, current_new_expiration_date);
                 //New-Objekt erstellen und der ArrayList hinzufügen
                 news.add(n);
-                Log.d("BSBZ-App", "Added New");
             } else {
-                //setNewsCount(i -1);
-                //break;
-                Log.d("BSBZ-App", "New null");
+                setNewsCount(i -1);
+                break;
             }
-            Log.d("BSBZ-App", "For-Loop");
         }
         return news;
     }

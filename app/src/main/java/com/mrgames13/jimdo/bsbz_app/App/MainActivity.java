@@ -1527,8 +1527,6 @@ public class MainActivity extends AppCompatActivity {
 
         news = su.parseNews();
 
-        Log.d("BSBZ-App", "Size: "+String.valueOf(news.size()));
-
         //NewsRecyclerView anzeigen
         news_view = (RecyclerView) findViewById(R.id.news_view);
         news_view_manager = new LinearLayoutManager(MainActivity.this);

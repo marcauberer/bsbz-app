@@ -261,14 +261,6 @@ public class SyncronisationService extends Service {
                         String c_new_activation_date = c_new.substring(index4_4 +1, index5_5);
                         String c_new_expiration_date = c_new.substring(index5_5 +1, index6_6);
                         String c_new_receiver = c_new.substring(index6_6 +1);
-                        Log.d("BSBZ-App", c_new_subject);
-                        Log.d("BSBZ-App", c_new_description);
-                        Log.d("BSBZ-App", String.valueOf(c_new_state));
-                        Log.d("BSBZ-App", String.valueOf(c_new_id));
-                        Log.d("BSBZ-App", c_new_receiver);
-                        Log.d("BSBZ-App", c_new_writer);
-                        Log.d("BSBZ-App", c_new_activation_date);
-                        Log.d("BSBZ-App", c_new_expiration_date);
                         //News-Objekt einspeichern
                         su.addNew(c_new_id, c_new_state, c_new_subject, c_new_description, c_new_receiver, c_new_writer, c_new_activation_date, c_new_expiration_date);
 					    i++;

@@ -2,7 +2,6 @@ package com.mrgames13.jimdo.bsbz_app.RecyclerViewAdapters;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -59,8 +58,6 @@ public class NewsViewAdapter extends RecyclerView.Adapter<NewsViewAdapter.ViewHo
         holder.item_date.setText(n.getActivationDate());
         //holder.item_receiver.setText(n.getReceiver());
         //holder.item_writer.setText(n.getWriter());
-        Log.d("BSBZ-App", n.getSubject());
-        Log.d("BSBZ-App", n.getDescription());
 
         //OnClickListener setzen
         holder.itemView.setOnClickListener(new View.OnClickListener() {
