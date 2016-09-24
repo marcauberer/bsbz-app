@@ -57,20 +57,21 @@
         android:layout_below="@+id/item_date">
 
         <TextView
-            android:id="@+id/item_receiver"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_below="@+id/item_description"
-            android:text="@string/all_classes"/>
-
-        <TextView
             android:id="@+id/item_writer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/loading"
             android:layout_below="@+id/item_description"
+            android:layout_marginTop="4dp"
             android:layout_toLeftOf="@+id/item_receiver"/>
+
+        <TextView
+            android:id="@+id/item_receiver"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignBottom="@+id/item_writer"
+            android:text="@string/all_classes"/>
 
         <TextView
             android:id="@+id/item_description"
