@@ -63,7 +63,8 @@
             android:text="@string/loading"
             android:layout_below="@+id/item_description"
             android:layout_marginTop="6dp"
-            android:layout_toLeftOf="@+id/item_receiver"/>
+            android:layout_toLeftOf="@+id/item_receiver"
+            android:textStyle="bold"/>
 
         <TextView
             android:id="@+id/item_receiver"
@@ -71,7 +72,8 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_alignBottom="@+id/item_writer"
-            android:text="@string/all_classes"/>
+            android:text="@string/all_classes"
+            android:textStyle="bold"/>
 
         <TextView
             android:id="@+id/item_description"

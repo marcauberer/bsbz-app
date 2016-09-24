@@ -17,6 +17,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.mrgames13.jimdo.bsbz_app.App.EditNewActivity;
 import com.mrgames13.jimdo.bsbz_app.App.MainActivity;
 import com.mrgames13.jimdo.bsbz_app.ComponentClasses.New;
 import com.mrgames13.jimdo.bsbz_app.R;
@@ -92,7 +93,16 @@ public class NewsViewAdapter extends RecyclerView.Adapter<NewsViewAdapter.ViewHo
         holder.item_edit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                New n = MainActivity.news.get(pos);
+                //Activity starten und Daten übergeben
+                Intent i = new Intent(context, EditNewActivity.class);
+                i.putExtra("Subject", n.getSubject());
+                i.putExtra("Description", n.getDescription());
+                i.putExtra("Writer", n.getWriter());
+                i.putExtra("Activation Date", n.getActivationDate());
+                i.putExtra("Expiration Date", n.getExpirationDate());
+                i.putExtra("Receiver", n.getReceiver());
+                context.startActivity(i);
             }
         });
 
