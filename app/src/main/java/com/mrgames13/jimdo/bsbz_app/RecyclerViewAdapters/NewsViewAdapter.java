@@ -29,6 +29,8 @@ public class NewsViewAdapter extends RecyclerView.Adapter<NewsViewAdapter.ViewHo
         private TextView item_writer;
         private TextView item_date;
         private ImageView item_dropdown_arrow;
+        private Context item_parent_context;
+        private boolean item_expanded = false;
 
         public ViewHolderClass(View itemView) {
             super(itemView);
@@ -39,6 +41,7 @@ public class NewsViewAdapter extends RecyclerView.Adapter<NewsViewAdapter.ViewHo
             item_date = (TextView) itemView.findViewById(R.id.item_date);
             item_receiver = (TextView) itemView.findViewById(R.id.item_receiver);
             item_writer = (TextView) itemView.findViewById(R.id.item_writer);
+            item_parent_context = itemView.getContext();
         }
     }
 
@@ -63,7 +66,7 @@ public class NewsViewAdapter extends RecyclerView.Adapter<NewsViewAdapter.ViewHo
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                holder.item_expanded = true;
             }
         });
     }
