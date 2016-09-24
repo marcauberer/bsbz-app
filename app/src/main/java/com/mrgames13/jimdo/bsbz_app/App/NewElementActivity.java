@@ -66,6 +66,7 @@ public class NewElementActivity extends AppCompatActivity {
     private String old_title;
     private String old_description;
     private String old_writer;
+    private String old_receiver;
     private String old_date;
     private boolean result;
 
@@ -137,6 +138,7 @@ public class NewElementActivity extends AppCompatActivity {
         old_title = getIntent().getStringExtra("old_title");
         old_description = getIntent().getStringExtra("old_description");
         old_writer = getIntent().getStringExtra("old_writer");
+        old_receiver = getIntent().getStringExtra("old_receiver");
         old_date = getIntent().getStringExtra("old_date");
 
         //ActivityTitle festlegen
@@ -171,6 +173,7 @@ public class NewElementActivity extends AppCompatActivity {
             choose_receiver.setText(prefs.getString("Klasse", "no_class"));
             choose_receiver.setEnabled(false);
         } else {
+            if(old_receiver != null) choose_receiver.setText(old_receiver);
             choose_receiver.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

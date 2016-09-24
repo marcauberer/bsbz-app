@@ -20,6 +20,7 @@ import android.widget.Toast;
 
 import com.mrgames13.jimdo.bsbz_app.App.EditNewActivity;
 import com.mrgames13.jimdo.bsbz_app.App.MainActivity;
+import com.mrgames13.jimdo.bsbz_app.App.NewElementActivity;
 import com.mrgames13.jimdo.bsbz_app.ComponentClasses.Classtest;
 import com.mrgames13.jimdo.bsbz_app.ComponentClasses.Event;
 import com.mrgames13.jimdo.bsbz_app.ComponentClasses.Homework;
@@ -138,7 +139,42 @@ public class ElementViewAdapter extends RecyclerView.Adapter<ElementViewAdapter.
                     i.putExtra("Receiver", n.getReceiver());
                     context.startActivity(i);
                 } else if(mode == MODE_CLASSTEST || mode == MODE_HOMEWORK || mode == MODE_EVENT) {
-
+                    String subject = "";
+                    String description = "";
+                    String writer = "";
+                    String receiver = "";
+                    String date = "";
+                    if(mode == MODE_CLASSTEST) {
+                        Classtest c = MainActivity.classtests.get(pos);
+                        subject = c.getSubject();
+                        description = c.getDescription();
+                        writer = c.getWriter();
+                        receiver = c.getReceiver();
+                        date = c.getDate();
+                    } else if(mode == MODE_HOMEWORK) {
+                        Homework h = MainActivity.homeworks.get(pos);
+                        subject = h.getSubject();
+                        description = h.getDescription();
+                        writer = h.getWriter();
+                        receiver = h.getReceiver();
+                        date = h.getDate();
+                    } else if(mode == MODE_EVENT) {
+                        Event e = MainActivity.events.get(pos);
+                        subject = e.getSubject();
+                        description = e.getDescription();
+                        writer = e.getWriter();
+                        receiver = e.getReceiver();
+                        date = e.getDate();
+                    }
+                    //Activity starten und Daten übergeben
+                    Intent i = new Intent(mainActivity, NewElementActivity.class);
+                    i.putExtra("old_title", subject);
+                    i.putExtra("old_date", date);
+                    i.putExtra("old_description", description);
+                    i.putExtra("old_writer", writer);
+                    i.putExtra("old_receiver", receiver);
+                    i.putExtra("mode", mode);
+                    context.startActivity(i);
                 }
             }
         });
