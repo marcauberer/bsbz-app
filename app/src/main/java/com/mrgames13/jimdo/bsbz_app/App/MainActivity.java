@@ -1536,7 +1536,7 @@ public class MainActivity extends AppCompatActivity {
         news_view = (RecyclerView) findViewById(R.id.news_view);
         news_view_manager = new LinearLayoutManager(MainActivity.this);
         news_view.setLayoutManager(news_view_manager);
-        news_view_adapter = new NewsViewAdapter();
+        news_view_adapter = new NewsViewAdapter(MainActivity.this);
         news_view.setAdapter(news_view_adapter);
 
         //Aktionen, die nur für Admins oder Team-Mitglieder vorgesehen sind

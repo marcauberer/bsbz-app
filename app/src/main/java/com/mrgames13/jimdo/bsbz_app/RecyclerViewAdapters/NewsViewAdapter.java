@@ -30,9 +30,14 @@ public class NewsViewAdapter extends RecyclerView.Adapter<NewsViewAdapter.ViewHo
 
     //Variablen als Objekte
     private Context context;
+    private MainActivity mainActivity;
 
     //Variablen
     private String result;
+
+    public NewsViewAdapter(MainActivity mainActivity) {
+        this.context = mainActivity;
+    }
 
     public class ViewHolderClass extends RecyclerView.ViewHolder {
         //Variablen als Objekte
@@ -115,6 +120,7 @@ public class NewsViewAdapter extends RecyclerView.Adapter<NewsViewAdapter.ViewHo
                                             if(result.equals("Action Successful")) {
                                                 result = MainActivity.res.getString(R.string.new_successfully_created);
                                                 context.startService(new Intent(context, SyncronisationService.class));
+                                                mainActivity.launchNewsFragment();
                                             } else {
                                                 result = MainActivity.res.getString(R.string.error_try_again);
                                             }
