@@ -130,7 +130,9 @@ public class RegistrationActivity extends AppCompatActivity {
 		try{
 			TelephonyManager tm = (TelephonyManager) RegistrationActivity.this.getSystemService(TELEPHONY_SERVICE);
 			id = tm.getDeviceId();
-		} catch(Exception e) {}
+		} catch(Exception e) {
+            e.printStackTrace();
+        }
 
 		//Ids herausfinden
 		//Button
@@ -518,7 +520,8 @@ public class RegistrationActivity extends AppCompatActivity {
     }
 
     public void Registrieren(final String username, final String klasse, final String password) {
-		new Thread(new Runnable() {
+        if(id == null) id = "no id";
+        new Thread(new Runnable() {
 			@Override
 			public void run() {
 				try {
@@ -548,7 +551,9 @@ public class RegistrationActivity extends AppCompatActivity {
 							}
 						}
 					});
-				} catch(Exception e) {}
+				} catch(Exception e) {
+					e.printStackTrace();
+				}
 			}
 		}).start();
 	}

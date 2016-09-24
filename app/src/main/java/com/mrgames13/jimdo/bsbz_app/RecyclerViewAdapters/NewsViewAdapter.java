@@ -1,6 +1,9 @@
 package com.mrgames13.jimdo.bsbz_app.RecyclerViewAdapters;
 
 import android.content.Context;
+import android.content.DialogInterface;
+import android.support.design.widget.FloatingActionButton;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -35,6 +38,8 @@ public class NewsViewAdapter extends RecyclerView.Adapter<NewsViewAdapter.ViewHo
         private RelativeLayout item_button_container;
         private RelativeLayout item_area_description;
         private ImageView item_dropdown_arrow;
+        private FloatingActionButton item_edit;
+        private FloatingActionButton item_delete;
         private boolean item_expanded = false;
 
         public ViewHolderClass(View itemView) {
@@ -46,6 +51,8 @@ public class NewsViewAdapter extends RecyclerView.Adapter<NewsViewAdapter.ViewHo
             item_date = (TextView) itemView.findViewById(R.id.item_date);
             item_receiver = (TextView) itemView.findViewById(R.id.item_receiver);
             item_writer = (TextView) itemView.findViewById(R.id.item_writer);
+            item_edit = (FloatingActionButton) itemView.findViewById(R.id.item_edit);
+            item_delete = (FloatingActionButton) itemView.findViewById(R.id.item_delete);
             item_area_description = (RelativeLayout) itemView.findViewById(R.id.item_area_description);
             item_area_description.setVisibility(View.GONE);
             item_button_container = (RelativeLayout) itemView.findViewById(R.id.item_button_container);
@@ -70,6 +77,36 @@ public class NewsViewAdapter extends RecyclerView.Adapter<NewsViewAdapter.ViewHo
         holder.item_receiver.setText(n.getReceiver());
         holder.item_writer.setText(n.getWriter());
 
+        holder.item_edit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
+        holder.item_delete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlertDialog d = new AlertDialog.Builder(context)
+                        .setTitle(MainActivity.res.getString(R.string.delete_new))
+                        .setMessage(MainActivity.res.getString(R.string.really_delete_new))
+                        .setNegativeButton(MainActivity.res.getString(R.string.cancel), new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                            }
+                        })
+                        .setPositiveButton(MainActivity.res.getString(R.string.yes), new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+
+                            }
+                        })
+                        .create();
+                d.show();
+            }
+        });
+
         //OnClickListener setzen
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -78,7 +115,10 @@ public class NewsViewAdapter extends RecyclerView.Adapter<NewsViewAdapter.ViewHo
                     //Expand item
                     holder.itemView.findViewById(R.id.item_area_description).setVisibility(View.VISIBLE);
                     String rights = MainActivity.su.getString("Rights", MainActivity.res.getString(R.string.guest));
-                    if(rights.equals("classspeaker") || rights.equals("teacher") || rights.equals("administrator") || rights.equals("team")) holder.itemView.findViewById(R.id.item_button_container).setVisibility(View.VISIBLE);
+                    if(rights.equals("classspeaker") || rights.equals("teacher") || rights.equals("administrator") || rights.equals("team")) {
+                        holder.itemView.findViewById(R.id.item_button_container).setVisibility(View.VISIBLE);
+                        holder.item_description.setMinLines(4);
+                    }
                     //Rotations-Animation für DropDown-Arrow starten
                     holder.item_dropdown_arrow.setImageResource(R.drawable.ic_arrow_drop_up_36pt);
                     Animation rot = AnimationUtils.loadAnimation(holder.itemView.getContext(), R.anim.item_element_rotation);
