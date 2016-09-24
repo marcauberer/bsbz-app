@@ -29,6 +29,10 @@ import java.net.URLEncoder;
 
 public class NewsViewAdapter extends RecyclerView.Adapter<NewsViewAdapter.ViewHolderClass> {
     //Konstanten
+    public static final int MODE_CLASSTEST = 1;
+    public static final int MODE_HOMEWORK = 2;
+    public static final int MODE_EVENT = 3;
+    public static final int MODE_NEW = 4;
 
     //Variablen als Objekte
     private Context context;
@@ -36,9 +40,11 @@ public class NewsViewAdapter extends RecyclerView.Adapter<NewsViewAdapter.ViewHo
 
     //Variablen
     private String result;
+    private int mode;
 
-    public NewsViewAdapter(MainActivity mainActivity) {
+    public NewsViewAdapter(MainActivity mainActivity, int mode) {
         this.context = mainActivity;
+        this.mode = mode;
     }
 
     public class ViewHolderClass extends RecyclerView.ViewHolder {

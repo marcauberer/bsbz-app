@@ -69,6 +69,58 @@ public class StorageUtils {
         return prefs.getBoolean(name, default_value);
     }
 
+    //-----------------------------------Klassenarbeiten-Funktionen---------------------------------
+
+    public void addClasstest(int id, String subject, String description, String receiver, String writer, String date) {
+        //Classtest-Daten in die SharedPreferences speichern
+        String complete_classtest_string = String.valueOf(id) + "," + subject + "," + description + "," + receiver + "," + writer + "," + date;
+        putString("C" + String.valueOf(id), complete_classtest_string);
+        //Classtest-Anzahl in den SharedPreferences um eins erhöhen
+        putInt("CCount", getClasstestCount() +1);
+    }
+
+    public ArrayList<Classtest> parseClasstests() {
+        ArrayList<Classtest> classtests = new ArrayList<>();
+        int c_count = getClasstestCount();
+        for(int i = 1; i <= c_count; i++) {
+            String current_classtest = getString("C" + String.valueOf(i), null);
+            if(current_classtest != null) {
+                //Aktuelle Nachricht zerteilen
+                int index1 = current_classtest.indexOf(",");
+                int index2 = current_classtest.indexOf(",", index1 +1);
+                int index3 = current_classtest.indexOf(",", index2 +1);
+                int index4 = current_classtest.indexOf(",", index3 +1);
+                int index5 = current_classtest.indexOf(",", index4 +1);
+                //Unterteilen
+                int current_classtest_id = Integer.parseInt(current_classtest.substring(0, index1));
+                String current_classtest_subject = current_classtest.substring(index1 +1, index2);
+                String current_classtest_description = current_classtest.substring(index2 +1, index3);
+                String current_classtest_receiver = current_classtest.substring(index3 +1, index4);
+                String current_classtest_writer = current_classtest.substring(index4 +1, index5);
+                String current_classtest_date = current_classtest.substring(index5 +1);
+                Classtest c = new Classtest(current_classtest_id, current_classtest_subject, current_classtest_description, current_classtest_receiver, current_classtest_writer, current_classtest_date);
+                //New-Objekt erstellen und der ArrayList hinzufügen
+                classtests.add(c);
+            } else {
+                setNewsCount(i -1);
+                break;
+            }
+        }
+        return classtests;
+    }
+
+    public int getClasstestCount() {
+        return getInt("CCount");
+    }
+
+    public void setClasstestCount(int count) {
+        putInt("CCount", count);
+    }
+
+    //-------------------------------------Hausaufgaben-Funktionen----------------------------------
+
+    //----------------------------------------Termine-Funktionen------------------------------------
+
     //-----------------------------------------News-Funktionen--------------------------------------
 
     public void addNew(int id, int state, String subject, String description, String receiver, String writer, String activation_date, String expitration_date) {
