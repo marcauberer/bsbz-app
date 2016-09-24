@@ -71,6 +71,7 @@ import com.mrgames13.jimdo.bsbz_app.R;
 import com.mrgames13.jimdo.bsbz_app.RecyclerViewAdapters.NewsViewAdapter;
 import com.mrgames13.jimdo.bsbz_app.Services.SyncronisationService;
 import com.mrgames13.jimdo.bsbz_app.RecyclerViewAdapters.GalleryViewAdapter_Folders;
+import com.mrgames13.jimdo.bsbz_app.Tools.AccountUtils;
 import com.mrgames13.jimdo.bsbz_app.Tools.NotificationUtils;
 import com.mrgames13.jimdo.bsbz_app.Tools.ServerMessagingUtils;
 import com.mrgames13.jimdo.bsbz_app.Tools.StorageUtils;
@@ -126,8 +127,9 @@ public class MainActivity extends AppCompatActivity {
 
     //UtilsPakete
     public static ServerMessagingUtils serverMessagingUtils;
-    private StorageUtils su;
+    public static StorageUtils su;
     private NotificationUtils nu;
+    private AccountUtils au;
 
     //Variablen
     private boolean pressedOnce = false;
@@ -190,6 +192,9 @@ public class MainActivity extends AppCompatActivity {
 
         //StorageUtils initialisieren
         su = new StorageUtils(MainActivity.this);
+
+        //AccountUtils initialisieren
+        au = new AccountUtils(su);
 
         //NotificationUtils initialisieren
         nu = new NotificationUtils(MainActivity.this);

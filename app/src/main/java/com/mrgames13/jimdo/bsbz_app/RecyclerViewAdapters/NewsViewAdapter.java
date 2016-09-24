@@ -29,7 +29,6 @@ public class NewsViewAdapter extends RecyclerView.Adapter<NewsViewAdapter.ViewHo
         private TextView item_writer;
         private TextView item_date;
         private ImageView item_dropdown_arrow;
-        private Context item_parent_context;
         private boolean item_expanded = false;
 
         public ViewHolderClass(View itemView) {
@@ -41,14 +40,15 @@ public class NewsViewAdapter extends RecyclerView.Adapter<NewsViewAdapter.ViewHo
             item_date = (TextView) itemView.findViewById(R.id.item_date);
             item_receiver = (TextView) itemView.findViewById(R.id.item_receiver);
             item_writer = (TextView) itemView.findViewById(R.id.item_writer);
-            item_parent_context = itemView.getContext();
+            itemView.findViewById(R.id.item_area_description).setVisibility(View.GONE);
+            itemView.findViewById(R.id.item_button_container).setVisibility(View.GONE);
         }
     }
 
     @Override
     public ViewHolderClass onCreateViewHolder(ViewGroup parent, int viewType) {
         context = parent.getContext();
-        View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_element_small, null);
+        View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_element, null);
         return new ViewHolderClass(itemView);
     }
 
@@ -57,16 +57,15 @@ public class NewsViewAdapter extends RecyclerView.Adapter<NewsViewAdapter.ViewHo
         //Daten befüllen
         New n = MainActivity.news.get(pos);
         holder.item_subject.setText(n.getSubject());
-        //holder.item_description.setText(n.getDescription());
         holder.item_date.setText(n.getActivationDate());
-        //holder.item_receiver.setText(n.getReceiver());
-        //holder.item_writer.setText(n.getWriter());
 
         //OnClickListener setzen
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                holder.item_expanded = true;
+                holder.itemView.findViewById(R.id.item_area_description).setVisibility(View.VISIBLE);
+                String rights = MainActivity.su.getString("Rights", MainActivity.res.getString(R.string.guest));
+                if(rights.equals("classspeaker") || rights.equals("teacher") || rights.equals("administrator") || rights.equals("team"))holder.itemView.findViewById(R.id.item_button_container).setVisibility(View.VISIBLE);
             }
         });
     }
