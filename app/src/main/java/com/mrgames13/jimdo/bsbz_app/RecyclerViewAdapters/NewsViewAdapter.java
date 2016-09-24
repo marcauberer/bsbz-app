@@ -55,10 +55,10 @@ public class NewsViewAdapter extends RecyclerView.Adapter<NewsViewAdapter.ViewHo
         //Daten befüllen
         New n = MainActivity.news.get(pos);
         holder.item_subject.setText(n.getSubject());
-        holder.item_description.setText(n.getDescription());
+        //holder.item_description.setText(n.getDescription());
         holder.item_date.setText(n.getActivationDate());
-        holder.item_receiver.setText(n.getReceiver());
-        holder.item_writer.setText(n.getWriter());
+        //holder.item_receiver.setText(n.getReceiver());
+        //holder.item_writer.setText(n.getWriter());
         Log.d("BSBZ-App", n.getSubject());
         Log.d("BSBZ-App", n.getDescription());
 

@@ -227,7 +227,7 @@ public class SyncronisationService extends Service {
                     }
                     e.commit();
                 //News
-                    String news_str = result.substring(index4 +1);
+                    String news_str = result.substring(index4 +1).trim();
                     //News vergleichen und ggf. eine Nachricht in die Statusleiste senden
                     compareNews(news_str);
                     //Alte News in den SharedPreferences durch neue ersetzen

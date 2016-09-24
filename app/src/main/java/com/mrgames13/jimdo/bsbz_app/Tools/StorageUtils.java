@@ -3,6 +3,7 @@ package com.mrgames13.jimdo.bsbz_app.Tools;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
+import android.util.Log;
 
 import com.mrgames13.jimdo.bsbz_app.ComponentClasses.New;
 
@@ -46,7 +47,7 @@ public class StorageUtils {
     }
 
     public String getString(String name) {
-        return prefs.getString("name", DEFAULT_STRING_VALUE);
+        return prefs.getString(name, DEFAULT_STRING_VALUE);
     }
 
     public int getInt(String name) {
@@ -58,7 +59,7 @@ public class StorageUtils {
     }
 
     public String getString(String name, String default_value) {
-        return prefs.getString("name", default_value);
+        return prefs.getString(name, default_value);
     }
 
     public int getInt(String name, int default_value) {
@@ -76,12 +77,15 @@ public class StorageUtils {
         String complete_new_string = String.valueOf(id) + "," + String.valueOf(state) + "," + subject + "," + description + "," + receiver + "," + writer + "," + activation_date + "," + expitration_date;
         putString("N" + String.valueOf(id), complete_new_string);
         //News-Anzahl in den SharedPreferences um eins erhöhen
-        putInt("NCount", getInt("NCount") +1);
+        putInt("NCount", getNewsCount() +1);
+        Log.d("BSBZ-App", "Added New");
+        Log.d("BSBZ-App", String.valueOf(id));
     }
 
     public ArrayList<New> parseNews() {
-        ArrayList<New> news = new ArrayList<New>();
-        for(int i = 0; i <= getInt("NCount"); i++) {
+        ArrayList<New> news = new ArrayList<>();
+        int n_count = getNewsCount();
+        for(int i = 1; i <= n_count; i++) {
             String current_new = getString("N" + String.valueOf(i), null);
             if(current_new != null) {
                 //Aktuelle Nachricht zerteilen
@@ -101,17 +105,22 @@ public class StorageUtils {
                 String current_new_writer = current_new.substring(index5 +1, index6);
                 String current_new_activation_date = current_new.substring(index6 +1, index7);
                 String current_new_expiration_date = current_new.substring(index7 +1);
+                New n = new New(current_new_id, current_new_state, current_new_subject, current_new_description, current_new_receiver, current_new_writer, current_new_activation_date, current_new_expiration_date);
                 //New-Objekt erstellen und der ArrayList hinzufügen
-                news.add(new New(current_new_id, current_new_state, current_new_subject, current_new_description, current_new_receiver, current_new_writer, current_new_activation_date, current_new_expiration_date));
+                news.add(n);
+                Log.d("BSBZ-App", "Added New");
             } else {
-                putInt("NCount", i - 1);
-                break;
+                //setNewsCount(i -1);
+                //break;
+                Log.d("BSBZ-App", "New null");
             }
+            Log.d("BSBZ-App", "For-Loop");
         }
         return news;
     }
 
     public int getNewsCount() {
+        Log.d("BSBZ-App", "NewsCount " + String.valueOf(getInt("NCount")));
         return getInt("NCount");
     }
 
