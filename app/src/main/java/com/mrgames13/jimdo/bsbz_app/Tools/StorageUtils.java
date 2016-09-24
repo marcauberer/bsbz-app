@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
+import com.mrgames13.jimdo.bsbz_app.ComponentClasses.Classtest;
 import com.mrgames13.jimdo.bsbz_app.ComponentClasses.New;
 
 import java.util.ArrayList;
