@@ -5,5 +5,5 @@
         android:fromXScale="100%"
         android:fromYScale="100%"
         android:toXScale="100%"
-        android:toYScale="52dp"/>
+        android:toYScale="0%"/>
 </set>

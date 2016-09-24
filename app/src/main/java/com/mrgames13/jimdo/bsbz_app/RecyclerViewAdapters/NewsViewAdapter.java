@@ -8,11 +8,13 @@ import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.mrgames13.jimdo.bsbz_app.App.MainActivity;
 import com.mrgames13.jimdo.bsbz_app.ComponentClasses.New;
 import com.mrgames13.jimdo.bsbz_app.R;
+import com.mrgames13.jimdo.bsbz_app.Tools.SimpleAnimationListener;
 
 public class NewsViewAdapter extends RecyclerView.Adapter<NewsViewAdapter.ViewHolderClass> {
     //Konstanten
@@ -30,6 +32,8 @@ public class NewsViewAdapter extends RecyclerView.Adapter<NewsViewAdapter.ViewHo
         private TextView item_receiver;
         private TextView item_writer;
         private TextView item_date;
+        private RelativeLayout item_button_container;
+        private RelativeLayout item_area_description;
         private ImageView item_dropdown_arrow;
         private boolean item_expanded = false;
 
@@ -42,8 +46,10 @@ public class NewsViewAdapter extends RecyclerView.Adapter<NewsViewAdapter.ViewHo
             item_date = (TextView) itemView.findViewById(R.id.item_date);
             item_receiver = (TextView) itemView.findViewById(R.id.item_receiver);
             item_writer = (TextView) itemView.findViewById(R.id.item_writer);
-            itemView.findViewById(R.id.item_area_description).setVisibility(View.GONE);
-            itemView.findViewById(R.id.item_button_container).setVisibility(View.GONE);
+            item_area_description = (RelativeLayout) itemView.findViewById(R.id.item_area_description);
+            item_area_description.setVisibility(View.GONE);
+            item_button_container = (RelativeLayout) itemView.findViewById(R.id.item_button_container);
+            item_button_container.setVisibility(View.GONE);
         }
     }
 
@@ -68,18 +74,7 @@ public class NewsViewAdapter extends RecyclerView.Adapter<NewsViewAdapter.ViewHo
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(holder.item_expanded) {
-                    //Collapse item
-                    holder.itemView.findViewById(R.id.item_area_description).setVisibility(View.GONE);
-                    holder.itemView.findViewById(R.id.item_button_container).setVisibility(View.GONE);
-                    //Rotations-Animation für DropDown-Arrow starten
-                    holder.item_dropdown_arrow.setImageResource(R.drawable.ic_arrow_drop_down_black_36dp);
-                    Animation rot = AnimationUtils.loadAnimation(holder.itemView.getContext(), R.anim.item_element_rotation);
-                    holder.item_dropdown_arrow.startAnimation(rot);
-                    //Expand-Animation für Item starten
-                    Animation exp = AnimationUtils.loadAnimation(holder.itemView.getContext(), R.anim.item_element_expand);
-                    holder.itemView.startAnimation(exp);
-                } else {
+                if(!holder.item_expanded) {
                     //Expand item
                     holder.itemView.findViewById(R.id.item_area_description).setVisibility(View.VISIBLE);
                     String rights = MainActivity.su.getString("Rights", MainActivity.res.getString(R.string.guest));
@@ -90,7 +85,25 @@ public class NewsViewAdapter extends RecyclerView.Adapter<NewsViewAdapter.ViewHo
                     holder.item_dropdown_arrow.startAnimation(rot);
                     //Expand-Animation für Item starten
                     Animation exp = AnimationUtils.loadAnimation(holder.itemView.getContext(), R.anim.item_element_expand);
-                    holder.itemView.startAnimation(exp);
+                    holder.item_area_description.startAnimation(exp);
+                    holder.item_button_container.startAnimation(exp);
+                } else {
+                    //Rotations-Animation für DropDown-Arrow starten
+                    holder.item_dropdown_arrow.setImageResource(R.drawable.ic_arrow_drop_down_black_36dp);
+                    Animation rot = AnimationUtils.loadAnimation(holder.itemView.getContext(), R.anim.item_element_rotation);
+                    holder.item_dropdown_arrow.startAnimation(rot);
+                    //Expand-Animation für Item starten
+                    Animation col = AnimationUtils.loadAnimation(holder.itemView.getContext(), R.anim.item_element_collapse);
+                    col.setAnimationListener(new SimpleAnimationListener() {
+                        @Override
+                        public void onAnimationEnd(Animation animation) {
+                            //Collapse item
+                            holder.itemView.findViewById(R.id.item_area_description).setVisibility(View.GONE);
+                            holder.itemView.findViewById(R.id.item_button_container).setVisibility(View.GONE);
+                        }
+                    });
+                    holder.item_area_description.startAnimation(col);
+                    holder.item_button_container.startAnimation(col);
                 }
                 holder.item_expanded = !holder.item_expanded;
             }
