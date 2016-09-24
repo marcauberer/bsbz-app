@@ -71,7 +71,7 @@ import com.mrgames13.jimdo.bsbz_app.ComponentClasses.Homework;
 import com.mrgames13.jimdo.bsbz_app.ComponentClasses.New;
 import com.mrgames13.jimdo.bsbz_app.R;
 import com.mrgames13.jimdo.bsbz_app.RecyclerViewAdapters.GalleryViewAdapter_Folders;
-import com.mrgames13.jimdo.bsbz_app.RecyclerViewAdapters.NewsViewAdapter;
+import com.mrgames13.jimdo.bsbz_app.RecyclerViewAdapters.ElementViewAdapter;
 import com.mrgames13.jimdo.bsbz_app.Services.SyncronisationService;
 import com.mrgames13.jimdo.bsbz_app.Tools.AccountUtils;
 import com.mrgames13.jimdo.bsbz_app.Tools.NotificationUtils;
@@ -1541,7 +1541,7 @@ public class MainActivity extends AppCompatActivity {
         news_view = (RecyclerView) findViewById(R.id.news_view);
         news_view_manager = new LinearLayoutManager(MainActivity.this);
         news_view.setLayoutManager(news_view_manager);
-        news_view_adapter = new NewsViewAdapter(MainActivity.this, NewsViewAdapter.MODE_NEW);
+        news_view_adapter = new ElementViewAdapter(MainActivity.this, ElementViewAdapter.MODE_NEW);
         news_view.setAdapter(news_view_adapter);
 
         //Aktionen, die nur für Admins oder Team-Mitglieder vorgesehen sind

@@ -9,6 +9,7 @@
     <string name="edit">Bearbeiten</string>
     <string name="open">Öffnen</string>
     <string name="close">Schließen</string>
+    <string name="action_successful">Aktion erfolgreich abgeschlossen</string>
     <string name="error_occured_try_again">Fehler. Bitte erneut versuchen</string>
     <string name="title_activity_heute">Heute</string>
     <string name="title_activity_profil">Mein Profil</string>

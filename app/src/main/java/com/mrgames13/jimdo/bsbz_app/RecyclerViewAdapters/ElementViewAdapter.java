@@ -30,7 +30,7 @@ import com.mrgames13.jimdo.bsbz_app.Tools.SimpleAnimationListener;
 
 import java.net.URLEncoder;
 
-public class NewsViewAdapter extends RecyclerView.Adapter<NewsViewAdapter.ViewHolderClass> {
+public class ElementViewAdapter extends RecyclerView.Adapter<ElementViewAdapter.ViewHolderClass> {
     //Konstanten
     public static final int MODE_CLASSTEST = 1;
     public static final int MODE_HOMEWORK = 2;
@@ -45,7 +45,7 @@ public class NewsViewAdapter extends RecyclerView.Adapter<NewsViewAdapter.ViewHo
     private String result;
     private int mode;
 
-    public NewsViewAdapter(MainActivity mainActivity, int mode) {
+    public ElementViewAdapter(MainActivity mainActivity, int mode) {
         this.context = mainActivity;
         this.mode = mode;
     }
@@ -147,8 +147,8 @@ public class NewsViewAdapter extends RecyclerView.Adapter<NewsViewAdapter.ViewHo
             @Override
             public void onClick(View v) {
                 AlertDialog d = new AlertDialog.Builder(context)
-                        .setTitle(MainActivity.res.getString(R.string.delete_new))
-                        .setMessage(MainActivity.res.getString(R.string.really_delete_new))
+                        .setTitle(MainActivity.res.getString(R.string.delete_element))
+                        .setMessage(MainActivity.res.getString(R.string.really_delete_element))
                         .setNegativeButton(MainActivity.res.getString(R.string.cancel), new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
@@ -165,7 +165,7 @@ public class NewsViewAdapter extends RecyclerView.Adapter<NewsViewAdapter.ViewHo
                                             String username = MainActivity.prefs.getString("Name", MainActivity.res.getString(R.string.guest));
                                             result = MainActivity.serverMessagingUtils.sendRequest(null, "name="+ URLEncoder.encode(username, "UTF-8")+"&command=deletenew&subject="+URLEncoder.encode(MainActivity.news.get(pos).getSubject().trim(), "UTF-8"));
                                             if(result.equals("Action Successful")) {
-                                                result = MainActivity.res.getString(R.string.new_successfully_created);
+                                                result = MainActivity.res.getString(R.string.action_successful);
                                                 context.startService(new Intent(context, SyncronisationService.class));
                                                 mainActivity.launchNewsFragment();
                                             } else {
@@ -204,7 +204,7 @@ public class NewsViewAdapter extends RecyclerView.Adapter<NewsViewAdapter.ViewHo
                     //Expand item
                     holder.itemView.findViewById(R.id.item_area_description).setVisibility(View.VISIBLE);
                     String rights = MainActivity.su.getString("Rights", MainActivity.res.getString(R.string.guest));
-                    if(rights.equals("classspeaker") || rights.equals("teacher") || rights.equals("administrator") || rights.equals("team")) {
+                    if(mode == MODE_NEW && ((rights.equals("teacher") || rights.equals("administrator") || rights.equals("team"))) || (rights.equals("teacher") || rights.equals("administrator") || rights.equals("team"))) {
                         holder.itemView.findViewById(R.id.item_button_container).setVisibility(View.VISIBLE);
                         holder.item_description.setMinLines(4);
                     }
@@ -242,10 +242,5 @@ public class NewsViewAdapter extends RecyclerView.Adapter<NewsViewAdapter.ViewHo
     @Override
     public int getItemCount() {
         return MainActivity.news.size();
-    }
-
-    private int dpToPx(float dp) {
-        float scale = MainActivity.res.getDisplayMetrics().density;
-        return (int) ((dp * scale) + 0.5f);
     }
 }
