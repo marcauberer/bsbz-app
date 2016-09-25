@@ -3,6 +3,7 @@ package com.mrgames13.jimdo.bsbz_app.RecyclerViewAdapters;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.os.Build;
 import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
@@ -37,10 +38,12 @@ public class ElementViewAdapter extends RecyclerView.Adapter<ElementViewAdapter.
     public static final int MODE_HOMEWORK = 2;
     public static final int MODE_EVENT = 3;
     public static final int MODE_NEW = 4;
+    public static final int MODE_NEW_INVISIBLE = 5;
 
     //Variablen als Objekte
     private Context context;
     private MainActivity mainActivity;
+    private Resources res;
 
     //Variablen
     private String result;
@@ -49,6 +52,7 @@ public class ElementViewAdapter extends RecyclerView.Adapter<ElementViewAdapter.
     public ElementViewAdapter(MainActivity mainActivity, int mode) {
         this.context = mainActivity;
         this.mode = mode;
+        this.res = MainActivity.res;
     }
 
     public class ViewHolderClass extends RecyclerView.ViewHolder {
@@ -69,6 +73,19 @@ public class ElementViewAdapter extends RecyclerView.Adapter<ElementViewAdapter.
         public ViewHolderClass(View itemView) {
             super(itemView);
             item_icon = (TextView) itemView.findViewById(R.id.item_icon);
+            if(mode == MODE_CLASSTEST) {
+                item_icon.setText(res.getString(R.string.classtest_short_short));
+                item_icon.setBackgroundResource(R.drawable.icon_k);
+            } else if(mode == MODE_HOMEWORK) {
+                item_icon.setText(res.getString(R.string.homework_short_short));
+                item_icon.setBackgroundResource(R.drawable.icon_h);
+            } else if(mode == MODE_EVENT) {
+                item_icon.setText(res.getString(R.string.event_short_short));
+                item_icon.setBackgroundResource(R.drawable.icon_t);
+            } else if(mode == MODE_NEW || mode == MODE_NEW_INVISIBLE) {
+                item_icon.setText(res.getString(R.string.new_short_short));
+                item_icon.setBackgroundResource(R.drawable.icon_n);
+            }
             item_dropdown_arrow = (ImageView) itemView.findViewById(R.id.item_dropdown_arrow);
             item_subject = (TextView) itemView.findViewById(R.id.item_subject);
             item_description = (TextView) itemView.findViewById(R.id.item_description);
@@ -183,29 +200,29 @@ public class ElementViewAdapter extends RecyclerView.Adapter<ElementViewAdapter.
             @Override
             public void onClick(View v) {
                 AlertDialog d = new AlertDialog.Builder(context)
-                        .setTitle(MainActivity.res.getString(R.string.delete_element))
-                        .setMessage(MainActivity.res.getString(R.string.really_delete_element))
-                        .setNegativeButton(MainActivity.res.getString(R.string.cancel), new DialogInterface.OnClickListener() {
+                        .setTitle(res.getString(R.string.delete_element))
+                        .setMessage(res.getString(R.string.really_delete_element))
+                        .setNegativeButton(res.getString(R.string.cancel), new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 dialog.dismiss();
                             }
                         })
-                        .setPositiveButton(MainActivity.res.getString(R.string.yes), new DialogInterface.OnClickListener() {
+                        .setPositiveButton(res.getString(R.string.yes), new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 new Thread(new Runnable() {
                                     @Override
                                     public void run() {
                                         try{
-                                            String username = MainActivity.prefs.getString("Name", MainActivity.res.getString(R.string.guest));
+                                            String username = MainActivity.prefs.getString("Name", res.getString(R.string.guest));
                                             result = MainActivity.serverMessagingUtils.sendRequest(null, "name="+ URLEncoder.encode(username, "UTF-8")+"&command=deletenew&subject="+URLEncoder.encode(MainActivity.news.get(pos).getSubject().trim(), "UTF-8"));
                                             if(result.equals("Action Successful")) {
-                                                result = MainActivity.res.getString(R.string.action_successful);
+                                                result = res.getString(R.string.action_successful);
                                                 context.startService(new Intent(context, SyncronisationService.class));
                                                 mainActivity.launchNewsFragment();
                                             } else {
-                                                result = MainActivity.res.getString(R.string.error_try_again);
+                                                result = res.getString(R.string.error_try_again);
                                             }
                                             new Handler().post(new Runnable() {
                                                 @Override
@@ -239,7 +256,7 @@ public class ElementViewAdapter extends RecyclerView.Adapter<ElementViewAdapter.
                 if(!holder.item_expanded) {
                     //Expand item
                     holder.itemView.findViewById(R.id.item_area_description).setVisibility(View.VISIBLE);
-                    String rights = MainActivity.su.getString("Rights", MainActivity.res.getString(R.string.guest));
+                    String rights = MainActivity.su.getString("Rights", res.getString(R.string.guest));
                     if(mode == MODE_NEW && ((rights.equals("teacher") || rights.equals("administrator") || rights.equals("team"))) || (rights.equals("teacher") || rights.equals("administrator") || rights.equals("team"))) {
                         holder.itemView.findViewById(R.id.item_button_container).setVisibility(View.VISIBLE);
                         holder.item_description.setMinLines(4);
