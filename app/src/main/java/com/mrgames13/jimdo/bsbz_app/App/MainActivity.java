@@ -1497,7 +1497,7 @@ public class MainActivity extends AppCompatActivity {
         Stundenplan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(MainActivity.this,StundenplanActivity.class));
+                startActivity(new Intent(MainActivity.this,TimeTableActivity.class));
             }
         });
 

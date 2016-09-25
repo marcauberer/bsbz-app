@@ -9,7 +9,6 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.Window;
@@ -20,7 +19,7 @@ import android.widget.TextView;
 import com.mrgames13.jimdo.bsbz_app.R;
 
 @SuppressWarnings("deprecation")
-public class StundenplanActivity extends AppCompatActivity {
+public class TimeTableActivity extends AppCompatActivity {
 
 	//Variablen
 	Toolbar toolbar;
@@ -30,7 +29,7 @@ public class StundenplanActivity extends AppCompatActivity {
 		super.onStart();
 		
 		// Daten von den SharedPreferences abrufen
-		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(StundenplanActivity.this);
+		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(TimeTableActivity.this);
 		String layout = prefs.getString("Layout", MainActivity.res.getString(R.string.bsbz_layout_orange));
 		String color = "#ea690c";
 		if (layout.equals("0")) {
@@ -78,7 +77,7 @@ public class StundenplanActivity extends AppCompatActivity {
 			rl.setBackgroundColor(Color.BLACK);
 		}
 		
-		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(StundenplanActivity.this);
+		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(TimeTableActivity.this);
 		String User_klasse = prefs.getString("Klasse", "---");
 		
 		if(User_klasse.equals("---")) User_klasse = MainActivity.res.getString(R.string.guest);

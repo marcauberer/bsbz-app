@@ -67,9 +67,9 @@
                 <data android:scheme="https"/>
             </intent-filter>
         </activity>
-        <!-- StundenplanActivity -->
+        <!-- TimeTableActivity -->
         <activity
-            android:name=".App.StundenplanActivity"
+            android:name=".App.TimeTableActivity"
             android:screenOrientation="landscape">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>

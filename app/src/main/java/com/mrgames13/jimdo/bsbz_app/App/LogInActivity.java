@@ -387,7 +387,7 @@ public class LogInActivity extends AppCompatActivity {
                                                 String extra = getIntent().getStringExtra("Confirm");
                                                 Log.d("BSBZ-App", "Confirm: "+extra);
                                                 if(extra.equals("Timetable")) {
-                                                    startActivity(new Intent(LogInActivity.this, StundenplanActivity.class));
+                                                    startActivity(new Intent(LogInActivity.this, TimeTableActivity.class));
                                                 } else if(extra.equals("Classtests")) {
                                                     Intent i = new Intent(LogInActivity.this, MainActivity.class);
                                                     i.putExtra("Open", "Jahresplan");
@@ -443,7 +443,7 @@ public class LogInActivity extends AppCompatActivity {
                                                 String extra = getIntent().getStringExtra("Confirm");
                                                 Log.d("BSBZ-App", "Confirm: "+extra);
                                                 if(extra.equals("Timetable")) {
-                                                    startActivity(new Intent(LogInActivity.this, StundenplanActivity.class));
+                                                    startActivity(new Intent(LogInActivity.this, TimeTableActivity.class));
                                                 } else if(extra.equals("Classtests")) {
                                                     Intent i = new Intent(LogInActivity.this, MainActivity.class);
                                                     i.putExtra("Open", "Jahresplan");
