@@ -75,19 +75,16 @@ public class StorageUtils {
 
     //-------------------------------------Stundenplan-Funktionen-----------------------------------
 
-    public void addTimetable(int tt_id, String tt_receiver, String tt_mo, String tt_di, String tt_mi, String tt_do, String tt_fr) {
+    public void addTimetable(String tt_receiver, String tt_mo, String tt_di, String tt_mi, String tt_do, String tt_fr) {
         //TimeTable-Daten in die SharedPreferences speichern
-        String complete_classtest_string = tt_receiver + "," + tt_mo + "," + tt_di + "," + tt_mi + "," + tt_do + "," + tt_fr;
-        putString("T" + tt_id, complete_classtest_string);
-        //TimeTable-Anzahl in den SharedPreferences um eins erhöhen
-        putInt("TCount", getTimeTableCount() +1);
+        String complete_classtest_string = tt_mo + "," + tt_di + "," + tt_mi + "," + tt_do + "," + tt_fr;
+        putString("T" + tt_receiver, complete_classtest_string);
     }
 
-    public String getTimeTable(String tt_receiver) {
-        String timetable = "";
-        int t_count = getTimeTableCount();
-        for(int i = 1; i <= t_count; i++) {
-            String current_timetable = getString("T" + String.valueOf(i), null);
+    public TimeTable getTimeTable(String tt_receiver) {
+        TimeTable timetable = null;
+        String current_timetable = getString("T" + tt_receiver, null);
+        if(current_timetable != null) {
             //Aktuellen Stundenplan zerteilen
             int index1 = current_timetable.indexOf(",");
             int index2 = current_timetable.indexOf(",", index1 +1);
@@ -95,14 +92,15 @@ public class StorageUtils {
             int index4 = current_timetable.indexOf(",", index3 +1);
             int index5 = current_timetable.indexOf(",", index4 +1);
             //Unterteilen
-            int current_timetable_id = Integer.parseInt(current_timetable.substring(0, index1));
+            String current_timetable_receiver = current_timetable.substring(0, index1);
             String current_timetable_mo = current_timetable.substring(index1 +1, index2);
             String current_timetable_di = current_timetable.substring(index2 +1, index3);
             String current_timetable_mi = current_timetable.substring(index3 +1, index4);
             String current_timetable_do = current_timetable.substring(index4 +1, index5);
             String current_timetable_fr = current_timetable.substring(index5 +1);
             //Timetable-Objekt erstellen und der ArrayList hinzufügen
-            TimeTable t = new TimeTable(current_timetable_id, current_timetable_mo, current_timetable_di, current_timetable_mi, current_timetable_do, current_timetable_fr);
+            TimeTable t = new TimeTable(current_timetable_receiver, current_timetable_mo, current_timetable_di, current_timetable_mi, current_timetable_do, current_timetable_fr);
+            if(t.getReceiver().equals(tt_receiver)) timetable = t;
         }
         return timetable;
     }
@@ -313,8 +311,44 @@ public class StorageUtils {
                 String current_new_writer = current_new.substring(index5 +1, index6);
                 String current_new_activation_date = current_new.substring(index6 +1, index7);
                 String current_new_expiration_date = current_new.substring(index7 +1);
-                New n = new New(current_new_id, current_new_state, current_new_subject, current_new_description, current_new_receiver, current_new_writer, current_new_activation_date, current_new_expiration_date);
+                if(current_new_state == 1) {
+                    //New-Objekt erstellen und der ArrayList hinzufügen
+                    New n = new New(current_new_id, current_new_state, current_new_subject, current_new_description, current_new_receiver, current_new_writer, current_new_activation_date, current_new_expiration_date);
+                    news.add(n);
+                }
+            } else {
+                setNewsCount(i -1);
+                break;
+            }
+        }
+        return news;
+    }
+
+    public ArrayList<New> parseNewsAndInvisibleNews() {
+        ArrayList<New> news = new ArrayList<>();
+        int n_count = getNewsCount();
+        for(int i = 1; i <= n_count; i++) {
+            String current_new = getString("N" + String.valueOf(i), null);
+            if(current_new != null) {
+                //Aktuelle Nachricht zerteilen
+                int index1 = current_new.indexOf(",");
+                int index2 = current_new.indexOf(",", index1 +1);
+                int index3 = current_new.indexOf(",", index2 +1);
+                int index4 = current_new.indexOf(",", index3 +1);
+                int index5 = current_new.indexOf(",", index4 +1);
+                int index6 = current_new.indexOf(",", index5 +1);
+                int index7 = current_new.indexOf(",", index6 +1);
+                //Unterteilen
+                int current_new_id = Integer.parseInt(current_new.substring(0, index1));
+                int current_new_state = Integer.parseInt(current_new.substring(index1 +1, index2));
+                String current_new_subject = current_new.substring(index2 +1, index3);
+                String current_new_description = current_new.substring(index3 +1, index4);
+                String current_new_receiver = current_new.substring(index4 +1, index5);
+                String current_new_writer = current_new.substring(index5 +1, index6);
+                String current_new_activation_date = current_new.substring(index6 +1, index7);
+                String current_new_expiration_date = current_new.substring(index7 +1);
                 //New-Objekt erstellen und der ArrayList hinzufügen
+                New n = new New(current_new_id, current_new_state, current_new_subject, current_new_description, current_new_receiver, current_new_writer, current_new_activation_date, current_new_expiration_date);
                 news.add(n);
             } else {
                 setNewsCount(i -1);

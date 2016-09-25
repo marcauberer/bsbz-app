@@ -150,13 +150,9 @@ public class SyncronisationService extends Service {
                     String MI = timetable_str.substring(i2 +1, i3);
                     String DO = timetable_str.substring(i3 +1, i4);
                     String FR = timetable_str.substring(i4 +1);
-                    //in SharedPreferences eintragen
-                    e.putString("Mo", MO);
-                    e.putString("Di", DI);
-                    e.putString("Mi", MI);
-                    e.putString("Do", DO);
-                    e.putString("Fr", FR);
-                    e.commit();
+                    //Stundenplan in SharedPreferences eintragen
+                    int tt_id = su.getTimeTableCount() +1;
+                    su.addTimetable(tt_id, klasse, MO, DI, MI, DO, FR);
                 //Klassenarbeiten
                     String classtests_str = result.substring(index1 +1, index2);
                     //Classtests vergleichen und ggf. eine Nachricht in die Statusleiste senden
@@ -177,7 +173,6 @@ public class SyncronisationService extends Service {
                     int i = 0;
                     su.deleteAllClasstests();
                     for(String c_classtest : arraylist) {
-                        Log.d("BSBZ-App", "Classtest: "+c_classtest);
                         //Indexe finden
                         int index1_1 = c_classtest.indexOf(",");
                         int index2_2 = c_classtest.indexOf(",", index1_1 +1);

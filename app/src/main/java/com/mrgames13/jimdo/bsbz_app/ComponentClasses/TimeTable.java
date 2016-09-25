@@ -6,7 +6,6 @@ public class TimeTable {
     //Variablen als Objekte
 
     //Variablen
-    private int tt_id;
     private String tt_mo;
     private String tt_di;
     private String tt_mi;
@@ -15,18 +14,13 @@ public class TimeTable {
     private String tt_receiver;
 
 
-    public TimeTable(int tt_id, String tt_receiver, String tt_mo, String tt_di, String tt_mi, String tt_do, String tt_fr) {
-        this.tt_id = tt_id;
+    public TimeTable(String tt_receiver, String tt_mo, String tt_di, String tt_mi, String tt_do, String tt_fr) {
         this.tt_receiver = tt_receiver;
         this.tt_mo = tt_mo;
         this.tt_di = tt_di;
         this.tt_mi = tt_mi;
         this.tt_do = tt_do;
         this.tt_fr = tt_fr;
-    }
-
-    public int getID() {
-        return tt_id;
     }
 
     public String getReceiver() {
