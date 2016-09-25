@@ -175,7 +175,9 @@ public class SyncronisationService extends Service {
                     }
                     //Klassenarbeiten in die SharedPreferences eintragen
                     int i = 0;
+                    su.deleteAllClasstests();
                     for(String c_classtest : arraylist) {
+                        Log.d("BSBZ-App", "Classtest: "+c_classtest);
                         //Indexe finden
                         int index1_1 = c_classtest.indexOf(",");
                         int index2_2 = c_classtest.indexOf(",", index1_1 +1);
@@ -212,6 +214,7 @@ public class SyncronisationService extends Service {
                     }
                     //Hausaufgaben in die SharedPreferences eintragen
                     i = 0;
+                    su.deleteAllHomeworks();
                     for(String c_homework : arraylist) {
                         //Indexe finden
                         int index1_1 = c_homework.indexOf(",");
@@ -249,6 +252,7 @@ public class SyncronisationService extends Service {
                     }
                     //Events in die SharedPreferences eintragen
                     i = 0;
+                    su.deleteAllEvents();
                     for(String c_event : arraylist) {
                         //Indexe finden
                         int index1_1 = c_event.indexOf(",");
@@ -285,7 +289,8 @@ public class SyncronisationService extends Service {
                         news_str = news_str.substring(index +1);
                     }
                     //News in die SharedPreferences eintragen
-                    i = 0;
+                    i = 1;
+                    su.deleteAllNews();
                     for(String c_new : arraylist) {
                         //Indexe finden
 						int index1_1 = c_new.indexOf(",");
@@ -295,7 +300,7 @@ public class SyncronisationService extends Service {
                         int index5_5 = c_new.indexOf(",", index4_4 +1);
                         int index6_6 = c_new.indexOf(",", index5_5 +1);
                         //String zerteilen
-                        int c_new_id = i +1;
+                        int c_new_id = i;
                         String c_new_subject = c_new.substring(0, index1_1);
                         String c_new_description = c_new.substring(index1_1 +1, index2_2);
                         String c_new_writer = c_new.substring(index2_2 +1, index3_3);

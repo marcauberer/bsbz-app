@@ -72,6 +72,16 @@ public class StorageUtils {
         return prefs.getBoolean(name, default_value);
     }
 
+    //-------------------------------------Stundenplan-Funktionen-----------------------------------
+
+    public void setTimetable() {
+        //TimeTable-Daten in die SharedPreferences speichern
+        String complete_classtest_string = String.valueOf(id) + "," + subject + "," + description + "," + receiver + "," + writer + "," + date;
+        putString("C" + String.valueOf(id), complete_classtest_string);
+    }
+
+
+
     //-----------------------------------Klassenarbeiten-Funktionen---------------------------------
 
     public void addClasstest(int id, String subject, String description, String receiver, String writer, String date) {
@@ -110,6 +120,13 @@ public class StorageUtils {
             }
         }
         return classtests;
+    }
+
+    public void deleteAllClasstests() {
+        int c_count = getClasstestCount();
+        for(int i = 1; i <= c_count; i++) {
+            prefs.edit().remove("C" + String.valueOf(i)).commit();
+        }
     }
 
     public int getClasstestCount() {
@@ -160,6 +177,13 @@ public class StorageUtils {
         return homeworks;
     }
 
+    public void deleteAllHomeworks() {
+        int h_count = getHomeworkCount();
+        for(int i = 1; i <= h_count; i++) {
+            prefs.edit().remove("H" + String.valueOf(i)).commit();
+        }
+    }
+
     public int getHomeworkCount() {
         return getInt("HCount");
     }
@@ -206,6 +230,13 @@ public class StorageUtils {
             }
         }
         return events;
+    }
+
+    public void deleteAllEvents() {
+        int e_count = getEventCount();
+        for(int i = 1; i <= e_count; i++) {
+            prefs.edit().remove("E" + String.valueOf(i)).commit();
+        }
     }
 
     public int getEventCount() {
@@ -258,6 +289,13 @@ public class StorageUtils {
             }
         }
         return news;
+    }
+
+    public void deleteAllNews() {
+        int n_count = getNewsCount();
+        for(int i = 1; i <= n_count; i++) {
+            prefs.edit().remove("N" + String.valueOf(i)).commit();
+        }
     }
 
     public int getNewsCount() {

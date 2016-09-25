@@ -132,7 +132,7 @@ public class ElementViewAdapter extends RecyclerView.Adapter<ElementViewAdapter.
             holder.item_date.setText(e.getDate());
             holder.item_receiver.setText(e.getReceiver());
             holder.item_writer.setText(e.getWriter());
-        } else if(mode == MODE_NEW) {
+        } else if(mode == MODE_NEW || mode == MODE_NEW_INVISIBLE) {
             New n = MainActivity.news.get(pos);
             holder.item_subject.setText(n.getSubject());
             holder.item_description.setText(n.getDescription());
@@ -144,7 +144,7 @@ public class ElementViewAdapter extends RecyclerView.Adapter<ElementViewAdapter.
         holder.item_edit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(mode == MODE_NEW) {
+                if(mode == MODE_NEW || mode == MODE_NEW_INVISIBLE) {
                     New n = MainActivity.news.get(pos);
                     //Activity starten und Daten übergeben
                     Intent i = new Intent(context, EditNewActivity.class);
