@@ -110,7 +110,6 @@ public class MainActivity extends AppCompatActivity {
     private LayoutInflater layoutInflater;
     public static ArrayAdapter<String> adapter;
     public static ArrayList<String> arraylist = new ArrayList<String>();
-    public static ArrayList<String> arraylist1 = new ArrayList<String>();
     public static ArrayList<String> arraylist_main = new ArrayList<String>();
     public static SharedPreferences prefs;
     private static FragmentManager fragmentManager;
@@ -120,10 +119,13 @@ public class MainActivity extends AppCompatActivity {
     private ProgressDialog pd_Progress;
     private RecyclerView gallery_view;
     private RecyclerView news_view;
+    private RecyclerView year_view;
     private RecyclerView.Adapter gallery_view_adapter;
     private RecyclerView.Adapter news_view_adapter;
+    private RecyclerView.Adapter year_view_adapter;
     private RecyclerView.LayoutManager gallery_view_manager;
     private RecyclerView.LayoutManager news_view_manager;
+    private RecyclerView.LayoutManager year_view_manager;
     private FloatingActionButton new_folder;
     public static ArrayList<Classtest> classtests;
     public static ArrayList<Homework> homeworks;
@@ -146,13 +148,13 @@ public class MainActivity extends AppCompatActivity {
     private static String mi2 = "";
     private static String do2 = "";
     private static String fr2 = "";
-    private static int Selected_Month = new Date().getMonth() +1;
+    private static int selectedMonth = 1;
     public static String color = "#ea690c";
     private static int Selected = 0;
     private static int selected_Menu_Item = 1;
     public static String date1 = "";
     public static String date2 = "";
-    private static boolean showInvisibleEntries = false;
+    private boolean showInvisibleEntries = false;
     private static String result;
     private String currentAppVersion;
     public static ArrayList<String> gallery_view_foldernames;
@@ -1535,14 +1537,24 @@ public class MainActivity extends AppCompatActivity {
             layoutInflater.inflate(R.layout.fragment_news, container);
         }
 
-        news = su.parseNews();
+        if(showInvisibleEntries) {
+            news = su.parseNewsAndInvisibleNews();
+        } else {
+            news = su.parseNews();
+        }
 
         //NewsRecyclerView anzeigen
         news_view = (RecyclerView) findViewById(R.id.news_view);
         news_view_manager = new LinearLayoutManager(MainActivity.this);
         news_view.setLayoutManager(news_view_manager);
-        news_view_adapter = new ElementViewAdapter(MainActivity.this, ElementViewAdapter.MODE_NEW);
+        if(showInvisibleEntries) {
+            news_view_adapter = new ElementViewAdapter(MainActivity.this, ElementViewAdapter.MODE_NEW_INVISIBLE);
+        } else {
+            news_view_adapter = new ElementViewAdapter(MainActivity.this, ElementViewAdapter.MODE_NEW);
+        }
         news_view.setAdapter(news_view_adapter);
+
+        if(news_view_adapter.getItemCount() == 0) findViewById(R.id.no_active_news).setVisibility(View.VISIBLE);
 
         //Aktionen, die nur für Admins oder Team-Mitglieder vorgesehen sind
         if(rights.equals("teacher") || rights.equals("administrator") || rights.equals("team")) {
@@ -1578,11 +1590,25 @@ public class MainActivity extends AppCompatActivity {
         } else {
             layoutInflater.inflate(R.layout.fragment_jahresplan, container);
         }
-        //Fragment erstellen und anzeigen
-        final TermineFragment_Jahresplan f = new TermineFragment_Jahresplan();
-        FragmentTransaction ft = fragmentManager.beginTransaction();
-        ft.replace(R.id.termine_jahresplan_container, f);
-        ft.commit();
+
+        //Daten in die ArrayList holen
+        classtests = su.parseClasstests();
+        homeworks = su.parseHomeworks();
+        events = su.parseEvents();
+
+        //NewsRecyclerView anzeigen
+        year_view = (RecyclerView) findViewById(R.id.plan_of_the_year_list);
+        year_view_manager = new LinearLayoutManager(MainActivity.this);
+        year_view.setLayoutManager(year_view_manager);
+        year_view_adapter = new ElementViewAdapter(MainActivity.this, ElementViewAdapter.MODE_CLASSTEST);
+        year_view.setAdapter(news_view_adapter);
+
+        if(year_view_adapter.getItemCount() == 0) findViewById(R.id.no_active_news).setVisibility(View.VISIBLE);
+
+
+
+
+        selectedMonth = new Date().getMonth() +1;
 
         if(rights.equals("classspeaker") || rights.equals("teacher") || rights.equals("administrator") || rights.equals("team")) {
             //FloatingAction Button
@@ -1693,51 +1719,51 @@ public class MainActivity extends AppCompatActivity {
         final TextView monatsinfos = (TextView) findViewById(R.id.monatsinfos);
         final HorizontalScrollView scrollView = (HorizontalScrollView) findViewById(R.id.horizontalScrollView1);
 
-        if(Selected_Month == 1) {
+        if(selectedMonth == 1) {
             monatsinfos.setText(res.getString(R.string.january) + ":");
             jan.setTextColor(Color.parseColor(color));
             Selected = 0;
-        } else if(Selected_Month == 2) {
+        } else if(selectedMonth == 2) {
             monatsinfos.setText(res.getString(R.string.february) + ":");
             feb.setTextColor(Color.parseColor(color));
             Selected = 250;
-        } else if(Selected_Month == 3) {
+        } else if(selectedMonth == 3) {
             monatsinfos.setText(res.getString(R.string.march) + ":");
             ma.setTextColor(Color.parseColor(color));
             Selected = 500;
-        } else if(Selected_Month == 4) {
+        } else if(selectedMonth == 4) {
             monatsinfos.setText(res.getString(R.string.april) + ":");
             apr.setTextColor(Color.parseColor(color));
             Selected = 750;
-        } else if(Selected_Month == 5) {
+        } else if(selectedMonth == 5) {
             monatsinfos.setText(res.getString(R.string.may) + ":");
             mai.setTextColor(Color.parseColor(color));
             Selected = 1000;
-        } else if(Selected_Month == 6) {
+        } else if(selectedMonth == 6) {
             monatsinfos.setText(res.getString(R.string.june) + ":");
             jun.setTextColor(Color.parseColor(color));
             Selected = 1250;
-        } else if(Selected_Month == 7) {
+        } else if(selectedMonth == 7) {
             monatsinfos.setText(res.getString(R.string.july) + ":");
             jul.setTextColor(Color.parseColor(color));
             Selected = 1500;
-        } else if(Selected_Month == 8) {
+        } else if(selectedMonth == 8) {
             monatsinfos.setText(res.getString(R.string.august) + ":");
             aug.setTextColor(Color.parseColor(color));
             Selected = 1750;
-        } else if(Selected_Month == 9) {
+        } else if(selectedMonth == 9) {
             monatsinfos.setText(res.getString(R.string.september) + ":");
             sep.setTextColor(Color.parseColor(color));
             Selected = 2000;
-        } else if(Selected_Month == 10) {
+        } else if(selectedMonth == 10) {
             monatsinfos.setText(res.getString(R.string.october) + ":");
             okt.setTextColor(Color.parseColor(color));
             Selected = 2250;
-        } else if(Selected_Month == 11) {
+        } else if(selectedMonth == 11) {
             monatsinfos.setText(res.getString(R.string.november) + ":");
             nov.setTextColor(Color.parseColor(color));
             Selected = 2500;
-        } else if(Selected_Month == 12) {
+        } else if(selectedMonth == 12) {
             monatsinfos.setText(res.getString(R.string.december) + ":");
             dez.setTextColor(Color.parseColor(color));
             Selected = 2750;
@@ -1759,7 +1785,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 monatsinfos.setText(jan.getText()+":");
-                Selected_Month = 1;
+                selectedMonth = 1;
                 //Farben setzen
                 jan.setTextColor(Color.parseColor(color));
                 feb.setTextColor(Color.parseColor("#000000"));
@@ -1774,11 +1800,6 @@ public class MainActivity extends AppCompatActivity {
                 nov.setTextColor(Color.parseColor("#000000"));
                 dez.setTextColor(Color.parseColor("#000000"));
                 scrollView.smoothScrollTo(0,0);
-                //Fragment erstellen und anzeigen
-                TermineFragment_Jahresplan f = new TermineFragment_Jahresplan();
-                FragmentTransaction ft = fragmentManager.beginTransaction();
-                ft.replace(R.id.termine_jahresplan_container, f);
-                ft.commit();
             }
         });
         //Button Februar
@@ -1786,7 +1807,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 monatsinfos.setText(feb.getText()+":");
-                Selected_Month = 2;
+                selectedMonth = 2;
                 //Farben setzen
                 jan.setTextColor(Color.parseColor("#000000"));
                 feb.setTextColor(Color.parseColor(color));
@@ -1801,11 +1822,6 @@ public class MainActivity extends AppCompatActivity {
                 nov.setTextColor(Color.parseColor("#000000"));
                 dez.setTextColor(Color.parseColor("#000000"));
                 scrollView.smoothScrollTo(250,0);
-                //Fragment erstellen und anzeigen
-                TermineFragment_Jahresplan f = new TermineFragment_Jahresplan();
-                FragmentTransaction ft = fragmentManager.beginTransaction();
-                ft.replace(R.id.termine_jahresplan_container, f);
-                ft.commit();
             }
         });
         //Button März
@@ -1813,7 +1829,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 monatsinfos.setText(ma.getText()+":");
-                Selected_Month = 3;
+                selectedMonth = 3;
                 //Farben setzen
                 jan.setTextColor(Color.parseColor("#000000"));
                 feb.setTextColor(Color.parseColor("#000000"));
@@ -1828,11 +1844,6 @@ public class MainActivity extends AppCompatActivity {
                 nov.setTextColor(Color.parseColor("#000000"));
                 dez.setTextColor(Color.parseColor("#000000"));
                 scrollView.smoothScrollTo(500,0);
-                //Fragment erstellen und anzeigen
-                TermineFragment_Jahresplan f = new TermineFragment_Jahresplan();
-                FragmentTransaction ft = fragmentManager.beginTransaction();
-                ft.replace(R.id.termine_jahresplan_container, f);
-                ft.commit();
             }
         });
         //Button April
@@ -1840,7 +1851,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 monatsinfos.setText(apr.getText()+":");
-                Selected_Month = 4;
+                selectedMonth = 4;
                 //Farben setzen
                 jan.setTextColor(Color.parseColor("#000000"));
                 feb.setTextColor(Color.parseColor("#000000"));
@@ -1855,11 +1866,6 @@ public class MainActivity extends AppCompatActivity {
                 nov.setTextColor(Color.parseColor("#000000"));
                 dez.setTextColor(Color.parseColor("#000000"));
                 scrollView.smoothScrollTo(750,0);
-                //Fragment erstellen und anzeigen
-                TermineFragment_Jahresplan f = new TermineFragment_Jahresplan();
-                FragmentTransaction ft = fragmentManager.beginTransaction();
-                ft.replace(R.id.termine_jahresplan_container, f);
-                ft.commit();
             }
         });
         //Button Mai
@@ -1867,7 +1873,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 monatsinfos.setText(mai.getText()+":");
-                Selected_Month = 5;
+                selectedMonth = 5;
                 //Farben setzen
                 jan.setTextColor(Color.parseColor("#000000"));
                 feb.setTextColor(Color.parseColor("#000000"));
@@ -1882,11 +1888,6 @@ public class MainActivity extends AppCompatActivity {
                 nov.setTextColor(Color.parseColor("#000000"));
                 dez.setTextColor(Color.parseColor("#000000"));
                 scrollView.smoothScrollTo(1000,0);
-                //Fragment erstellen und anzeigen
-                TermineFragment_Jahresplan f = new TermineFragment_Jahresplan();
-                FragmentTransaction ft = fragmentManager.beginTransaction();
-                ft.replace(R.id.termine_jahresplan_container, f);
-                ft.commit();
             }
         });
         //Button Juni
@@ -1894,7 +1895,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 monatsinfos.setText(jun.getText()+":");
-                Selected_Month = 6;
+                selectedMonth = 6;
                 //Farben setzen
                 jan.setTextColor(Color.parseColor("#000000"));
                 feb.setTextColor(Color.parseColor("#000000"));
@@ -1909,11 +1910,6 @@ public class MainActivity extends AppCompatActivity {
                 nov.setTextColor(Color.parseColor("#000000"));
                 dez.setTextColor(Color.parseColor("#000000"));
                 scrollView.smoothScrollTo(1250,0);
-                //Fragment erstellen und anzeigen
-                TermineFragment_Jahresplan f = new TermineFragment_Jahresplan();
-                FragmentTransaction ft = fragmentManager.beginTransaction();
-                ft.replace(R.id.termine_jahresplan_container, f);
-                ft.commit();
             }
         });
         //Button Juli
@@ -1921,7 +1917,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 monatsinfos.setText(jul.getText()+":");
-                Selected_Month = 7;
+                selectedMonth = 7;
                 //Farben setzen
                 jan.setTextColor(Color.parseColor("#000000"));
                 feb.setTextColor(Color.parseColor("#000000"));
@@ -1936,11 +1932,6 @@ public class MainActivity extends AppCompatActivity {
                 nov.setTextColor(Color.parseColor("#000000"));
                 dez.setTextColor(Color.parseColor("#000000"));
                 scrollView.smoothScrollTo(1500,0);
-                //Fragment erstellen und anzeigen
-                TermineFragment_Jahresplan f = new TermineFragment_Jahresplan();
-                FragmentTransaction ft = fragmentManager.beginTransaction();
-                ft.replace(R.id.termine_jahresplan_container, f);
-                ft.commit();
             }
         });
         //Button August
@@ -1948,7 +1939,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 monatsinfos.setText(aug.getText()+":");
-                Selected_Month = 8;
+                selectedMonth = 8;
                 //Farben setzen
                 jan.setTextColor(Color.parseColor("#000000"));
                 feb.setTextColor(Color.parseColor("#000000"));
@@ -1963,11 +1954,6 @@ public class MainActivity extends AppCompatActivity {
                 nov.setTextColor(Color.parseColor("#000000"));
                 dez.setTextColor(Color.parseColor("#000000"));
                 scrollView.smoothScrollTo(1750,0);
-                //Fragment erstellen und anzeigen
-                TermineFragment_Jahresplan f = new TermineFragment_Jahresplan();
-                FragmentTransaction ft = fragmentManager.beginTransaction();
-                ft.replace(R.id.termine_jahresplan_container, f);
-                ft.commit();
             }
         });
         //Button September
@@ -1975,7 +1961,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 monatsinfos.setText(sep.getText()+":");
-                Selected_Month = 9;
+                selectedMonth = 9;
                 //Farben setzen
                 jan.setTextColor(Color.parseColor("#000000"));
                 feb.setTextColor(Color.parseColor("#000000"));
@@ -1990,11 +1976,6 @@ public class MainActivity extends AppCompatActivity {
                 nov.setTextColor(Color.parseColor("#000000"));
                 dez.setTextColor(Color.parseColor("#000000"));
                 scrollView.smoothScrollTo(2000,0);
-                //Fragment erstellen und anzeigen
-                TermineFragment_Jahresplan f = new TermineFragment_Jahresplan();
-                FragmentTransaction ft = fragmentManager.beginTransaction();
-                ft.replace(R.id.termine_jahresplan_container, f);
-                ft.commit();
             }
         });
         //Button Oktober
@@ -2002,7 +1983,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 monatsinfos.setText(okt.getText()+":");
-                Selected_Month = 10;
+                selectedMonth = 10;
                 //Farben setzen
                 jan.setTextColor(Color.parseColor("#000000"));
                 feb.setTextColor(Color.parseColor("#000000"));
@@ -2017,11 +1998,6 @@ public class MainActivity extends AppCompatActivity {
                 nov.setTextColor(Color.parseColor("#000000"));
                 dez.setTextColor(Color.parseColor("#000000"));
                 scrollView.smoothScrollTo(2250,0);
-                //Fragment erstellen und anzeigen
-                TermineFragment_Jahresplan f = new TermineFragment_Jahresplan();
-                FragmentTransaction ft = fragmentManager.beginTransaction();
-                ft.replace(R.id.termine_jahresplan_container, f);
-                ft.commit();
             }
         });
         //Button November
@@ -2029,7 +2005,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 monatsinfos.setText(nov.getText()+":");
-                Selected_Month = 11;
+                selectedMonth = 11;
                 //Farben setzen
                 jan.setTextColor(Color.parseColor("#000000"));
                 feb.setTextColor(Color.parseColor("#000000"));
@@ -2044,11 +2020,6 @@ public class MainActivity extends AppCompatActivity {
                 nov.setTextColor(Color.parseColor(color));
                 dez.setTextColor(Color.parseColor("#000000"));
                 scrollView.smoothScrollTo(2500,0);
-                //Fragment erstellen und anzeigen
-                TermineFragment_Jahresplan f = new TermineFragment_Jahresplan();
-                FragmentTransaction ft = fragmentManager.beginTransaction();
-                ft.replace(R.id.termine_jahresplan_container, f);
-                ft.commit();
             }
         });
         //Button Dezember
@@ -2056,7 +2027,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 monatsinfos.setText(dez.getText()+":");
-                Selected_Month = 12;
+                selectedMonth = 12;
                 //Farben setzen
                 jan.setTextColor(Color.parseColor("#000000"));
                 feb.setTextColor(Color.parseColor("#000000"));
@@ -2071,11 +2042,6 @@ public class MainActivity extends AppCompatActivity {
                 nov.setTextColor(Color.parseColor("#000000"));
                 dez.setTextColor(Color.parseColor(color));
                 scrollView.smoothScrollTo(2750,0);
-                //Fragment erstellen und anzeigen
-                TermineFragment_Jahresplan f = new TermineFragment_Jahresplan();
-                FragmentTransaction ft = fragmentManager.beginTransaction();
-                ft.replace(R.id.termine_jahresplan_container, f);
-                ft.commit();
             }
         });
     }
@@ -2423,7 +2389,7 @@ public class MainActivity extends AppCompatActivity {
             // Liste aus String-Array befüllen
             arraylist.clear();
 
-            String tmp = Integer.toString(Selected_Month);
+            String tmp = Integer.toString(selectedMonth);
             while(tmp.length() < 2) tmp = "0" + tmp;
 
             String item_title;

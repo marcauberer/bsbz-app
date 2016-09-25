@@ -39,6 +39,7 @@ public class ElementViewAdapter extends RecyclerView.Adapter<ElementViewAdapter.
     public static final int MODE_EVENT = 3;
     public static final int MODE_NEW = 4;
     public static final int MODE_NEW_INVISIBLE = 5;
+    public static final int MODE_CLASSTEST_HOMEWORK_EVENTS = 6;
 
     //Variablen als Objekte
     private Context context;
@@ -294,6 +295,12 @@ public class ElementViewAdapter extends RecyclerView.Adapter<ElementViewAdapter.
 
     @Override
     public int getItemCount() {
-        return MainActivity.news.size();
+        int size = 0;
+        if(mode == MODE_CLASSTEST) size =  MainActivity.classtests.size();
+        if(mode == MODE_HOMEWORK) size = MainActivity.homeworks.size();
+        if(mode == MODE_EVENT) size = MainActivity.events.size();
+        if(mode == MODE_CLASSTEST_HOMEWORK_EVENTS) size = MainActivity.classtests.size() + MainActivity.homeworks.size() + MainActivity.events.size();
+        if(mode == MODE_NEW || mode == MODE_NEW_INVISIBLE) size = MainActivity.news.size();
+        return size;
     }
 }
