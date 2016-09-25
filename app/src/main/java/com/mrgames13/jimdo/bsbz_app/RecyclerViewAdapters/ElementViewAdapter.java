@@ -100,9 +100,11 @@ public class ElementViewAdapter extends RecyclerView.Adapter<ElementViewAdapter.
     @Override
     public void onBindViewHolder(final ViewHolderClass holder, final int pos) {
         //ItemMode festlegen
-        if(MainActivity.all.get(pos) instanceof Classtest) holder.item_mode = MODE_CLASSTEST;
-        if(MainActivity.all.get(pos) instanceof Homework) holder.item_mode = MODE_HOMEWORK;
-        if(MainActivity.all.get(pos) instanceof Event) holder.item_mode = MODE_EVENT;
+        if(mode != MODE_NEW && mode != MODE_NEW_INVISIBLE) {
+            if(MainActivity.all.get(pos) instanceof Classtest) holder.item_mode = MODE_CLASSTEST;
+            if(MainActivity.all.get(pos) instanceof Homework) holder.item_mode = MODE_HOMEWORK;
+            if(MainActivity.all.get(pos) instanceof Event) holder.item_mode = MODE_EVENT;
+        }
         //Icon festlegen
         if(holder.item_mode == MODE_CLASSTEST) {
             holder.item_icon.setText(res.getString(R.string.classtest_short_short));
@@ -113,7 +115,7 @@ public class ElementViewAdapter extends RecyclerView.Adapter<ElementViewAdapter.
         } else if(holder.item_mode == MODE_EVENT) {
             holder.item_icon.setText(res.getString(R.string.event_short_short));
             holder.item_icon.setBackgroundResource(R.drawable.icon_t);
-        } else if(holder.item_mode == MODE_NEW || mode == MODE_NEW_INVISIBLE) {
+        } else if(mode == MODE_NEW || mode == MODE_NEW_INVISIBLE) {
             holder.item_icon.setText(res.getString(R.string.new_short_short));
             holder.item_icon.setBackgroundResource(R.drawable.icon_n);
         }
@@ -154,7 +156,7 @@ public class ElementViewAdapter extends RecyclerView.Adapter<ElementViewAdapter.
             holder.item_date.setText(e.getDate());
             holder.item_receiver.setText(e.getReceiver());
             holder.item_writer.setText(e.getWriter());
-        } else if(holder.item_mode == MODE_NEW || mode == MODE_NEW_INVISIBLE) {
+        } else if(mode == MODE_NEW || mode == MODE_NEW_INVISIBLE) {
             New n = MainActivity.news.get(pos);
             holder.item_subject.setText(n.getSubject());
             holder.item_description.setText(n.getDescription());
@@ -177,27 +179,27 @@ public class ElementViewAdapter extends RecyclerView.Adapter<ElementViewAdapter.
                     i.putExtra("Expiration Date", n.getExpirationDate());
                     i.putExtra("Receiver", n.getReceiver());
                     context.startActivity(i);
-                } else if(mode == MODE_CLASSTEST || mode == MODE_HOMEWORK || mode == MODE_EVENT) {
+                } else if(holder.item_mode == MODE_CLASSTEST || holder.item_mode == MODE_HOMEWORK || holder.item_mode == MODE_EVENT) {
                     String subject = "";
                     String description = "";
                     String writer = "";
                     String receiver = "";
                     String date = "";
-                    if(mode == MODE_CLASSTEST) {
+                    if(holder.item_mode == MODE_CLASSTEST) {
                         Classtest c = MainActivity.classtests.get(pos);
                         subject = c.getSubject();
                         description = c.getDescription();
                         writer = c.getWriter();
                         receiver = c.getReceiver();
                         date = c.getDate();
-                    } else if(mode == MODE_HOMEWORK) {
+                    } else if(holder.item_mode == MODE_HOMEWORK) {
                         Homework h = MainActivity.homeworks.get(pos);
                         subject = h.getSubject();
                         description = h.getDescription();
                         writer = h.getWriter();
                         receiver = h.getReceiver();
                         date = h.getDate();
-                    } else if(mode == MODE_EVENT) {
+                    } else if(holder.item_mode == MODE_EVENT) {
                         Event e = MainActivity.events.get(pos);
                         subject = e.getSubject();
                         description = e.getDescription();

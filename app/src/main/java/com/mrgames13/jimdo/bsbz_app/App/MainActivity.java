@@ -386,6 +386,9 @@ public class MainActivity extends AppCompatActivity {
             launchDeveloperFragment();
             navView.getMenu().getItem(8).setChecked(true);
         }
+
+        //All erstellen
+        all = new ArrayList<>();
     }
 
     @Override
@@ -1602,7 +1605,6 @@ public class MainActivity extends AppCompatActivity {
         homeworks = su.parseHomeworks(month, null);
         events = su.parseEvents(month, null);
 
-        if(all == null) all = new ArrayList<>();
         all.clear();
         all.addAll(classtests);
         all.addAll(homeworks);
