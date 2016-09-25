@@ -1599,8 +1599,8 @@ public class MainActivity extends AppCompatActivity {
 
         //Daten in die ArrayList holen
         classtests = su.parseClasstests(month, null);
-        homeworks = su.parseHomeworks();
-        events = su.parseEvents();
+        homeworks = su.parseHomeworks(month, null);
+        events = su.parseEvents(month, null);
 
         if(all == null) all = new ArrayList<>();
         all.clear();
@@ -1612,7 +1612,7 @@ public class MainActivity extends AppCompatActivity {
         year_view = (RecyclerView) findViewById(R.id.plan_of_the_year_list);
         year_view_manager = new LinearLayoutManager(MainActivity.this);
         year_view.setLayoutManager(year_view_manager);
-        year_view_adapter = new ElementViewAdapter(MainActivity.this, ElementViewAdapter.MODE_CLASSTEST);
+        year_view_adapter = new ElementViewAdapter(MainActivity.this, ElementViewAdapter.MODE_CLASSTEST_HOMEWORK_EVENTS);
         year_view.setAdapter(year_view_adapter);
 
 
@@ -1816,7 +1816,13 @@ public class MainActivity extends AppCompatActivity {
                 scrollView.smoothScrollTo(0,0);
                 //Daten aktualisieren
                 classtests = su.parseClasstests("01", null);
-                year_view_adapter = new ElementViewAdapter(MainActivity.this, ElementViewAdapter.MODE_CLASSTEST);
+                homeworks = su.parseHomeworks("01", null);
+                events = su.parseEvents("01", null);
+                all.clear();
+                all.addAll(classtests);
+                all.addAll(homeworks);
+                all.addAll(events);
+                year_view_adapter = new ElementViewAdapter(MainActivity.this, ElementViewAdapter.MODE_CLASSTEST_HOMEWORK_EVENTS);
                 year_view.setAdapter(year_view_adapter);
                 if(year_view_adapter.getItemCount() == 0) {
                     no_active_elements.setVisibility(View.VISIBLE);
@@ -1847,7 +1853,13 @@ public class MainActivity extends AppCompatActivity {
                 scrollView.smoothScrollTo(250,0);
                 //Daten aktualisieren
                 classtests = su.parseClasstests("02", null);
-                year_view_adapter = new ElementViewAdapter(MainActivity.this, ElementViewAdapter.MODE_CLASSTEST);
+                homeworks = su.parseHomeworks("02", null);
+                events = su.parseEvents("02", null);
+                all.clear();
+                all.addAll(classtests);
+                all.addAll(homeworks);
+                all.addAll(events);
+                year_view_adapter = new ElementViewAdapter(MainActivity.this, ElementViewAdapter.MODE_CLASSTEST_HOMEWORK_EVENTS);
                 year_view.setAdapter(year_view_adapter);
                 if(year_view_adapter.getItemCount() == 0) {
                     no_active_elements.setVisibility(View.VISIBLE);
@@ -1878,7 +1890,13 @@ public class MainActivity extends AppCompatActivity {
                 scrollView.smoothScrollTo(500,0);
                 //Daten aktualisieren
                 classtests = su.parseClasstests("03", null);
-                year_view_adapter = new ElementViewAdapter(MainActivity.this, ElementViewAdapter.MODE_CLASSTEST);
+                homeworks = su.parseHomeworks("03", null);
+                events = su.parseEvents("03", null);
+                all.clear();
+                all.addAll(classtests);
+                all.addAll(homeworks);
+                all.addAll(events);
+                year_view_adapter = new ElementViewAdapter(MainActivity.this, ElementViewAdapter.MODE_CLASSTEST_HOMEWORK_EVENTS);
                 year_view.setAdapter(year_view_adapter);
                 if(year_view_adapter.getItemCount() == 0) {
                     no_active_elements.setVisibility(View.VISIBLE);
@@ -1909,7 +1927,13 @@ public class MainActivity extends AppCompatActivity {
                 scrollView.smoothScrollTo(750,0);
                 //Daten aktualisieren
                 classtests = su.parseClasstests("04", null);
-                year_view_adapter = new ElementViewAdapter(MainActivity.this, ElementViewAdapter.MODE_CLASSTEST);
+                homeworks = su.parseHomeworks("04", null);
+                events = su.parseEvents("04", null);
+                all.clear();
+                all.addAll(classtests);
+                all.addAll(homeworks);
+                all.addAll(events);
+                year_view_adapter = new ElementViewAdapter(MainActivity.this, ElementViewAdapter.MODE_CLASSTEST_HOMEWORK_EVENTS);
                 year_view.setAdapter(year_view_adapter);
                 if(year_view_adapter.getItemCount() == 0) {
                     no_active_elements.setVisibility(View.VISIBLE);
@@ -1940,7 +1964,13 @@ public class MainActivity extends AppCompatActivity {
                 scrollView.smoothScrollTo(1000,0);
                 //Daten aktualisieren
                 classtests = su.parseClasstests("05", null);
-                year_view_adapter = new ElementViewAdapter(MainActivity.this, ElementViewAdapter.MODE_CLASSTEST);
+                homeworks = su.parseHomeworks("05", null);
+                events = su.parseEvents("05", null);
+                all.clear();
+                all.addAll(classtests);
+                all.addAll(homeworks);
+                all.addAll(events);
+                year_view_adapter = new ElementViewAdapter(MainActivity.this, ElementViewAdapter.MODE_CLASSTEST_HOMEWORK_EVENTS);
                 year_view.setAdapter(year_view_adapter);
                 if(year_view_adapter.getItemCount() == 0) {
                     no_active_elements.setVisibility(View.VISIBLE);
@@ -1971,7 +2001,13 @@ public class MainActivity extends AppCompatActivity {
                 scrollView.smoothScrollTo(1250,0);
                 //Daten aktualisieren
                 classtests = su.parseClasstests("06", null);
-                year_view_adapter = new ElementViewAdapter(MainActivity.this, ElementViewAdapter.MODE_CLASSTEST);
+                homeworks = su.parseHomeworks("06", null);
+                events = su.parseEvents("06", null);
+                all.clear();
+                all.addAll(classtests);
+                all.addAll(homeworks);
+                all.addAll(events);
+                year_view_adapter = new ElementViewAdapter(MainActivity.this, ElementViewAdapter.MODE_CLASSTEST_HOMEWORK_EVENTS);
                 year_view.setAdapter(year_view_adapter);
                 if(year_view_adapter.getItemCount() == 0) {
                     no_active_elements.setVisibility(View.VISIBLE);
@@ -2002,7 +2038,13 @@ public class MainActivity extends AppCompatActivity {
                 scrollView.smoothScrollTo(1500,0);
                 //Daten aktualisieren
                 classtests = su.parseClasstests("07", null);
-                year_view_adapter = new ElementViewAdapter(MainActivity.this, ElementViewAdapter.MODE_CLASSTEST);
+                homeworks = su.parseHomeworks("07", null);
+                events = su.parseEvents("07", null);
+                all.clear();
+                all.addAll(classtests);
+                all.addAll(homeworks);
+                all.addAll(events);
+                year_view_adapter = new ElementViewAdapter(MainActivity.this, ElementViewAdapter.MODE_CLASSTEST_HOMEWORK_EVENTS);
                 year_view.setAdapter(year_view_adapter);
                 if(year_view_adapter.getItemCount() == 0) {
                     no_active_elements.setVisibility(View.VISIBLE);
@@ -2033,7 +2075,13 @@ public class MainActivity extends AppCompatActivity {
                 scrollView.smoothScrollTo(1750,0);
                 //Daten aktualisieren
                 classtests = su.parseClasstests("08", null);
-                year_view_adapter = new ElementViewAdapter(MainActivity.this, ElementViewAdapter.MODE_CLASSTEST);
+                homeworks = su.parseHomeworks("08", null);
+                events = su.parseEvents("08", null);
+                all.clear();
+                all.addAll(classtests);
+                all.addAll(homeworks);
+                all.addAll(events);
+                year_view_adapter = new ElementViewAdapter(MainActivity.this, ElementViewAdapter.MODE_CLASSTEST_HOMEWORK_EVENTS);
                 year_view.setAdapter(year_view_adapter);
                 if(year_view_adapter.getItemCount() == 0) {
                     no_active_elements.setVisibility(View.VISIBLE);
@@ -2064,7 +2112,13 @@ public class MainActivity extends AppCompatActivity {
                 scrollView.smoothScrollTo(2000,0);
                 //Daten aktualisieren
                 classtests = su.parseClasstests("09", null);
-                year_view_adapter = new ElementViewAdapter(MainActivity.this, ElementViewAdapter.MODE_CLASSTEST);
+                homeworks = su.parseHomeworks("09", null);
+                events = su.parseEvents("09", null);
+                all.clear();
+                all.addAll(classtests);
+                all.addAll(homeworks);
+                all.addAll(events);
+                year_view_adapter = new ElementViewAdapter(MainActivity.this, ElementViewAdapter.MODE_CLASSTEST_HOMEWORK_EVENTS);
                 year_view.setAdapter(year_view_adapter);
                 if(year_view_adapter.getItemCount() == 0) {
                     no_active_elements.setVisibility(View.VISIBLE);
@@ -2095,7 +2149,13 @@ public class MainActivity extends AppCompatActivity {
                 scrollView.smoothScrollTo(2250,0);
                 //Daten aktualisieren
                 classtests = su.parseClasstests("10", null);
-                year_view_adapter = new ElementViewAdapter(MainActivity.this, ElementViewAdapter.MODE_CLASSTEST);
+                homeworks = su.parseHomeworks("10", null);
+                events = su.parseEvents("10", null);
+                all.clear();
+                all.addAll(classtests);
+                all.addAll(homeworks);
+                all.addAll(events);
+                year_view_adapter = new ElementViewAdapter(MainActivity.this, ElementViewAdapter.MODE_CLASSTEST_HOMEWORK_EVENTS);
                 year_view.setAdapter(year_view_adapter);
                 if(year_view_adapter.getItemCount() == 0) {
                     no_active_elements.setVisibility(View.VISIBLE);
@@ -2126,7 +2186,13 @@ public class MainActivity extends AppCompatActivity {
                 scrollView.smoothScrollTo(2500,0);
                 //Daten aktualisieren
                 classtests = su.parseClasstests("11", null);
-                year_view_adapter = new ElementViewAdapter(MainActivity.this, ElementViewAdapter.MODE_CLASSTEST);
+                homeworks = su.parseHomeworks("11", null);
+                events = su.parseEvents("11", null);
+                all.clear();
+                all.addAll(classtests);
+                all.addAll(homeworks);
+                all.addAll(events);
+                year_view_adapter = new ElementViewAdapter(MainActivity.this, ElementViewAdapter.MODE_CLASSTEST_HOMEWORK_EVENTS);
                 year_view.setAdapter(year_view_adapter);
                 if(year_view_adapter.getItemCount() == 0) {
                     no_active_elements.setVisibility(View.VISIBLE);
@@ -2157,7 +2223,13 @@ public class MainActivity extends AppCompatActivity {
                 scrollView.smoothScrollTo(2750,0);
                 //Daten aktualisieren
                 classtests = su.parseClasstests("12", null);
-                year_view_adapter = new ElementViewAdapter(MainActivity.this, ElementViewAdapter.MODE_CLASSTEST);
+                homeworks = su.parseHomeworks("12", null);
+                events = su.parseEvents("12", null);
+                all.clear();
+                all.addAll(classtests);
+                all.addAll(homeworks);
+                all.addAll(events);
+                year_view_adapter = new ElementViewAdapter(MainActivity.this, ElementViewAdapter.MODE_CLASSTEST_HOMEWORK_EVENTS);
                 year_view.setAdapter(year_view_adapter);
             }
         });

@@ -192,7 +192,7 @@ public class StorageUtils {
         putInt("HCount", getHomeworkCount() +1);
     }
 
-    public ArrayList<Homework> parseHomeworks() {
+    public ArrayList<Homework> parseHomeworks(String month, String date) {
         ArrayList<Homework> homeworks = new ArrayList<>();
         int h_count = getHomeworkCount();
         for(int i = 1; i <= h_count; i++) {
@@ -212,8 +212,20 @@ public class StorageUtils {
                 String current_homework_writer = current_homework.substring(index4 +1, index5);
                 String current_homework_date = current_homework.substring(index5 +1);
                 //Homework-Objekt erstellen und der ArrayList hinzufügen
-                Homework h = new Homework(current_homework_id, current_homework_subject, current_homework_description, current_homework_receiver, current_homework_writer, current_homework_date);
-                homeworks.add(h);
+                if(month != null) {
+                    if(current_homework_date.substring(3, 5).equals(month)) {
+                        Homework h = new Homework(current_homework_id, current_homework_subject, current_homework_description, current_homework_receiver, current_homework_writer, current_homework_date);
+                        homeworks.add(h);
+                    }
+                } else if(date != null) {
+                    if(current_homework_date.equals(date)) {
+                        Homework h = new Homework(current_homework_id, current_homework_subject, current_homework_description, current_homework_receiver, current_homework_writer, current_homework_date);
+                        homeworks.add(h);
+                    }
+                } else {
+                    Homework h = new Homework(current_homework_id, current_homework_subject, current_homework_description, current_homework_receiver, current_homework_writer, current_homework_date);
+                    homeworks.add(h);
+                }
             } else {
                 setHomeworkCount(i -1);
                 break;
@@ -247,7 +259,7 @@ public class StorageUtils {
         putInt("ECount", getEventCount() +1);
     }
 
-    public ArrayList<Event> parseEvents() {
+    public ArrayList<Event> parseEvents(String month, String date) {
         ArrayList<Event> events = new ArrayList<>();
         int e_count = getEventCount();
         for(int i = 1; i <= e_count; i++) {
@@ -266,9 +278,21 @@ public class StorageUtils {
                 String current_event_receiver = current_event.substring(index3 +1, index4);
                 String current_event_writer = current_event.substring(index4 +1, index5);
                 String current_event_date = current_event.substring(index5 +1);
-                Event e = new Event(current_event_id, current_event_subject, current_event_description, current_event_receiver, current_event_writer, current_event_date);
                 //New-Objekt erstellen und der ArrayList hinzufügen
-                events.add(e);
+                if(month != null) {
+                    if(current_event_date.substring(3, 5).equals(month)) {
+                        Event e = new Event(current_event_id, current_event_subject, current_event_description, current_event_receiver, current_event_writer, current_event_date);
+                        events.add(e);
+                    }
+                } else if(date != null) {
+                    if(current_event_date.equals(date)) {
+                        Event e = new Event(current_event_id, current_event_subject, current_event_description, current_event_receiver, current_event_writer, current_event_date);
+                        events.add(e);
+                    }
+                } else {
+                    Event e = new Event(current_event_id, current_event_subject, current_event_description, current_event_receiver, current_event_writer, current_event_date);
+                    events.add(e);
+                }
             } else {
                 setEventCount(i -1);
                 break;

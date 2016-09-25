@@ -131,14 +131,24 @@ public class ElementViewAdapter extends RecyclerView.Adapter<ElementViewAdapter.
             holder.item_receiver.setText(c.getReceiver());
             holder.item_writer.setText(c.getWriter());
         } else if(holder.item_mode == MODE_HOMEWORK) {
-            Homework h = MainActivity.homeworks.get(pos);
+            Homework h;
+            if(mode == MODE_CLASSTEST_HOMEWORK_EVENTS) {
+                h = (Homework) MainActivity.all.get(pos);
+            } else {
+                h = MainActivity.homeworks.get(pos);
+            }
             holder.item_subject.setText(h.getSubject());
             holder.item_description.setText(h.getDescription());
             holder.item_date.setText(h.getDate());
             holder.item_receiver.setText(h.getReceiver());
             holder.item_writer.setText(h.getWriter());
         } else if(holder.item_mode == MODE_EVENT) {
-            Event e = MainActivity.events.get(pos);
+            Event e;
+            if(mode == MODE_CLASSTEST_HOMEWORK_EVENTS) {
+                e = (Event) MainActivity.all.get(pos);
+            } else {
+                e = MainActivity.events.get(pos);
+            }
             holder.item_subject.setText(e.getSubject());
             holder.item_description.setText(e.getDescription());
             holder.item_date.setText(e.getDate());
