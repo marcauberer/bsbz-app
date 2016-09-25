@@ -3,6 +3,7 @@ package com.mrgames13.jimdo.bsbz_app.Tools;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
+import android.util.Log;
 
 import com.mrgames13.jimdo.bsbz_app.ComponentClasses.Classtest;
 import com.mrgames13.jimdo.bsbz_app.ComponentClasses.Event;
@@ -77,7 +78,7 @@ public class StorageUtils {
 
     public void addTimetable(String tt_receiver, String tt_mo, String tt_di, String tt_mi, String tt_do, String tt_fr) {
         //TimeTable-Daten in die SharedPreferences speichern
-        String complete_classtest_string = tt_mo + "," + tt_di + "," + tt_mi + "," + tt_do + "," + tt_fr;
+        String complete_classtest_string = tt_mo + ";" + tt_di + ";" + tt_mi + ";" + tt_do + ";" + tt_fr;
         putString("T" + tt_receiver, complete_classtest_string);
     }
 
@@ -89,16 +90,17 @@ public class StorageUtils {
             String current_timetable = getString("T" + tt_receiver, null);
             if(current_timetable == null) return null;
             //Aktuellen Stundenplan zerteilen
-            int index1 = current_timetable.indexOf(",");
-            int index2 = current_timetable.indexOf(",", index1 +1);
-            int index3 = current_timetable.indexOf(",", index2 +1);
-            int index4 = current_timetable.indexOf(",", index3 +1);
+            int index1 = current_timetable.indexOf(";");
+            int index2 = current_timetable.indexOf(";", index1 +1);
+            int index3 = current_timetable.indexOf(";", index2 +1);
+            int index4 = current_timetable.indexOf(";", index3 +1);
             //Unterteilen
             String current_timetable_mo = current_timetable.substring(0, index1);
             String current_timetable_di = current_timetable.substring(index1 +1, index2);
             String current_timetable_mi = current_timetable.substring(index2 +1, index3);
             String current_timetable_do = current_timetable.substring(index3 +1, index4);
             String current_timetable_fr = current_timetable.substring(index4 +1);
+            Log.d("BSBZ-App", "MO: " + current_timetable_mo);
             //Timetable-Objekt erstellen und der ArrayList hinzufügen
             timetable = new TimeTable(tt_receiver, current_timetable_mo, current_timetable_di, current_timetable_mi, current_timetable_do, current_timetable_fr);
         }

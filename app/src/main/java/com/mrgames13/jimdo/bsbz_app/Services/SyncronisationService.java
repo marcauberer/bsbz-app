@@ -151,7 +151,6 @@ public class SyncronisationService extends Service {
                     String DO = timetable_str.substring(i3 +1, i4);
                     String FR = timetable_str.substring(i4 +1);
                     //Stundenplan in SharedPreferences eintragen
-                    int tt_id = su.getTimeTableCount() +1;
                     su.addTimetable(klasse, MO, DI, MI, DO, FR);
                 //Klassenarbeiten
                     String classtests_str = result.substring(index1 +1, index2);
