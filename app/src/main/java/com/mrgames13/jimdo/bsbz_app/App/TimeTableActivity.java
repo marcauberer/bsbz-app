@@ -2,6 +2,7 @@ package com.mrgames13.jimdo.bsbz_app.App;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
@@ -15,14 +16,24 @@ import android.view.Window;
 import android.widget.RelativeLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.mrgames13.jimdo.bsbz_app.ComponentClasses.TimeTable;
 import com.mrgames13.jimdo.bsbz_app.R;
+import com.mrgames13.jimdo.bsbz_app.Tools.StorageUtils;
 
 @SuppressWarnings("deprecation")
 public class TimeTableActivity extends AppCompatActivity {
 
+	//Konstanten
+
+    //Variablen als Objekte
+    private StorageUtils su;
+    private TimeTable timetable;
+    private Resources res;
+
 	//Variablen
-	Toolbar toolbar;
+	private Toolbar toolbar;
 
 	@Override
 	protected void onStart() {
@@ -76,19 +87,22 @@ public class TimeTableActivity extends AppCompatActivity {
 		if(MainActivity.AppTheme == 1) {
 			rl.setBackgroundColor(Color.BLACK);
 		}
-		
-		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(TimeTableActivity.this);
-		String User_klasse = prefs.getString("Klasse", "---");
-		
-		if(User_klasse.equals("---")) User_klasse = MainActivity.res.getString(R.string.guest);
 
-		try{
-			if(User_klasse.substring(4).equals("0")) User_klasse = User_klasse.substring(0, 3);
-		} catch(Exception e) {}
+        //Resourcen initialisieren
+        res = getResources();
+
+        //StorageUtils initialisieren
+        su = new StorageUtils(TimeTableActivity.this);
+
+		String klasse = su.getString("Klasse", "no_class");
+		if(klasse.equals("no_class")) {
+            Toast.makeText(TimeTableActivity.this, res.getString(R.string.no_class_selected), Toast.LENGTH_LONG).show();
+            finish();
+        }
 		
 		//Klasse eintragen
 		TextView tv_klasse = (TextView) findViewById(R.id.tt_klasse);
-		tv_klasse.setText(User_klasse);
+		tv_klasse.setText(klasse);
 		
 		//TableRows einfärben
 		TableRow tr1 = (TableRow) findViewById(R.id.monate);
@@ -106,7 +120,7 @@ public class TimeTableActivity extends AppCompatActivity {
 		
 		//Stundenplan eintragen
 		//Montag
-		String daycode = prefs.getString("Mo", "-,-,-,-,-,-,-,-,-,-");
+		String daycode = timetable.getMo();
 		//Daycode auseinandernehmen
 		int index1 = daycode.indexOf(",", 0);
 		int index2 = daycode.indexOf(",", index1 +1);
@@ -150,7 +164,7 @@ public class TimeTableActivity extends AppCompatActivity {
 		tv10.setText(hour10);
 		
 		//Dienstag
-		daycode = prefs.getString("Di", "-,-,-,-,-,-,-,-,-,-");
+		daycode = timetable.getDi();
 		//Daycode auseinandernehmen
 		index1 = daycode.indexOf(",", 0);
 		index2 = daycode.indexOf(",", index1 +1);
@@ -194,7 +208,7 @@ public class TimeTableActivity extends AppCompatActivity {
 		tv10.setText(hour10);
 		
 		//Mittwoch
-		daycode = prefs.getString("Mi", "-,-,-,-,-,-,-,-,-,-");
+		daycode = timetable.getMi();
 		//Daycode auseinandernehmen
 		index1 = daycode.indexOf(",", 0);
 		index2 = daycode.indexOf(",", index1 +1);
@@ -238,7 +252,7 @@ public class TimeTableActivity extends AppCompatActivity {
 		tv10.setText(hour10);
 		
 		//Donnerstag
-		daycode = prefs.getString("Do", "-,-,-,-,-,-,-,-,-,-");
+		daycode = timetable.getDo();
 		//Daycode auseinandernehmen
 		index1 = daycode.indexOf(",", 0);
 		index2 = daycode.indexOf(",", index1 +1);
@@ -282,7 +296,7 @@ public class TimeTableActivity extends AppCompatActivity {
 		tv10.setText(hour10);
 		
 		//Freitag
-		daycode = prefs.getString("Fr", "-,-,-,-,-,-,-,-,-,-");
+		daycode = timetable.getFr();
 		//Daycode auseinandernehmen
 		index1 = daycode.indexOf(",", 0);
 		index2 = daycode.indexOf(",", index1 +1);
