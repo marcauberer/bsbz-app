@@ -82,26 +82,24 @@ public class StorageUtils {
     }
 
     public TimeTable getTimeTable(String tt_receiver) {
-        TimeTable timetable = null;
+        TimeTable timetable;
         String current_timetable = getString("T" + tt_receiver, null);
-        if(current_timetable != null) {
-            //Aktuellen Stundenplan zerteilen
-            int index1 = current_timetable.indexOf(",");
-            int index2 = current_timetable.indexOf(",", index1 +1);
-            int index3 = current_timetable.indexOf(",", index2 +1);
-            int index4 = current_timetable.indexOf(",", index3 +1);
-            int index5 = current_timetable.indexOf(",", index4 +1);
-            //Unterteilen
-            String current_timetable_receiver = current_timetable.substring(0, index1);
-            String current_timetable_mo = current_timetable.substring(index1 +1, index2);
-            String current_timetable_di = current_timetable.substring(index2 +1, index3);
-            String current_timetable_mi = current_timetable.substring(index3 +1, index4);
-            String current_timetable_do = current_timetable.substring(index4 +1, index5);
-            String current_timetable_fr = current_timetable.substring(index5 +1);
-            //Timetable-Objekt erstellen und der ArrayList hinzufügen
-            TimeTable t = new TimeTable(current_timetable_receiver, current_timetable_mo, current_timetable_di, current_timetable_mi, current_timetable_do, current_timetable_fr);
-            if(t.getReceiver().equals(tt_receiver)) timetable = t;
-        }
+        if(current_timetable == null) return null;
+        //Aktuellen Stundenplan zerteilen
+        int index1 = current_timetable.indexOf(",");
+        int index2 = current_timetable.indexOf(",", index1 +1);
+        int index3 = current_timetable.indexOf(",", index2 +1);
+        int index4 = current_timetable.indexOf(",", index3 +1);
+        int index5 = current_timetable.indexOf(",", index4 +1);
+        //Unterteilen
+        String current_timetable_receiver = current_timetable.substring(0, index1);
+        String current_timetable_mo = current_timetable.substring(index1 +1, index2);
+        String current_timetable_di = current_timetable.substring(index2 +1, index3);
+        String current_timetable_mi = current_timetable.substring(index3 +1, index4);
+        String current_timetable_do = current_timetable.substring(index4 +1, index5);
+        String current_timetable_fr = current_timetable.substring(index5 +1);
+        //Timetable-Objekt erstellen und der ArrayList hinzufügen
+        timetable = new TimeTable(current_timetable_receiver, current_timetable_mo, current_timetable_di, current_timetable_mi, current_timetable_do, current_timetable_fr);
         return timetable;
     }
 
