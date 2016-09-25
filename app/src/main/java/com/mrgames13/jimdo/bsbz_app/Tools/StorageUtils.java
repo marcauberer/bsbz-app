@@ -8,6 +8,7 @@ import com.mrgames13.jimdo.bsbz_app.ComponentClasses.Classtest;
 import com.mrgames13.jimdo.bsbz_app.ComponentClasses.Event;
 import com.mrgames13.jimdo.bsbz_app.ComponentClasses.Homework;
 import com.mrgames13.jimdo.bsbz_app.ComponentClasses.New;
+import com.mrgames13.jimdo.bsbz_app.ComponentClasses.TimeTable;
 
 import java.util.ArrayList;
 
@@ -74,13 +75,45 @@ public class StorageUtils {
 
     //-------------------------------------Stundenplan-Funktionen-----------------------------------
 
-    public void setTimetable() {
+    public void addTimetable(int tt_id, String tt_receiver, String tt_mo, String tt_di, String tt_mi, String tt_do, String tt_fr) {
         //TimeTable-Daten in die SharedPreferences speichern
-        String complete_classtest_string = String.valueOf(id) + "," + subject + "," + description + "," + receiver + "," + writer + "," + date;
-        putString("C" + String.valueOf(id), complete_classtest_string);
+        String complete_classtest_string = tt_receiver + "," + tt_mo + "," + tt_di + "," + tt_mi + "," + tt_do + "," + tt_fr;
+        putString("T" + tt_id, complete_classtest_string);
+        //TimeTable-Anzahl in den SharedPreferences um eins erhöhen
+        putInt("TCount", getTimeTableCount() +1);
     }
 
+    public String getTimeTable(String tt_receiver) {
+        String timetable = "";
+        int t_count = getTimeTableCount();
+        for(int i = 1; i <= t_count; i++) {
+            String current_timetable = getString("T" + String.valueOf(i), null);
+            //Aktuellen Stundenplan zerteilen
+            int index1 = current_timetable.indexOf(",");
+            int index2 = current_timetable.indexOf(",", index1 +1);
+            int index3 = current_timetable.indexOf(",", index2 +1);
+            int index4 = current_timetable.indexOf(",", index3 +1);
+            int index5 = current_timetable.indexOf(",", index4 +1);
+            //Unterteilen
+            int current_timetable_id = Integer.parseInt(current_timetable.substring(0, index1));
+            String current_timetable_mo = current_timetable.substring(index1 +1, index2);
+            String current_timetable_di = current_timetable.substring(index2 +1, index3);
+            String current_timetable_mi = current_timetable.substring(index3 +1, index4);
+            String current_timetable_do = current_timetable.substring(index4 +1, index5);
+            String current_timetable_fr = current_timetable.substring(index5 +1);
+            //Timetable-Objekt erstellen und der ArrayList hinzufügen
+            TimeTable t = new TimeTable(current_timetable_id, current_timetable_mo, current_timetable_di, current_timetable_mi, current_timetable_do, current_timetable_fr);
+        }
+        return timetable;
+    }
 
+    public int getTimeTableCount() {
+        return getInt("TCount");
+    }
+
+    public void setTimeTableCount(int count) {
+        putInt("TCount", count);
+    }
 
     //-----------------------------------Klassenarbeiten-Funktionen---------------------------------
 
@@ -111,8 +144,8 @@ public class StorageUtils {
                 String current_classtest_receiver = current_classtest.substring(index3 +1, index4);
                 String current_classtest_writer = current_classtest.substring(index4 +1, index5);
                 String current_classtest_date = current_classtest.substring(index5 +1);
+                //Classtest-Objekt erstellen und der ArrayList hinzufügen
                 Classtest c = new Classtest(current_classtest_id, current_classtest_subject, current_classtest_description, current_classtest_receiver, current_classtest_writer, current_classtest_date);
-                //New-Objekt erstellen und der ArrayList hinzufügen
                 classtests.add(c);
             } else {
                 setClasstestCount(i -1);
@@ -166,8 +199,8 @@ public class StorageUtils {
                 String current_homework_receiver = current_homework.substring(index3 +1, index4);
                 String current_homework_writer = current_homework.substring(index4 +1, index5);
                 String current_homework_date = current_homework.substring(index5 +1);
+                //Homework-Objekt erstellen und der ArrayList hinzufügen
                 Homework h = new Homework(current_homework_id, current_homework_subject, current_homework_description, current_homework_receiver, current_homework_writer, current_homework_date);
-                //New-Objekt erstellen und der ArrayList hinzufügen
                 homeworks.add(h);
             } else {
                 setHomeworkCount(i -1);
