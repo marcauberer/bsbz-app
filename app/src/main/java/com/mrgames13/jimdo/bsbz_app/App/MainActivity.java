@@ -1591,8 +1591,13 @@ public class MainActivity extends AppCompatActivity {
             layoutInflater.inflate(R.layout.fragment_jahresplan, container);
         }
 
+        //Aktuellen Monat ermitteln
+        selectedMonth = new Date().getMonth() +1;
+        String month = String.valueOf(selectedMonth);
+        if(month.length() != 2) month = "0" + month;
+
         //Daten in die ArrayList holen
-        classtests = su.parseClasstests();
+        classtests = su.parseClasstests(month, null);
         homeworks = su.parseHomeworks();
         events = su.parseEvents();
 
@@ -1601,14 +1606,16 @@ public class MainActivity extends AppCompatActivity {
         year_view_manager = new LinearLayoutManager(MainActivity.this);
         year_view.setLayoutManager(year_view_manager);
         year_view_adapter = new ElementViewAdapter(MainActivity.this, ElementViewAdapter.MODE_CLASSTEST);
-        year_view.setAdapter(news_view_adapter);
-
-        if(year_view_adapter.getItemCount() == 0) findViewById(R.id.no_active_news).setVisibility(View.VISIBLE);
+        year_view.setAdapter(year_view_adapter);
 
 
-
-
-        selectedMonth = new Date().getMonth() +1;
+        //Wenn keine Daten für diesen Monat vorhanden sind, entsprechende Anzeige sichtbar machen
+        final TextView no_active_elements = (TextView) findViewById(R.id.no_active_elements);
+        if(year_view_adapter.getItemCount() == 0) {
+            no_active_elements.setVisibility(View.VISIBLE);
+        } else {
+            no_active_elements.setVisibility(View.GONE);
+        }
 
         if(rights.equals("classspeaker") || rights.equals("teacher") || rights.equals("administrator") || rights.equals("team")) {
             //FloatingAction Button
@@ -1800,6 +1807,15 @@ public class MainActivity extends AppCompatActivity {
                 nov.setTextColor(Color.parseColor("#000000"));
                 dez.setTextColor(Color.parseColor("#000000"));
                 scrollView.smoothScrollTo(0,0);
+                //Daten aktualisieren
+                classtests = su.parseClasstests("01", null);
+                year_view_adapter = new ElementViewAdapter(MainActivity.this, ElementViewAdapter.MODE_CLASSTEST);
+                year_view.setAdapter(year_view_adapter);
+                if(year_view_adapter.getItemCount() == 0) {
+                    no_active_elements.setVisibility(View.VISIBLE);
+                } else {
+                    no_active_elements.setVisibility(View.GONE);
+                }
             }
         });
         //Button Februar
@@ -1822,6 +1838,15 @@ public class MainActivity extends AppCompatActivity {
                 nov.setTextColor(Color.parseColor("#000000"));
                 dez.setTextColor(Color.parseColor("#000000"));
                 scrollView.smoothScrollTo(250,0);
+                //Daten aktualisieren
+                classtests = su.parseClasstests("02", null);
+                year_view_adapter = new ElementViewAdapter(MainActivity.this, ElementViewAdapter.MODE_CLASSTEST);
+                year_view.setAdapter(year_view_adapter);
+                if(year_view_adapter.getItemCount() == 0) {
+                    no_active_elements.setVisibility(View.VISIBLE);
+                } else {
+                    no_active_elements.setVisibility(View.GONE);
+                }
             }
         });
         //Button März
@@ -1844,6 +1869,15 @@ public class MainActivity extends AppCompatActivity {
                 nov.setTextColor(Color.parseColor("#000000"));
                 dez.setTextColor(Color.parseColor("#000000"));
                 scrollView.smoothScrollTo(500,0);
+                //Daten aktualisieren
+                classtests = su.parseClasstests("03", null);
+                year_view_adapter = new ElementViewAdapter(MainActivity.this, ElementViewAdapter.MODE_CLASSTEST);
+                year_view.setAdapter(year_view_adapter);
+                if(year_view_adapter.getItemCount() == 0) {
+                    no_active_elements.setVisibility(View.VISIBLE);
+                } else {
+                    no_active_elements.setVisibility(View.GONE);
+                }
             }
         });
         //Button April
@@ -1866,6 +1900,15 @@ public class MainActivity extends AppCompatActivity {
                 nov.setTextColor(Color.parseColor("#000000"));
                 dez.setTextColor(Color.parseColor("#000000"));
                 scrollView.smoothScrollTo(750,0);
+                //Daten aktualisieren
+                classtests = su.parseClasstests("04", null);
+                year_view_adapter = new ElementViewAdapter(MainActivity.this, ElementViewAdapter.MODE_CLASSTEST);
+                year_view.setAdapter(year_view_adapter);
+                if(year_view_adapter.getItemCount() == 0) {
+                    no_active_elements.setVisibility(View.VISIBLE);
+                } else {
+                    no_active_elements.setVisibility(View.GONE);
+                }
             }
         });
         //Button Mai
@@ -1888,6 +1931,15 @@ public class MainActivity extends AppCompatActivity {
                 nov.setTextColor(Color.parseColor("#000000"));
                 dez.setTextColor(Color.parseColor("#000000"));
                 scrollView.smoothScrollTo(1000,0);
+                //Daten aktualisieren
+                classtests = su.parseClasstests("05", null);
+                year_view_adapter = new ElementViewAdapter(MainActivity.this, ElementViewAdapter.MODE_CLASSTEST);
+                year_view.setAdapter(year_view_adapter);
+                if(year_view_adapter.getItemCount() == 0) {
+                    no_active_elements.setVisibility(View.VISIBLE);
+                } else {
+                    no_active_elements.setVisibility(View.GONE);
+                }
             }
         });
         //Button Juni
@@ -1910,6 +1962,15 @@ public class MainActivity extends AppCompatActivity {
                 nov.setTextColor(Color.parseColor("#000000"));
                 dez.setTextColor(Color.parseColor("#000000"));
                 scrollView.smoothScrollTo(1250,0);
+                //Daten aktualisieren
+                classtests = su.parseClasstests("06", null);
+                year_view_adapter = new ElementViewAdapter(MainActivity.this, ElementViewAdapter.MODE_CLASSTEST);
+                year_view.setAdapter(year_view_adapter);
+                if(year_view_adapter.getItemCount() == 0) {
+                    no_active_elements.setVisibility(View.VISIBLE);
+                } else {
+                    no_active_elements.setVisibility(View.GONE);
+                }
             }
         });
         //Button Juli
@@ -1932,6 +1993,15 @@ public class MainActivity extends AppCompatActivity {
                 nov.setTextColor(Color.parseColor("#000000"));
                 dez.setTextColor(Color.parseColor("#000000"));
                 scrollView.smoothScrollTo(1500,0);
+                //Daten aktualisieren
+                classtests = su.parseClasstests("07", null);
+                year_view_adapter = new ElementViewAdapter(MainActivity.this, ElementViewAdapter.MODE_CLASSTEST);
+                year_view.setAdapter(year_view_adapter);
+                if(year_view_adapter.getItemCount() == 0) {
+                    no_active_elements.setVisibility(View.VISIBLE);
+                } else {
+                    no_active_elements.setVisibility(View.GONE);
+                }
             }
         });
         //Button August
@@ -1954,6 +2024,15 @@ public class MainActivity extends AppCompatActivity {
                 nov.setTextColor(Color.parseColor("#000000"));
                 dez.setTextColor(Color.parseColor("#000000"));
                 scrollView.smoothScrollTo(1750,0);
+                //Daten aktualisieren
+                classtests = su.parseClasstests("08", null);
+                year_view_adapter = new ElementViewAdapter(MainActivity.this, ElementViewAdapter.MODE_CLASSTEST);
+                year_view.setAdapter(year_view_adapter);
+                if(year_view_adapter.getItemCount() == 0) {
+                    no_active_elements.setVisibility(View.VISIBLE);
+                } else {
+                    no_active_elements.setVisibility(View.GONE);
+                }
             }
         });
         //Button September
@@ -1976,6 +2055,15 @@ public class MainActivity extends AppCompatActivity {
                 nov.setTextColor(Color.parseColor("#000000"));
                 dez.setTextColor(Color.parseColor("#000000"));
                 scrollView.smoothScrollTo(2000,0);
+                //Daten aktualisieren
+                classtests = su.parseClasstests("09", null);
+                year_view_adapter = new ElementViewAdapter(MainActivity.this, ElementViewAdapter.MODE_CLASSTEST);
+                year_view.setAdapter(year_view_adapter);
+                if(year_view_adapter.getItemCount() == 0) {
+                    no_active_elements.setVisibility(View.VISIBLE);
+                } else {
+                    no_active_elements.setVisibility(View.GONE);
+                }
             }
         });
         //Button Oktober
@@ -1998,6 +2086,15 @@ public class MainActivity extends AppCompatActivity {
                 nov.setTextColor(Color.parseColor("#000000"));
                 dez.setTextColor(Color.parseColor("#000000"));
                 scrollView.smoothScrollTo(2250,0);
+                //Daten aktualisieren
+                classtests = su.parseClasstests("10", null);
+                year_view_adapter = new ElementViewAdapter(MainActivity.this, ElementViewAdapter.MODE_CLASSTEST);
+                year_view.setAdapter(year_view_adapter);
+                if(year_view_adapter.getItemCount() == 0) {
+                    no_active_elements.setVisibility(View.VISIBLE);
+                } else {
+                    no_active_elements.setVisibility(View.GONE);
+                }
             }
         });
         //Button November
@@ -2020,6 +2117,15 @@ public class MainActivity extends AppCompatActivity {
                 nov.setTextColor(Color.parseColor(color));
                 dez.setTextColor(Color.parseColor("#000000"));
                 scrollView.smoothScrollTo(2500,0);
+                //Daten aktualisieren
+                classtests = su.parseClasstests("11", null);
+                year_view_adapter = new ElementViewAdapter(MainActivity.this, ElementViewAdapter.MODE_CLASSTEST);
+                year_view.setAdapter(year_view_adapter);
+                if(year_view_adapter.getItemCount() == 0) {
+                    no_active_elements.setVisibility(View.VISIBLE);
+                } else {
+                    no_active_elements.setVisibility(View.GONE);
+                }
             }
         });
         //Button Dezember
@@ -2042,6 +2148,10 @@ public class MainActivity extends AppCompatActivity {
                 nov.setTextColor(Color.parseColor("#000000"));
                 dez.setTextColor(Color.parseColor(color));
                 scrollView.smoothScrollTo(2750,0);
+                //Daten aktualisieren
+                classtests = su.parseClasstests("12", null);
+                year_view_adapter = new ElementViewAdapter(MainActivity.this, ElementViewAdapter.MODE_CLASSTEST);
+                year_view.setAdapter(year_view_adapter);
             }
         });
     }

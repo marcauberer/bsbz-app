@@ -125,7 +125,7 @@ public class StorageUtils {
         putInt("CCount", getClasstestCount() +1);
     }
 
-    public ArrayList<Classtest> parseClasstests() {
+    public ArrayList<Classtest> parseClasstests(String month, String date) {
         ArrayList<Classtest> classtests = new ArrayList<>();
         int c_count = getClasstestCount();
         for(int i = 1; i <= c_count; i++) {
@@ -145,8 +145,20 @@ public class StorageUtils {
                 String current_classtest_writer = current_classtest.substring(index4 +1, index5);
                 String current_classtest_date = current_classtest.substring(index5 +1);
                 //Classtest-Objekt erstellen und der ArrayList hinzufügen
-                Classtest c = new Classtest(current_classtest_id, current_classtest_subject, current_classtest_description, current_classtest_receiver, current_classtest_writer, current_classtest_date);
-                classtests.add(c);
+                if(month != null) {
+                    if(current_classtest_date.substring(3, 5).equals(month)) {
+                        Classtest c = new Classtest(current_classtest_id, current_classtest_subject, current_classtest_description, current_classtest_receiver, current_classtest_writer, current_classtest_date);
+                        classtests.add(c);
+                    }
+                } else if(date != null) {
+                    if(current_classtest_date.equals(date)) {
+                        Classtest c = new Classtest(current_classtest_id, current_classtest_subject, current_classtest_description, current_classtest_receiver, current_classtest_writer, current_classtest_date);
+                        classtests.add(c);
+                    }
+                } else {
+                    Classtest c = new Classtest(current_classtest_id, current_classtest_subject, current_classtest_description, current_classtest_receiver, current_classtest_writer, current_classtest_date);
+                    classtests.add(c);
+                }
             } else {
                 setClasstestCount(i -1);
                 break;

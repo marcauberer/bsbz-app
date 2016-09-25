@@ -142,10 +142,24 @@
             android:text="@string/monthinfo_"
             android:textAppearance="?android:attr/textAppearanceMedium" />
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/plan_of_the_year_list"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_height="match_parent">
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/plan_of_the_year_list"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+
+            <TextView
+                android:id="@+id/no_active_elements"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="@string/no_data_for_this_month"
+                android:gravity="center"
+                android:visibility="gone"/>
+
+        </RelativeLayout>
 
     </LinearLayout>
 </RelativeLayout>

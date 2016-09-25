@@ -301,5 +301,6 @@
     <string name="really_delete_element">Soll das Element wirklich gelöscht werden?</string>
     <string name="no_class_selected">Es ist keine Klasse ausgewählt</string>
     <string name="timetable_not_synchronized">Der Stundenplan für diese Klasse wurde noch nicht synchronisiert</string>
+    <string name="no_data_for_this_month">Keine Daten für diesen Monat verhanden</string>
 
 </resources>
