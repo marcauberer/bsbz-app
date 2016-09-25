@@ -130,11 +130,10 @@
             android:text="@string/monthinfo_"
             android:textAppearance="?android:attr/textAppearanceMedium" />
 
-        <FrameLayout
-            android:id="@+id/termine_jahresplan_container"
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/plan_of_the_year_list"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="0.9"/>
+            android:layout_height="match_parent"/>
     </LinearLayout>
 
     <android.support.design.widget.FloatingActionButton
