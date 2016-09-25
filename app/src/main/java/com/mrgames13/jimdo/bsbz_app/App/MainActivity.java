@@ -130,6 +130,7 @@ public class MainActivity extends AppCompatActivity {
     public static ArrayList<Classtest> classtests;
     public static ArrayList<Homework> homeworks;
     public static ArrayList<Event> events;
+    public static ArrayList<Object> all;
     public static ArrayList<New> news;
 
     //UtilsPakete
@@ -1600,6 +1601,12 @@ public class MainActivity extends AppCompatActivity {
         classtests = su.parseClasstests(month, null);
         homeworks = su.parseHomeworks();
         events = su.parseEvents();
+
+        if(all == null) all = new ArrayList<>();
+        all.clear();
+        all.addAll(classtests);
+        all.addAll(homeworks);
+        all.addAll(events);
 
         //NewsRecyclerView anzeigen
         year_view = (RecyclerView) findViewById(R.id.plan_of_the_year_list);

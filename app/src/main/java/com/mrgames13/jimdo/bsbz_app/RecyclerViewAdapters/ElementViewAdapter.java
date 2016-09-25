@@ -70,23 +70,11 @@ public class ElementViewAdapter extends RecyclerView.Adapter<ElementViewAdapter.
         private FloatingActionButton item_edit;
         private FloatingActionButton item_delete;
         private boolean item_expanded = false;
+        private int item_mode;
 
         public ViewHolderClass(View itemView) {
             super(itemView);
             item_icon = (TextView) itemView.findViewById(R.id.item_icon);
-            if(mode == MODE_CLASSTEST) {
-                item_icon.setText(res.getString(R.string.classtest_short_short));
-                item_icon.setBackgroundResource(R.drawable.icon_k);
-            } else if(mode == MODE_HOMEWORK) {
-                item_icon.setText(res.getString(R.string.homework_short_short));
-                item_icon.setBackgroundResource(R.drawable.icon_h);
-            } else if(mode == MODE_EVENT) {
-                item_icon.setText(res.getString(R.string.event_short_short));
-                item_icon.setBackgroundResource(R.drawable.icon_t);
-            } else if(mode == MODE_NEW || mode == MODE_NEW_INVISIBLE) {
-                item_icon.setText(res.getString(R.string.new_short_short));
-                item_icon.setBackgroundResource(R.drawable.icon_n);
-            }
             item_dropdown_arrow = (ImageView) itemView.findViewById(R.id.item_dropdown_arrow);
             item_subject = (TextView) itemView.findViewById(R.id.item_subject);
             item_description = (TextView) itemView.findViewById(R.id.item_description);
@@ -111,29 +99,52 @@ public class ElementViewAdapter extends RecyclerView.Adapter<ElementViewAdapter.
 
     @Override
     public void onBindViewHolder(final ViewHolderClass holder, final int pos) {
+        //ItemMode festlegen
+        if(MainActivity.all.get(pos) instanceof Classtest) holder.item_mode = MODE_CLASSTEST;
+        if(MainActivity.all.get(pos) instanceof Homework) holder.item_mode = MODE_HOMEWORK;
+        if(MainActivity.all.get(pos) instanceof Event) holder.item_mode = MODE_EVENT;
+        //Icon festlegen
+        if(holder.item_mode == MODE_CLASSTEST) {
+            holder.item_icon.setText(res.getString(R.string.classtest_short_short));
+            holder.item_icon.setBackgroundResource(R.drawable.icon_k);
+        } else if(holder.item_mode == MODE_HOMEWORK) {
+            holder.item_icon.setText(res.getString(R.string.homework_short_short));
+            holder.item_icon.setBackgroundResource(R.drawable.icon_h);
+        } else if(holder.item_mode == MODE_EVENT) {
+            holder.item_icon.setText(res.getString(R.string.event_short_short));
+            holder.item_icon.setBackgroundResource(R.drawable.icon_t);
+        } else if(holder.item_mode == MODE_NEW || mode == MODE_NEW_INVISIBLE) {
+            holder.item_icon.setText(res.getString(R.string.new_short_short));
+            holder.item_icon.setBackgroundResource(R.drawable.icon_n);
+        }
         //Daten befüllen
-        if(mode == MODE_CLASSTEST) {
-            Classtest c = MainActivity.classtests.get(pos);
+        if(holder.item_mode == MODE_CLASSTEST) {
+            Classtest c;
+            if(mode == MODE_CLASSTEST_HOMEWORK_EVENTS) {
+                c = (Classtest) MainActivity.all.get(pos);
+            } else {
+                c = MainActivity.classtests.get(pos);
+            }
             holder.item_subject.setText(c.getSubject());
             holder.item_description.setText(c.getDescription());
             holder.item_date.setText(c.getDate());
             holder.item_receiver.setText(c.getReceiver());
             holder.item_writer.setText(c.getWriter());
-        } else if(mode == MODE_HOMEWORK) {
+        } else if(holder.item_mode == MODE_HOMEWORK) {
             Homework h = MainActivity.homeworks.get(pos);
             holder.item_subject.setText(h.getSubject());
             holder.item_description.setText(h.getDescription());
             holder.item_date.setText(h.getDate());
             holder.item_receiver.setText(h.getReceiver());
             holder.item_writer.setText(h.getWriter());
-        } else if(mode == MODE_EVENT) {
+        } else if(holder.item_mode == MODE_EVENT) {
             Event e = MainActivity.events.get(pos);
             holder.item_subject.setText(e.getSubject());
             holder.item_description.setText(e.getDescription());
             holder.item_date.setText(e.getDate());
             holder.item_receiver.setText(e.getReceiver());
             holder.item_writer.setText(e.getWriter());
-        } else if(mode == MODE_NEW || mode == MODE_NEW_INVISIBLE) {
+        } else if(holder.item_mode == MODE_NEW || mode == MODE_NEW_INVISIBLE) {
             New n = MainActivity.news.get(pos);
             holder.item_subject.setText(n.getSubject());
             holder.item_description.setText(n.getDescription());
