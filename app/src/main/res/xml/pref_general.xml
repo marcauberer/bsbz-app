@@ -43,7 +43,8 @@
             android:summary="@string/loading" />
 
 		<Preference
-            android:title="@string/delete_app_storage_t"
-            android:summary="@string/delete_app_storage_s"/>
+            android:key="DeleteStorage"
+            android:title="@string/pref_title_delete_app_storage"
+            android:summary="@string/pref_summary_delete_app_storage"/>
     </PreferenceCategory>
 </PreferenceScreen>

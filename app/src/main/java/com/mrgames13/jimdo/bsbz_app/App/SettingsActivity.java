@@ -657,6 +657,34 @@ public class SettingsActivity extends PreferenceActivity {
                 return true;
             }
         });
+
+		final Preference deletestorage = findPreference("DeleteStorage");
+        deletestorage.setOnPreferenceClickListener(new OnPreferenceClickListener() {
+            @Override
+            public boolean onPreferenceClick(Preference preference) {
+                AlertDialog d = new AlertDialog.Builder(SettingsActivity.this)
+                        .setTitle(res.getString(R.string.delete_storage_t))
+                        .setMessage(res.getString(R.string.delete_storage_m))
+                        .setNegativeButton(res.getString(R.string.cancel), new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                            }
+                        })
+                        .setPositiveButton(res.getString(R.string.delete), new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                prefs.edit().clear().commit();
+                                dialog.dismiss();
+                                deletestorage.setSummary(res.getString(R.string.delete_storage_s));
+                                Toast.makeText(SettingsActivity.this, res.getString(R.string.delete_storage_s), Toast.LENGTH_LONG).show();
+                            }
+                        })
+                        .create();
+                d.show();
+                return true;
+            }
+        });
 	}
 	
 	@Override

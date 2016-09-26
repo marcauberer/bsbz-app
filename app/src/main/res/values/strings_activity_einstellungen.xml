@@ -100,7 +100,7 @@
     <string name="pref_open_source_licenses">Open-Source-Lizenzen</string>
     <string name="pref_open_source_licenses_summary">Lizenzdetails für Open-Source-Lizenzen</string>
     <string name="pref_custom_startpage">Benutzerdefinierte Startseite</string>
-    <string name="delete_app_storage_t">App-Daten löschen</string>
-    <string name="delete_app_storage_s">Bei App-Fehlern zur App-Zurücksetzung wählen</string>
+    <string name="pref_title_delete_app_storage">App-Daten löschen</string>
+    <string name="pref_summary_delete_app_storage">Bei App-Fehlern zur App-Zurücksetzung wählen</string>
 
 </resources>
