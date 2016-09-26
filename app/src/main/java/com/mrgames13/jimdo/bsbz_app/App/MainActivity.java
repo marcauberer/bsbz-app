@@ -215,7 +215,11 @@ public class MainActivity extends AppCompatActivity {
         drawer_layout_gesamt.setDrawerListener(drawer_toggle);
         //NavigationView finden
         navView = (NavigationView) findViewById(R.id.navView);
-
+        if(AppTheme == 1) {
+            //Bei dunklem Layout Bild austauschen
+            ImageView navView_Image = (ImageView) navView.getHeaderView(0).findViewById(R.id.navView_image);
+            navView_Image.setImageResource(R.drawable.bsbz_logo_gross_mrgames_black);
+        }
         navView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(MenuItem menuItem) {
