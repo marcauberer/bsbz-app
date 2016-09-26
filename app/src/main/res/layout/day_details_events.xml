@@ -16,9 +16,4 @@
         android:gravity="center"
         android:text="@string/no_data_for_this_day"
         android:visibility="gone"/>
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Termine"/>
 </RelativeLayout>
