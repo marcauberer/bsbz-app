@@ -305,8 +305,8 @@
     <string name="delete_storage_t">App-Daten löschen?</string>
     <string name="delete_storage_m">Wollen Sie wirklich die lokalen Daten der App bereinigen? Die Daten können nicht wiederhergestellt werden!</string>
     <string name="delete_storage_s">App-Daten wurden erfolgreich bereinigt</string>
-    <string name="day_details_tab_1">Klassenarbeiten</string>
-    <string name="day_details_tab_2">Hausaufgaben</string>
+    <string name="day_details_tab_1">KAs</string>
+    <string name="day_details_tab_2">HAs</string>
     <string name="day_details_tab_3">Termine</string>
 
 </resources>

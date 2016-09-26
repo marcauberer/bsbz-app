@@ -1,6 +1,5 @@
 package com.mrgames13.jimdo.bsbz_app.RecyclerViewAdapters;
 
-import android.content.Context;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -21,14 +20,14 @@ public class ViewPagerAdapterDayDetails extends FragmentPagerAdapter {
 
     //Variablen als Objekte
     private Resources res;
-    private ArrayList<String> tabTitles;
+    private ArrayList<String> tabTitles = new ArrayList<>();
 
     //Variablen
 
     //Konstruktor
-    public ViewPagerAdapterDayDetails(FragmentManager manager, Context context) {
+    public ViewPagerAdapterDayDetails(FragmentManager manager, Resources res) {
         super(manager);
-        this.res = context.getResources();
+        this.res = res;
         tabTitles.add(res.getString(R.string.day_details_tab_1));
         tabTitles.add(res.getString(R.string.day_details_tab_2));
         tabTitles.add(res.getString(R.string.day_details_tab_3));

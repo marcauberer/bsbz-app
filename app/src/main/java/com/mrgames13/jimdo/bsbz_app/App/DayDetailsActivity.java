@@ -89,7 +89,7 @@ public class DayDetailsActivity extends AppCompatActivity {
 		setSupportActionBar(toolbar);
 
         //ViewPager aufsetzen
-        viewpager_adapter = new ViewPagerAdapterDayDetails(getSupportFragmentManager(), DayDetailsActivity.this);
+        viewpager_adapter = new ViewPagerAdapterDayDetails(getSupportFragmentManager(), getResources());
         viewpager = (ViewPager) findViewById(R.id.day_details_view_pager);
         viewpager.setAdapter(viewpager_adapter);
 
