@@ -56,9 +56,6 @@ public class DayDetailsActivity extends AppCompatActivity {
 
 		// ActionBar Titel festlegen
 		String day = getIntent().getStringExtra("Day").toString();
-		current_date = "";
-		current_date = getIntent().getStringExtra("Date").toString();
-		//current_date = current_date.substring(0,2);
 		getSupportActionBar().setTitle(day+" der "+ current_date);
 	}
 
@@ -78,6 +75,9 @@ public class DayDetailsActivity extends AppCompatActivity {
 		//Toolbar aufsetzen
 		toolbar = (Toolbar) findViewById(R.id.toolbar_day_details);
 		setSupportActionBar(toolbar);
+
+        //Datum ermitteln
+        current_date = getIntent().getStringExtra("Date").toString();
 
         //ViewPager aufsetzen
         viewpager_adapter = new ViewPagerAdapterDayDetails(getSupportFragmentManager(), getResources(), current_date);
