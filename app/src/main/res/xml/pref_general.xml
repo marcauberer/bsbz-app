@@ -41,5 +41,9 @@
             android:positiveButtonText="@null"
             android:title="@string/pref_custom_startpage"
             android:summary="@string/loading" />
+
+		<Preference
+            android:title="@string/delete_app_storage_t"
+            android:summary="@string/delete_app_storage_s"/>
     </PreferenceCategory>
 </PreferenceScreen>

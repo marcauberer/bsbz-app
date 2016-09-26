@@ -321,8 +321,13 @@ public class MainActivity extends AppCompatActivity {
         cm = (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE);
         serverMessagingUtils = new ServerMessagingUtils(cm, MainActivity.this);
 
-        //Extras auslesen
+        if(AppTheme != 0) findViewById(R.id.copyright).setBackgroundColor(Color.GRAY);
+
+        //All erstellen
+        all = new ArrayList<>();
+
         try {
+            //Extras auslesen
             String extra = getIntent().getExtras().getString("Open");
             if(extra.equals("Diese Woche")) {
                 navView.getMenu().getItem(2).setChecked(true);
@@ -334,8 +339,6 @@ public class MainActivity extends AppCompatActivity {
                 Log.d("BSBZ-App", "Nicht verständliches Extra");
             }
         } catch(NullPointerException e) {}
-
-        if(AppTheme != 0) findViewById(R.id.copyright).setBackgroundColor(Color.GRAY);
 
         String custom_startpage = prefs.getString("CustomStartPage", "Mein Profil (Standard)");
         if(custom_startpage.equals("Mein Profil (Standard)")) selected_Menu_Item = 1;
@@ -386,9 +389,6 @@ public class MainActivity extends AppCompatActivity {
             launchDeveloperFragment();
             navView.getMenu().getItem(8).setChecked(true);
         }
-
-        //All erstellen
-        all = new ArrayList<>();
     }
 
     @Override
