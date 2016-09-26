@@ -1,6 +1,5 @@
 package com.mrgames13.jimdo.bsbz_app.App;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
@@ -8,21 +7,14 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.design.widget.TabLayout;
-import android.support.v4.app.ListFragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
-import android.widget.Toast;
 
 import com.mrgames13.jimdo.bsbz_app.R;
 import com.mrgames13.jimdo.bsbz_app.RecyclerViewAdapters.ViewPagerAdapterDayDetails;
-
-import java.util.ArrayList;
 
 public class DayDetailsActivity extends AppCompatActivity {
 
@@ -35,8 +27,7 @@ public class DayDetailsActivity extends AppCompatActivity {
     private TabLayout tablayout;
 
 	//Variablen
-	public static String date1 = "";
-    public static String date2 = "";
+	public static String current_date = "";
 	
 	@Override
 	public void onStart() {
@@ -65,10 +56,10 @@ public class DayDetailsActivity extends AppCompatActivity {
 
 		// ActionBar Titel festlegen
 		String day = getIntent().getStringExtra("Day").toString();
-		date1 = "";
-		date1 = getIntent().getStringExtra("Date").toString();
-		//date1 = date1.substring(0,2);
-		getSupportActionBar().setTitle(day+" der "+date1);
+		current_date = "";
+		current_date = getIntent().getStringExtra("Date").toString();
+		//current_date = current_date.substring(0,2);
+		getSupportActionBar().setTitle(day+" der "+ current_date);
 	}
 
 	@Override
@@ -89,7 +80,7 @@ public class DayDetailsActivity extends AppCompatActivity {
 		setSupportActionBar(toolbar);
 
         //ViewPager aufsetzen
-        viewpager_adapter = new ViewPagerAdapterDayDetails(getSupportFragmentManager(), getResources());
+        viewpager_adapter = new ViewPagerAdapterDayDetails(getSupportFragmentManager(), getResources(), current_date);
         viewpager = (ViewPager) findViewById(R.id.day_details_view_pager);
         viewpager.setAdapter(viewpager_adapter);
 
@@ -110,12 +101,11 @@ public class DayDetailsActivity extends AppCompatActivity {
             public void onTabReselected(TabLayout.Tab tab) {}
         });
 
-		date1 = getIntent().getStringExtra("Date").toString();
+		current_date = getIntent().getStringExtra("Date").toString();
 	}
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.day_details, menu);
 		return true;
 	}
@@ -131,146 +121,5 @@ public class DayDetailsActivity extends AppCompatActivity {
 			return true;
 		}
 		return super.onOptionsItemSelected(item);
-	}
-
-	@SuppressLint("InlinedApi")
-	public static class KlassenArbeitenFragment extends ListFragment {
-
-		@Override
-		public void onActivityCreated(Bundle savedInstanceState) {
-			super.onActivityCreated(savedInstanceState);
-			//SharedPreferences Instanz erhalten
-			SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
-			// Liste aus String-Array befüllen
-			ArrayList<String> arraylist = new ArrayList<String>();
-			
-			for(int i = 0;i < 101;i++) {
-				String classtest = prefs.getString("Classtests_"+String.valueOf(i), "-");
-				if(!classtest.equals("-")) {
-					int index1 = classtest.indexOf(",");
-					int index2 = classtest.indexOf(",", index1 +1);
-					int index3 = classtest.indexOf(",", index2 +1);
-					String item_date = classtest.substring(0, index1);
-					String item_title = classtest.substring(index1 +1, index2);
-					if(!item_title.equals("-") && item_date.equals(date1) && !item_title.equals("") &&!item_date.equals("")) {
-						arraylist.add(item_date +": "+ item_title);
-					}
-				}
-			}
-			
-			if(arraylist.size() == 0) arraylist.add(MainActivity.KEINE_KLASSENARBEITEN_TAG);
-			
-			ArrayAdapter<String> adapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_list_item_activated_1, arraylist);
-			setListAdapter(adapter);
-		}
-		
-		@Override
-		public void onListItemClick(ListView listView, View v, int position, long id) {
-			super.onListItemClick(listView, v, position, id);
-			
-			if(listView.getItemAtPosition(position).equals(MainActivity.KEINE_KLASSENARBEITEN_TAG)) {
-				Toast.makeText(getActivity(), MainActivity.KEINE_KLASSENARBEITEN_TAG, Toast.LENGTH_SHORT).show();
-			} else {
-				Intent i = new Intent(getActivity(), K_DetailsActivity.class);
-				String titel = getListView().getAdapter().getItem(position).toString();
-				i.putExtra("Titel", titel);
-				i.putExtra("Text", Integer.toString(position+1));
-				startActivity(i);
-			}
-		}
-	}
-	
-	@SuppressLint("InlinedApi")
-	public static class HausaufgabenFragment extends ListFragment {
-
-		@Override
-		public void onActivityCreated(Bundle savedInstanceState) {
-			super.onActivityCreated(savedInstanceState);
-			//SharedPreferences Instanz erhalten
-			SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
-			// Liste aus String-Array befüllen
-			ArrayList<String> arraylist = new ArrayList<String>();
-			
-			for(int i = 0;i < 101;i++) {
-				String homework = prefs.getString("Homeworks_"+String.valueOf(i), "-");
-				if(!homework.equals("-")) {
-					int index1 = homework.indexOf(",");
-					int index2 = homework.indexOf(",", index1 +1);
-					int index3 = homework.indexOf(",", index2 +1);
-					String item_date = homework.substring(0, index1);
-					String item_title = homework.substring(index1 +1, index2);
-					if(!item_title.equals("-") && item_date.equals(date1) && !item_title.equals("") &&!item_date.equals("")) {
-						arraylist.add(item_date +": "+ item_title);
-					}
-				}
-			}
-			
-			if(arraylist.size() == 0) arraylist.add(MainActivity.KEINE_HAUSAUFGABEN_TAG);
-			
-			ArrayAdapter<String> adapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_list_item_activated_1, arraylist);
-			setListAdapter(adapter);
-		}
-		
-		@Override
-		public void onListItemClick(ListView listView, View v, int position, long id) {
-			super.onListItemClick(listView, v, position, id);
-			
-			if(listView.getItemAtPosition(position).equals(MainActivity.KEINE_HAUSAUFGABEN_TAG)) {
-				Toast.makeText(getActivity(), MainActivity.KEINE_HAUSAUFGABEN_TAG, Toast.LENGTH_SHORT).show();
-			} else {
-				Intent i = new Intent(getActivity(), H_DetailsActivity.class);
-				String titel = getListView().getAdapter().getItem(position).toString();
-				i.putExtra("Titel", titel);
-				i.putExtra("Text", Integer.toString(position+1));
-				startActivity(i);
-			}
-		}
-	}
-	
-	@SuppressLint("InlinedApi")
-	public static class TermineFragment extends ListFragment {
-
-		@Override
-		public void onActivityCreated(Bundle savedInstanceState) {
-			super.onActivityCreated(savedInstanceState);
-			//SharedPreferences Instanz erhalten
-			SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
-			// Liste aus String-Array befüllen
-			ArrayList<String> arraylist = new ArrayList<String>();
-			
-			for(int i = 0;i < 101;i++) {
-				String event = prefs.getString("Events_"+String.valueOf(i), "-");
-				if(!event.equals("-")) {
-					int index1 = event.indexOf(",");
-					int index2 = event.indexOf(",", index1 +1);
-					int index3 = event.indexOf(",", index2 +1);
-					String item_date = event.substring(0, index1);
-					String item_title = event.substring(index1 +1, index2);
-					if(!item_title.equals("-") && item_date.equals(date1) && !item_title.equals("") &&!item_date.equals("")) {
-						arraylist.add(item_date +": "+ item_title);
-					}
-				}
-			}
-			
-			if(arraylist.size() == 0) arraylist.add(MainActivity.KEINE_TERMINE_TAG);
-			
-			ArrayAdapter<String> adapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_list_item_activated_1, arraylist);
-			setListAdapter(adapter);
-		}
-		
-		@Override
-		public void onListItemClick(ListView listView, View v, int position, long id) {
-			super.onListItemClick(listView, v, position, id);
-			
-			if(listView.getItemAtPosition(position).equals(MainActivity.KEINE_TERMINE_TAG)) {
-				Toast.makeText(getActivity(), MainActivity.KEINE_TERMINE_TAG, Toast.LENGTH_SHORT).show();
-			} else {
-				Intent i = new Intent(getActivity(), T_DetailsActivity.class);
-				String titel = getListView().getAdapter().getItem(position).toString();
-				i.putExtra("Titel", titel);
-				i.putExtra("Text", Integer.toString(position+1));
-				startActivity(i);
-			}
-		}
 	}
 }

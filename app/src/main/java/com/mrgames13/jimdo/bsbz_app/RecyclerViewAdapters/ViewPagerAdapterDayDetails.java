@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.mrgames13.jimdo.bsbz_app.App.MainActivity;
 import com.mrgames13.jimdo.bsbz_app.R;
 
 import java.util.ArrayList;
@@ -25,14 +26,20 @@ public class ViewPagerAdapterDayDetails extends FragmentPagerAdapter {
     private ArrayList<String> tabTitles = new ArrayList<>();
 
     //Variablen
+    public static String current_date;
 
     //Konstruktor
-    public ViewPagerAdapterDayDetails(FragmentManager manager, Resources res) {
+    public ViewPagerAdapterDayDetails(FragmentManager manager, Resources res, String current_date) {
         super(manager);
         this.res = res;
         tabTitles.add(res.getString(R.string.day_details_tab_1));
         tabTitles.add(res.getString(R.string.day_details_tab_2));
         tabTitles.add(res.getString(R.string.day_details_tab_3));
+        ViewPagerAdapterDayDetails.current_date = current_date;
+        //Daten laden
+        MainActivity.classtests = MainActivity.su.parseClasstests(null, current_date);
+        MainActivity.homeworks = MainActivity.su.parseHomeworks(null, current_date);
+        MainActivity.events = MainActivity.su.parseEvents(null, current_date);
     }
 
     @Override
