@@ -9,6 +9,7 @@ import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -53,6 +54,7 @@ public class ElementViewAdapter extends RecyclerView.Adapter<ElementViewAdapter.
         this.context = context;
         this.mode = mode;
         this.res = MainActivity.res;
+        Log.d("BSBZ-App", "Mode: "+String.valueOf(mode));
     }
 
     public class ViewHolderClass extends RecyclerView.ViewHolder {
@@ -99,7 +101,7 @@ public class ElementViewAdapter extends RecyclerView.Adapter<ElementViewAdapter.
     @Override
     public void onBindViewHolder(final ViewHolderClass holder, final int pos) {
         //ItemMode festlegen
-        if(mode != MODE_NEW && mode != MODE_NEW_INVISIBLE) {
+        if(mode == MODE_CLASSTEST_HOMEWORK_EVENTS) {
             if(MainActivity.all.get(pos) instanceof Classtest) holder.item_mode = MODE_CLASSTEST;
             if(MainActivity.all.get(pos) instanceof Homework) holder.item_mode = MODE_HOMEWORK;
             if(MainActivity.all.get(pos) instanceof Event) holder.item_mode = MODE_EVENT;

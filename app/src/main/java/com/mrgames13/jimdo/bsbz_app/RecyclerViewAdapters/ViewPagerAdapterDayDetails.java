@@ -8,6 +8,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -43,12 +44,11 @@ public class ViewPagerAdapterDayDetails extends FragmentPagerAdapter {
     }
 
     @Override
-    public Fragment getItem(int position) {
-        switch(position) {
-            case 0: return new ClasstestFragment();
-            case 1: return new HomeworkFragment();
-            case 2: return new EventFragment();
-        }
+    public Fragment getItem(int pos) {
+        Log.d("BSBZ-App", "Pos: "+String.valueOf(pos));
+        if(pos == 0) return new ClasstestFragment();
+        if(pos == 1) return new HomeworkFragment();
+        if(pos == 2) return new EventFragment();
         return null;
     }
 
@@ -59,6 +59,7 @@ public class ViewPagerAdapterDayDetails extends FragmentPagerAdapter {
 
     @Override
     public CharSequence getPageTitle(int position) {
+        Log.d("BSBZ-App", "Title"+tabTitles.get(position));
         return tabTitles.get(position);
     }
 
@@ -78,6 +79,7 @@ public class ViewPagerAdapterDayDetails extends FragmentPagerAdapter {
         @Nullable
         @Override
         public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+            Log.d("BSBZ-App", "ClasstestFragment");
             contentView = inflater.inflate(R.layout.day_details_classtests, null);
             //ClasstestRecyclerView anzeigen
             classtest_view = (RecyclerView) contentView.findViewById(R.id.day_details_recyclerview_classtests);
@@ -109,6 +111,7 @@ public class ViewPagerAdapterDayDetails extends FragmentPagerAdapter {
         @Nullable
         @Override
         public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+            Log.d("BSBZ-App", "HomeworkFragment");
             contentView = inflater.inflate(R.layout.day_details_homework, null);
             //ClasstestRecyclerView anzeigen
             homework_view = (RecyclerView) contentView.findViewById(R.id.day_details_recyclerview_homework);
@@ -140,6 +143,7 @@ public class ViewPagerAdapterDayDetails extends FragmentPagerAdapter {
         @Nullable
         @Override
         public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+            Log.d("BSBZ-App", "EventFragment");
             contentView = inflater.inflate(R.layout.day_details_events, null);
             //ClasstestRecyclerView anzeigen
             events_view = (RecyclerView) contentView.findViewById(R.id.day_details_recyclerview_events);
