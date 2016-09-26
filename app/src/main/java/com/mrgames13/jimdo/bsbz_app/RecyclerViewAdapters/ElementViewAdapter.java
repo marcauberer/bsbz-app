@@ -105,6 +105,12 @@ public class ElementViewAdapter extends RecyclerView.Adapter<ElementViewAdapter.
             if(MainActivity.all.get(pos) instanceof Classtest) holder.item_mode = MODE_CLASSTEST;
             if(MainActivity.all.get(pos) instanceof Homework) holder.item_mode = MODE_HOMEWORK;
             if(MainActivity.all.get(pos) instanceof Event) holder.item_mode = MODE_EVENT;
+        } else if(mode == MODE_CLASSTEST) {
+            holder.item_mode = MODE_CLASSTEST;
+        } else if(mode == MODE_HOMEWORK) {
+            holder.item_mode = MODE_HOMEWORK;
+        } else if(mode == MODE_EVENT) {
+            holder.item_mode = MODE_EVENT;
         }
         //Icon festlegen
         if(holder.item_mode == MODE_CLASSTEST) {

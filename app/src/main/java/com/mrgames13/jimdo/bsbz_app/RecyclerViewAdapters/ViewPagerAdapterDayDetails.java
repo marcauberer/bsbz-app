@@ -45,7 +45,6 @@ public class ViewPagerAdapterDayDetails extends FragmentPagerAdapter {
 
     @Override
     public Fragment getItem(int pos) {
-        Log.d("BSBZ-App", "Pos: "+String.valueOf(pos));
         if(pos == 0) return new ClasstestFragment();
         if(pos == 1) return new HomeworkFragment();
         if(pos == 2) return new EventFragment();
@@ -59,7 +58,6 @@ public class ViewPagerAdapterDayDetails extends FragmentPagerAdapter {
 
     @Override
     public CharSequence getPageTitle(int position) {
-        Log.d("BSBZ-App", "Title"+tabTitles.get(position));
         return tabTitles.get(position);
     }
 
@@ -79,8 +77,14 @@ public class ViewPagerAdapterDayDetails extends FragmentPagerAdapter {
         @Nullable
         @Override
         public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-            Log.d("BSBZ-App", "ClasstestFragment");
             contentView = inflater.inflate(R.layout.day_details_classtests, null);
+            return contentView;
+        }
+
+        @Override
+        public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+            super.onViewCreated(view, savedInstanceState);
+            Log.d("BSBZ-App", "ClasstestFragment");
             //ClasstestRecyclerView anzeigen
             classtest_view = (RecyclerView) contentView.findViewById(R.id.day_details_recyclerview_classtests);
             classtest_view_manager = new LinearLayoutManager(contentView.getContext());
@@ -88,12 +92,6 @@ public class ViewPagerAdapterDayDetails extends FragmentPagerAdapter {
             classtest_view_adapter = new ElementViewAdapter(contentView.getContext(), ElementViewAdapter.MODE_CLASSTEST);
             classtest_view.setAdapter(classtest_view_adapter);
             if(classtest_view_adapter.getItemCount() == 0) contentView.findViewById(R.id.no_data).setVisibility(View.VISIBLE);
-            return contentView;
-        }
-
-        @Override
-        public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-            super.onViewCreated(view, savedInstanceState);
         }
     }
 
@@ -111,21 +109,21 @@ public class ViewPagerAdapterDayDetails extends FragmentPagerAdapter {
         @Nullable
         @Override
         public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-            Log.d("BSBZ-App", "HomeworkFragment");
             contentView = inflater.inflate(R.layout.day_details_homework, null);
-            //ClasstestRecyclerView anzeigen
-            homework_view = (RecyclerView) contentView.findViewById(R.id.day_details_recyclerview_homework);
-            homework_view_manager = new LinearLayoutManager(contentView.getContext());
-            homework_view.setLayoutManager(homework_view_manager);
-            homework_view_adapter = new ElementViewAdapter(contentView.getContext(), ElementViewAdapter.MODE_HOMEWORK);
-            homework_view.setAdapter(homework_view_adapter);
-            if(homework_view_adapter.getItemCount() == 0) contentView.findViewById(R.id.no_data).setVisibility(View.VISIBLE);
             return contentView;
         }
 
         @Override
         public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
             super.onViewCreated(view, savedInstanceState);
+            Log.d("BSBZ-App", "HomeworkFragment");
+            //HomeworkRecyclerView anzeigen
+            homework_view = (RecyclerView) contentView.findViewById(R.id.day_details_recyclerview_homework);
+            homework_view_manager = new LinearLayoutManager(contentView.getContext());
+            homework_view.setLayoutManager(homework_view_manager);
+            homework_view_adapter = new ElementViewAdapter(contentView.getContext(), ElementViewAdapter.MODE_HOMEWORK);
+            homework_view.setAdapter(homework_view_adapter);
+            if(homework_view_adapter.getItemCount() == 0) contentView.findViewById(R.id.no_data).setVisibility(View.VISIBLE);
         }
     }
 
@@ -143,21 +141,21 @@ public class ViewPagerAdapterDayDetails extends FragmentPagerAdapter {
         @Nullable
         @Override
         public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-            Log.d("BSBZ-App", "EventFragment");
             contentView = inflater.inflate(R.layout.day_details_events, null);
-            //ClasstestRecyclerView anzeigen
-            events_view = (RecyclerView) contentView.findViewById(R.id.day_details_recyclerview_events);
-            events_view_manager = new LinearLayoutManager(contentView.getContext());
-            events_view.setLayoutManager(events_view_manager);
-            events_view_adapter = new ElementViewAdapter(contentView.getContext(), ElementViewAdapter.MODE_EVENT);
-            events_view.setAdapter(events_view_adapter);
-            if(events_view_adapter.getItemCount() == 0) contentView.findViewById(R.id.no_data).setVisibility(View.VISIBLE);
             return contentView;
         }
 
         @Override
         public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
             super.onViewCreated(view, savedInstanceState);
+            Log.d("BSBZ-App", "EventFragment");
+            //EventRecyclerView anzeigen
+            events_view = (RecyclerView) contentView.findViewById(R.id.day_details_recyclerview_events);
+            events_view_manager = new LinearLayoutManager(contentView.getContext());
+            events_view.setLayoutManager(events_view_manager);
+            events_view_adapter = new ElementViewAdapter(contentView.getContext(), ElementViewAdapter.MODE_EVENT);
+            events_view.setAdapter(events_view_adapter);
+            if(events_view_adapter.getItemCount() == 0) contentView.findViewById(R.id.no_data).setVisibility(View.VISIBLE);
         }
     }
 }
