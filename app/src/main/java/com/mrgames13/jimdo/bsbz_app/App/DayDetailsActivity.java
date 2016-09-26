@@ -7,15 +7,15 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.support.v4.app.FragmentTransaction;
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.ListFragment;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -25,10 +25,16 @@ import java.util.ArrayList;
 
 public class DayDetailsActivity extends AppCompatActivity {
 
+	//Konstanten
+
+    //Variablen als Objekte
+    private Toolbar toolbar;
+    private ViewPager viewpager;
+    private TabLayout tablayout;
+
 	//Variablen
 	public static String date1 = "";
-	public static String date2 = "";
-	Toolbar toolbar;
+    public static String date2 = "";
 	
 	@Override
 	public void onStart() {
@@ -80,23 +86,27 @@ public class DayDetailsActivity extends AppCompatActivity {
 		toolbar = (Toolbar) findViewById(R.id.toolbar_day_details);
 		setSupportActionBar(toolbar);
 
-		LinearLayout ll = (LinearLayout) findViewById(R.id.ll1);
-		if(MainActivity.AppTheme == 1) {
-			ll.setBackgroundColor(Color.BLACK);
-		}
-		
-		date1 = "";
-		date1 = getIntent().getStringExtra("Date").toString();
+        //ViewPager aufsetzen
+        viewpager = (ViewPager) findViewById(R.id.day_details_view_pager);
 
-		//Fragmente aufsetzen
-        KlassenArbeitenFragment f1 = new KlassenArbeitenFragment();
-        HausaufgabenFragment f2 = new HausaufgabenFragment();
-        TermineFragment f3 = new TermineFragment();
-        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-            ft.replace(R.id.klassenarbeiten_day_details_container, f1);
-            ft.replace(R.id.hausaufgaben_day_details_container, f2);
-            ft.replace(R.id.termine_day_details_container, f3);
-        ft.commit();
+        //TabLayout aufsetzen
+        tablayout = (TabLayout) findViewById(R.id.day_details_tab_layout);
+        tablayout.setTabGravity(TabLayout.GRAVITY_FILL);
+        tablayout.setupWithViewPager(viewpager);
+        tablayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {}
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {}
+        });
+
+		date1 = getIntent().getStringExtra("Date").toString();
 	}
 
 	@Override
