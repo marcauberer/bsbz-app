@@ -43,15 +43,14 @@ public class ElementViewAdapter extends RecyclerView.Adapter<ElementViewAdapter.
 
     //Variablen als Objekte
     private Context context;
-    private MainActivity mainActivity;
     private Resources res;
 
     //Variablen
     private String result;
     private int mode;
 
-    public ElementViewAdapter(MainActivity mainActivity, int mode) {
-        this.context = mainActivity;
+    public ElementViewAdapter(Context context, int mode) {
+        this.context = context;
         this.mode = mode;
         this.res = MainActivity.res;
     }
@@ -208,7 +207,7 @@ public class ElementViewAdapter extends RecyclerView.Adapter<ElementViewAdapter.
                         date = e.getDate();
                     }
                     //Activity starten und Daten übergeben
-                    Intent i = new Intent(mainActivity, NewElementActivity.class);
+                    Intent i = new Intent(context, NewElementActivity.class);
                     i.putExtra("old_title", subject);
                     i.putExtra("old_date", date);
                     i.putExtra("old_description", description);
@@ -244,7 +243,6 @@ public class ElementViewAdapter extends RecyclerView.Adapter<ElementViewAdapter.
                                             if(result.equals("Action Successful")) {
                                                 result = res.getString(R.string.action_successful);
                                                 context.startService(new Intent(context, SyncronisationService.class));
-                                                mainActivity.launchNewsFragment();
                                             } else {
                                                 result = res.getString(R.string.error_try_again);
                                             }
