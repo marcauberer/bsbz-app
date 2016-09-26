@@ -78,6 +78,9 @@ public class SettingsActivity extends PreferenceActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
+        //Resourcen initialisieren
+        res = getResources();
+
 		//Theme setzen
 		if(MainActivity.AppTheme == 0) {
 			setTheme(R.style.FirstTheme);
@@ -88,12 +91,9 @@ public class SettingsActivity extends PreferenceActivity {
 		} else if(MainActivity.AppTheme == 1) {
 			setTheme(R.style.SecondTheme);
 			View view = this.getWindow().getDecorView();
-		    view.setBackgroundColor(Color.BLACK);
-		    if (Build.VERSION.SDK_INT >= 16) this.getListView().setBackgroundColor(Color.BLACK);
+		    view.setBackgroundColor(res.getColor(R.color.background_gray));
+		    if (Build.VERSION.SDK_INT >= 16) this.getListView().setBackgroundColor(res.getColor(R.color.background_gray));
 		}
-
-		//Resourcen initialisieren
-		res = getResources();
 
 		//SharedPreferences initialisieren
 		prefs = PreferenceManager.getDefaultSharedPreferences(SettingsActivity.this);

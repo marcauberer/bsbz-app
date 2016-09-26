@@ -36,7 +36,6 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ProgressBar;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.TextView.OnEditorActionListener;
 import android.widget.Toast;
@@ -160,12 +159,6 @@ public class LogInActivity extends AppCompatActivity {
         //Toolbar aufsetzen
         toolbar = (Toolbar) findViewById(R.id.toolbar_login);
 		setSupportActionBar(toolbar);
-
-		//Schwarzer Hintergrund hinzufügen
-		RelativeLayout rl = (RelativeLayout) findViewById(R.id.rl1);
-		if(theme.equals("1")) {
-			rl.setBackgroundColor(Color.BLACK);
-		}
 		
 		try { CURRENTVERSION = getPackageManager().getPackageInfo(getPackageName(), 0).versionName; } catch (NameNotFoundException e1) {}
 		

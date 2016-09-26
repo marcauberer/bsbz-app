@@ -13,7 +13,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Window;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 
 import com.mrgames13.jimdo.bsbz_app.R;
 
@@ -73,10 +72,8 @@ public class SplashActivity extends AppCompatActivity {
 		toolbar = (Toolbar) findViewById(R.id.toolbar_splash);
 		setSupportActionBar(toolbar);
 
-		RelativeLayout rl = (RelativeLayout) findViewById(R.id.rl3);
 		ImageView iv = (ImageView) findViewById(R.id.BSBZ_Logo);
 		if(MainActivity.AppTheme == 1) {
-			rl.setBackgroundColor(Color.BLACK);
 			iv.setImageResource(R.drawable.bsbz_logo_gross_mrgames_black);
 		}
 		

@@ -215,6 +215,7 @@ public class MainActivity extends AppCompatActivity {
         drawer_layout_gesamt.setDrawerListener(drawer_toggle);
         //NavigationView finden
         navView = (NavigationView) findViewById(R.id.navView);
+
         navView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(MenuItem menuItem) {

@@ -14,7 +14,6 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.Window;
-import android.widget.RelativeLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -83,11 +82,6 @@ public class TimeTableActivity extends AppCompatActivity {
 		//Toolbar aufsetzen
 		toolbar = (Toolbar) findViewById(R.id.toolbar_timetable);
 		setSupportActionBar(toolbar);
-
-		RelativeLayout rl = (RelativeLayout) findViewById(R.id.rl4);
-		if(MainActivity.AppTheme == 1) {
-			rl.setBackgroundColor(Color.BLACK);
-		}
 
         //Resourcen initialisieren
         res = getResources();
