@@ -20,6 +20,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.mrgames13.jimdo.bsbz_app.R;
+import com.mrgames13.jimdo.bsbz_app.RecyclerViewAdapters.ViewPagerAdapterDayDetails;
 
 import java.util.ArrayList;
 
@@ -30,6 +31,7 @@ public class DayDetailsActivity extends AppCompatActivity {
     //Variablen als Objekte
     private Toolbar toolbar;
     private ViewPager viewpager;
+    private ViewPagerAdapterDayDetails viewpager_adapter;
     private TabLayout tablayout;
 
 	//Variablen
@@ -87,7 +89,9 @@ public class DayDetailsActivity extends AppCompatActivity {
 		setSupportActionBar(toolbar);
 
         //ViewPager aufsetzen
+        viewpager_adapter = new ViewPagerAdapterDayDetails(getSupportFragmentManager(), DayDetailsActivity.this);
         viewpager = (ViewPager) findViewById(R.id.day_details_view_pager);
+        viewpager.setAdapter(viewpager_adapter);
 
         //TabLayout aufsetzen
         tablayout = (TabLayout) findViewById(R.id.day_details_tab_layout);
@@ -96,7 +100,7 @@ public class DayDetailsActivity extends AppCompatActivity {
         tablayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
-
+                viewpager.setCurrentItem(tab.getPosition());
             }
 
             @Override

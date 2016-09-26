@@ -36,6 +36,11 @@ public class ViewPagerAdapterDayDetails extends FragmentPagerAdapter {
 
     @Override
     public Fragment getItem(int position) {
+        switch(position) {
+            case 0: return new ClasstestFragment();
+            case 1: return new HomeworkFragment();
+            case 2: return new EventFragment();
+        }
         return null;
     }
 
@@ -52,10 +57,20 @@ public class ViewPagerAdapterDayDetails extends FragmentPagerAdapter {
     //-------------------------------------------Fragmente------------------------------------------
 
     public static class ClasstestFragment extends Fragment {
+        //Konstanten
+
+        //Variablen als Objekte
+        private View contentView;
+
+        //Variablen
+
         @Nullable
         @Override
         public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-            return super.onCreateView(inflater, container, savedInstanceState);
+            contentView = inflater.inflate(R.layout.day_details_classtests, null);
+
+
+            return contentView;
         }
 
         @Override
@@ -65,10 +80,20 @@ public class ViewPagerAdapterDayDetails extends FragmentPagerAdapter {
     }
 
     public static class HomeworkFragment extends Fragment {
+        //Konstanten
+
+        //Variablen als Objekte
+        private View contentView;
+
+        //Variablen
+
         @Nullable
         @Override
         public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-            return super.onCreateView(inflater, container, savedInstanceState);
+            contentView = inflater.inflate(R.layout.day_details_homework, null);
+
+
+            return contentView;
         }
 
         @Override
@@ -78,10 +103,20 @@ public class ViewPagerAdapterDayDetails extends FragmentPagerAdapter {
     }
 
     public static class EventFragment extends Fragment {
+        //Konstanten
+
+        //Variablen als Objekte
+        private View contentView;
+
+        //Variablen
+
         @Nullable
         @Override
         public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-            return super.onCreateView(inflater, container, savedInstanceState);
+            contentView = inflater.inflate(R.layout.day_details_events, null);
+
+
+            return contentView;
         }
 
         @Override
