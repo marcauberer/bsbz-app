@@ -9,7 +9,6 @@ import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -54,8 +53,6 @@ public class ElementViewAdapter extends RecyclerView.Adapter<ElementViewAdapter.
         this.context = context;
         this.mode = mode;
         this.res = MainActivity.res;
-
-        Log.d("BSBZ-App", "Mode: "+String.valueOf(mode));
     }
 
     public class ViewHolderClass extends RecyclerView.ViewHolder {
