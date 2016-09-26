@@ -574,8 +574,6 @@ public class MainActivity extends AppCompatActivity {
         return Color.HSVToColor(hsv);
     }
 
-    //------------------------------------------------------------------------ Profil-Fragment ---------------------------------------------------------------------
-
     public void launchProfileFragment() {
         //Container leeren
         container.removeAllViews();
@@ -765,8 +763,6 @@ public class MainActivity extends AppCompatActivity {
         gallery_view_foldernames = new ArrayList<>();
         gallery_view_filenames = new ArrayList<>();
     }
-
-    //---------------------------------------------------------------------- Heute-Fragment ------------------------------------------------------------------------
 
     public void launchTodayFragment() {
         //Container leeren

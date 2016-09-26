@@ -4,9 +4,15 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/day_details_recyclerview_homework"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
     <TextView
+        android:id="@+id/no_data"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:gravity="center"
-        android:text="Fragment Hausaufgaben"/>
+        android:text="@string/no_data_for_this_week"/>
+
 </RelativeLayout>
