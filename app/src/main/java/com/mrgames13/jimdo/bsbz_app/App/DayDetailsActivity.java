@@ -1,17 +1,24 @@
 package com.mrgames13.jimdo.bsbz_app.App;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.SwitchCompat;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.CompoundButton;
 
 import com.mrgames13.jimdo.bsbz_app.R;
 import com.mrgames13.jimdo.bsbz_app.RecyclerViewAdapters.ViewPagerAdapterDayDetails;
@@ -25,6 +32,7 @@ public class DayDetailsActivity extends AppCompatActivity {
     private ViewPager viewpager;
     private ViewPagerAdapterDayDetails viewpager_adapter;
     private TabLayout tablayout;
+    private Resources res;
 
 	//Variablen
 	public static String current_date = "";
@@ -77,6 +85,9 @@ public class DayDetailsActivity extends AppCompatActivity {
 		toolbar = (Toolbar) findViewById(R.id.toolbar_day_details);
 		setSupportActionBar(toolbar);
 
+        //Resourcen initialisieren
+        res = getResources();
+
         //Datum ermitteln
         current_date = getIntent().getStringExtra("Date").toString();
 
@@ -100,6 +111,80 @@ public class DayDetailsActivity extends AppCompatActivity {
 
             @Override
             public void onTabReselected(TabLayout.Tab tab) {}
+        });
+
+        //FloatingAction Button
+        FloatingActionButton new_element = (FloatingActionButton) findViewById(R.id.day_details_new_element);
+        new_element.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final AlertDialog d = new AlertDialog.Builder(DayDetailsActivity.this)
+                        .setTitle(res.getString(R.string.create_))
+                        .setView(R.layout.dialogview_chooser_element)
+                        .setNegativeButton(res.getString(R.string.cancel), new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                            }
+                        })
+                        .setPositiveButton(res.getString(R.string.next), new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                SwitchCompat sw1 = (SwitchCompat) ((AlertDialog) dialog).findViewById(R.id.chooser_element_classtest);
+                                SwitchCompat sw2 = (SwitchCompat) ((AlertDialog) dialog).findViewById(R.id.chooser_element_homework);
+                                SwitchCompat sw3 = (SwitchCompat) ((AlertDialog) dialog).findViewById(R.id.chooser_element_event);
+                                if(sw1.isChecked()) {
+                                    Intent i = new Intent(DayDetailsActivity.this, NewEditElementActivity.class);
+                                    i.putExtra("mode", NewEditElementActivity.MODE_CREATE_CLASSTEST);
+                                    startActivity(i);
+                                } else if(sw2.isChecked()) {
+                                    Intent i = new Intent(DayDetailsActivity.this, NewEditElementActivity.class);
+                                    i.putExtra("mode", NewEditElementActivity.MODE_CREATE_HOMEWORK);
+                                    startActivity(i);
+                                } else if(sw3.isChecked()) {
+                                    Intent i = new Intent(DayDetailsActivity.this, NewEditElementActivity.class);
+                                    i.putExtra("mode", NewEditElementActivity.MODE_CREATE_EVENT);
+                                    startActivity(i);
+                                }
+                            }
+                        })
+                        .create();
+                d.show();
+
+                final SwitchCompat sw1 = (SwitchCompat) d.findViewById(R.id.chooser_element_classtest);
+                final SwitchCompat sw2 = (SwitchCompat) d.findViewById(R.id.chooser_element_homework);
+                final SwitchCompat sw3 = (SwitchCompat) d.findViewById(R.id.chooser_element_event);
+                sw1.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                    @Override
+                    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                        if(isChecked) {
+                            sw1.setChecked(isChecked);
+                            sw2.setChecked(false);
+                            sw3.setChecked(false);
+                        }
+                    }
+                });
+                sw2.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                    @Override
+                    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                        if(isChecked) {
+                            sw1.setChecked(false);
+                            sw2.setChecked(isChecked);
+                            sw3.setChecked(false);
+                        }
+                    }
+                });
+                sw3.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                    @Override
+                    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                        if(isChecked) {
+                            sw1.setChecked(false);
+                            sw2.setChecked(false);
+                            sw3.setChecked(isChecked);
+                        }
+                    }
+                });
+            }
         });
 
 		current_date = getIntent().getStringExtra("Date").toString();
