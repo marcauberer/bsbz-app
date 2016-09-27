@@ -141,7 +141,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".App.NewElementActivity"
+            android:name=".App.NewEditElementActivity"
             android:windowSoftInputMode="adjustPan" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>

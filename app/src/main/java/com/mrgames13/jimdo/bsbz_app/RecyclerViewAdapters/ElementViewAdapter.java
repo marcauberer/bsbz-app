@@ -22,7 +22,7 @@ import android.widget.Toast;
 
 import com.mrgames13.jimdo.bsbz_app.App.EditNewActivity;
 import com.mrgames13.jimdo.bsbz_app.App.MainActivity;
-import com.mrgames13.jimdo.bsbz_app.App.NewElementActivity;
+import com.mrgames13.jimdo.bsbz_app.App.NewEditElementActivity;
 import com.mrgames13.jimdo.bsbz_app.ComponentClasses.Classtest;
 import com.mrgames13.jimdo.bsbz_app.ComponentClasses.Event;
 import com.mrgames13.jimdo.bsbz_app.ComponentClasses.Homework;
@@ -192,36 +192,63 @@ public class ElementViewAdapter extends RecyclerView.Adapter<ElementViewAdapter.
                     String writer = "";
                     String receiver = "";
                     String date = "";
-                    if(holder.item_mode == MODE_CLASSTEST) {
-                        Classtest c = MainActivity.classtests.get(pos);
-                        subject = c.getSubject();
-                        description = c.getDescription();
-                        writer = c.getWriter();
-                        receiver = c.getReceiver();
-                        date = c.getDate();
-                    } else if(holder.item_mode == MODE_HOMEWORK) {
-                        Homework h = MainActivity.homeworks.get(pos);
-                        subject = h.getSubject();
-                        description = h.getDescription();
-                        writer = h.getWriter();
-                        receiver = h.getReceiver();
-                        date = h.getDate();
-                    } else if(holder.item_mode == MODE_EVENT) {
-                        Event e = MainActivity.events.get(pos);
-                        subject = e.getSubject();
-                        description = e.getDescription();
-                        writer = e.getWriter();
-                        receiver = e.getReceiver();
-                        date = e.getDate();
+                    if(mode == MODE_CLASSTEST_HOMEWORK_EVENTS) {
+                        if(holder.item_mode == MODE_CLASSTEST) {
+                            Classtest c = (Classtest) MainActivity.all.get(pos);
+                            subject = c.getSubject();
+                            description = c.getDescription();
+                            writer = c.getWriter();
+                            receiver = c.getReceiver();
+                            date = c.getDate();
+                        } else if(holder.item_mode == MODE_HOMEWORK) {
+                            Homework h = (Homework) MainActivity.all.get(pos);
+                            subject = h.getSubject();
+                            description = h.getDescription();
+                            writer = h.getWriter();
+                            receiver = h.getReceiver();
+                            date = h.getDate();
+                        } else if(holder.item_mode == MODE_EVENT) {
+                            Event e = (Event) MainActivity.all.get(pos);
+                            subject = e.getSubject();
+                            description = e.getDescription();
+                            writer = e.getWriter();
+                            receiver = e.getReceiver();
+                            date = e.getDate();
+                        }
+                    } else {
+                        if(holder.item_mode == MODE_CLASSTEST) {
+                            Classtest c = MainActivity.classtests.get(pos);
+                            subject = c.getSubject();
+                            description = c.getDescription();
+                            writer = c.getWriter();
+                            receiver = c.getReceiver();
+                            date = c.getDate();
+                        } else if(holder.item_mode == MODE_HOMEWORK) {
+                            Homework h = MainActivity.homeworks.get(pos);
+                            subject = h.getSubject();
+                            description = h.getDescription();
+                            writer = h.getWriter();
+                            receiver = h.getReceiver();
+                            date = h.getDate();
+                        } else if(holder.item_mode == MODE_EVENT) {
+                            Event e = MainActivity.events.get(pos);
+                            subject = e.getSubject();
+                            description = e.getDescription();
+                            writer = e.getWriter();
+                            receiver = e.getReceiver();
+                            date = e.getDate();
+                        }
                     }
                     //Activity starten und Daten übergeben
-                    Intent i = new Intent(context, NewElementActivity.class);
+                    Intent i = new Intent(context, NewEditElementActivity.class);
                     i.putExtra("old_title", subject);
                     i.putExtra("old_date", date);
                     i.putExtra("old_description", description);
                     i.putExtra("old_writer", writer);
                     i.putExtra("old_receiver", receiver);
-                    i.putExtra("mode", mode);
+                    if(holder.item_mode == MODE_CLASSTEST) i.putExtra("mode", NewEditElementActivity.MODE_EDIT_CLASSTEST);
+                    if(holder.item_mode == MODE_HOMEWORK) i.putExtra("mode", NewEditElementActivity.MODE_EDIT_HOMEWORK);
+                    if(holder.item_mode == MODE_EVENT) i.putExtra("mode", NewEditElementActivity.MODE_EDIT_EVENT);
                     context.startActivity(i);
                 }
             }

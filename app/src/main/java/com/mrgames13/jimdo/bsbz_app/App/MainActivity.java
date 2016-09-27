@@ -1650,16 +1650,16 @@ public class MainActivity extends AppCompatActivity {
                                     SwitchCompat sw2 = (SwitchCompat) ((AlertDialog) dialog).findViewById(R.id.chooser_element_homework);
                                     SwitchCompat sw3 = (SwitchCompat) ((AlertDialog) dialog).findViewById(R.id.chooser_element_event);
                                     if(sw1.isChecked()) {
-                                        Intent i = new Intent(MainActivity.this, NewElementActivity.class);
-                                        i.putExtra("mode", NewElementActivity.MODE_CREATE_CLASSTEST);
+                                        Intent i = new Intent(MainActivity.this, NewEditElementActivity.class);
+                                        i.putExtra("mode", NewEditElementActivity.MODE_CREATE_CLASSTEST);
                                         startActivity(i);
                                     } else if(sw2.isChecked()) {
-                                        Intent i = new Intent(MainActivity.this, NewElementActivity.class);
-                                        i.putExtra("mode", NewElementActivity.MODE_CREATE_HOMEWORK);
+                                        Intent i = new Intent(MainActivity.this, NewEditElementActivity.class);
+                                        i.putExtra("mode", NewEditElementActivity.MODE_CREATE_HOMEWORK);
                                         startActivity(i);
                                     } else if(sw3.isChecked()) {
-                                        Intent i = new Intent(MainActivity.this, NewElementActivity.class);
-                                        i.putExtra("mode", NewElementActivity.MODE_CREATE_EVENT);
+                                        Intent i = new Intent(MainActivity.this, NewEditElementActivity.class);
+                                        i.putExtra("mode", NewEditElementActivity.MODE_CREATE_EVENT);
                                         startActivity(i);
                                     }
                                 }
@@ -2681,7 +2681,7 @@ public class MainActivity extends AppCompatActivity {
                         String item_date = "No Data";
                         String item_receiver = "No Data";
                         //Klassenarbeiten filtern
-                        int mode = NewElementActivity.MODE_EDIT_CLASSTEST;
+                        int mode = NewEditElementActivity.MODE_EDIT_CLASSTEST;
                         for(int i = 0; i < 101; i++) {
                             String news = prefs.getString("Classtests_"+Integer.toString(i), "-");
                             if(!news.equals("-")) {
@@ -2697,7 +2697,7 @@ public class MainActivity extends AppCompatActivity {
                         }
                         //Hausaufgaben filtern
                         if(!item_text.equals(item_date + ": " + item_subject)) {
-                            mode = NewElementActivity.MODE_EDIT_HOMEWORK;
+                            mode = NewEditElementActivity.MODE_EDIT_HOMEWORK;
                             for(int i = 0; i < 101; i++) {
                                 String news = prefs.getString("Homeworks_"+Integer.toString(i), "-");
                                 if(!news.equals("-")) {
@@ -2714,7 +2714,7 @@ public class MainActivity extends AppCompatActivity {
                         }
                         //Termine filtern
                         if(!item_text.equals(item_date + ": " + item_subject)) {
-                            mode = NewElementActivity.MODE_EDIT_EVENT;
+                            mode = NewEditElementActivity.MODE_EDIT_EVENT;
                             for(int i = 0; i < 101; i++) {
                                 String news = prefs.getString("Events_"+Integer.toString(i), "-");
                                 if(!news.equals("-")) {
@@ -2731,7 +2731,7 @@ public class MainActivity extends AppCompatActivity {
                         }
 
                         //Activity starten und Daten übergeben
-                        Intent i = new Intent(getActivity(), NewElementActivity.class);
+                        Intent i = new Intent(getActivity(), NewEditElementActivity.class);
                         i.putExtra("old_title", item_subject);
                         i.putExtra("old_date", item_date);
                         i.putExtra("old_description", item_description);

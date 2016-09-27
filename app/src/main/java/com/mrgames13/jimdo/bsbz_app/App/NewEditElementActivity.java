@@ -39,7 +39,7 @@ import com.mrgames13.jimdo.bsbz_app.Tools.ServerMessagingUtils;
 import java.net.URLEncoder;
 import java.util.Calendar;
 
-public class NewElementActivity extends AppCompatActivity {
+public class NewEditElementActivity extends AppCompatActivity {
     //Konstanten
     public static final int MODE_CREATE_CLASSTEST = 1;
     public static final int MODE_CREATE_HOMEWORK = 2;
@@ -121,7 +121,7 @@ public class NewElementActivity extends AppCompatActivity {
         calendar = Calendar.getInstance();
 
         //SharedPreferences initialisieren
-        prefs = PreferenceManager.getDefaultSharedPreferences(NewElementActivity.this);
+        prefs = PreferenceManager.getDefaultSharedPreferences(NewEditElementActivity.this);
 
         //ServerMessagingUtils initialisieren
         cm = (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE);
@@ -179,9 +179,9 @@ public class NewElementActivity extends AppCompatActivity {
                 public void onClick(View v) {
                     AlertDialog.Builder alert;
                     if(MainActivity.AppTheme == 0) {
-                        alert = new AlertDialog.Builder(NewElementActivity.this, R.style.FirstTheme_Dialog);
+                        alert = new AlertDialog.Builder(NewEditElementActivity.this, R.style.FirstTheme_Dialog);
                     } else {
-                        alert = new AlertDialog.Builder(NewElementActivity.this, R.style.SecondTheme_Dialog);
+                        alert = new AlertDialog.Builder(NewEditElementActivity.this, R.style.SecondTheme_Dialog);
                     }
 
                     LayoutInflater inflater = getLayoutInflater();
@@ -324,7 +324,7 @@ public class NewElementActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if(MainActivity.AppTheme == 0) {
-                    datePickerDialog = new DatePickerDialog(NewElementActivity.this, R.style.FirstTheme_Dialog, new DatePickerDialog.OnDateSetListener() {
+                    datePickerDialog = new DatePickerDialog(NewEditElementActivity.this, R.style.FirstTheme_Dialog, new DatePickerDialog.OnDateSetListener() {
                         @Override
                         public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
                             //Datum formatieren
@@ -339,7 +339,7 @@ public class NewElementActivity extends AppCompatActivity {
                     }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
                     datePickerDialog.show();
                 } else {
-                    datePickerDialog = new DatePickerDialog(NewElementActivity.this, R.style.SecondTheme_Dialog, new DatePickerDialog.OnDateSetListener() {
+                    datePickerDialog = new DatePickerDialog(NewEditElementActivity.this, R.style.SecondTheme_Dialog, new DatePickerDialog.OnDateSetListener() {
                         @Override
                         public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
                             //Datum formatieren
@@ -368,7 +368,7 @@ public class NewElementActivity extends AppCompatActivity {
                             @Override
                             public void run() {
                                 //ProgressDialog anzeigen
-                                pd = new ProgressDialog(NewElementActivity.this);
+                                pd = new ProgressDialog(NewEditElementActivity.this);
                                 pd.setTitle(res.getString(R.string.please_wait_));
                                 if(mode == MODE_CREATE_CLASSTEST)pd.setMessage(res.getString(R.string.classtest_creating_));
                                 if(mode == MODE_CREATE_HOMEWORK)pd.setMessage(res.getString(R.string.homework_creating_));
@@ -399,11 +399,11 @@ public class NewElementActivity extends AppCompatActivity {
                                 //Je nach Result handeln
                                 if(result) {
                                     pd.dismiss();
-                                    startService(new Intent(NewElementActivity.this, SyncronisationService.class));
+                                    startService(new Intent(NewEditElementActivity.this, SyncronisationService.class));
                                     finish();
                                 } else {
                                     pd.dismiss();
-                                    Toast.makeText(NewElementActivity.this, res.getString(R.string.error_occured_try_again), Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(NewEditElementActivity.this, res.getString(R.string.error_occured_try_again), Toast.LENGTH_SHORT).show();
                                 }
                             }
                         });
@@ -418,7 +418,7 @@ public class NewElementActivity extends AppCompatActivity {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
             if (!pressedOnce) {
                 pressedOnce = true;
-                Toast.makeText(NewElementActivity.this, R.string.press_again_to_go_back_delete_entry, Toast.LENGTH_SHORT).show();
+                Toast.makeText(NewEditElementActivity.this, R.string.press_again_to_go_back_delete_entry, Toast.LENGTH_SHORT).show();
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
@@ -449,7 +449,7 @@ public class NewElementActivity extends AppCompatActivity {
         } else if(id == android.R.id.home) {
             if (!pressedOnce) {
                 pressedOnce = true;
-                Toast.makeText(NewElementActivity.this, R.string.press_again_to_go_back_delete_entry, Toast.LENGTH_SHORT).show();
+                Toast.makeText(NewEditElementActivity.this, R.string.press_again_to_go_back_delete_entry, Toast.LENGTH_SHORT).show();
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
