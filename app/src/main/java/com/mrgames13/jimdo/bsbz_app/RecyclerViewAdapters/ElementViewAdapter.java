@@ -9,7 +9,6 @@ import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -54,7 +53,6 @@ public class ElementViewAdapter extends RecyclerView.Adapter<ElementViewAdapter.
         this.context = context;
         this.mode = mode;
         this.res = MainActivity.res;
-        Log.d("BSBZ-App", "Mode: "+String.valueOf(mode));
     }
 
     public class ViewHolderClass extends RecyclerView.ViewHolder {
@@ -274,7 +272,33 @@ public class ElementViewAdapter extends RecyclerView.Adapter<ElementViewAdapter.
                                     public void run() {
                                         try{
                                             String username = MainActivity.prefs.getString("Name", res.getString(R.string.guest));
-                                            result = MainActivity.serverMessagingUtils.sendRequest(null, "name="+ URLEncoder.encode(username, "UTF-8")+"&command=deletenew&subject="+URLEncoder.encode(MainActivity.news.get(pos).getSubject().trim(), "UTF-8"));
+                                            if(holder.item_mode == MODE_CLASSTEST) {
+                                                Classtest c;
+                                                if(mode == MODE_CLASSTEST_HOMEWORK_EVENTS) {
+                                                    c = (Classtest) MainActivity.all.get(pos);
+                                                } else {
+                                                    c = MainActivity.classtests.get(pos);
+                                                }
+                                                result = MainActivity.serverMessagingUtils.sendRequest(null, "name="+ URLEncoder.encode(username, "UTF-8")+"&command=deleteclasstest&subject="+URLEncoder.encode(c.getSubject().trim(), "UTF-8"));
+                                            } else if(holder.item_mode == MODE_HOMEWORK) {
+                                                Homework h;
+                                                if(mode == MODE_CLASSTEST_HOMEWORK_EVENTS) {
+                                                    h = (Homework) MainActivity.all.get(pos);
+                                                } else {
+                                                    h = MainActivity.homeworks.get(pos);
+                                                }
+                                                result = MainActivity.serverMessagingUtils.sendRequest(null, "name="+ URLEncoder.encode(username, "UTF-8")+"&command=deletehomework&subject="+URLEncoder.encode(h.getSubject().trim(), "UTF-8"));
+                                            } else if(holder.item_mode == MODE_EVENT) {
+                                                Event e;
+                                                if(mode == MODE_CLASSTEST_HOMEWORK_EVENTS) {
+                                                    e = (Event) MainActivity.all.get(pos);
+                                                } else {
+                                                    e = MainActivity.events.get(pos);
+                                                }
+                                                result = MainActivity.serverMessagingUtils.sendRequest(null, "name="+ URLEncoder.encode(username, "UTF-8")+"&command=deleteevent&subject="+URLEncoder.encode(e.getSubject().trim(), "UTF-8"));
+                                            } else if(holder.item_mode == MODE_NEW) {
+                                                result = MainActivity.serverMessagingUtils.sendRequest(null, "name="+ URLEncoder.encode(username, "UTF-8")+"&command=deletenew&subject="+URLEncoder.encode(MainActivity.news.get(pos).getSubject().trim(), "UTF-8"));
+                                            }
                                             if(result.equals("Action Successful")) {
                                                 result = res.getString(R.string.action_successful);
                                                 context.startService(new Intent(context, SyncronisationService.class));
