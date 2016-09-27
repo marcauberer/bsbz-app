@@ -51,12 +51,13 @@ public class DayDetailsActivity extends AppCompatActivity {
 			color = "#00007f";
 		}
         toolbar.setBackgroundDrawable(new ColorDrawable(Color.parseColor(color)));
+		tablayout.setBackgroundDrawable(new ColorDrawable(Color.parseColor(color)));
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 		getSupportActionBar().setDisplayShowHomeEnabled(true);
 
 		// ActionBar Titel festlegen
 		String day = getIntent().getStringExtra("Day").toString();
-		getSupportActionBar().setTitle(day+" der "+ current_date);
+		getSupportActionBar().setTitle(day + " der " + current_date);
 	}
 
 	@Override
