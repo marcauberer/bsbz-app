@@ -320,13 +320,13 @@ public class LogInActivity extends AppCompatActivity {
         //ProgressBar sichtbar machen
         pb = (ProgressBar) findViewById(R.id.login_in_progress);
         pb.setVisibility(View.VISIBLE);
-        //Komponenten unsichtbar machen
-        enableComponents(false);
         //Inhalt der Variablen in die Komponenten übertragen
         EditText et_username = (EditText) findViewById(R.id.LogIn_User_Name);
         EditText et_password = (EditText) findViewById(R.id.LogIn_Password);
         et_username.setText(username);
         et_password.setText(password);
+        //Komponenten unveränderbar machen
+        enableComponents(false);
 
         if(serverMessagingUtils.isInternetAvailable()) {
             new Thread(new Runnable() {
