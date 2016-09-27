@@ -44,6 +44,7 @@ public class ElementViewAdapter extends RecyclerView.Adapter<ElementViewAdapter.
     //Variablen als Objekte
     private Context context;
     private Resources res;
+    private Handler h;
 
     //Variablen
     private String result;
@@ -53,6 +54,7 @@ public class ElementViewAdapter extends RecyclerView.Adapter<ElementViewAdapter.
         this.context = context;
         this.mode = mode;
         this.res = MainActivity.res;
+        this.h = new Handler();
     }
 
     public class ViewHolderClass extends RecyclerView.ViewHolder {
@@ -279,7 +281,7 @@ public class ElementViewAdapter extends RecyclerView.Adapter<ElementViewAdapter.
                                                 } else {
                                                     c = MainActivity.classtests.get(pos);
                                                 }
-                                                result = MainActivity.serverMessagingUtils.sendRequest(null, "name="+ URLEncoder.encode(username, "UTF-8")+"&command=deleteclasstest&subject="+URLEncoder.encode(c.getSubject().trim(), "UTF-8"));
+                                                result = MainActivity.serverMessagingUtils.sendRequest(null, "name="+ URLEncoder.encode(username, "UTF-8")+"&command=deleteclasstest&title="+URLEncoder.encode(c.getSubject().trim(), "UTF-8"));
                                             } else if(holder.item_mode == MODE_HOMEWORK) {
                                                 Homework h;
                                                 if(mode == MODE_CLASSTEST_HOMEWORK_EVENTS) {
@@ -287,7 +289,7 @@ public class ElementViewAdapter extends RecyclerView.Adapter<ElementViewAdapter.
                                                 } else {
                                                     h = MainActivity.homeworks.get(pos);
                                                 }
-                                                result = MainActivity.serverMessagingUtils.sendRequest(null, "name="+ URLEncoder.encode(username, "UTF-8")+"&command=deletehomework&subject="+URLEncoder.encode(h.getSubject().trim(), "UTF-8"));
+                                                result = MainActivity.serverMessagingUtils.sendRequest(null, "name="+ URLEncoder.encode(username, "UTF-8")+"&command=deletehomework&title="+URLEncoder.encode(h.getSubject().trim(), "UTF-8"));
                                             } else if(holder.item_mode == MODE_EVENT) {
                                                 Event e;
                                                 if(mode == MODE_CLASSTEST_HOMEWORK_EVENTS) {
@@ -295,7 +297,7 @@ public class ElementViewAdapter extends RecyclerView.Adapter<ElementViewAdapter.
                                                 } else {
                                                     e = MainActivity.events.get(pos);
                                                 }
-                                                result = MainActivity.serverMessagingUtils.sendRequest(null, "name="+ URLEncoder.encode(username, "UTF-8")+"&command=deleteevent&subject="+URLEncoder.encode(e.getSubject().trim(), "UTF-8"));
+                                                result = MainActivity.serverMessagingUtils.sendRequest(null, "name="+ URLEncoder.encode(username, "UTF-8")+"&command=deleteevent&title="+URLEncoder.encode(e.getSubject().trim(), "UTF-8"));
                                             } else if(holder.item_mode == MODE_NEW) {
                                                 result = MainActivity.serverMessagingUtils.sendRequest(null, "name="+ URLEncoder.encode(username, "UTF-8")+"&command=deletenew&subject="+URLEncoder.encode(MainActivity.news.get(pos).getSubject().trim(), "UTF-8"));
                                             }
@@ -305,13 +307,15 @@ public class ElementViewAdapter extends RecyclerView.Adapter<ElementViewAdapter.
                                             } else {
                                                 result = res.getString(R.string.error_try_again);
                                             }
-                                            new Handler().post(new Runnable() {
+                                            h.post(new Runnable() {
                                                 @Override
                                                 public void run() {
                                                     Toast.makeText(context, result, Toast.LENGTH_SHORT).show();
                                                 }
                                             });
-                                        } catch(Exception e) {}
+                                        } catch(Exception e) {
+                                            e.printStackTrace();
+                                        }
                                     }
                                 }).start();
                             }
