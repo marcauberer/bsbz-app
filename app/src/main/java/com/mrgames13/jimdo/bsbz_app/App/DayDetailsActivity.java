@@ -154,6 +154,12 @@ public class DayDetailsActivity extends AppCompatActivity {
                 final SwitchCompat sw1 = (SwitchCompat) d.findViewById(R.id.chooser_element_classtest);
                 final SwitchCompat sw2 = (SwitchCompat) d.findViewById(R.id.chooser_element_homework);
                 final SwitchCompat sw3 = (SwitchCompat) d.findViewById(R.id.chooser_element_event);
+                //Swiches voreinstellen
+                int state = tablayout.getSelectedTabPosition();
+                sw1.setChecked(state == 0);
+                sw2.setChecked(state == 1);
+                sw3.setChecked(state == 2);
+                //Auf Änderungen reagieren
                 sw1.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                     @Override
                     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
