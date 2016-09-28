@@ -795,6 +795,81 @@ public class MainActivity extends AppCompatActivity {
 
         if(today_view_adapter.getItemCount() == 0) findViewById(R.id.no_data).setVisibility(View.VISIBLE);
 
+        //FloatingActionButton
+        FloatingActionButton new_element = (FloatingActionButton) findViewById(R.id.today_new_element);
+        new_element.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final AlertDialog d = new AlertDialog.Builder(MainActivity.this)
+                        .setTitle(res.getString(R.string.create_))
+                        .setView(R.layout.dialogview_chooser_element)
+                        .setNegativeButton(res.getString(R.string.cancel), new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                            }
+                        })
+                        .setPositiveButton(res.getString(R.string.next), new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                SwitchCompat sw1 = (SwitchCompat) ((AlertDialog) dialog).findViewById(R.id.chooser_element_classtest);
+                                SwitchCompat sw2 = (SwitchCompat) ((AlertDialog) dialog).findViewById(R.id.chooser_element_homework);
+                                SwitchCompat sw3 = (SwitchCompat) ((AlertDialog) dialog).findViewById(R.id.chooser_element_event);
+                                if(sw1.isChecked()) {
+                                    Intent i = new Intent(MainActivity.this, NewEditElementActivity.class);
+                                    i.putExtra("mode", NewEditElementActivity.MODE_CREATE_CLASSTEST);
+                                    startActivity(i);
+                                } else if(sw2.isChecked()) {
+                                    Intent i = new Intent(MainActivity.this, NewEditElementActivity.class);
+                                    i.putExtra("mode", NewEditElementActivity.MODE_CREATE_HOMEWORK);
+                                    startActivity(i);
+                                } else if(sw3.isChecked()) {
+                                    Intent i = new Intent(MainActivity.this, NewEditElementActivity.class);
+                                    i.putExtra("mode", NewEditElementActivity.MODE_CREATE_EVENT);
+                                    startActivity(i);
+                                }
+                            }
+                        })
+                        .create();
+                d.show();
+
+                final SwitchCompat sw1 = (SwitchCompat) d.findViewById(R.id.chooser_element_classtest);
+                final SwitchCompat sw2 = (SwitchCompat) d.findViewById(R.id.chooser_element_homework);
+                final SwitchCompat sw3 = (SwitchCompat) d.findViewById(R.id.chooser_element_event);
+                //Auf Änderungen reagieren
+                sw1.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                    @Override
+                    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                        if(isChecked) {
+                            sw1.setChecked(isChecked);
+                            sw2.setChecked(false);
+                            sw3.setChecked(false);
+                        }
+                    }
+                });
+                sw2.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                    @Override
+                    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                        if(isChecked) {
+                            sw1.setChecked(false);
+                            sw2.setChecked(isChecked);
+                            sw3.setChecked(false);
+                        }
+                    }
+                });
+                sw3.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                    @Override
+                    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                        if(isChecked) {
+                            sw1.setChecked(false);
+                            sw2.setChecked(false);
+                            sw3.setChecked(isChecked);
+                        }
+                    }
+                });
+            }
+        });
+
         //Stundenplan zeichnen
         Calendar cal = new GregorianCalendar();
         cal.setTime(new Date());

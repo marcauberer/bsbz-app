@@ -246,7 +246,7 @@
             android:layout_alignParentEnd="true"
             android:layout_marginRight="6dp"
             android:layout_marginBottom="6dp"
-            app:fabSize="mini"/>
+            app:fabSize="normal"/>
 
         <TextView
             android:id="@+id/no_data"
