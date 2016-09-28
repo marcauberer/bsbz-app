@@ -26,7 +26,6 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v4.app.ListFragment;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -69,9 +68,10 @@ import com.mrgames13.jimdo.bsbz_app.ComponentClasses.Classtest;
 import com.mrgames13.jimdo.bsbz_app.ComponentClasses.Event;
 import com.mrgames13.jimdo.bsbz_app.ComponentClasses.Homework;
 import com.mrgames13.jimdo.bsbz_app.ComponentClasses.New;
+import com.mrgames13.jimdo.bsbz_app.ComponentClasses.TimeTable;
 import com.mrgames13.jimdo.bsbz_app.R;
-import com.mrgames13.jimdo.bsbz_app.RecyclerViewAdapters.GalleryViewAdapter_Folders;
 import com.mrgames13.jimdo.bsbz_app.RecyclerViewAdapters.ElementViewAdapter;
+import com.mrgames13.jimdo.bsbz_app.RecyclerViewAdapters.GalleryViewAdapter_Folders;
 import com.mrgames13.jimdo.bsbz_app.Services.SyncronisationService;
 import com.mrgames13.jimdo.bsbz_app.Tools.AccountUtils;
 import com.mrgames13.jimdo.bsbz_app.Tools.NotificationUtils;
@@ -769,11 +769,6 @@ public class MainActivity extends AppCompatActivity {
         container.removeAllViews();
         //Layout-Datei entfalten
         ViewGroup rootView = (ViewGroup) layoutInflater.inflate(R.layout.fragment_heute, container);
-        //Fragment erstellen und anzeigen
-        TermineFragment_Heute f = new TermineFragment_Heute();
-        FragmentTransaction ft = fragmentManager.beginTransaction();
-        ft.replace(R.id.termine_heute_container, f);
-        ft.commit();
         //Stundenplan zeichnen
         Calendar cal = new GregorianCalendar();
         cal.setTime(new Date());
@@ -801,7 +796,13 @@ public class MainActivity extends AppCompatActivity {
         tv.setText(res.getString(R.string.timetable_from_) + weekString);
 
         //Daycode herausfinden
-        String daycode= prefs.getString(weekString, "-,-,-,-,-,-,-,-,-,-");
+        TimeTable tt = su.getTimeTable(prefs.getString("Klasse", "no_class"));
+        String daycode = "";
+        if(weekString.equals("Mo")) daycode = tt.getMo();
+        if(weekString.equals("Di")) daycode = tt.getDi();
+        if(weekString.equals("Mi")) daycode = tt.getMi();
+        if(weekString.equals("Do")) daycode = tt.getDo();
+        if(weekString.equals("Fr")) daycode = tt.getFr();
 
         //Hourcode herausfinden
         int index1 = daycode.indexOf(",", 0);

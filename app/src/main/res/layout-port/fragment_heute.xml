@@ -202,18 +202,31 @@
        android:textAppearance="?android:attr/textAppearanceMedium"
        tools:ignore="RtlHardcoded" />
 
-    <FrameLayout
-        android:id="@+id/termine_heute_container"
+    <LinearLayout
+        android:id="@+id/seperator_1"
+        android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/grey"
         android:layout_below="@+id/Prozentanzeige"
-        android:layout_above="@+id/SV"/>
+        android:layout_marginTop="3dp"/>
 
-    <!--<fragment
-        class="bsbz_app.jimdo.mrgames13.com.App.MainActivity$TermineFragment_Heute"
-        android:id="@+id/termine_heute"
+    <LinearLayout
+        android:id="@+id/seperator_2"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/grey"
+        android:layout_above="@+id/SV"
+        android:layout_marginBottom="3dp"/>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/news_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/Prozentanzeige"
-        android:layout_above="@+id/SV" />-->
+        android:layout_below="@id/seperator_1"
+        android:layout_above="@id/seperator_2"
+        android:layout_marginTop="6dp"
+        android:layout_marginBottom="6dp"/>
+
 </RelativeLayout>
