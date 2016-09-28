@@ -120,12 +120,15 @@ public class MainActivity extends AppCompatActivity {
     private RecyclerView gallery_view;
     private RecyclerView news_view;
     private RecyclerView year_view;
+    private RecyclerView today_view;
     private RecyclerView.Adapter gallery_view_adapter;
     private RecyclerView.Adapter news_view_adapter;
     private RecyclerView.Adapter year_view_adapter;
+    private RecyclerView.Adapter today_view_adapter;
     private RecyclerView.LayoutManager gallery_view_manager;
     private RecyclerView.LayoutManager news_view_manager;
     private RecyclerView.LayoutManager year_view_manager;
+    private RecyclerView.LayoutManager today_view_manager;
     private FloatingActionButton new_folder;
     public static ArrayList<Classtest> classtests;
     public static ArrayList<Homework> homeworks;
@@ -769,6 +772,29 @@ public class MainActivity extends AppCompatActivity {
         container.removeAllViews();
         //Layout-Datei entfalten
         ViewGroup rootView = (ViewGroup) layoutInflater.inflate(R.layout.fragment_heute, container);
+
+        //Aktuelles Datum ermitteln und die Daten für dieses Datum laden
+        Date date = new Date(System.currentTimeMillis());
+        DateFormat formatierer = DateFormat.getDateInstance(DateFormat.MEDIUM,Locale.GERMANY);
+        String date_today = formatierer.format(date);
+
+        classtests = su.parseClasstests(null, date_today);
+        homeworks = su.parseHomeworks(null, date_today);
+        events = su.parseEvents(null, date_today);
+        all.clear();
+        all.addAll(classtests);
+        all.addAll(homeworks);
+        all.add(events);
+
+        //NewsRecyclerView anzeigen
+        today_view = (RecyclerView) findViewById(R.id.today_recycler_view);
+        today_view_manager = new LinearLayoutManager(MainActivity.this);
+        today_view.setLayoutManager(today_view_manager);
+        today_view_adapter = new ElementViewAdapter(MainActivity.this, ElementViewAdapter.MODE_CLASSTEST_HOMEWORK_EVENTS);
+        today_view.setAdapter(today_view_adapter);
+
+        if(today_view_adapter.getItemCount() == 0) findViewById(R.id.no_data).setVisibility(View.VISIBLE);
+
         //Stundenplan zeichnen
         Calendar cal = new GregorianCalendar();
         cal.setTime(new Date());
@@ -914,7 +940,6 @@ public class MainActivity extends AppCompatActivity {
         }
 
         //Aktuelle Uhrzeit ermitteln
-        Date date = new Date(System.currentTimeMillis());
         String zeit = DateFormat.getDateTimeInstance(DateFormat.MEDIUM, DateFormat.LONG, Locale.GERMANY).format(date);
         zeit = zeit.substring(11,16);
         if(zeit.length() == 4) zeit = "0" + zeit;
@@ -931,9 +956,8 @@ public class MainActivity extends AppCompatActivity {
                 percent = 0;
             }
 
-            System.out.println(now);
-
             ProgressBar progbar = (ProgressBar) rootView.findViewById(R.id.Percent_Bar);
+            progbar.getProgressDrawable().setColorFilter(Color.parseColor(color), android.graphics.PorterDuff.Mode.SRC_IN);
             TextView prozentanzeige = (TextView) rootView.findViewById(R.id.Prozentanzeige);
             if(weekday != 7 && weekday != 1) {
                 progbar.setProgress((int) percent);

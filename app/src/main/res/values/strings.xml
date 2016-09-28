@@ -309,6 +309,7 @@
     <string name="day_details_tab_2">HAs</string>
     <string name="day_details_tab_3">Termine</string>
     <string name="no_data_for_this_day">Keine Daten für diesen Tag vorhanden</string>
+    <string name="no_data_for_today">Keine Daten für heute vorhanden</string>
     <string name="edit_timetable">Stundenplan bearbeiten</string>
 
 </resources>
