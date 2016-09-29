@@ -27,12 +27,13 @@ public class TimeTableActivity extends AppCompatActivity {
 	//Konstanten
 
     //Variablen als Objekte
+    private Toolbar toolbar;
     private StorageUtils su;
     private TimeTable timetable;
     private Resources res;
 
 	//Variablen
-	private Toolbar toolbar;
+    private String klasse;
 
 	@Override
 	protected void onStart() {
@@ -58,6 +59,7 @@ public class TimeTableActivity extends AppCompatActivity {
 		getSupportActionBar().setBackgroundDrawable(new ColorDrawable(Color.parseColor(color)));
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 		getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setTitle(res.getString(R.string.timetable));
 		
 		if(Build.VERSION.SDK_INT >= 21) {
 			Window window = getWindow();
@@ -88,7 +90,7 @@ public class TimeTableActivity extends AppCompatActivity {
         //StorageUtils initialisieren
         su = new StorageUtils(TimeTableActivity.this);
 
-		String klasse = su.getString("Klasse", "no_class");
+		klasse = su.getString("Klasse", "no_class");
 		if(klasse.equals("no_class")) {
             Toast.makeText(TimeTableActivity.this, res.getString(R.string.no_class_selected), Toast.LENGTH_LONG).show();
             finish();
@@ -354,7 +356,9 @@ public class TimeTableActivity extends AppCompatActivity {
 			startActivity(new Intent(this, SettingsActivity.class));
 			return true;
 		} else if(id == R.id.action_edit_timetable) {
-			startActivity(new Intent(this, EditTimeTableActivity.class));
+            Intent i = new Intent(this, EditTimeTableActivity.class);
+            i.putExtra("class", klasse);
+			startActivity(i);
 			return true;
 		} else if(id == android.R.id.home) {
 			finish();

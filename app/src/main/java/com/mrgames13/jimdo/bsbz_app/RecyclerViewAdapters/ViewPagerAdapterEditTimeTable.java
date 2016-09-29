@@ -10,7 +10,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.mrgames13.jimdo.bsbz_app.App.MainActivity;
 import com.mrgames13.jimdo.bsbz_app.R;
 
 import java.util.ArrayList;
@@ -23,9 +22,6 @@ public class ViewPagerAdapterEditTimeTable extends FragmentPagerAdapter {
     public static Resources res;
     private ArrayList<String> tabTitles = new ArrayList<>();
 
-    //Variablen
-    public static String current_date;
-
     //Konstruktor
     public ViewPagerAdapterEditTimeTable(FragmentManager manager, Resources res) {
         super(manager);
@@ -35,11 +31,6 @@ public class ViewPagerAdapterEditTimeTable extends FragmentPagerAdapter {
         tabTitles.add(res.getString(R.string.wednesday));
         tabTitles.add(res.getString(R.string.thursday));
         tabTitles.add(res.getString(R.string.friday));
-        ViewPagerAdapterEditTimeTable.current_date = current_date;
-        //Daten laden
-        MainActivity.classtests = MainActivity.su.parseClasstests(null, current_date);
-        MainActivity.homeworks = MainActivity.su.parseHomeworks(null, current_date);
-        MainActivity.events = MainActivity.su.parseEvents(null, current_date);
     }
 
     @Override

@@ -54,6 +54,7 @@ public class EditTimeTableActivity extends AppCompatActivity {
         tablayout.setBackgroundDrawable(new ColorDrawable(Color.parseColor(color)));
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setTitle(res.getString(R.string.edit_timetable) + ": " + klasse);
     }
 
     @Override
