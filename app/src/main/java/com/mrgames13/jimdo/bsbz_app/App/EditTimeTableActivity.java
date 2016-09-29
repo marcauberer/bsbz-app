@@ -1,0 +1,26 @@
+package com.mrgames13.jimdo.bsbz_app.App;
+
+import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+
+import com.mrgames13.jimdo.bsbz_app.R;
+
+public class EditTimeTableActivity extends AppCompatActivity {
+    //Konstanten
+
+    //Variablen als Objekte
+
+    //Variablen
+
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_edit_time_table);
+    }
+}

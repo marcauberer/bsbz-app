@@ -129,7 +129,6 @@
                 <action android:name="android.intent.action.MAIN"/>
             </intent-filter>
         </activity>
-
         <activity android:name=".App.ImageFullscreenActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -142,7 +141,14 @@
         </activity>
         <activity
             android:name=".App.NewEditElementActivity"
-            android:windowSoftInputMode="adjustPan" >
+            android:windowSoftInputMode="adjustPan">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".App.EditTimeTableActivity"
+            android:screenOrientation="landscape" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
             </intent-filter>
@@ -190,5 +196,7 @@
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version"/>
+
     </application>
+
 </manifest>
