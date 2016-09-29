@@ -103,7 +103,7 @@ public class EditNewActivity extends AppCompatActivity {
         }
 
         // ToolBar Titel festlegen
-        toolbar.setTitle(res.getString(R.string.title_activity_edit_new));
+        getSupportActionBar().setTitle(res.getString(R.string.title_activity_edit_new));
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 

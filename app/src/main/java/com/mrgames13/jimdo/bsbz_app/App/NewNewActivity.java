@@ -87,7 +87,6 @@ public class NewNewActivity extends AppCompatActivity {
             color = "#00007f";
         }
         toolbar.setBackgroundDrawable(new ColorDrawable(Color.parseColor(color)));
-        toolbar.setTitle(res.getString(R.string.title_activity_new_new));
 
         if(Build.VERSION.SDK_INT >= 21) {
             Window window = getWindow();
