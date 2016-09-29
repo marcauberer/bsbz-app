@@ -329,7 +329,7 @@ public class MainActivity extends AppCompatActivity {
         cm = (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE);
         serverMessagingUtils = new ServerMessagingUtils(cm, MainActivity.this);
 
-        if(AppTheme != 0) findViewById(R.id.copyright).setBackgroundColor(Color.GRAY);
+        if(AppTheme != 0) findViewById(R.id.copyright).setBackgroundResource(R.color.background_gray);
 
         //All erstellen
         all = new ArrayList<>();

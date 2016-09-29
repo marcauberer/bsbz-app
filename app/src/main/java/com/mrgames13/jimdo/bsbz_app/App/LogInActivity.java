@@ -255,11 +255,11 @@ public class LogInActivity extends AppCompatActivity {
         serverMessagingUtils = new ServerMessagingUtils(cm, LogInActivity.this);
         serverMessagingUtils.checkConnection(findViewById(R.id.container));
 
+        //ProgressBar finden
+        pb = (ProgressBar) findViewById(R.id.login_in_progress);
+
         //Auf Updates prüfen
-        if(serverMessagingUtils.isInternetAvailable()) {
-            if(prefs.getBoolean("Angemeldet bleiben", false)) findViewById(R.id.login_in_progress).setVisibility(View.VISIBLE);
-            checkVersionAndServerState(prefs.getString("Name", res.getString(R.string.guest)), false);
-        }
+        if(serverMessagingUtils.isInternetAvailable()) checkVersionAndServerState(prefs.getString("Name", res.getString(R.string.guest)), false);
     }
 
 	@Override
@@ -318,7 +318,6 @@ public class LogInActivity extends AppCompatActivity {
 	
 	public void LogIn(final String username, final String password, final String androidversion, final String appversion, final boolean ab) {
         //ProgressBar sichtbar machen
-        pb = (ProgressBar) findViewById(R.id.login_in_progress);
         pb.setVisibility(View.VISIBLE);
         //Inhalt der Variablen in die Komponenten übertragen
         EditText et_username = (EditText) findViewById(R.id.LogIn_User_Name);
