@@ -29,7 +29,7 @@ public class ViewPagerAdapterEditTimeTable extends FragmentPagerAdapter {
     public static String current_date;
 
     //Konstruktor
-    public ViewPagerAdapterEditTimeTable(FragmentManager manager, Resources res, String current_date) {
+    public ViewPagerAdapterEditTimeTable(FragmentManager manager, Resources res) {
         super(manager);
         ViewPagerAdapterEditTimeTable.res = res;
         tabTitles.add(res.getString(R.string.monday));

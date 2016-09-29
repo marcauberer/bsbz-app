@@ -12,7 +12,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
 import com.mrgames13.jimdo.bsbz_app.R;
-import com.mrgames13.jimdo.bsbz_app.RecyclerViewAdapters.ViewPagerAdapterDayDetails;
+import com.mrgames13.jimdo.bsbz_app.RecyclerViewAdapters.ViewPagerAdapterEditTimeTable;
 
 public class EditTimeTableActivity extends AppCompatActivity {
     //Konstanten
@@ -21,7 +21,7 @@ public class EditTimeTableActivity extends AppCompatActivity {
     private Toolbar toolbar;
     private TabLayout tablayout;
     private ViewPager viewpager;
-    private ViewPagerAdapterDayDetails viewpager_adapter;
+    private ViewPagerAdapterEditTimeTable viewpager_adapter;
     private Resources res;
 
     //Variablen
@@ -74,7 +74,7 @@ public class EditTimeTableActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         //ViewPager aufsetzen
-        //viewpager_adapter = new ViewPagerAdapterDayDetails(getSupportFragmentManager(), res);
+        viewpager_adapter = new ViewPagerAdapterEditTimeTable(getSupportFragmentManager(), res);
         viewpager = (ViewPager) findViewById(R.id.edit_timetable_view_pager);
         viewpager.setAdapter(viewpager_adapter);
 

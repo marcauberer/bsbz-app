@@ -353,6 +353,9 @@ public class TimeTableActivity extends AppCompatActivity {
 		if (id == R.id.action_settings) {
 			startActivity(new Intent(this, SettingsActivity.class));
 			return true;
+		} else if(id == R.id.action_edit_timetable) {
+			startActivity(new Intent(this, EditTimeTableActivity.class));
+			return true;
 		} else if(id == android.R.id.home) {
 			finish();
 			return true;
