@@ -899,11 +899,15 @@ public class MainActivity extends AppCompatActivity {
         //Daycode herausfinden
         TimeTable tt = su.getTimeTable(prefs.getString("Klasse", "no_class"));
         String daycode = "";
-        if(weekString.equals("Mo")) daycode = tt.getMo();
-        if(weekString.equals("Di")) daycode = tt.getDi();
-        if(weekString.equals("Mi")) daycode = tt.getMi();
-        if(weekString.equals("Do")) daycode = tt.getDo();
-        if(weekString.equals("Fr")) daycode = tt.getFr();
+        if(tt != null) {
+            if(weekString.equals("Mo")) daycode = tt.getMo();
+            if(weekString.equals("Di")) daycode = tt.getDi();
+            if(weekString.equals("Mi")) daycode = tt.getMi();
+            if(weekString.equals("Do")) daycode = tt.getDo();
+            if(weekString.equals("Fr")) daycode = tt.getFr();
+        } else {
+            daycode = "-,-,-,-,-,-,-,-,-,-";
+        }
 
         //Hourcode herausfinden
         int index1 = daycode.indexOf(",", 0);
@@ -1021,6 +1025,8 @@ public class MainActivity extends AppCompatActivity {
         //Fehlerträchtige Berechnung
         now = (Integer.parseInt(zeit.substring(0, zeit.indexOf(":"))) * 60 + Integer.parseInt(zeit.substring(zeit.indexOf(":") + 1))) * 60000;
 
+        ProgressBar progbar = (ProgressBar) rootView.findViewById(R.id.Percent_Bar);
+        progbar.getProgressDrawable().setColorFilter(Color.parseColor(color), android.graphics.PorterDuff.Mode.SRC_IN);
         try{
             long percent = ((now - start) * 100) / (end - start);
             //In Ladebalken eintragen
@@ -1031,8 +1037,6 @@ public class MainActivity extends AppCompatActivity {
                 percent = 0;
             }
 
-            ProgressBar progbar = (ProgressBar) rootView.findViewById(R.id.Percent_Bar);
-            progbar.getProgressDrawable().setColorFilter(Color.parseColor(color), android.graphics.PorterDuff.Mode.SRC_IN);
             TextView prozentanzeige = (TextView) rootView.findViewById(R.id.Prozentanzeige);
             if(weekday != 7 && weekday != 1) {
                 progbar.setProgress((int) percent);
