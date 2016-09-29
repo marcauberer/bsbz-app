@@ -1411,7 +1411,11 @@ public class MainActivity extends AppCompatActivity {
         Stundenplan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(MainActivity.this,TimeTableActivity.class));
+                if(!su.getString("Klasse", "no_class").equals("no_class")) {
+                    startActivity(new Intent(MainActivity.this,TimeTableActivity.class));
+                } else {
+                    Toast.makeText(MainActivity.this, res.getString(R.string.no_class_selected), Toast.LENGTH_SHORT).show();
+                }
             }
         });
 

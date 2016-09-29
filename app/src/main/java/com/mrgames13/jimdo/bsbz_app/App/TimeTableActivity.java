@@ -10,7 +10,6 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.Window;
@@ -101,12 +100,6 @@ public class TimeTableActivity extends AppCompatActivity {
             Toast.makeText(TimeTableActivity.this, res.getString(R.string.timetable_not_synchronized), Toast.LENGTH_LONG).show();
             finish();
         }
-
-        Log.d("BSBZ-App", timetable.getMo());
-        Log.d("BSBZ-App", timetable.getDi());
-        Log.d("BSBZ-App", timetable.getMi());
-        Log.d("BSBZ-App", timetable.getDo());
-        Log.d("BSBZ-App", timetable.getFr());
 
         //Klasse eintragen
 		TextView tv_klasse = (TextView) findViewById(R.id.tt_klasse);
