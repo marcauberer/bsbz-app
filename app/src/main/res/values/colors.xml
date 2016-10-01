@@ -9,4 +9,5 @@
     <color name="white">#fff</color>
     <color name="white_dark">#e3e3e3</color>
     <color name="showcaseview">#d1ea690d</color>
+    <color name="transparent">#00000000</color>
 </resources>

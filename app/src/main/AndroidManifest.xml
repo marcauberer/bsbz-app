@@ -25,12 +25,18 @@
                 <action android:name="android.intent.action.MAIN"/>
             </intent-filter>
         </activity>
-        <!-- LogInActivity -->
-        <activity android:name=".App.LogInActivity">
+        <!--LogoActivity-->
+        <activity android:name=".App.LogoActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
                 <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
+        <!-- LogInActivity -->
+        <activity android:name=".App.LogInActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
             </intent-filter>
         </activity>
         <!-- RegistrationActivity -->
@@ -196,9 +202,6 @@
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version"/>
-
-        <activity android:name=".App.LogoActivity">
-        </activity>
     </application>
 
 </manifest>
