@@ -86,6 +86,6 @@ public class SplashActivity extends AppCompatActivity {
 				overridePendingTransition(R.anim.in_login, R.anim.out_login);
 				finish();
 			}
-		}, 3000);
+		}, 1500);
 	}
 }
