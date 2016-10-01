@@ -5,45 +5,52 @@
     android:layout_height="match_parent"
     android:padding="12dp" >
 
-    <RadioButton
-        android:id="@+id/rb_specific_subject"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:checked="true"/>
-
     <Spinner
         android:id="@+id/spnr_specific_subject"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_alignTop="@+id/rb_specific_subject"
-        android:layout_alignBottom="@+id/rb_specific_subject"
+        android:layout_alignTop="@+id/rg_subject"
+        android:layout_alignBottom="@+id/rg_subject"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        android:layout_toRightOf="@+id/rb_specific_subject"
-        android:layout_toEndOf="@+id/rb_specific_subject"
+        android:layout_toRightOf="@+id/rg_subject"
+        android:layout_toEndOf="@+id/rg_subject"
         android:layout_marginLeft="6dp"
-        android:entries="@string/subject_items"/>
-
-    <RadioButton
-        android:id="@+id/rb_other_subject"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/rb_specific_subject"
-        android:layout_marginTop="6dp"
-        android:checked="false"/>
+        android:entries="@array/subject_items"/>
 
     <EditText
+        android:id="@+id/et_other_subject"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:hint="@string/other_short"
-        android:layout_alignTop="@+id/rb_other_subject"
+        android:layout_below="@+id/spnr_specific_subject"
+        android:layout_marginTop="6dp"
         android:layout_alignLeft="@+id/spnr_specific_subject"
         android:layout_alignStart="@+id/spnr_specific_subject"
-        android:id="@+id/editText"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"/>
+    
+    <RadioGroup
+        android:id="@+id/rg_subject"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
 
+        <RadioButton
+            android:id="@+id/rb_specific_subject"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:checked="true"/>
+
+        <RadioButton
+            android:id="@+id/rb_other_subject"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/rb_specific_subject"
+            android:layout_marginTop="6dp"
+            android:checked="false"/>
+
+    </RadioGroup>
 </RelativeLayout>

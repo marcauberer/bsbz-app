@@ -148,7 +148,7 @@
         </activity>
         <activity
             android:name=".App.EditTimeTableActivity"
-            android:screenOrientation="landscape" >
+            android:screenOrientation="landscape">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
             </intent-filter>
@@ -197,6 +197,8 @@
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version"/>
 
+        <activity android:name=".App.LogoActivity">
+        </activity>
     </application>
 
 </manifest>
