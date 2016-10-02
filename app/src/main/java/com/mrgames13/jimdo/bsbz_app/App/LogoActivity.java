@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.PersistableBundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -26,6 +27,7 @@ public class LogoActivity extends AppCompatActivity {
     private TextView app_name;
     private TextView powered;
     private ImageView app_logo;
+    private RelativeLayout container;
     private RelativeLayout logo_container;
     private Handler h;
 
@@ -38,6 +40,18 @@ public class LogoActivity extends AppCompatActivity {
         setContentView(R.layout.activity_logo);
 
         h = new Handler();
+
+        container = (RelativeLayout) findViewById(R.id.logo_container);
+        container.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                video.stopPlayback();
+                startActivity(new Intent(LogoActivity.this, LogInActivity.class));
+                overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+                finish();
+                return true;
+            }
+        });
 
         app_name = (TextView) findViewById(R.id.logo_app_title);
         powered = (TextView) findViewById(R.id.logo_powered);
@@ -58,9 +72,7 @@ public class LogoActivity extends AppCompatActivity {
                 mp.setOnInfoListener(new MediaPlayer.OnInfoListener() {
                     @Override
                     public boolean onInfo(MediaPlayer mp, int what, int extra) {
-                        if(what == MediaPlayer.MEDIA_INFO_VIDEO_RENDERING_START) {
-                            app_logo.setVisibility(View.VISIBLE);
-                        }
+                        if(what == MediaPlayer.MEDIA_INFO_VIDEO_RENDERING_START) app_logo.setVisibility(View.VISIBLE);
                         return false;
                     }
                 });
