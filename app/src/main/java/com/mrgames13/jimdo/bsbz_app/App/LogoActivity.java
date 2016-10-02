@@ -24,6 +24,7 @@ public class LogoActivity extends AppCompatActivity {
     //Variablen als Objekte
     private VideoView video;
     private TextView app_name;
+    private TextView powered;
     private ImageView app_logo;
     private RelativeLayout logo_container;
     private Handler h;
@@ -39,6 +40,8 @@ public class LogoActivity extends AppCompatActivity {
         h = new Handler();
 
         app_name = (TextView) findViewById(R.id.logo_app_title);
+        powered = (TextView) findViewById(R.id.logo_powered);
+
         app_logo = (ImageView) findViewById(R.id.logo_image_view);
 
         final Uri video_uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.logo_animation);
@@ -76,6 +79,8 @@ public class LogoActivity extends AppCompatActivity {
                 });
                 app_name.setAnimation(fade_in);
                 app_name.setVisibility(View.VISIBLE);
+                powered.setAnimation(fade_in);
+                powered.setVisibility(View.VISIBLE);
             }
         });
     }

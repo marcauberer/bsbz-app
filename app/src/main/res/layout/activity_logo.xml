@@ -5,6 +5,7 @@
     android:id="@+id/activity_logo"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:padding="16dp"
     tools:context=".App.LogoActivity"
     android:background="@color/white">
 
@@ -38,5 +39,8 @@
         android:id="@+id/logo_powered"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text=""/>
+        android:layout_below="@+id/logo_app_title"
+        android:layout_marginTop="6dp"
+        android:text="@string/powered_by"
+        android:visibility="gone"/>
 </RelativeLayout>
