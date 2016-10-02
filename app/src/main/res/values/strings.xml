@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">BSBZ-App</string>
     <string name="app_name_long">Die BSBZ-App</string>
+    <string name="powered_by">Powered by M&#38;R Games</string>
     <string name="ok">OK</string>
     <string name="yes">Ja</string>
     <string name="no">Nein</string>

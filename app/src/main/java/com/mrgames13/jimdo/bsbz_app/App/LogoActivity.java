@@ -71,7 +71,7 @@ public class LogoActivity extends AppCompatActivity {
                                 overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
                                 finish();
                             }
-                        }, 700);
+                        }, 1000);
                     }
                 });
                 app_name.setAnimation(fade_in);
