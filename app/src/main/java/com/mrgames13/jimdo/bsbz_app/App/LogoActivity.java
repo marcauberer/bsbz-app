@@ -55,7 +55,15 @@ public class LogoActivity extends AppCompatActivity {
             public void onPrepared(MediaPlayer mp) {
                 video.seekTo(0);
                 video.start();
-                app_logo.setVisibility(View.VISIBLE);
+                mp.setOnInfoListener(new MediaPlayer.OnInfoListener() {
+                    @Override
+                    public boolean onInfo(MediaPlayer mp, int what, int extra) {
+                        if(what == MediaPlayer.MEDIA_INFO_VIDEO_RENDERING_START) {
+                            app_logo.setVisibility(View.VISIBLE);
+                        }
+                        return false;
+                    }
+                });
             }
         });
         video.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
