@@ -62,7 +62,7 @@ public class LogoActivity extends AppCompatActivity {
                             @Override
                             public void run() {
                                 startActivity(new Intent(LogoActivity.this, LogInActivity.class));
-                                overridePendingTransition(R.anim.logo_container_animation, R.anim.logo_container_animation);
+                                overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
                                 finish();
                             }
                         }, 750);
