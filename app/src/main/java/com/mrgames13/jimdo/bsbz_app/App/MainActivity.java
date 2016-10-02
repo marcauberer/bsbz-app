@@ -426,7 +426,7 @@ public class MainActivity extends AppCompatActivity {
             e.commit();
             Toast.makeText(MainActivity.this, res.getString(R.string.logoutInProgress), Toast.LENGTH_SHORT).show();
             startActivity(new Intent(MainActivity.this, LogInActivity.class));
-            overridePendingTransition(R.anim.out_login, R.anim.in_login);
+            overridePendingTransition(R.anim.in_logout, R.anim.out_logout);
             finish();
             return true;
         } else if (id == R.id.action_check_for_update) {
