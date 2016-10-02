@@ -52,12 +52,12 @@ public class LogoActivity extends AppCompatActivity {
             public void onPrepared(MediaPlayer mp) {
                 video.seekTo(0);
                 video.start();
+                app_logo.setVisibility(View.VISIBLE);
             }
         });
         video.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
             @Override
             public void onCompletion(MediaPlayer mp) {
-                app_logo.setVisibility(View.VISIBLE);
                 video.setVisibility(View.GONE);
                 //Schriftzug langsam einblenden
                 Animation fade_in = AnimationUtils.loadAnimation(LogoActivity.this, android.R.anim.fade_in);

@@ -307,7 +307,7 @@ public class LogInActivity extends AppCompatActivity {
 			e.commit();
 			
 			//startActivity(new Intent(LogInActivity.this,MainActivity.class));
-			startActivity(new Intent(LogInActivity.this,SplashActivity.class));
+			startActivity(new Intent(LogInActivity.this, MainActivity.class));
 			//Animierter Activitywechsel starten
 			overridePendingTransition(R.anim.in_login, R.anim.out_login);
 			finish();
@@ -401,7 +401,7 @@ public class LogInActivity extends AppCompatActivity {
                                             } catch(NullPointerException e2) {
                                                 startActivity(new Intent(LogInActivity.this, MainActivity.class));
                                             }
-                                            startActivity(new Intent(LogInActivity.this,SplashActivity.class));
+                                            startActivity(new Intent(LogInActivity.this,MainActivity.class));
                                             //Animierter Activitywechsel starten
                                             overridePendingTransition(R.anim.in_login, R.anim.out_login);
                                             finish();
@@ -457,7 +457,7 @@ public class LogInActivity extends AppCompatActivity {
                                             } catch(NullPointerException e2) {
                                                 startActivity(new Intent(LogInActivity.this, MainActivity.class));
                                             }
-                                            startActivity(new Intent(LogInActivity.this,SplashActivity.class));
+                                            startActivity(new Intent(LogInActivity.this,MainActivity.class));
                                             //Animierter Activitywechsel starten
                                             overridePendingTransition(R.anim.in_login, R.anim.out_login);
                                             finish();

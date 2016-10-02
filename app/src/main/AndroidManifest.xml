@@ -54,11 +54,6 @@
             </intent-filter>
         </activity>
         <!-- SplashActivity -->
-        <activity android:name=".App.SplashActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
-            </intent-filter>
-        </activity>
         <!-- WebActivity -->
         <activity
             android:name=".App.WebActivity"
