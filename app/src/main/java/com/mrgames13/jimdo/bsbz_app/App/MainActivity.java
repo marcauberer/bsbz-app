@@ -64,11 +64,11 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.mrgames13.jimdo.bsbz_app.ComponentClasses.Classtest;
-import com.mrgames13.jimdo.bsbz_app.ComponentClasses.Event;
-import com.mrgames13.jimdo.bsbz_app.ComponentClasses.Homework;
-import com.mrgames13.jimdo.bsbz_app.ComponentClasses.New;
-import com.mrgames13.jimdo.bsbz_app.ComponentClasses.TimeTable;
+import com.mrgames13.jimdo.bsbz_app.CommonObjects.Classtest;
+import com.mrgames13.jimdo.bsbz_app.CommonObjects.Event;
+import com.mrgames13.jimdo.bsbz_app.CommonObjects.Homework;
+import com.mrgames13.jimdo.bsbz_app.CommonObjects.New;
+import com.mrgames13.jimdo.bsbz_app.CommonObjects.TimeTable;
 import com.mrgames13.jimdo.bsbz_app.R;
 import com.mrgames13.jimdo.bsbz_app.RecyclerViewAdapters.ElementViewAdapter;
 import com.mrgames13.jimdo.bsbz_app.RecyclerViewAdapters.GalleryViewAdapter_Folders;

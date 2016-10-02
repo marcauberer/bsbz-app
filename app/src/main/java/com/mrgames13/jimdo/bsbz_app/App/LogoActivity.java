@@ -10,6 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.VideoView;
@@ -23,6 +24,7 @@ public class LogoActivity extends AppCompatActivity {
     //Variablen als Objekte
     private VideoView video;
     private TextView app_name;
+    private ImageView app_logo;
     private RelativeLayout logo_container;
     private Handler h;
 
@@ -37,11 +39,13 @@ public class LogoActivity extends AppCompatActivity {
         h = new Handler();
 
         app_name = (TextView) findViewById(R.id.logo_app_title);
-        logo_container = (RelativeLayout) findViewById(R.id.logo_container);
+        app_logo = (ImageView) findViewById(R.id.logo_image_view);
 
-        Uri video_uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.logo_animation);
+        final Uri video_uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.logo_animation);
         video = (VideoView) findViewById(R.id.logo_video_view);
         video.setVideoURI(video_uri);
+        video.setDrawingCacheEnabled(true);
+        video.setZOrderOnTop(true);
         video.requestFocus();
         video.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
             @Override
@@ -53,6 +57,8 @@ public class LogoActivity extends AppCompatActivity {
         video.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
             @Override
             public void onCompletion(MediaPlayer mp) {
+                app_logo.setVisibility(View.VISIBLE);
+                video.setVisibility(View.GONE);
                 //Schriftzug langsam einblenden
                 Animation fade_in = AnimationUtils.loadAnimation(LogoActivity.this, android.R.anim.fade_in);
                 fade_in.setAnimationListener(new SimpleAnimationListener() {
@@ -65,7 +71,7 @@ public class LogoActivity extends AppCompatActivity {
                                 overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
                                 finish();
                             }
-                        }, 750);
+                        }, 700);
                     }
                 });
                 app_name.setAnimation(fade_in);

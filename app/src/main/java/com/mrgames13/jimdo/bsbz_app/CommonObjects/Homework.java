@@ -1,4 +1,4 @@
-package com.mrgames13.jimdo.bsbz_app.ComponentClasses;
+package com.mrgames13.jimdo.bsbz_app.CommonObjects;
 
 public class Homework {
     //Konstanten

@@ -1,6 +1,6 @@
-package com.mrgames13.jimdo.bsbz_app.ComponentClasses;
+package com.mrgames13.jimdo.bsbz_app.CommonObjects;
 
-public class Classtest {
+public class Event {
     //Konstanten
 
     //Variablen als Objekte
@@ -14,7 +14,7 @@ public class Classtest {
     private String new_writer;
 
 
-    public Classtest(int id, String subject, String description, String receiver, String writer, String date) {
+    public Event(int id, String subject, String description, String receiver, String writer, String date) {
         this.new_id = id;
         this.new_subject = subject;
         this.new_description = description;

@@ -8,28 +8,28 @@
     tools:context=".App.LogoActivity"
     android:background="@color/white">
 
-    <RelativeLayout
-        android:id="@+id/logo_container"
+    <ImageView
+        android:id="@+id/logo_image_view"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:src="@drawable/logo"
+        android:visibility="gone"/>
 
-        <VideoView
-            android:id="@+id/logo_video_view"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_centerInParent="true"
-            android:gravity="center"
-            android:backgroundTint="@color/transparent"/>
+    <VideoView
+        android:id="@+id/logo_video_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_centerInParent="true"
+        android:backgroundTint="@color/transparent" />
 
-        <TextView
-            android:id="@+id/logo_app_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/app_name_long"
-            android:textSize="30sp"
-            android:layout_centerHorizontal="true"
-            android:layout_alignParentBottom="true"
-            android:layout_marginBottom="180dp"
-            android:visibility="gone"/>
-    </RelativeLayout>
+    <TextView
+        android:id="@+id/logo_app_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/app_name_long"
+        android:textSize="30sp"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="180dp"
+        android:visibility="gone"/>
 </RelativeLayout>
