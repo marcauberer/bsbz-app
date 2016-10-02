@@ -323,7 +323,8 @@
     <string name="hour8">8\n(14:05 - 14:50)</string>
     <string name="hour9">9\n(14:55 - 15:40)</string>
     <string name="hour10">10\n(15:40 - 16:25)</string>
-    <string name="other_short">Sonstiges (Kürzel)</string>
+    <string name="name">Bezeichnung</string>
+    <string name="shortcut">Kürzel</string>
     <string-array name="subject_items">
         <item>Mathematik (M)</item>
         <item>Deutsch (D)</item>

@@ -1,5 +1,6 @@
 package com.mrgames13.jimdo.bsbz_app.RecyclerViewAdapters;
 
+import android.content.DialogInterface;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -11,6 +12,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.Spinner;
 
 import com.mrgames13.jimdo.bsbz_app.App.MainActivity;
 import com.mrgames13.jimdo.bsbz_app.R;
@@ -24,6 +28,9 @@ public class ViewPagerAdapterEditTimeTable extends FragmentPagerAdapter {
     //Variablen als Objekte
     public static Resources res;
     private ArrayList<String> tabTitles = new ArrayList<>();
+
+    //Variablen
+    public static String selectedShort;
 
     //Konstruktor
     public ViewPagerAdapterEditTimeTable(FragmentManager manager, Resources res) {
@@ -100,7 +107,7 @@ public class ViewPagerAdapterEditTimeTable extends FragmentPagerAdapter {
         }
 
         @Override
-        public void onClick(View v) {
+        public void onClick(final View v) {
             AlertDialog.Builder alert;
             if(MainActivity.AppTheme == 0) {
                 alert = new AlertDialog.Builder(getActivity(), R.style.FirstTheme_Dialog);
@@ -109,13 +116,33 @@ public class ViewPagerAdapterEditTimeTable extends FragmentPagerAdapter {
             }
 
             LayoutInflater inflater = getActivity().getLayoutInflater();
-            View dialogView = inflater.inflate(R.layout.dialogview_chooser_school_subject, null);
+            final View dialogView = inflater.inflate(R.layout.dialogview_chooser_school_subject, null);
             alert.setView(dialogView);
-            alert.show();
-            //Je nachdem, welcher Button gerückt wurde, Ergebnis eintragen
-            if(v.getId() == R.id.edit_timetable_hour_1) {
+            alert.setNegativeButton(res.getString(R.string.cancel), new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.dismiss();
+                }
+            });
+            alert.setPositiveButton(res.getString(R.string.ok), new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    RadioButton rd_specific = (RadioButton) dialogView.findViewById(R.id.rb_specific_subject);
+                    if(rd_specific.isChecked()) {
+                        Spinner spinner = (Spinner) dialogView.findViewById(R.id.spnr_specific_subject);
+                        String selectedItem = spinner.getSelectedItem().toString();
+                        selectedShort = selectedItem.substring(selectedItem.indexOf("(")+1, selectedItem.indexOf(")"));
+                    } else {
+                        EditText et_short = (EditText) dialogView.findViewById(R.id.et_other_subject_short);
+                        selectedShort = et_short.getText().toString();
+                        //Neues Fach in den SharedPreferences anlegen
 
-            }
+                    }
+                    Button btn = (Button) v;
+                    btn.setText(selectedShort);
+                }
+            });
+            alert.show();
         }
     }
 }
