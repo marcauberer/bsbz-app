@@ -35,7 +35,8 @@
             android:layout_height="120dp"
             android:ems="10"
             android:gravity="top"
-            tools:ignore="TextFields" >
+            tools:ignore="TextFields"
+            android:hint="@string/notes">
             <requestFocus />
         </EditText>
     </LinearLayout>

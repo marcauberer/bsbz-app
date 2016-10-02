@@ -331,5 +331,6 @@
         <item>VU (VU)</item>
         <item>MK (MK)</item>
     </string-array>
+    <string name="notes">Notizen</string>
 
 </resources>
