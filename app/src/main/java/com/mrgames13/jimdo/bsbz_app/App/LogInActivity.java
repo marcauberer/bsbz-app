@@ -377,7 +377,6 @@ public class LogInActivity extends AppCompatActivity {
                                             //Activities starten
                                             try {
                                                 String extra = getIntent().getStringExtra("Confirm");
-                                                Log.d("BSBZ-App", "Confirm: "+extra);
                                                 if(extra.equals("Timetable")) {
                                                     startActivity(new Intent(LogInActivity.this, TimeTableActivity.class));
                                                 } else if(extra.equals("Classtests")) {

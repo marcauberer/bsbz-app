@@ -5,7 +5,8 @@
     android:id="@+id/activity_logo"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".App.LogoActivity">
+    tools:context=".App.LogoActivity"
+    android:background="@color/white">
 
     <RelativeLayout
         android:id="@+id/logo_container"
@@ -18,7 +19,6 @@
             android:layout_height="match_parent"
             android:layout_centerInParent="true"
             android:gravity="center"
-            android:background="@color/white_dark"
             android:backgroundTint="@color/transparent"/>
 
         <TextView

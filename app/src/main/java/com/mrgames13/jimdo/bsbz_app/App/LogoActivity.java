@@ -58,23 +58,14 @@ public class LogoActivity extends AppCompatActivity {
                 fade_in.setAnimationListener(new SimpleAnimationListener() {
                     @Override
                     public void onAnimationEnd(Animation animation) {
-                        //Container größer machen und verblassen
-                        Animation container_anim = AnimationUtils.loadAnimation(LogoActivity.this, R.anim.logo_container_animation);
-                        container_anim.setAnimationListener(new SimpleAnimationListener() {
-                            @Override
-                            public void onAnimationEnd(Animation animation) {
-                                startActivity(new Intent(LogoActivity.this, LogInActivity.class));
-                                finish();
-                            }
-                        });
-                        logo_container.setAnimation(container_anim);
                         h.postDelayed(new Runnable() {
                             @Override
                             public void run() {
                                 startActivity(new Intent(LogoActivity.this, LogInActivity.class));
+                                overridePendingTransition(R.anim.logo_container_animation, R.anim.logo_container_animation);
                                 finish();
                             }
-                        }, 500);
+                        }, 750);
                     }
                 });
                 app_name.setAnimation(fade_in);
