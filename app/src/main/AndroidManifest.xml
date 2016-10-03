@@ -53,7 +53,6 @@
                 <action android:name="android.intent.action.MAIN"/>
             </intent-filter>
         </activity>
-        <!-- SplashActivity -->
         <!-- WebActivity -->
         <activity
             android:name=".App.WebActivity"

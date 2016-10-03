@@ -2387,6 +2387,15 @@ public class MainActivity extends AppCompatActivity {
                 Button btn_easter = (Button) view.findViewById(R.id.edit_foodplan_easter);
                 Button btn_pentecost = (Button) view.findViewById(R.id.edit_foodplan_pentecost);
                 Button btn_summer = (Button) view.findViewById(R.id.edit_foodplan_summer);
+                Button btn_open = (Button) view.findViewById(R.id.edit_foodplan_open);
+                btn_open.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent i = new Intent(Intent.ACTION_VIEW);
+                        i.setData(Uri.parse("https://www.bsbz.de/schwarzes-brett/speiseplan/"));
+                        startActivity(i);
+                    }
+                });
                 btn_autumn.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -2433,12 +2442,41 @@ public class MainActivity extends AppCompatActivity {
                                 dialog.dismiss();
                             }
                         })
-                        .setPositiveButton(R.string.upload_changes, new DialogInterface.OnClickListener() {
+                        .setPositiveButton(R.string.publish, new DialogInterface.OnClickListener() {
                             @Override
-                            public void onClick(DialogInterface dialog, int which) {
-
-                                dialog.dismiss();
-                                launchFoodPlanFragment();
+                            public void onClick(final DialogInterface dialog, int which) {
+                                final String url = et_link.getText().toString().trim();
+                                if(url.startsWith("https://www.bsbz.de/") || url.startsWith("http://files.mrgames-server.de/") || url.startsWith("https://goo.gl/")) {
+                                    new Thread(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            //Speiseplan-Url hochladen
+                                            try{
+                                                String name = su.getString("Name", res.getString(R.string.guest));
+                                                serverMessagingUtils.sendRequest(null, "name="+URLEncoder.encode(name, "UTF-8")+"&command=setfoodplan&url="+URLEncoder.encode(url, "UTF-8"));
+                                                runOnUiThread(new Runnable() {
+                                                    @Override
+                                                    public void run() {
+                                                        //Dialog schließen und Speiseplan-Seite refreshen
+                                                        dialog.dismiss();
+                                                        launchFoodPlanFragment();
+                                                        Toast.makeText(MainActivity.this, res.getString(R.string.action_successful), Toast.LENGTH_SHORT).show();
+                                                    }
+                                                });
+                                            } catch(Exception e) {
+                                                e.printStackTrace();
+                                                runOnUiThread(new Runnable() {
+                                                    @Override
+                                                    public void run() {
+                                                        Toast.makeText(MainActivity.this, res.getString(R.string.action_failed), Toast.LENGTH_SHORT).show();
+                                                    }
+                                                });
+                                            }
+                                        }
+                                    }).start();
+                                } else {
+                                    Toast.makeText(MainActivity.this, res.getString(R.string.no_valid_url), Toast.LENGTH_SHORT).show();
+                                }
                             }
                         })
                         .create();

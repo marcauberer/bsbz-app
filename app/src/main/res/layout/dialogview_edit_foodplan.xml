@@ -19,32 +19,36 @@
         android:layout_below="@+id/edit_foodplan_message"
         android:hint="@string/edit_foodplan_h"
         android:maxLines="1"/>
-    
+
+    <Button
+        android:id="@+id/edit_foodplan_open"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/edit_foodplan_open"
+        android:layout_below="@+id/edit_foodplan_link"/>
+
     <LinearLayout
         android:id="@+id/edit_foodplan_row_1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_below="@+id/edit_foodplan_link"
-        android:weightSum="3.0" >
+        android:layout_below="@+id/edit_foodplan_open"
+        android:weightSum="2.0" >
 
         <Button
             android:id="@+id/edit_foodplan_autumn"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1.0"/>
+            android:layout_weight="1.0"
+            android:text="@string/edit_foodplan_autumn"/>
 
         <Button
             android:id="@+id/edit_foodplan_winter"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1.0"/>
+            android:layout_weight="1.0"
+            android:text="@string/edit_foodplan_winter"/>
 
-        <Button
-            android:id="@+id/edit_foodplan_chrismas"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1.0"/>
     </LinearLayout>
     <LinearLayout
         android:id="@+id/edit_foodplan_row_2"
@@ -52,24 +56,43 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:layout_below="@+id/edit_foodplan_row_1"
-        android:weightSum="3.0" >
+        android:weightSum="2.0" >
+
+        <Button
+            android:id="@+id/edit_foodplan_chrismas"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1.0"
+            android:text="@string/edit_foodplan_christmas"/>
 
         <Button
             android:id="@+id/edit_foodplan_easter"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1.0"/>
+            android:layout_weight="1.0"
+            android:text="@string/edit_foodplan_easter"/>
+
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/edit_foodplan_row_3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_below="@+id/edit_foodplan_row_2"
+        android:weightSum="2.0" >
 
         <Button
             android:id="@+id/edit_foodplan_pentecost"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1.0"/>
+            android:layout_weight="1.0"
+            android:text="@string/edit_foodplan_pentecost"/>
 
         <Button
             android:id="@+id/edit_foodplan_summer"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1.0"/>
+            android:layout_weight="1.0"
+            android:text="@string/edit_foodplan_summer"/>
     </LinearLayout>
 </RelativeLayout>
