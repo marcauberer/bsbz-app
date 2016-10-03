@@ -386,9 +386,9 @@ public class NewNewActivity extends AppCompatActivity {
                         Toast.makeText(NewNewActivity.this, res.getString(R.string.no_date_for_expiration), Toast.LENGTH_SHORT).show();
                     } else {
                         //Daten von den Komponenten abholen
-                        String subject = etSubject.getText().toString();
-                        String desciption = etDescription.getText().toString();
-                        String writer = etWriter.getText().toString();
+                        String subject = etSubject.getText().toString().replace("~", "").replace("|", "");
+                        String desciption = etDescription.getText().toString().replace("~", "").replace("|", "");
+                        String writer = etWriter.getText().toString().replace("~", "").replace("|", "");
                         String activation_date = btn_choose_date_activation.getText().toString();
                         String expiration_date = btn_choose_date_expiration.getText().toString();
                         //Nachricht erstellen
@@ -407,9 +407,9 @@ public class NewNewActivity extends AppCompatActivity {
                     Toast.makeText(NewNewActivity.this, res.getString(R.string.no_receiver), Toast.LENGTH_SHORT).show();
                 } else {
                     //Daten von den Komponenten abholen
-                    String subject = etSubject.getText().toString();
-                    String desciption = etDescription.getText().toString();
-                    String writer = etWriter.getText().toString();
+                    String subject = etSubject.getText().toString().replace("~", "").replace("|", "");
+                    String desciption = etDescription.getText().toString().replace("~", "").replace("|", "");
+                    String writer = etWriter.getText().toString().replace("~", "").replace("|", "");
                     String activation_date = btn_choose_date_activation.getText().toString();
                     String expiration_date = btn_choose_date_expiration.getText().toString();
                     //Nachricht erstellen

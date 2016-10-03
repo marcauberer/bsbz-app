@@ -382,10 +382,10 @@ public class NewEditElementActivity extends AppCompatActivity {
                         String name = prefs.getString("Name", res.getString(R.string.guest));
                         //Je nach Modus Element hochladen
                         result = false;
-                        String subject = betreff.getText().toString();
-                        String description = beschreibung.getText().toString();
-                        String date = choose_date.getText().toString();
-                        String receiver = choose_receiver.getText().toString();
+                        String subject = betreff.getText().toString().replace("~", "").replace("|", "");
+                        String description = beschreibung.getText().toString().replace("~", "").replace("|", "");
+                        String date = choose_date.getText().toString().replace("~", "").replace("|", "");
+                        String receiver = choose_receiver.getText().toString().replace("~", "").replace("|", "");
                         if(mode == MODE_CREATE_CLASSTEST || mode == MODE_CREATE_HOMEWORK || mode == MODE_CREATE_EVENT) {
                             if(receiver.equals(res.getString(R.string.all_classes))) receiver = "Alle";
                             result = createElement(name, date, subject, description, receiver);
