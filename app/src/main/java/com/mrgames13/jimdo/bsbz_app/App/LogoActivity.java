@@ -47,7 +47,6 @@ public class LogoActivity extends AppCompatActivity {
             public boolean onTouch(View v, MotionEvent event) {
                 video.stopPlayback();
                 Intent i = new Intent(LogoActivity.this, LogInActivity.class);
-                i.putExtras(getIntent().getExtras());
                 startActivity(i);
                 overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
                 finish();
@@ -93,7 +92,6 @@ public class LogoActivity extends AppCompatActivity {
                             @Override
                             public void run() {
                                 Intent i = new Intent(LogoActivity.this, LogInActivity.class);
-                                i.putExtras(getIntent().getExtras());
                                 startActivity(i);
                                 overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
                                 finish();

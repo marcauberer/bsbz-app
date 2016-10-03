@@ -335,5 +335,12 @@
     <string name="notes">Notizen</string>
     <string name="edit_foodplan_t">Speiseplan verwalten</string>
     <string name="edit_foodplan_m">Füge hier die URL zum PDF-Dokument des Speiseplans dieser Woche ein</string>
+    <string name="edit_foodplan_h">Link einfügen</string>
+    <string name="edit_foodplan_autumn">Herbstferien</string>
+    <string name="edit_foodplan_winter">Winterferien</string>
+    <string name="edit_foodplan_christmas">Weihnachtsferien</string>
+    <string name="edit_foodplan_easter">Osterferien</string>
+    <string name="edit_foodplan_pentecost">Pfinstferien</string>
+    <string name="edit_foodplan_summer">Sommerferien</string>
 
 </resources>

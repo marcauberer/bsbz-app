@@ -6,7 +6,70 @@
     android:padding="12dp" >
 
     <TextView
+        android:id="@+id/edit_foodplan_message"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/edit_foodplan_m"/>
+        android:text="@string/edit_foodplan_m"
+        android:gravity="center"/>
+
+    <EditText
+        android:id="@+id/edit_foodplan_link"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/edit_foodplan_message"
+        android:hint="@string/edit_foodplan_h"
+        android:maxLines="1"/>
+    
+    <LinearLayout
+        android:id="@+id/edit_foodplan_row_1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_below="@+id/edit_foodplan_link"
+        android:weightSum="3.0" >
+
+        <Button
+            android:id="@+id/edit_foodplan_autumn"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1.0"/>
+
+        <Button
+            android:id="@+id/edit_foodplan_winter"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1.0"/>
+
+        <Button
+            android:id="@+id/edit_foodplan_chrismas"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1.0"/>
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/edit_foodplan_row_2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_below="@+id/edit_foodplan_row_1"
+        android:weightSum="3.0" >
+
+        <Button
+            android:id="@+id/edit_foodplan_easter"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1.0"/>
+
+        <Button
+            android:id="@+id/edit_foodplan_pentecost"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1.0"/>
+
+        <Button
+            android:id="@+id/edit_foodplan_summer"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1.0"/>
+    </LinearLayout>
 </RelativeLayout>

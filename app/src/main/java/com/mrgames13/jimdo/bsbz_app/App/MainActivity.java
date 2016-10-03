@@ -2379,6 +2379,51 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 View view = layoutInflater.inflate(R.layout.dialogview_edit_foodplan, null);
+
+                final EditText et_link = (EditText) view.findViewById(R.id.edit_foodplan_link);
+                Button btn_autumn = (Button) view.findViewById(R.id.edit_foodplan_autumn);
+                Button btn_winter = (Button) view.findViewById(R.id.edit_foodplan_winter);
+                Button btn_christmas = (Button) view.findViewById(R.id.edit_foodplan_chrismas);
+                Button btn_easter = (Button) view.findViewById(R.id.edit_foodplan_easter);
+                Button btn_pentecost = (Button) view.findViewById(R.id.edit_foodplan_pentecost);
+                Button btn_summer = (Button) view.findViewById(R.id.edit_foodplan_summer);
+                btn_autumn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        et_link.setText(res.getString(R.string.link_foodplan_autumn));
+                    }
+                });
+                btn_christmas.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        et_link.setText(res.getString(R.string.link_foodplan_christmas));
+                    }
+                });
+                btn_winter.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        et_link.setText(res.getString(R.string.link_foodplan_winter));
+                    }
+                });
+                btn_easter.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        et_link.setText(res.getString(R.string.link_foodplan_easter));
+                    }
+                });
+                btn_pentecost.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        et_link.setText(res.getString(R.string.link_foodplan_pentecost));
+                    }
+                });
+                btn_summer.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        et_link.setText(res.getString(R.string.link_foodplan_summer));
+                    }
+                });
+
                 AlertDialog alert = new AlertDialog.Builder(MainActivity.this)
                         .setTitle(res.getString(R.string.edit_foodplan_t))
                         .setView(view)
@@ -2388,13 +2433,16 @@ public class MainActivity extends AppCompatActivity {
                                 dialog.dismiss();
                             }
                         })
-                        .setPositiveButton(R.string.finish, new DialogInterface.OnClickListener() {
+                        .setPositiveButton(R.string.upload_changes, new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
 
+                                dialog.dismiss();
+                                launchFoodPlanFragment();
                             }
                         })
                         .create();
+                alert.show();
             }
         });
     }
