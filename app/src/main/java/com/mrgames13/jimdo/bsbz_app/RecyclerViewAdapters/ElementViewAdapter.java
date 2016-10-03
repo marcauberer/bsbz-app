@@ -9,6 +9,7 @@ import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -47,7 +48,7 @@ public class ElementViewAdapter extends RecyclerView.Adapter<ElementViewAdapter.
     private Handler h;
 
     //Variablen
-    private String result;
+    private String result = "";
     private int mode;
 
     public ElementViewAdapter(Context context, int mode) {
@@ -111,6 +112,8 @@ public class ElementViewAdapter extends RecyclerView.Adapter<ElementViewAdapter.
             holder.item_mode = MODE_HOMEWORK;
         } else if(mode == MODE_EVENT) {
             holder.item_mode = MODE_EVENT;
+        } else if(mode == MODE_NEW || mode == MODE_NEW_INVISIBLE) {
+            holder.item_mode = MODE_NEW;
         }
         //Icon festlegen
         if(holder.item_mode == MODE_CLASSTEST) {
@@ -299,6 +302,7 @@ public class ElementViewAdapter extends RecyclerView.Adapter<ElementViewAdapter.
                                                 }
                                                 result = MainActivity.serverMessagingUtils.sendRequest(null, "name="+ URLEncoder.encode(username, "UTF-8")+"&command=deleteevent&title="+URLEncoder.encode(e.getSubject().trim(), "UTF-8"));
                                             } else if(holder.item_mode == MODE_NEW) {
+                                                Log.d("BSBZ-App", MainActivity.news.get(pos).getSubject().trim());
                                                 result = MainActivity.serverMessagingUtils.sendRequest(null, "name="+ URLEncoder.encode(username, "UTF-8")+"&command=deletenew&subject="+URLEncoder.encode(MainActivity.news.get(pos).getSubject().trim(), "UTF-8"));
                                             }
                                             if(result.equals("Action Successful")) {
