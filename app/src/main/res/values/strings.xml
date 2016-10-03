@@ -333,5 +333,7 @@
         <item>MK (MK)</item>
     </string-array>
     <string name="notes">Notizen</string>
+    <string name="edit_foodplan_t">Speiseplan verwalten</string>
+    <string name="edit_foodplan_m">Füge hier die URL zum PDF-Dokument des Speiseplans dieser Woche ein</string>
 
 </resources>

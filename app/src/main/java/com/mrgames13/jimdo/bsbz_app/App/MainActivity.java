@@ -358,45 +358,6 @@ public class MainActivity extends AppCompatActivity {
         if(custom_startpage.equals("Bildergalerie")) selected_Menu_Item = 7;
         if(custom_startpage.equals("BSBZ-Infos")) selected_Menu_Item = 8;
         if(custom_startpage.equals("Die Entwickler")) selected_Menu_Item = 9;
-
-        //Seite der MainActivity voreinstellen
-        if(selected_Menu_Item == 1) {
-            getSupportActionBar().setTitle(res.getString(R.string.my_profile));
-            launchProfileFragment();
-            navView.getMenu().getItem(0).setChecked(true);
-        } else if(selected_Menu_Item == 2) {
-            getSupportActionBar().setTitle(res.getString(R.string.today));
-            launchTodayFragment();
-            navView.getMenu().getItem(1).setChecked(true);
-        } else if(selected_Menu_Item == 3) {
-            getSupportActionBar().setTitle(res.getString(R.string.this_week));
-            launchThisWeekFragment();
-            navView.getMenu().getItem(2).setChecked(true);
-        } else if(selected_Menu_Item == 4) {
-            getSupportActionBar().setTitle(res.getString(R.string.plan_of_the_year));
-            launchPlanOfTheYearFragment();
-            navView.getMenu().getItem(3).setChecked(true);
-        } else if(selected_Menu_Item == 5) {
-            getSupportActionBar().setTitle(res.getString(R.string.news));
-            launchNewsFragment();
-            navView.getMenu().getItem(4).setChecked(true);
-        } else if(selected_Menu_Item == 6) {
-            getSupportActionBar().setTitle(res.getString(R.string.food_plan));
-            launchFoodPlanFragment();
-            navView.getMenu().getItem(5).setChecked(true);
-        } else if(selected_Menu_Item == 7) {
-            getSupportActionBar().setTitle(res.getString(R.string.galery));
-            launchGalleryFragment();
-            navView.getMenu().getItem(6).setChecked(true);
-        } else if(selected_Menu_Item == 8) {
-            getSupportActionBar().setTitle(res.getString(R.string.bsbz_infos));
-            launchBSBZInfoFragment();
-            navView.getMenu().getItem(7).setChecked(true);
-        } else if(selected_Menu_Item == 9) {
-            getSupportActionBar().setTitle(res.getString(R.string.the_developers));
-            launchDeveloperFragment();
-            navView.getMenu().getItem(8).setChecked(true);
-        }
     }
 
     @Override
@@ -545,6 +506,49 @@ public class MainActivity extends AppCompatActivity {
             SharedPreferences.Editor e = prefs.edit();
             e.putString("SyncFreq",syncfreq);
             e.commit();
+        }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        //Seite  refreshen
+        if(selected_Menu_Item == 1) {
+            getSupportActionBar().setTitle(res.getString(R.string.my_profile));
+            launchProfileFragment();
+            navView.getMenu().getItem(0).setChecked(true);
+        } else if(selected_Menu_Item == 2) {
+            getSupportActionBar().setTitle(res.getString(R.string.today));
+            launchTodayFragment();
+            navView.getMenu().getItem(1).setChecked(true);
+        } else if(selected_Menu_Item == 3) {
+            getSupportActionBar().setTitle(res.getString(R.string.this_week));
+            launchThisWeekFragment();
+            navView.getMenu().getItem(2).setChecked(true);
+        } else if(selected_Menu_Item == 4) {
+            getSupportActionBar().setTitle(res.getString(R.string.plan_of_the_year));
+            launchPlanOfTheYearFragment();
+            navView.getMenu().getItem(3).setChecked(true);
+        } else if(selected_Menu_Item == 5) {
+            getSupportActionBar().setTitle(res.getString(R.string.news));
+            launchNewsFragment();
+            navView.getMenu().getItem(4).setChecked(true);
+        } else if(selected_Menu_Item == 6) {
+            getSupportActionBar().setTitle(res.getString(R.string.food_plan));
+            launchFoodPlanFragment();
+            navView.getMenu().getItem(5).setChecked(true);
+        } else if(selected_Menu_Item == 7) {
+            getSupportActionBar().setTitle(res.getString(R.string.galery));
+            launchGalleryFragment();
+            navView.getMenu().getItem(6).setChecked(true);
+        } else if(selected_Menu_Item == 8) {
+            getSupportActionBar().setTitle(res.getString(R.string.bsbz_infos));
+            launchBSBZInfoFragment();
+            navView.getMenu().getItem(7).setChecked(true);
+        } else if(selected_Menu_Item == 9) {
+            getSupportActionBar().setTitle(res.getString(R.string.the_developers));
+            launchDeveloperFragment();
+            navView.getMenu().getItem(8).setChecked(true);
         }
     }
 
@@ -2368,6 +2372,31 @@ public class MainActivity extends AppCompatActivity {
                 } catch(Exception e) {}
             }
         }).start();
+
+        //FloatingAction Button befüllen
+        FloatingActionButton edit_foodplan = (FloatingActionButton) findViewById(R.id.edit_foodplan);
+        edit_foodplan.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                View view = layoutInflater.inflate(R.layout.dialogview_edit_foodplan, null);
+                AlertDialog alert = new AlertDialog.Builder(MainActivity.this)
+                        .setTitle(res.getString(R.string.edit_foodplan_t))
+                        .setView(view)
+                        .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                            }
+                        })
+                        .setPositiveButton(R.string.finish, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+
+                            }
+                        })
+                        .create();
+            }
+        });
     }
 
     public void launchBSBZInfoFragment() {

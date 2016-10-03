@@ -46,7 +46,9 @@ public class LogoActivity extends AppCompatActivity {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 video.stopPlayback();
-                startActivity(new Intent(LogoActivity.this, LogInActivity.class));
+                Intent i = new Intent(LogoActivity.this, LogInActivity.class);
+                i.putExtras(getIntent().getExtras());
+                startActivity(i);
                 overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
                 finish();
                 return true;
@@ -90,7 +92,9 @@ public class LogoActivity extends AppCompatActivity {
                         h.postDelayed(new Runnable() {
                             @Override
                             public void run() {
-                                startActivity(new Intent(LogoActivity.this, LogInActivity.class));
+                                Intent i = new Intent(LogoActivity.this, LogInActivity.class);
+                                i.putExtras(getIntent().getExtras());
+                                startActivity(i);
                                 overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
                                 finish();
                             }
