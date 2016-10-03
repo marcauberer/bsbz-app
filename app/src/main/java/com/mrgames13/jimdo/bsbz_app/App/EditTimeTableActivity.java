@@ -14,6 +14,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.mrgames13.jimdo.bsbz_app.CommonObjects.TimeTable;
 import com.mrgames13.jimdo.bsbz_app.R;
 import com.mrgames13.jimdo.bsbz_app.RecyclerViewAdapters.ViewPagerAdapterEditTimeTable;
 
@@ -26,6 +27,7 @@ public class EditTimeTableActivity extends AppCompatActivity {
     private ViewPager viewpager;
     private ViewPagerAdapterEditTimeTable viewpager_adapter;
     private Resources res;
+    private TimeTable timetable;
 
     //Variablen
     private String klasse;
@@ -73,12 +75,16 @@ public class EditTimeTableActivity extends AppCompatActivity {
         //Resourcen initialisieren
         res = getResources();
 
+        //Extras aus dem Intent auslesen
+        klasse = getIntent().getStringExtra("class");
+        timetable = MainActivity.su.getTimeTable(klasse);
+
         //Toolbar initialisieren
         toolbar = (Toolbar) findViewById(R.id.toolbar_edit_timetable);
         setSupportActionBar(toolbar);
 
         //ViewPager aufsetzen
-        viewpager_adapter = new ViewPagerAdapterEditTimeTable(getSupportFragmentManager(), res);
+        viewpager_adapter = new ViewPagerAdapterEditTimeTable(getSupportFragmentManager(), res, timetable);
         viewpager = (ViewPager) findViewById(R.id.edit_timetable_view_pager);
         viewpager.setAdapter(viewpager_adapter);
 
@@ -98,8 +104,6 @@ public class EditTimeTableActivity extends AppCompatActivity {
             @Override
             public void onTabReselected(TabLayout.Tab tab) {}
         });
-
-        klasse = getIntent().getStringExtra("class");
     }
 
     @Override

@@ -24,7 +24,8 @@
         android:layout_alignLeft="@+id/spnr_specific_subject"
         android:layout_alignStart="@+id/spnr_specific_subject"
         android:layout_toLeftOf="@+id/et_other_subject_short"
-        android:layout_marginRight="16dp"/>
+        android:layout_marginRight="16dp"
+        android:enabled="false"/>
 
     <EditText
         android:id="@+id/et_other_subject_short"
@@ -34,7 +35,8 @@
         android:layout_alignBaseline="@+id/et_other_subject_text"
         android:layout_alignBottom="@+id/et_other_subject_text"
         android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"/>
+        android:layout_alignParentEnd="true"
+        android:enabled="false"/>
 
     <RadioGroup
         android:id="@+id/rg_subject"
