@@ -125,7 +125,7 @@ public class ElementViewAdapter extends RecyclerView.Adapter<ElementViewAdapter.
         } else if(holder.item_mode == MODE_EVENT) {
             holder.item_icon.setText(res.getString(R.string.event_short_short));
             holder.item_icon.setBackgroundResource(R.drawable.icon_t);
-        } else if(mode == MODE_NEW || mode == MODE_NEW_INVISIBLE) {
+        } else if(holder.item_mode == MODE_NEW) {
             holder.item_icon.setText(res.getString(R.string.new_short_short));
             holder.item_icon.setBackgroundResource(R.drawable.icon_n);
         }
@@ -166,7 +166,7 @@ public class ElementViewAdapter extends RecyclerView.Adapter<ElementViewAdapter.
             holder.item_date.setText(e.getDate());
             holder.item_receiver.setText(e.getReceiver());
             holder.item_writer.setText(e.getWriter());
-        } else if(mode == MODE_NEW || mode == MODE_NEW_INVISIBLE) {
+        } else if(holder.item_mode == MODE_NEW) {
             New n = MainActivity.news.get(pos);
             holder.item_subject.setText(n.getSubject());
             holder.item_description.setText(n.getDescription());
