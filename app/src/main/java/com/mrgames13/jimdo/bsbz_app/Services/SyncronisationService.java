@@ -163,8 +163,8 @@ public class SyncronisationService extends Service {
                     //Daten auseinandernehmen
                     ArrayList<String> arraylist = new ArrayList<String>();
                     //In einzelne Klassenarbeiten unterteilen
-                    while(classtests_str.contains(";")) {
-                        int index = classtests_str.indexOf(";");
+                    while(classtests_str.contains("|")) {
+                        int index = classtests_str.indexOf("|");
                         arraylist.add(classtests_str.substring(0, index));
                         classtests_str = classtests_str.substring(index +1);
                     }
@@ -173,10 +173,10 @@ public class SyncronisationService extends Service {
                     su.deleteAllClasstests();
                     for(String c_classtest : arraylist) {
                         //Indexe finden
-                        int index1_1 = c_classtest.indexOf(",");
-                        int index2_2 = c_classtest.indexOf(",", index1_1 +1);
-                        int index3_3 = c_classtest.indexOf(",", index2_2 +1);
-                        int index4_4 = c_classtest.indexOf(",", index3_3 +1);
+                        int index1_1 = c_classtest.indexOf("~");
+                        int index2_2 = c_classtest.indexOf("~", index1_1 +1);
+                        int index3_3 = c_classtest.indexOf("~", index2_2 +1);
+                        int index4_4 = c_classtest.indexOf("~", index3_3 +1);
                         //String zerteilen
                         int c_classtest_id = i +1;
                         String c_classtest_subject = c_classtest.substring(0, index1_1);
@@ -201,8 +201,8 @@ public class SyncronisationService extends Service {
                     //Daten auseinandernehmen
                     arraylist = new ArrayList<String>();
                     //In einzelne Hausaufgaben unterteilen
-                    while(homeworks_str.contains(";")) {
-                        int index = homeworks_str.indexOf(";");
+                    while(homeworks_str.contains("|")) {
+                        int index = homeworks_str.indexOf("|");
                         arraylist.add(homeworks_str.substring(0, index));
                         homeworks_str = homeworks_str.substring(index +1);
                     }
@@ -211,10 +211,10 @@ public class SyncronisationService extends Service {
                     su.deleteAllHomeworks();
                     for(String c_homework : arraylist) {
                         //Indexe finden
-                        int index1_1 = c_homework.indexOf(",");
-                        int index2_2 = c_homework.indexOf(",", index1_1 +1);
-                        int index3_3 = c_homework.indexOf(",", index2_2 +1);
-                        int index4_4 = c_homework.indexOf(",", index3_3 +1);
+                        int index1_1 = c_homework.indexOf("~");
+                        int index2_2 = c_homework.indexOf("~", index1_1 +1);
+                        int index3_3 = c_homework.indexOf("~", index2_2 +1);
+                        int index4_4 = c_homework.indexOf("~", index3_3 +1);
                         //String zerteilen
                         int c_homework_id = i +1;
                         String c_homework_subject = c_homework.substring(0, index1_1);
@@ -239,8 +239,8 @@ public class SyncronisationService extends Service {
                     //Daten auseinandernehmen
                     arraylist = new ArrayList<String>();
                     //In einzelne Events unterteilen
-                    while(termine_str.contains(";")) {
-                        int index = termine_str.indexOf(";");
+                    while(termine_str.contains("|")) {
+                        int index = termine_str.indexOf("|");
                         arraylist.add(termine_str.substring(0, index));
                         termine_str = termine_str.substring(index +1);
                     }
@@ -249,10 +249,10 @@ public class SyncronisationService extends Service {
                     su.deleteAllEvents();
                     for(String c_event : arraylist) {
                         //Indexe finden
-                        int index1_1 = c_event.indexOf(",");
-                        int index2_2 = c_event.indexOf(",", index1_1 +1);
-                        int index3_3 = c_event.indexOf(",", index2_2 +1);
-                        int index4_4 = c_event.indexOf(",", index3_3 +1);
+                        int index1_1 = c_event.indexOf("~");
+                        int index2_2 = c_event.indexOf("~", index1_1 +1);
+                        int index3_3 = c_event.indexOf("~", index2_2 +1);
+                        int index4_4 = c_event.indexOf("~", index3_3 +1);
                         //String zerteilen
                         int c_homework_id = i +1;
                         String c_event_subject = c_event.substring(0, index1_1);
@@ -277,8 +277,8 @@ public class SyncronisationService extends Service {
                     //Daten auseinandernehmen
                     arraylist = new ArrayList<String>();
                     //In einzelne News unterteilen
-                    while(news_str.contains(";")) {
-                        int index = news_str.indexOf(";");
+                    while(news_str.contains("|")) {
+                        int index = news_str.indexOf("|");
                         arraylist.add(news_str.substring(0, index));
                         news_str = news_str.substring(index +1);
                     }
@@ -287,12 +287,12 @@ public class SyncronisationService extends Service {
                     su.deleteAllNews();
                     for(String c_new : arraylist) {
                         //Indexe finden
-						int index1_1 = c_new.indexOf(",");
-                        int index2_2 = c_new.indexOf(",", index1_1 +1);
-                        int index3_3 = c_new.indexOf(",", index2_2 +1);
-                        int index4_4 = c_new.indexOf(",", index3_3 +1);
-                        int index5_5 = c_new.indexOf(",", index4_4 +1);
-                        int index6_6 = c_new.indexOf(",", index5_5 +1);
+						int index1_1 = c_new.indexOf("~");
+                        int index2_2 = c_new.indexOf("~", index1_1 +1);
+                        int index3_3 = c_new.indexOf("~", index2_2 +1);
+                        int index4_4 = c_new.indexOf("~", index3_3 +1);
+                        int index5_5 = c_new.indexOf("~", index4_4 +1);
+                        int index6_6 = c_new.indexOf("~", index5_5 +1);
                         //String zerteilen
                         int c_new_id = i;
                         String c_new_subject = c_new.substring(0, index1_1);

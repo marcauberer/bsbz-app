@@ -119,7 +119,7 @@ public class StorageUtils {
 
     public void addClasstest(int id, String subject, String description, String receiver, String writer, String date) {
         //Classtest-Daten in die SharedPreferences speichern
-        String complete_classtest_string = String.valueOf(id) + "," + subject + "," + description + "," + receiver + "," + writer + "," + date;
+        String complete_classtest_string = String.valueOf(id) + "~" + subject + "~" + description + "~" + receiver + "~" + writer + "~" + date;
         putString("C" + String.valueOf(id), complete_classtest_string);
         //Classtest-Anzahl in den SharedPreferences um eins erhöhen
         putInt("CCount", getClasstestCount() +1);
@@ -132,11 +132,11 @@ public class StorageUtils {
             String current_classtest = getString("C" + String.valueOf(i), null);
             if(current_classtest != null) {
                 //Aktuelle Nachricht zerteilen
-                int index1 = current_classtest.indexOf(",");
-                int index2 = current_classtest.indexOf(",", index1 +1);
-                int index3 = current_classtest.indexOf(",", index2 +1);
-                int index4 = current_classtest.indexOf(",", index3 +1);
-                int index5 = current_classtest.indexOf(",", index4 +1);
+                int index1 = current_classtest.indexOf("~");
+                int index2 = current_classtest.indexOf("~", index1 +1);
+                int index3 = current_classtest.indexOf("~", index2 +1);
+                int index4 = current_classtest.indexOf("~", index3 +1);
+                int index5 = current_classtest.indexOf("~", index4 +1);
                 //Unterteilen
                 int current_classtest_id = Integer.parseInt(current_classtest.substring(0, index1));
                 String current_classtest_subject = current_classtest.substring(index1 +1, index2);
@@ -186,7 +186,7 @@ public class StorageUtils {
 
     public void addHomework(int id, String subject, String description, String receiver, String writer, String date) {
         //Classtest-Daten in die SharedPreferences speichern
-        String complete_homework_string = String.valueOf(id) + "," + subject + "," + description + "," + receiver + "," + writer + "," + date;
+        String complete_homework_string = String.valueOf(id) + "~" + subject + "~" + description + "~" + receiver + "~" + writer + "~" + date;
         putString("H" + String.valueOf(id), complete_homework_string);
         //Classtest-Anzahl in den SharedPreferences um eins erhöhen
         putInt("HCount", getHomeworkCount() +1);
@@ -199,11 +199,11 @@ public class StorageUtils {
             String current_homework = getString("H" + String.valueOf(i), null);
             if(current_homework != null) {
                 //Aktuelle Nachricht zerteilen
-                int index1 = current_homework.indexOf(",");
-                int index2 = current_homework.indexOf(",", index1 +1);
-                int index3 = current_homework.indexOf(",", index2 +1);
-                int index4 = current_homework.indexOf(",", index3 +1);
-                int index5 = current_homework.indexOf(",", index4 +1);
+                int index1 = current_homework.indexOf("~");
+                int index2 = current_homework.indexOf("~", index1 +1);
+                int index3 = current_homework.indexOf("~", index2 +1);
+                int index4 = current_homework.indexOf("~", index3 +1);
+                int index5 = current_homework.indexOf("~", index4 +1);
                 //Unterteilen
                 int current_homework_id = Integer.parseInt(current_homework.substring(0, index1));
                 String current_homework_subject = current_homework.substring(index1 +1, index2);
@@ -253,7 +253,7 @@ public class StorageUtils {
 
     public void addEvent(int id, String subject, String description, String receiver, String writer, String date) {
         //Classtest-Daten in die SharedPreferences speichern
-        String complete_event_string = String.valueOf(id) + "," + subject + "," + description + "," + receiver + "," + writer + "," + date;
+        String complete_event_string = String.valueOf(id) + "~" + subject + "~" + description + "~" + receiver + "~" + writer + "~" + date;
         putString("E" + String.valueOf(id), complete_event_string);
         //Classtest-Anzahl in den SharedPreferences um eins erhöhen
         putInt("ECount", getEventCount() +1);
@@ -266,11 +266,11 @@ public class StorageUtils {
             String current_event = getString("E" + String.valueOf(i), null);
             if(current_event != null) {
                 //Aktuelle Nachricht zerteilen
-                int index1 = current_event.indexOf(",");
-                int index2 = current_event.indexOf(",", index1 +1);
-                int index3 = current_event.indexOf(",", index2 +1);
-                int index4 = current_event.indexOf(",", index3 +1);
-                int index5 = current_event.indexOf(",", index4 +1);
+                int index1 = current_event.indexOf("~");
+                int index2 = current_event.indexOf("~", index1 +1);
+                int index3 = current_event.indexOf("~", index2 +1);
+                int index4 = current_event.indexOf("~", index3 +1);
+                int index5 = current_event.indexOf("~", index4 +1);
                 //Unterteilen
                 int current_event_id = Integer.parseInt(current_event.substring(0, index1));
                 String current_event_subject = current_event.substring(index1 +1, index2);
@@ -320,7 +320,7 @@ public class StorageUtils {
 
     public void addNew(int id, int state, String subject, String description, String receiver, String writer, String activation_date, String expitration_date) {
         //New-Daten in die SharedPreferences speichern
-        String complete_new_string = String.valueOf(id) + "," + String.valueOf(state) + "," + subject + "," + description + "," + receiver + "," + writer + "," + activation_date + "," + expitration_date;
+        String complete_new_string = String.valueOf(id) + "~" + String.valueOf(state) + "~" + subject + "~" + description + "~" + receiver + "~" + writer + "~" + activation_date + "~" + expitration_date;
         putString("N" + String.valueOf(id), complete_new_string);
         //News-Anzahl in den SharedPreferences um eins erhöhen
         putInt("NCount", getNewsCount() +1);
@@ -333,13 +333,13 @@ public class StorageUtils {
             String current_new = getString("N" + String.valueOf(i), null);
             if(current_new != null) {
                 //Aktuelle Nachricht zerteilen
-                int index1 = current_new.indexOf(",");
-                int index2 = current_new.indexOf(",", index1 +1);
-                int index3 = current_new.indexOf(",", index2 +1);
-                int index4 = current_new.indexOf(",", index3 +1);
-                int index5 = current_new.indexOf(",", index4 +1);
-                int index6 = current_new.indexOf(",", index5 +1);
-                int index7 = current_new.indexOf(",", index6 +1);
+                int index1 = current_new.indexOf("~");
+                int index2 = current_new.indexOf("~", index1 +1);
+                int index3 = current_new.indexOf("~", index2 +1);
+                int index4 = current_new.indexOf("~", index3 +1);
+                int index5 = current_new.indexOf("~", index4 +1);
+                int index6 = current_new.indexOf("~", index5 +1);
+                int index7 = current_new.indexOf("~", index6 +1);
                 //Unterteilen
                 int current_new_id = Integer.parseInt(current_new.substring(0, index1));
                 int current_new_state = Integer.parseInt(current_new.substring(index1 +1, index2));
