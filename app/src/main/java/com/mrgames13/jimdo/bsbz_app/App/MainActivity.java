@@ -211,6 +211,39 @@ public class MainActivity extends AppCompatActivity {
         //NotificationUtils initialisieren
         nu = new NotificationUtils(MainActivity.this);
 
+        //SynchronisationService.OnSyncFinishedListener initialisieren
+        syncFinishedListener = new SyncronisationService.onSyncFinishedListener() {
+            @Override
+            public void onSyncFinished() {
+                progress_menu_item.setActionView(null);
+                //Fragmente refreshen
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        if(selected_Menu_Item == 1) {
+                            launchProfileFragment();
+                        } else if(selected_Menu_Item == 2) {
+                            launchTodayFragment();
+                        } else if(selected_Menu_Item == 3) {
+                            launchThisWeekFragment();
+                        } else if(selected_Menu_Item == 4) {
+                            launchPlanOfTheYearFragment();
+                        } else if(selected_Menu_Item == 5) {
+                            launchNewsFragment();
+                        } else if(selected_Menu_Item == 6) {
+                            launchFoodPlanFragment();
+                        } else if(selected_Menu_Item == 7) {
+                            launchGalleryFragment();
+                        } else if(selected_Menu_Item == 8) {
+                            launchBSBZInfoFragment();
+                        } else if(selected_Menu_Item == 9) {
+                            launchDeveloperFragment();
+                        }
+                    }
+                });
+            }
+        };
+
         //DrawerLayout finden
         drawer_layout_gesamt = (DrawerLayout) findViewById(R.id.drawer_layout_gesamt);
         //DrawerToggle aufsetzen
@@ -412,37 +445,6 @@ public class MainActivity extends AppCompatActivity {
                         }
                     }).start();
                     progress_menu_item.setActionView(R.layout.menu_item_layout);
-                    syncFinishedListener = new SyncronisationService.onSyncFinishedListener() {
-                        @Override
-                        public void onSyncFinished() {
-                            progress_menu_item.setActionView(null);
-                            //Fragmente refreshen
-                            runOnUiThread(new Runnable() {
-                                @Override
-                                public void run() {
-                                    if(selected_Menu_Item == 1) {
-                                        launchProfileFragment();
-                                    } else if(selected_Menu_Item == 2) {
-                                        launchTodayFragment();
-                                    } else if(selected_Menu_Item == 3) {
-                                        launchThisWeekFragment();
-                                    } else if(selected_Menu_Item == 4) {
-                                        launchPlanOfTheYearFragment();
-                                    } else if(selected_Menu_Item == 5) {
-                                        launchNewsFragment();
-                                    } else if(selected_Menu_Item == 6) {
-                                        launchFoodPlanFragment();
-                                    } else if(selected_Menu_Item == 7) {
-                                        launchGalleryFragment();
-                                    } else if(selected_Menu_Item == 8) {
-                                        launchBSBZInfoFragment();
-                                    } else if(selected_Menu_Item == 9) {
-                                        launchDeveloperFragment();
-                                    }
-                                }
-                            });
-                        }
-                    };
                     isRunning = true;
                 } catch(Exception e) {
                     new Thread(new Runnable() {

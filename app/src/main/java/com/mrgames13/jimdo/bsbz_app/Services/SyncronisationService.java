@@ -96,13 +96,13 @@ public class SyncronisationService extends Service {
 		Thread t = new Thread(new Runnable() {
 			@Override
 			public void run() {
-				if(update == false && sync && serverMessagingUtils.isInternetAvailable()) {
+				if(!update && sync && serverMessagingUtils.isInternetAvailable()) {
                     //Snchronisieren
                     sync();
 					//SyncTime eintragen
 					EnterLastSyncTime();
 				}
-				//Menu Item der MainActivity auf null setzen
+				//MainActivity refreshen
 				MainActivity.isRunning = false;
 				handler.post(new Runnable() {
 					@Override
@@ -114,7 +114,6 @@ public class SyncronisationService extends Service {
 			}
 		});
 		t.start();
-		
 		return super.onStartCommand(intent, flags, startId);
 	}
 	

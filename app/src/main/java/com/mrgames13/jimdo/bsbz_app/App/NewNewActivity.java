@@ -36,7 +36,10 @@ import com.mrgames13.jimdo.bsbz_app.Services.SyncronisationService;
 import com.mrgames13.jimdo.bsbz_app.Tools.ServerMessagingUtils;
 
 import java.net.URLEncoder;
+import java.text.DateFormat;
 import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
 
 @SuppressWarnings("deprecation")
 public class NewNewActivity extends AppCompatActivity {
@@ -65,6 +68,7 @@ public class NewNewActivity extends AppCompatActivity {
     //Variablen
     private boolean pressedOnce;
     private String result;
+    private String current_date;
 
     @Override
     protected void onStart() {
@@ -127,6 +131,11 @@ public class NewNewActivity extends AppCompatActivity {
 
         //Calendar initialisieren
         calendar = Calendar.getInstance();
+
+        //Aktuelles Datum einstellen
+        Date date = new Date(System.currentTimeMillis());
+        DateFormat formatierer = DateFormat.getDateInstance(DateFormat.MEDIUM, Locale.GERMANY);
+        current_date = formatierer.format(date);
 
         //Komponenten voreinstellen
         //IDs finden
@@ -410,8 +419,8 @@ public class NewNewActivity extends AppCompatActivity {
                         String subject = etSubject.getText().toString().replace("~", "").replace("|", "");
                         String desciption = etDescription.getText().toString().replace("~", "").replace("|", "");
                         String writer = etWriter.getText().toString().replace("~", "").replace("|", "");
-                        String activation_date = btn_choose_date_activation.getText().toString();
-                        String expiration_date = btn_choose_date_expiration.getText().toString();
+                        String activation_date = current_date;
+                        String expiration_date = "0";
                         //Nachricht erstellen
                         String klasse = btn_choose_receiver.getText().toString();
                         if(klasse.equals(res.getString(R.string.all_classes))) klasse = "Alle";
