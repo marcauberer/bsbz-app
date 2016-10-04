@@ -410,4 +410,24 @@ public class StorageUtils {
     public void setNewsCount(int count) {
         putInt("NCount", count);
     }
+
+    //------------------------------------SavedSubject-Functions------------------------------------
+
+    public void addNewSavedSubject(String subjectName, String subjectShort) {
+        String allSubjects = getString("SavedSubjects") + "|" + subjectName + " (" + subjectShort + ")";
+        putString("SavedSubjects", allSubjects);
+    }
+
+    public ArrayList<String> getSavedSubjects() {
+        ArrayList<String> subjects = new ArrayList<>();
+        String allSubjects = getString("SavedSubjects");
+        if(!allSubjects.equals("")) {
+            while(allSubjects.contains("|")) {
+                int index = allSubjects.indexOf("|");
+                subjects.add(allSubjects.substring(0, index));
+                allSubjects = allSubjects.substring(index +1);
+            }
+        }
+        return subjects;
+    }
 }

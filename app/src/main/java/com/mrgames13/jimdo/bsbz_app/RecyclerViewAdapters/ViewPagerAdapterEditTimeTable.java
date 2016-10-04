@@ -8,9 +8,11 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v7.app.AlertDialog;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
@@ -20,25 +22,32 @@ import android.widget.Spinner;
 import com.mrgames13.jimdo.bsbz_app.App.MainActivity;
 import com.mrgames13.jimdo.bsbz_app.CommonObjects.TimeTable;
 import com.mrgames13.jimdo.bsbz_app.R;
+import com.mrgames13.jimdo.bsbz_app.Tools.StorageUtils;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class ViewPagerAdapterEditTimeTable extends FragmentPagerAdapter {
 
     //Konstanten
 
     //Variablen als Objekte
-    public static TimeTable timetable;
-    public static Resources res;
+    private static TimeTable timetable;
+    private static Resources res;
     private ArrayList<String> tabTitles = new ArrayList<>();
+    private static ArrayList<String> savedSubjects = new ArrayList<>();
+    private static StorageUtils su;
 
     //Variablen
+    public static String selectedName;
     public static String selectedShort;
 
     //Konstruktor
-    public ViewPagerAdapterEditTimeTable(FragmentManager manager, Resources res, TimeTable timetable) {
+    public ViewPagerAdapterEditTimeTable(FragmentManager manager, Resources res, StorageUtils su, TimeTable timetable) {
         super(manager);
         ViewPagerAdapterEditTimeTable.res = res;
+        ViewPagerAdapterEditTimeTable.su = su;
         ViewPagerAdapterEditTimeTable.timetable = timetable;
         tabTitles.add(res.getString(R.string.monday));
         tabTitles.add(res.getString(R.string.tuesday));
@@ -135,6 +144,9 @@ public class ViewPagerAdapterEditTimeTable extends FragmentPagerAdapter {
 
         @Override
         public void onClick(final View v) {
+            //SavedSubjects laden
+            savedSubjects = su.getSavedSubjects();
+            //Dialog anzeigen
             AlertDialog.Builder alert;
             if(MainActivity.AppTheme == 0) {
                 alert = new AlertDialog.Builder(getActivity(), R.style.FirstTheme_Dialog);
@@ -149,6 +161,15 @@ public class ViewPagerAdapterEditTimeTable extends FragmentPagerAdapter {
             final RadioButton rd_other = (RadioButton) dialogView.findViewById(R.id.rb_other_subject);
 
             final Spinner spinner = (Spinner) dialogView.findViewById(R.id.spnr_specific_subject);
+
+            String[] values = getResources().getStringArray(R.array.subject_items);
+            List list = Arrays.asList(values);
+            ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_item, list);
+            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            for(String item : savedSubjects) {
+                adapter.insert(item, 0);
+            }
+            spinner.setAdapter(adapter);
 
             final EditText et_text = (EditText) dialogView.findViewById(R.id.et_other_subject_text);
             final EditText et_short = (EditText) dialogView.findViewById(R.id.et_other_subject_short);
@@ -181,9 +202,10 @@ public class ViewPagerAdapterEditTimeTable extends FragmentPagerAdapter {
                         String selectedItem = spinner.getSelectedItem().toString();
                         selectedShort = selectedItem.substring(selectedItem.indexOf("(")+1, selectedItem.indexOf(")"));
                     } else if(rd_other.isChecked()) {
-                        selectedShort = et_short.getText().toString();
-                        //Neues Fach in den SharedPreferences anlegen
-
+                        selectedName = et_text.getText().toString().trim();
+                        selectedShort = et_short.getText().toString().trim();
+                        //Neues Fach anlegen
+                        su.addNewSavedSubject(selectedName, selectedShort);
                     }
                     Button btn = (Button) v;
                     btn.setText(selectedShort);
@@ -259,6 +281,9 @@ public class ViewPagerAdapterEditTimeTable extends FragmentPagerAdapter {
 
         @Override
         public void onClick(final View v) {
+            //SavedSubjects laden
+            savedSubjects = su.getSavedSubjects();
+            //Dialog anzeigen
             AlertDialog.Builder alert;
             if(MainActivity.AppTheme == 0) {
                 alert = new AlertDialog.Builder(getActivity(), R.style.FirstTheme_Dialog);
@@ -383,6 +408,9 @@ public class ViewPagerAdapterEditTimeTable extends FragmentPagerAdapter {
 
         @Override
         public void onClick(final View v) {
+            //SavedSubjects laden
+            savedSubjects = su.getSavedSubjects();
+            //Dialog anzeigen
             AlertDialog.Builder alert;
             if(MainActivity.AppTheme == 0) {
                 alert = new AlertDialog.Builder(getActivity(), R.style.FirstTheme_Dialog);
@@ -507,6 +535,9 @@ public class ViewPagerAdapterEditTimeTable extends FragmentPagerAdapter {
 
         @Override
         public void onClick(final View v) {
+            //SavedSubjects laden
+            savedSubjects = su.getSavedSubjects();
+            //Dialog anzeigen
             AlertDialog.Builder alert;
             if(MainActivity.AppTheme == 0) {
                 alert = new AlertDialog.Builder(getActivity(), R.style.FirstTheme_Dialog);
@@ -631,6 +662,9 @@ public class ViewPagerAdapterEditTimeTable extends FragmentPagerAdapter {
 
         @Override
         public void onClick(final View v) {
+            //SavedSubjects laden
+            savedSubjects = su.getSavedSubjects();
+            //Dialog anzeigen
             AlertDialog.Builder alert;
             if(MainActivity.AppTheme == 0) {
                 alert = new AlertDialog.Builder(getActivity(), R.style.FirstTheme_Dialog);

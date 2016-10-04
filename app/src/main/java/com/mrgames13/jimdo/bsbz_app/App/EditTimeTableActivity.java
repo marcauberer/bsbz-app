@@ -17,6 +17,7 @@ import android.view.MenuItem;
 import com.mrgames13.jimdo.bsbz_app.CommonObjects.TimeTable;
 import com.mrgames13.jimdo.bsbz_app.R;
 import com.mrgames13.jimdo.bsbz_app.RecyclerViewAdapters.ViewPagerAdapterEditTimeTable;
+import com.mrgames13.jimdo.bsbz_app.Tools.StorageUtils;
 
 public class EditTimeTableActivity extends AppCompatActivity {
     //Konstanten
@@ -27,6 +28,7 @@ public class EditTimeTableActivity extends AppCompatActivity {
     private ViewPager viewpager;
     private ViewPagerAdapterEditTimeTable viewpager_adapter;
     private Resources res;
+    private StorageUtils su;
     private TimeTable timetable;
 
     //Variablen
@@ -75,6 +77,9 @@ public class EditTimeTableActivity extends AppCompatActivity {
         //Resourcen initialisieren
         res = getResources();
 
+        //StorageUtils initialisieren
+        su = new StorageUtils(EditTimeTableActivity.this);
+
         //Extras aus dem Intent auslesen
         klasse = getIntent().getStringExtra("class");
         timetable = MainActivity.su.getTimeTable(klasse);
@@ -84,7 +89,7 @@ public class EditTimeTableActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         //ViewPager aufsetzen
-        viewpager_adapter = new ViewPagerAdapterEditTimeTable(getSupportFragmentManager(), res, timetable);
+        viewpager_adapter = new ViewPagerAdapterEditTimeTable(getSupportFragmentManager(), res, su, timetable);
         viewpager = (ViewPager) findViewById(R.id.edit_timetable_view_pager);
         viewpager.setAdapter(viewpager_adapter);
 
