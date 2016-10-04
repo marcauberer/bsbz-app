@@ -396,26 +396,27 @@ public class NewNewActivity extends AppCompatActivity {
                         if(klasse.equals(res.getString(R.string.all_classes))) klasse = "Alle";
                         createNew(subject, desciption, writer, activation_date, expiration_date, klasse);
                     }
-                }
-                if(etSubject.getText().toString().equals("")) {
-                    Toast.makeText(NewNewActivity.this, res.getString(R.string.no_subject), Toast.LENGTH_SHORT).show();
-                } else if(etDescription.getText().toString().equals("")) {
-                    Toast.makeText(NewNewActivity.this, res.getString(R.string.no_description), Toast.LENGTH_SHORT).show();
-                } else if(etWriter.getText().toString().equals("")) {
-                    Toast.makeText(NewNewActivity.this, res.getString(R.string.no_writer), Toast.LENGTH_SHORT).show();
-                } else if(btn_choose_receiver.getText().toString().equals(res.getString(R.string.choose_receiver_))) {
-                    Toast.makeText(NewNewActivity.this, res.getString(R.string.no_receiver), Toast.LENGTH_SHORT).show();
                 } else {
-                    //Daten von den Komponenten abholen
-                    String subject = etSubject.getText().toString().replace("~", "").replace("|", "");
-                    String desciption = etDescription.getText().toString().replace("~", "").replace("|", "");
-                    String writer = etWriter.getText().toString().replace("~", "").replace("|", "");
-                    String activation_date = btn_choose_date_activation.getText().toString();
-                    String expiration_date = btn_choose_date_expiration.getText().toString();
-                    //Nachricht erstellen
-                    String klasse = btn_choose_receiver.getText().toString();
-                    if(klasse.equals(res.getString(R.string.all_classes))) klasse = "Alle";
-                    createNew(subject, desciption, writer, activation_date, expiration_date, klasse);
+                    if(etSubject.getText().toString().equals("")) {
+                        Toast.makeText(NewNewActivity.this, res.getString(R.string.no_subject), Toast.LENGTH_SHORT).show();
+                    } else if(etDescription.getText().toString().equals("")) {
+                        Toast.makeText(NewNewActivity.this, res.getString(R.string.no_description), Toast.LENGTH_SHORT).show();
+                    } else if(etWriter.getText().toString().equals("")) {
+                        Toast.makeText(NewNewActivity.this, res.getString(R.string.no_writer), Toast.LENGTH_SHORT).show();
+                    } else if(btn_choose_receiver.getText().toString().equals(res.getString(R.string.choose_receiver_))) {
+                        Toast.makeText(NewNewActivity.this, res.getString(R.string.no_receiver), Toast.LENGTH_SHORT).show();
+                    } else {
+                        //Daten von den Komponenten abholen
+                        String subject = etSubject.getText().toString().replace("~", "").replace("|", "");
+                        String desciption = etDescription.getText().toString().replace("~", "").replace("|", "");
+                        String writer = etWriter.getText().toString().replace("~", "").replace("|", "");
+                        String activation_date = btn_choose_date_activation.getText().toString();
+                        String expiration_date = btn_choose_date_expiration.getText().toString();
+                        //Nachricht erstellen
+                        String klasse = btn_choose_receiver.getText().toString();
+                        if(klasse.equals(res.getString(R.string.all_classes))) klasse = "Alle";
+                        createNew(subject, desciption, writer, activation_date, expiration_date, klasse);
+                    }
                 }
             }
         });
@@ -485,6 +486,7 @@ public class NewNewActivity extends AppCompatActivity {
                         result = res.getString(R.string.error_try_again);
                     }
                 } catch (Exception e) {
+                    e.printStackTrace();
                     result = res.getString(R.string.error_try_again);
                 }
                 runOnUiThread(new Runnable() {

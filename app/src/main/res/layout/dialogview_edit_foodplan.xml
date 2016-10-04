@@ -25,14 +25,22 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/edit_foodplan_open"
-        android:layout_below="@+id/edit_foodplan_link"/>
+        android:layout_below="@+id/edit_foodplan_link"
+        android:textColor="@color/colorPrimary"/>
+
+    <Button
+        android:id="@+id/edit_foodplan_paste"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/edit_foodplan_open"
+        android:text="@string/paste"/>
 
     <LinearLayout
         android:id="@+id/edit_foodplan_row_1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_below="@+id/edit_foodplan_open"
+        android:layout_below="@+id/edit_foodplan_paste"
         android:weightSum="2.0" >
 
         <Button

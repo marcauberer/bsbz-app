@@ -347,5 +347,6 @@
     <string name="edit_foodplan_open">Stundenplan-Seite öffnen</string>
     <string name="edit_foodplan_open_t">Stundenplan-Seite</string>
     <string name="no_valid_url">Dies ist keine gültige Internetseite</string>
+    <string name="paste">Zwischenablage einfügen</string>
 
 </resources>

@@ -4,6 +4,7 @@ import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -2387,6 +2388,7 @@ public class MainActivity extends AppCompatActivity {
                 Button btn_easter = (Button) view.findViewById(R.id.edit_foodplan_easter);
                 Button btn_pentecost = (Button) view.findViewById(R.id.edit_foodplan_pentecost);
                 Button btn_summer = (Button) view.findViewById(R.id.edit_foodplan_summer);
+                Button btn_paste = (Button) view.findViewById(R.id.edit_foodplan_paste);
                 Button btn_open = (Button) view.findViewById(R.id.edit_foodplan_open);
                 btn_open.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -2394,6 +2396,15 @@ public class MainActivity extends AppCompatActivity {
                         Intent i = new Intent(Intent.ACTION_VIEW);
                         i.setData(Uri.parse("https://www.bsbz.de/schwarzes-brett/speiseplan/"));
                         startActivity(i);
+                    }
+                });
+                btn_paste.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        ClipboardManager clipboard;
+                        clipboard = (ClipboardManager)getSystemService(CLIPBOARD_SERVICE);
+                        et_link.setText(clipboard.getPrimaryClip().getItemAt(0).getText().toString());
+                        et_link.setSelection(et_link.getText().length());
                     }
                 });
                 btn_autumn.setOnClickListener(new View.OnClickListener() {
