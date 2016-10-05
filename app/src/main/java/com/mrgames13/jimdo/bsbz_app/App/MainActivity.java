@@ -792,7 +792,7 @@ public class MainActivity extends AppCompatActivity {
         all.clear();
         all.addAll(classtests);
         all.addAll(homeworks);
-        all.add(events);
+        all.addAll(events);
 
         //NewsRecyclerView anzeigen
         today_view = (RecyclerView) findViewById(R.id.today_recycler_view);
@@ -2405,7 +2405,11 @@ public class MainActivity extends AppCompatActivity {
                     public void onClick(View v) {
                         ClipboardManager clipboard;
                         clipboard = (ClipboardManager)getSystemService(CLIPBOARD_SERVICE);
-                        et_link.setText(clipboard.getPrimaryClip().getItemAt(0).getText().toString());
+                        if(clipboard.getPrimaryClip() != null) {
+                            et_link.setText(clipboard.getPrimaryClip().getItemAt(0).getText().toString());
+                        } else {
+                            Toast.makeText(MainActivity.this, res.getString(R.string.no_clipboard), Toast.LENGTH_SHORT).show();
+                        }
                         et_link.setSelection(et_link.getText().length());
                     }
                 });

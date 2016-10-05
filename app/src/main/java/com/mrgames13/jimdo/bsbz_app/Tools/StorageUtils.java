@@ -282,7 +282,7 @@ public class StorageUtils {
                 String current_event_receiver = current_event.substring(index3 +1, index4);
                 String current_event_writer = current_event.substring(index4 +1, index5);
                 String current_event_date = current_event.substring(index5 +1);
-                //New-Objekt erstellen und der ArrayList hinzufügen
+                //Homework-Objekt erstellen und der ArrayList hinzufügen
                 if(month != null) {
                     if(current_event_date.substring(3, 5).equals(month)) {
                         Event e = new Event(current_event_id, current_event_subject, current_event_description, current_event_receiver, current_event_writer, current_event_date);
