@@ -425,9 +425,11 @@ public class StorageUtils {
     public ArrayList<String> getSavedSubjects() {
         ArrayList<String> subjects = new ArrayList<String>();
         String allSubjects = getString("SavedSubjects");
+        Log.d("BSBZ-App", "'"+allSubjects+"'");
         if(!allSubjects.equals("")) {
             while(allSubjects.length() > 0) {
                 int index = allSubjects.indexOf("|");
+                if(index == -1) index = allSubjects.length();
                 subjects.add(allSubjects.substring(0, index));
                 allSubjects = allSubjects.substring(index +1);
             }
