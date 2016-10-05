@@ -82,7 +82,7 @@ public class EditTimeTableActivity extends AppCompatActivity {
 
         //Extras aus dem Intent auslesen
         klasse = getIntent().getStringExtra("class");
-        timetable = MainActivity.su.getTimeTable(klasse);
+        timetable = su.getTimeTable(klasse);
 
         //Toolbar initialisieren
         toolbar = (Toolbar) findViewById(R.id.toolbar_edit_timetable);

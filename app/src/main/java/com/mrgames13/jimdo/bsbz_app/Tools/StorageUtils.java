@@ -469,4 +469,26 @@ public class StorageUtils {
         }
         return accounts;
     }
+
+    public void setLastLoggedInAccount(String username, String password, String form , int rights) {
+        //Aktuelles Datum ermitteln und die Daten für dieses Datum laden
+        DateFormat formatierer = DateFormat.getDateInstance(DateFormat.MEDIUM, Locale.GERMANY);
+        String current_date = formatierer.format(new Date(System.currentTimeMillis()));
+        putString("LastUser", username + "~" + password + "~" + form + "~" + String.valueOf(rights) + "~" + current_date);
+    }
+
+    public Account getLastUser() {
+        String accountString = getString("LastUser");
+        if(accountString.equals("")) return null;
+        int index1 = accountString.indexOf("~");
+        int index2 = accountString.indexOf("~", index1 +1);
+        int index3 = accountString.indexOf("~", index2 +1);
+        int index4 = accountString.indexOf("~", index3 +1);
+        String account_username = accountString.substring(0, index1);
+        String account_password = accountString.substring(index1 +1, index2);
+        String account_form = accountString.substring(index2 +1, index3);
+        int account_rights = accountString.indexOf(index3 +1, index4);
+        String account_last_login = accountString.substring(index4 +1);
+        return new Account(account_username, account_password, account_form, account_rights, account_last_login);
+    }
 }

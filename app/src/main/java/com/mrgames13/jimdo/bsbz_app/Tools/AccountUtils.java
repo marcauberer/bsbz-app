@@ -17,9 +17,7 @@ public class AccountUtils {
     }
 
     public Account getLastUser() {
-        ArrayList<Account> allUsers = getAllUsers();
-
-        return null;
+        return su.getLastUser();
     }
 
     public ArrayList<Account> getAllUsers() {
