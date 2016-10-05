@@ -41,7 +41,7 @@ public class TimeTableActivity extends AppCompatActivity {
 		
 		// Daten von den SharedPreferences abrufen
 		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(TimeTableActivity.this);
-		String layout = prefs.getString("Layout", MainActivity.res.getString(R.string.bsbz_layout_orange));
+		String layout = prefs.getString("Layout", res.getString(R.string.bsbz_layout_orange));
 		String color = "#ea690c";
 		if (layout.equals("0")) {
 			color = "#ea690c";

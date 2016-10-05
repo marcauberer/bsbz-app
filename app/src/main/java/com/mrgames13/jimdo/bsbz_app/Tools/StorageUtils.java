@@ -414,15 +414,15 @@ public class StorageUtils {
     //------------------------------------SavedSubject-Functions------------------------------------
 
     public void addNewSavedSubject(String subjectName, String subjectShort) {
-        String allSubjects = getString("SavedSubjects") + "|" + subjectName + " (" + subjectShort + ")";
+        String allSubjects = getString("SavedSubjects") + subjectName + " (" + subjectShort + ")" + "|";
         putString("SavedSubjects", allSubjects);
     }
 
     public ArrayList<String> getSavedSubjects() {
-        ArrayList<String> subjects = new ArrayList<>();
+        ArrayList<String> subjects = new ArrayList<String>();
         String allSubjects = getString("SavedSubjects");
         if(!allSubjects.equals("")) {
-            while(allSubjects.contains("|")) {
+            while(allSubjects.length() > 0) {
                 int index = allSubjects.indexOf("|");
                 subjects.add(allSubjects.substring(0, index));
                 allSubjects = allSubjects.substring(index +1);

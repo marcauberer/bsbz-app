@@ -162,13 +162,12 @@ public class ViewPagerAdapterEditTimeTable extends FragmentPagerAdapter {
 
             final Spinner spinner = (Spinner) dialogView.findViewById(R.id.spnr_specific_subject);
 
-            String[] values = getResources().getStringArray(R.array.subject_items);
-            List list = Arrays.asList(values);
-            ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_item, list);
+            String[] subject_res = getResources().getStringArray(R.array.subject_items);
+            List<String> subject_res_list = new ArrayList<>();
+            subject_res_list.addAll(Arrays.asList(subject_res));
+            subject_res_list.addAll(su.getSavedSubjects());
+            ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_item, subject_res_list);
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-            for(String item : savedSubjects) {
-                adapter.insert(item, 0);
-            }
             spinner.setAdapter(adapter);
 
             final EditText et_text = (EditText) dialogView.findViewById(R.id.et_other_subject_text);
@@ -200,6 +199,7 @@ public class ViewPagerAdapterEditTimeTable extends FragmentPagerAdapter {
                 public void onClick(DialogInterface dialog, int which) {
                     if(rd_specific.isChecked()) {
                         String selectedItem = spinner.getSelectedItem().toString();
+                        Log.d("BSBZ-App", "'" + selectedItem + "'");
                         selectedShort = selectedItem.substring(selectedItem.indexOf("(")+1, selectedItem.indexOf(")"));
                     } else if(rd_other.isChecked()) {
                         selectedName = et_text.getText().toString().trim();
