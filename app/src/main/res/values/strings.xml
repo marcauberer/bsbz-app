@@ -328,11 +328,30 @@
     <string name="name">Bezeichnung</string>
     <string name="shortcut">Kürzel</string>
     <string-array name="subject_items">
+        <item>Unterrichtsfrei (-)</item>
+        <item>Morgenkreis (MK)</item>
+        <item>Vernetzter Unterricht (VU)</item>
         <item>Mathematik (M)</item>
         <item>Deutsch (D)</item>
         <item>Englisch (E)</item>
-        <item>VU (VU)</item>
-        <item>MK (MK)</item>
+        <item>Religion (R)</item>
+        <item>Sport (SP)</item>
+        <item>Naturwissenschaften (NWA)</item>
+        <item>Chemie (CH)</item>
+        <item>Biologie (BIO)</item>
+        <item>Physik (PH)</item>
+        <item>Geschichte (G)</item>
+        <item>Gemeinschaftskunde (GK)</item>
+        <item>Technik (T)</item>
+        <item>Mensch und Umwelt (MUM)</item>
+        <item>Französisch (F)</item>
+        <item>Informatik (ITG)</item>
+        <item>Geschichte (G)</item>
+        <item>Geschichte (G)</item>
+        <item>Fo/Fö (FOFOE)</item>
+        <item>Freie Stillarbeit/-studien (FSA)</item>
+        <item>Musik (MU)</item>
+        <item>Bildende Kunst (BK)</item>
     </string-array>
     <string name="notes">Notizen</string>
     <string name="edit_foodplan_t">Speiseplan verwalten</string>

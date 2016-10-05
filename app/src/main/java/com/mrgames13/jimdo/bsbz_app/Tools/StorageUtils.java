@@ -5,13 +5,17 @@ import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.util.Log;
 
+import com.mrgames13.jimdo.bsbz_app.CommonObjects.Account;
 import com.mrgames13.jimdo.bsbz_app.CommonObjects.Classtest;
 import com.mrgames13.jimdo.bsbz_app.CommonObjects.Event;
 import com.mrgames13.jimdo.bsbz_app.CommonObjects.Homework;
 import com.mrgames13.jimdo.bsbz_app.CommonObjects.New;
 import com.mrgames13.jimdo.bsbz_app.CommonObjects.TimeTable;
 
+import java.text.DateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.Locale;
 
 public class StorageUtils {
     //Konstanten
@@ -429,5 +433,40 @@ public class StorageUtils {
             }
         }
         return subjects;
+    }
+
+    //-----------------------------------Account-Funktionen-----------------------------------------
+
+    public void addAccountWhenNotExisting(String username, String password, String form, int rights) {
+        //Aktuelles Datum ermitteln und die Daten für dieses Datum laden
+        DateFormat formatierer = DateFormat.getDateInstance(DateFormat.MEDIUM, Locale.GERMANY);
+        String current_date = formatierer.format(new Date(System.currentTimeMillis()));
+        //String zusammensetzen
+        String accountString = username + "~" + password + "~" + form + "~" + String.valueOf(rights) + "~" + current_date + "|";
+        String allAccounts = getString("AllAccounts");
+        if(allAccounts.contains(username + "~" + password + "~" + form + "~" + String.valueOf(rights))) putString("AllAccounts", allAccounts + accountString);
+    }
+
+    public ArrayList<Account> getAllAccounts() {
+        ArrayList<Account> accounts = new ArrayList<>();
+        String allAccounts = getString("AllAccounts");
+        if(!allAccounts.equals("")) {
+            while(allAccounts.length() > 0) {
+                int index = allAccounts.indexOf("|");
+                String current_account = allAccounts.substring(0, index);
+                int index1 = current_account.indexOf("~");
+                int index2 = current_account.indexOf("~", index1 +1);
+                int index3 = current_account.indexOf("~", index2 +1);
+                int index4 = current_account.indexOf("~", index3 +1);
+                String current_account_username = current_account.substring(0, index1);
+                String current_account_password = current_account.substring(index1 +1, index2);
+                String current_account_form = current_account.substring(index2 +1, index3);
+                int current_account_rights = Integer.parseInt(current_account.substring(index3 +1, index4));
+                String current_account_last_login = current_account.substring(index4 +1);
+                accounts.add(new Account(current_account_username, current_account_password, current_account_form, current_account_rights, current_account_last_login));
+                allAccounts = allAccounts.substring(index +1);
+            }
+        }
+        return accounts;
     }
 }

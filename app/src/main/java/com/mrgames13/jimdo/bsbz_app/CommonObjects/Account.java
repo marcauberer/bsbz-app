@@ -16,12 +16,14 @@ public class Account {
     private String password;
     private String form;
     private int rights;
+    private String lastLogin;
 
-    public Account(String username, String password, String form, int rights) {
+    public Account(String username, String password, String form, int rights, String lastLogin) {
         this.username = username;
         this.password = password;
         this.form = form;
         this.rights = rights;
+        this.lastLogin = lastLogin;
     }
 
     public String getUsername() {
@@ -40,6 +42,10 @@ public class Account {
         return rights;
     }
 
+    public String getLastLogin() {
+        return lastLogin;
+    }
+
     public void setUsername(String username) {
         this.username = username;
     }
@@ -54,5 +60,9 @@ public class Account {
 
     public void setRights(int rights) {
         this.rights = rights;
+    }
+
+    public void setLastLogin(String lastLogin) {
+        this.lastLogin = lastLogin;
     }
 }
