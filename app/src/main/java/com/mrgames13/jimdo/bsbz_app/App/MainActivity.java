@@ -2556,7 +2556,7 @@ public class MainActivity extends AppCompatActivity {
         bsbz_info.setText(info);
 
         String rights = su.getString("Rights");
-        if(rights.equals("administrator") || rights.equals("team")) {
+        if(serverMessagingUtils.isInternetAvailable() && (rights.equals("administrator") || rights.equals("team"))) {
             //FloatingActionButton initialisieren
             FloatingActionButton edit = (FloatingActionButton) findViewById(R.id.edit_bsbz_info);
             edit.setOnClickListener(new View.OnClickListener() {

@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.net.ConnectivityManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -16,14 +17,20 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.mrgames13.jimdo.bsbz_app.R;
+import com.mrgames13.jimdo.bsbz_app.Tools.ServerMessagingUtils;
+
+import java.net.URLEncoder;
 
 public class EditInfoActivity extends AppCompatActivity {
     //Konstanten
 
     //Variablen als Objekte
     private SharedPreferences prefs;
+    private ConnectivityManager cm;
+    private ServerMessagingUtils serverMessagingUtils;
     private Toolbar toolbar;
     public Resources res;
 
@@ -80,6 +87,10 @@ public class EditInfoActivity extends AppCompatActivity {
         //Resourcen initialisieren
         res = getResources();
 
+        //ServerMessagingUtils initialisieren
+        cm = (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE);
+        serverMessagingUtils = new ServerMessagingUtils(cm, EditInfoActivity.this);
+
         //Toolbar initialisieren
         toolbar = (Toolbar) findViewById(R.id.toolbar_edit_bsbz_info);
         setSupportActionBar(toolbar);
@@ -95,8 +106,14 @@ public class EditInfoActivity extends AppCompatActivity {
                 new Thread(new Runnable() {
                     @Override
                     public void run() {
-                        String edited_info = text.getText().toString();
-
+                        String edited_info = text.getText().toString().trim();
+                        try{
+                            String username = prefs.getString("Name", res.getString(R.string.guest));
+                            String result = serverMessagingUtils.sendRequest(null, "name="+URLEncoder.encode(username, "UTF-8")+"&command=setbsbzinfo&description="+URLEncoder.encode(edited_info, "UTF-8"));
+                            result = res.getString(R.string.action_failed);
+                            if(result.equals("Action Successful")) result = res.getString(R.string.action_successful);
+                            Toast.makeText(EditInfoActivity.this, result, Toast.LENGTH_SHORT).show();
+                        } catch(Exception e) {}
                     }
                 }).start();
             }
