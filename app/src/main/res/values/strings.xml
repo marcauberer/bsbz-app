@@ -368,5 +368,6 @@
     <string name="no_valid_url">Dies ist keine gültige Internetseite</string>
     <string name="paste">Zwischenablage einfügen</string>
     <string name="no_clipboard">Kein Text in der Zwischenablage gefunden</string>
+    <string name="edit_bsbz_info">BSBZ-Info bearbeiten</string>
 
 </resources>

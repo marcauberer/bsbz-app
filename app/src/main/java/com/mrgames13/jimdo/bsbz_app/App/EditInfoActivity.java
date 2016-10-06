@@ -1,13 +1,15 @@
 package com.mrgames13.jimdo.bsbz_app.App;
 
-import android.app.NotificationManager;
+import android.content.SharedPreferences;
+import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.Window;
-import android.widget.Toast;
 
 import com.mrgames13.jimdo.bsbz_app.R;
 
@@ -15,7 +17,9 @@ public class EditInfoActivity extends AppCompatActivity {
     //Konstanten
 
     //Variablen als Objekte
-
+    private SharedPreferences prefs;
+    private Toolbar toolbar;
+    public Resources res;
 
     //Variablen
 
@@ -45,34 +49,36 @@ public class EditInfoActivity extends AppCompatActivity {
             Window window = getWindow();
             window.setStatusBarColor(MainActivity.darkenColor(Color.parseColor(color)));
         }
-
-        NotificationManager nm = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-        nm.cancel(1);
-        nm.cancel(2);
-        nm.cancel(3);
-
-        //Aktionen ermitteln und ausführen
-        try {
-            String action = getIntent().getExtras().getString("Action");
-            if(action.equals("deleted account")) {
-                Toast.makeText(LogInActivity.this, res.getString(R.string.account_deleted_successfully), Toast.LENGTH_LONG).show();
-                getIntent().removeExtra("Action");
-            } else if(action.equals("not deleted account")) {
-                Toast.makeText(LogInActivity.this, res.getString(R.string.account_deletion_failed), Toast.LENGTH_LONG).show();
-                getIntent().removeExtra("Action");
-            } else if(action.equals("changed password")) {
-                Toast.makeText(LogInActivity.this, res.getString(R.string.password_changed_successfully), Toast.LENGTH_LONG).show();
-                getIntent().removeExtra("Action");
-            } else if(action.equals("not changed password")) {
-                Toast.makeText(LogInActivity.this, res.getString(R.string.password_changing_failed), Toast.LENGTH_LONG).show();
-                getIntent().removeExtra("Action");
-            }
-        } catch(Exception e) {}
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        //SharedPreferences initialisieren
+        prefs = PreferenceManager.getDefaultSharedPreferences(this);
+
+        //Theme aus den Shared Preferences auslesen
+        String theme = prefs.getString("AppTheme", "0");
+        if(theme.equals("0")) {
+            MainActivity.AppTheme = 0;
+            setTheme(R.style.FirstTheme);
+        } else if(theme.equals("1")) {
+            MainActivity.AppTheme = 1;
+            setTheme(R.style.SecondTheme);
+        }
+
         setContentView(R.layout.activity_edit_info);
+
+        //Resourcen initialisieren
+        res = getResources();
+
+        //Toolbar initialisieren
+        toolbar = (Toolbar) findViewById(R.id.toolbar_edit_bsbz_info);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle(res.getString(R.string.edit_bsbz_info));
+
+
+
     }
 }
