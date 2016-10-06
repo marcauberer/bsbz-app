@@ -35,6 +35,7 @@ public class EditInfoActivity extends AppCompatActivity {
     public Resources res;
 
     //Variablen
+    private String result;
 
     @Override
     public void onStart() {
@@ -97,9 +98,11 @@ public class EditInfoActivity extends AppCompatActivity {
         getSupportActionBar().setTitle(res.getString(R.string.edit_bsbz_info));
 
         final EditText text = (EditText) findViewById(R.id.edit_bsbz_info_text);
+        if(!getIntent().getStringExtra("Text").equals(res.getString(R.string.no_info_entered)))text.setText(getIntent().getStringExtra("Text"));
+        text.setSelection(text.getText().toString().length());
 
         //FloatingActionButton 'Finish' initialisieren
-        FloatingActionButton finish = (FloatingActionButton) findViewById(R.id.edit_bsbz_info_finish);
+        final FloatingActionButton finish = (FloatingActionButton) findViewById(R.id.edit_bsbz_info_finish);
         finish.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -107,12 +110,22 @@ public class EditInfoActivity extends AppCompatActivity {
                     @Override
                     public void run() {
                         String edited_info = text.getText().toString().trim();
+                        if(edited_info.equals("")) edited_info = res.getString(R.string.no_info_entered);
                         try{
                             String username = prefs.getString("Name", res.getString(R.string.guest));
-                            String result = serverMessagingUtils.sendRequest(null, "name="+URLEncoder.encode(username, "UTF-8")+"&command=setbsbzinfo&description="+URLEncoder.encode(edited_info, "UTF-8"));
-                            result = res.getString(R.string.action_failed);
-                            if(result.equals("Action Successful")) result = res.getString(R.string.action_successful);
-                            Toast.makeText(EditInfoActivity.this, result, Toast.LENGTH_SHORT).show();
+                            result = serverMessagingUtils.sendRequest(null, "name="+URLEncoder.encode(username, "UTF-8")+"&command=setbsbzinfo&description="+URLEncoder.encode(edited_info, "UTF-8"));
+                            if(result.equals("Action Successful")) {
+                                result = res.getString(R.string.action_successful);
+                            } else {
+                                result = res.getString(R.string.action_failed);
+                            }
+                            runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    Toast.makeText(EditInfoActivity.this, result, Toast.LENGTH_SHORT).show();
+                                    finish();
+                                }
+                            });
                         } catch(Exception e) {}
                     }
                 }).start();

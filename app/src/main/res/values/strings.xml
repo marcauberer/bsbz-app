@@ -221,7 +221,7 @@
     <string name="do_you_want_to_delete_new">Willst du diese Nachricht wirklich löschen?</string>
     <string name="tap_on_new">Tippe auf die Nachricht um Details zu sehen</string>
     <string name="long_tap_on_new">Lange auf eine Nachricht tippen um diese zu bearbeiten oder zu löschen</string>
-    <string name="no_info_entered">Keine Info eingetragen</string>
+    <string name="no_info_entered">(Keine Info eingetragen)</string>
     <string name="ok_showcase_view">Alles klar!</string>
     <string name="update_to_version">Update auf Version\u0020</string>
     <string name="check_for_update">Auf Update prüfen</string>
