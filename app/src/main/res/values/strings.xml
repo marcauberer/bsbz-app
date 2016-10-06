@@ -369,5 +369,7 @@
     <string name="paste">Zwischenablage einfügen</string>
     <string name="no_clipboard">Kein Text in der Zwischenablage gefunden</string>
     <string name="edit_bsbz_info">BSBZ-Info bearbeiten</string>
+    <string name="edit_bsbz_info_h">BSBZ-Info hier eintragen</string>
+    <string name="edit_bsbz_info_d">Vor der Veröffentlichung der BSBZ-Info bitte auf Rechtschreibfehler o.ä. prüfen.</string>
 
 </resources>

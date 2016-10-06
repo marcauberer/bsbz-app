@@ -9,4 +9,11 @@
         android:title="@string/settings"
         app:showAsAction="never"/>
 
+    <item
+        android:id="@+id/action_edit_timetable"
+        android:orderInCategory="200"
+        android:title="@string/edit_timetable"
+        android:icon="@drawable/ic_edit_white_48dp"
+        app:showAsAction="always" />
+
 </menu>

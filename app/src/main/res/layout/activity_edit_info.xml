@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".App.EditInfoActivity">
 
     <android.support.v7.widget.Toolbar
@@ -20,10 +21,47 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/toolbar_edit_bsbz_info"
-        android:paddingBottom="5dp"
-        android:paddingLeft="5dp"
-        android:paddingRight="5dp"
-        android:paddingTop="5dp">
+        android:padding="12dp">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/scrollView"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_above="@+id/edit_bsbz_info_finish"
+            android:layout_marginBottom="6dp">
+
+            <EditText
+                android:id="@+id/edit_bsbz_info_text"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:hint="@string/edit_bsbz_info_h"
+                android:lines="40"
+                android:gravity="clip_vertical"/>
+        </ScrollView>
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/edit_bsbz_info_finish"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_check_white_48dp"
+            android:theme="@style/toolbarStyle"
+            app:backgroundTint="@color/colorPrimary"
+            android:layout_gravity="right|bottom"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/edit_bsbz_info_finish"
+            android:layout_alignBottom="@+id/edit_bsbz_info_finish"
+            android:gravity="center"
+            android:layout_toLeftOf="@+id/edit_bsbz_info_finish"
+            android:layout_marginRight="6dp"
+            android:text="@string/edit_bsbz_info_d"/>
 
     </RelativeLayout>
 </RelativeLayout>

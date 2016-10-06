@@ -345,7 +345,12 @@ public class TimeTableActivity extends AppCompatActivity {
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		getMenuInflater().inflate(R.menu.stundenplan, menu);
+		String rights = su.getString("Rights");
+		if(rights.equals("classspeaker") || rights.equals("teacher") || rights.equals("administrator") || rights.equals("team")) {
+            getMenuInflater().inflate(R.menu.stundenplan_admin, menu);
+        } else {
+            getMenuInflater().inflate(R.menu.stundenplan, menu);
+        }
 		return true;
 	}
 

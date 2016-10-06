@@ -2557,7 +2557,9 @@ public class MainActivity extends AppCompatActivity {
         edit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                
+                Intent i = new Intent(MainActivity.this, EditInfoActivity.class);
+                i.putExtra("Text", bsbz_info.getText().toString().trim());
+                startActivity(i);
             }
         });
     }
