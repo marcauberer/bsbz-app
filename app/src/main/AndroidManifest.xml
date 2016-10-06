@@ -25,7 +25,7 @@
                 <action android:name="android.intent.action.MAIN"/>
             </intent-filter>
         </activity>
-        <!--LogoActivity-->
+        <!-- LogoActivity -->
         <activity android:name=".App.LogoActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -129,16 +129,19 @@
                 <action android:name="android.intent.action.MAIN"/>
             </intent-filter>
         </activity>
+        <!-- ImageFullscreenActivity -->
         <activity android:name=".App.ImageFullscreenActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
             </intent-filter>
         </activity>
+        <!-- ImagePickerActivity -->
         <activity android:name=".App.ImagePickerActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
             </intent-filter>
         </activity>
+        <!-- NewEditElementActivity -->
         <activity
             android:name=".App.NewEditElementActivity"
             android:windowSoftInputMode="adjustPan">
@@ -146,9 +149,16 @@
                 <action android:name="android.intent.action.MAIN"/>
             </intent-filter>
         </activity>
+        <!-- EditTimetableActivity -->
         <activity
             android:name=".App.EditTimeTableActivity"
             android:screenOrientation="landscape">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+            </intent-filter>
+        </activity>
+        <!-- EditInfoActivity -->
+        <activity android:name=".App.EditInfoActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
             </intent-filter>
@@ -196,6 +206,6 @@
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version"/>
-    </application>
 
+    </application>
 </manifest>

@@ -373,13 +373,13 @@ public class StorageUtils {
             String current_new = getString("N" + String.valueOf(i), null);
             if(current_new != null) {
                 //Aktuelle Nachricht zerteilen
-                int index1 = current_new.indexOf(",");
-                int index2 = current_new.indexOf(",", index1 +1);
-                int index3 = current_new.indexOf(",", index2 +1);
-                int index4 = current_new.indexOf(",", index3 +1);
-                int index5 = current_new.indexOf(",", index4 +1);
-                int index6 = current_new.indexOf(",", index5 +1);
-                int index7 = current_new.indexOf(",", index6 +1);
+                int index1 = current_new.indexOf("~");
+                int index2 = current_new.indexOf("~", index1 +1);
+                int index3 = current_new.indexOf("~", index2 +1);
+                int index4 = current_new.indexOf("~", index3 +1);
+                int index5 = current_new.indexOf("~", index4 +1);
+                int index6 = current_new.indexOf("~", index5 +1);
+                int index7 = current_new.indexOf("~", index6 +1);
                 //Unterteilen
                 int current_new_id = Integer.parseInt(current_new.substring(0, index1));
                 int current_new_state = Integer.parseInt(current_new.substring(index1 +1, index2));

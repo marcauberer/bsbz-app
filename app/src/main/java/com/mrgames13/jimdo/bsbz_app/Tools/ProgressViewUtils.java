@@ -40,6 +40,7 @@ public class ProgressViewUtils {
             public void onCompletion(MediaPlayer mp) {
                 video.setVideoURI(Uri.parse("android.resource://" + context.getPackageName() + "/" + R.raw.progress_animation));
                 video.setOnCompletionListener(null);
+                mp.setLooping(true);
             }
         });
     }
@@ -52,5 +53,24 @@ public class ProgressViewUtils {
                 video.setVisibility(View.GONE);
             }
         });
+    }
+
+    public void startLoadingProgress(final VideoView video) {
+        video.setVideoURI(Uri.parse("android.resource://" + context.getPackageName() + "/" + R.raw.progress_animation));
+        video.setDrawingCacheEnabled(true);
+        video.setZOrderOnTop(true);
+        video.requestFocus();
+        video.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+            @Override
+            public void onPrepared(MediaPlayer mp) {
+                video.seekTo(0);
+                video.start();
+                mp.setLooping(true);
+            }
+        });
+    }
+
+    public void stopLoadingProgress(final VideoView video) {
+        video.setVisibility(View.GONE);
     }
 }

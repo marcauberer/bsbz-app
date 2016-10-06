@@ -2551,6 +2551,15 @@ public class MainActivity extends AppCompatActivity {
             progressBar.setVisibility(View.GONE);
         }
         bsbz_info.setText(info);
+
+        //FloatingActionButton initialisieren
+        FloatingActionButton edit = (FloatingActionButton) findViewById(R.id.edit_bsbz_info);
+        edit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                
+            }
+        });
     }
 
     public void launchDeveloperFragment() {

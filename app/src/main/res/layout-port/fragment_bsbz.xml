@@ -1,11 +1,12 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin" >
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:paddingBottom="@dimen/activity_vertical_margin"
+                android:paddingLeft="@dimen/activity_horizontal_margin"
+                android:paddingRight="@dimen/activity_horizontal_margin"
+                android:paddingTop="@dimen/activity_vertical_margin">
 
     <ImageView
         android:id="@+id/imageView1"
@@ -63,5 +64,18 @@
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true"
         android:indeterminate="false"/>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/edit_bsbz_info"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_edit_white_48dp"
+        android:theme="@style/toolbarStyle"
+        app:backgroundTint="@color/colorPrimary"
+        android:layout_gravity="right|bottom"
+        android:layout_alignRight="@+id/scrollView1"
+        android:layout_alignBottom="@+id/scrollView1"
+        android:layout_marginBottom="6dp"
+        android:layout_marginRight="6dp"/>
 
 </RelativeLayout>

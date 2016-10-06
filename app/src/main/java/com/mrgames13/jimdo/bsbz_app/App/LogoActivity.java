@@ -17,6 +17,7 @@ import android.widget.TextView;
 import android.widget.VideoView;
 
 import com.mrgames13.jimdo.bsbz_app.R;
+import com.mrgames13.jimdo.bsbz_app.Tools.ProgressViewUtils;
 import com.mrgames13.jimdo.bsbz_app.Tools.SimpleAnimationListener;
 
 public class LogoActivity extends AppCompatActivity {
@@ -30,6 +31,7 @@ public class LogoActivity extends AppCompatActivity {
     private RelativeLayout container;
     private RelativeLayout logo_container;
     private Handler h;
+    private ProgressViewUtils pvu;
 
     //Variablen
     private int position = 0;
@@ -40,6 +42,8 @@ public class LogoActivity extends AppCompatActivity {
         setContentView(R.layout.activity_logo);
 
         h = new Handler();
+
+        pvu = new ProgressViewUtils(getApplicationContext(), getResources());
 
         container = (RelativeLayout) findViewById(R.id.logo_container);
         container.setOnTouchListener(new View.OnTouchListener() {
