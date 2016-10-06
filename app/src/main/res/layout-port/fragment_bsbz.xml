@@ -76,6 +76,7 @@
         android:layout_alignRight="@+id/scrollView1"
         android:layout_alignBottom="@+id/scrollView1"
         android:layout_marginBottom="6dp"
-        android:layout_marginRight="6dp"/>
+        android:layout_marginRight="6dp"
+        android:visibility="gone"/>
 
 </RelativeLayout>

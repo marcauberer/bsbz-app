@@ -2376,130 +2376,133 @@ public class MainActivity extends AppCompatActivity {
             }
         }).start();
 
-        //FloatingAction Button befüllen
-        FloatingActionButton edit_foodplan = (FloatingActionButton) findViewById(R.id.edit_foodplan);
-        edit_foodplan.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                View view = layoutInflater.inflate(R.layout.dialogview_edit_foodplan, null);
+        if(serverMessagingUtils.isInternetAvailable()) {
+            //FloatingAction Button befüllen
+            FloatingActionButton edit_foodplan = (FloatingActionButton) findViewById(R.id.edit_foodplan);
+            edit_foodplan.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    View view = layoutInflater.inflate(R.layout.dialogview_edit_foodplan, null);
 
-                final EditText et_link = (EditText) view.findViewById(R.id.edit_foodplan_link);
-                Button btn_autumn = (Button) view.findViewById(R.id.edit_foodplan_autumn);
-                Button btn_winter = (Button) view.findViewById(R.id.edit_foodplan_winter);
-                Button btn_christmas = (Button) view.findViewById(R.id.edit_foodplan_chrismas);
-                Button btn_easter = (Button) view.findViewById(R.id.edit_foodplan_easter);
-                Button btn_pentecost = (Button) view.findViewById(R.id.edit_foodplan_pentecost);
-                Button btn_summer = (Button) view.findViewById(R.id.edit_foodplan_summer);
-                Button btn_paste = (Button) view.findViewById(R.id.edit_foodplan_paste);
-                Button btn_open = (Button) view.findViewById(R.id.edit_foodplan_open);
-                btn_open.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Intent i = new Intent(Intent.ACTION_VIEW);
-                        i.setData(Uri.parse("https://www.bsbz.de/schwarzes-brett/speiseplan/"));
-                        startActivity(i);
-                    }
-                });
-                btn_paste.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        ClipboardManager clipboard;
-                        clipboard = (ClipboardManager)getSystemService(CLIPBOARD_SERVICE);
-                        if(clipboard.getPrimaryClip() != null) {
-                            et_link.setText(clipboard.getPrimaryClip().getItemAt(0).getText().toString());
-                        } else {
-                            Toast.makeText(MainActivity.this, res.getString(R.string.no_clipboard), Toast.LENGTH_SHORT).show();
+                    final EditText et_link = (EditText) view.findViewById(R.id.edit_foodplan_link);
+                    Button btn_autumn = (Button) view.findViewById(R.id.edit_foodplan_autumn);
+                    Button btn_winter = (Button) view.findViewById(R.id.edit_foodplan_winter);
+                    Button btn_christmas = (Button) view.findViewById(R.id.edit_foodplan_chrismas);
+                    Button btn_easter = (Button) view.findViewById(R.id.edit_foodplan_easter);
+                    Button btn_pentecost = (Button) view.findViewById(R.id.edit_foodplan_pentecost);
+                    Button btn_summer = (Button) view.findViewById(R.id.edit_foodplan_summer);
+                    Button btn_paste = (Button) view.findViewById(R.id.edit_foodplan_paste);
+                    Button btn_open = (Button) view.findViewById(R.id.edit_foodplan_open);
+                    btn_open.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Intent i = new Intent(Intent.ACTION_VIEW);
+                            i.setData(Uri.parse("https://www.bsbz.de/schwarzes-brett/speiseplan/"));
+                            startActivity(i);
                         }
-                        et_link.setSelection(et_link.getText().length());
-                    }
-                });
-                btn_autumn.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        et_link.setText(res.getString(R.string.link_foodplan_autumn));
-                    }
-                });
-                btn_christmas.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        et_link.setText(res.getString(R.string.link_foodplan_christmas));
-                    }
-                });
-                btn_winter.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        et_link.setText(res.getString(R.string.link_foodplan_winter));
-                    }
-                });
-                btn_easter.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        et_link.setText(res.getString(R.string.link_foodplan_easter));
-                    }
-                });
-                btn_pentecost.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        et_link.setText(res.getString(R.string.link_foodplan_pentecost));
-                    }
-                });
-                btn_summer.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        et_link.setText(res.getString(R.string.link_foodplan_summer));
-                    }
-                });
+                    });
+                    btn_paste.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            ClipboardManager clipboard;
+                            clipboard = (ClipboardManager)getSystemService(CLIPBOARD_SERVICE);
+                            if(clipboard.getPrimaryClip() != null) {
+                                et_link.setText(clipboard.getPrimaryClip().getItemAt(0).getText().toString());
+                            } else {
+                                Toast.makeText(MainActivity.this, res.getString(R.string.no_clipboard), Toast.LENGTH_SHORT).show();
+                            }
+                            et_link.setSelection(et_link.getText().length());
+                        }
+                    });
+                    btn_autumn.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            et_link.setText(res.getString(R.string.link_foodplan_autumn));
+                        }
+                    });
+                    btn_christmas.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            et_link.setText(res.getString(R.string.link_foodplan_christmas));
+                        }
+                    });
+                    btn_winter.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            et_link.setText(res.getString(R.string.link_foodplan_winter));
+                        }
+                    });
+                    btn_easter.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            et_link.setText(res.getString(R.string.link_foodplan_easter));
+                        }
+                    });
+                    btn_pentecost.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            et_link.setText(res.getString(R.string.link_foodplan_pentecost));
+                        }
+                    });
+                    btn_summer.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            et_link.setText(res.getString(R.string.link_foodplan_summer));
+                        }
+                    });
 
-                AlertDialog alert = new AlertDialog.Builder(MainActivity.this)
-                        .setTitle(res.getString(R.string.edit_foodplan_t))
-                        .setView(view)
-                        .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                dialog.dismiss();
-                            }
-                        })
-                        .setPositiveButton(R.string.publish, new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(final DialogInterface dialog, int which) {
-                                final String url = et_link.getText().toString().trim();
-                                if(url.startsWith("https://www.bsbz.de/") || url.startsWith("http://files.mrgames-server.de/") || url.startsWith("https://goo.gl/")) {
-                                    new Thread(new Runnable() {
-                                        @Override
-                                        public void run() {
-                                            //Speiseplan-Url hochladen
-                                            try{
-                                                String name = su.getString("Name", res.getString(R.string.guest));
-                                                serverMessagingUtils.sendRequest(null, "name="+URLEncoder.encode(name, "UTF-8")+"&command=setfoodplan&url="+URLEncoder.encode(url, "UTF-8"));
-                                                runOnUiThread(new Runnable() {
-                                                    @Override
-                                                    public void run() {
-                                                        //Dialog schließen und Speiseplan-Seite refreshen
-                                                        dialog.dismiss();
-                                                        launchFoodPlanFragment();
-                                                        Toast.makeText(MainActivity.this, res.getString(R.string.action_successful), Toast.LENGTH_SHORT).show();
-                                                    }
-                                                });
-                                            } catch(Exception e) {
-                                                e.printStackTrace();
-                                                runOnUiThread(new Runnable() {
-                                                    @Override
-                                                    public void run() {
-                                                        Toast.makeText(MainActivity.this, res.getString(R.string.action_failed), Toast.LENGTH_SHORT).show();
-                                                    }
-                                                });
-                                            }
-                                        }
-                                    }).start();
-                                } else {
-                                    Toast.makeText(MainActivity.this, res.getString(R.string.no_valid_url), Toast.LENGTH_SHORT).show();
+                    AlertDialog alert = new AlertDialog.Builder(MainActivity.this)
+                            .setTitle(res.getString(R.string.edit_foodplan_t))
+                            .setView(view)
+                            .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    dialog.dismiss();
                                 }
-                            }
-                        })
-                        .create();
-                alert.show();
-            }
-        });
+                            })
+                            .setPositiveButton(R.string.publish, new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(final DialogInterface dialog, int which) {
+                                    final String url = et_link.getText().toString().trim();
+                                    if(url.startsWith("https://www.bsbz.de/") || url.startsWith("http://files.mrgames-server.de/") || url.startsWith("https://goo.gl/")) {
+                                        new Thread(new Runnable() {
+                                            @Override
+                                            public void run() {
+                                                //Speiseplan-Url hochladen
+                                                try{
+                                                    String name = su.getString("Name", res.getString(R.string.guest));
+                                                    serverMessagingUtils.sendRequest(null, "name="+URLEncoder.encode(name, "UTF-8")+"&command=setfoodplan&url="+URLEncoder.encode(url, "UTF-8"));
+                                                    runOnUiThread(new Runnable() {
+                                                        @Override
+                                                        public void run() {
+                                                            //Dialog schließen und Speiseplan-Seite refreshen
+                                                            dialog.dismiss();
+                                                            launchFoodPlanFragment();
+                                                            Toast.makeText(MainActivity.this, res.getString(R.string.action_successful), Toast.LENGTH_SHORT).show();
+                                                        }
+                                                    });
+                                                } catch(Exception e) {
+                                                    e.printStackTrace();
+                                                    runOnUiThread(new Runnable() {
+                                                        @Override
+                                                        public void run() {
+                                                            Toast.makeText(MainActivity.this, res.getString(R.string.action_failed), Toast.LENGTH_SHORT).show();
+                                                        }
+                                                    });
+                                                }
+                                            }
+                                        }).start();
+                                    } else {
+                                        Toast.makeText(MainActivity.this, res.getString(R.string.no_valid_url), Toast.LENGTH_SHORT).show();
+                                    }
+                                }
+                            })
+                            .create();
+                    alert.show();
+                }
+            });
+            edit_foodplan.setVisibility(View.VISIBLE);
+        }
     }
 
     public void launchBSBZInfoFragment() {
@@ -2552,16 +2555,20 @@ public class MainActivity extends AppCompatActivity {
         }
         bsbz_info.setText(info);
 
-        //FloatingActionButton initialisieren
-        FloatingActionButton edit = (FloatingActionButton) findViewById(R.id.edit_bsbz_info);
-        edit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(MainActivity.this, EditInfoActivity.class);
-                i.putExtra("Text", bsbz_info.getText().toString().trim());
-                startActivity(i);
-            }
-        });
+        String rights = su.getString("Rights");
+        if(rights.equals("administrator") || rights.equals("team")) {
+            //FloatingActionButton initialisieren
+            FloatingActionButton edit = (FloatingActionButton) findViewById(R.id.edit_bsbz_info);
+            edit.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent i = new Intent(MainActivity.this, EditInfoActivity.class);
+                    i.putExtra("Text", bsbz_info.getText().toString().trim());
+                    startActivity(i);
+                }
+            });
+            edit.setVisibility(View.VISIBLE);
+        }
     }
 
     public void launchDeveloperFragment() {

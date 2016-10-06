@@ -8,11 +8,14 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.Window;
+import android.widget.EditText;
 
 import com.mrgames13.jimdo.bsbz_app.R;
 
@@ -82,8 +85,22 @@ public class EditInfoActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle(res.getString(R.string.edit_bsbz_info));
 
+        final EditText text = (EditText) findViewById(R.id.edit_bsbz_info_text);
 
+        //FloatingActionButton 'Finish' initialisieren
+        FloatingActionButton finish = (FloatingActionButton) findViewById(R.id.edit_bsbz_info_finish);
+        finish.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        String edited_info = text.getText().toString();
 
+                    }
+                }).start();
+            }
+        });
     }
 
     @Override
