@@ -2,6 +2,7 @@ package com.mrgames13.jimdo.bsbz_app.Tools;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.res.Resources;
 import android.preference.PreferenceManager;
 import android.util.Log;
 
@@ -11,6 +12,7 @@ import com.mrgames13.jimdo.bsbz_app.CommonObjects.Event;
 import com.mrgames13.jimdo.bsbz_app.CommonObjects.Homework;
 import com.mrgames13.jimdo.bsbz_app.CommonObjects.New;
 import com.mrgames13.jimdo.bsbz_app.CommonObjects.TimeTable;
+import com.mrgames13.jimdo.bsbz_app.R;
 
 import java.text.DateFormat;
 import java.util.ArrayList;
@@ -27,13 +29,15 @@ public class StorageUtils {
     private Context context;
     public SharedPreferences prefs;
     private SharedPreferences.Editor e;
+    private Resources res;
 
     //Variablen
 
     //Konstruktor
-    public StorageUtils(Context context) {
+    public StorageUtils(Context context, Resources res) {
         this.context = context;
         this.prefs = PreferenceManager.getDefaultSharedPreferences(context);
+        this.res = res;
     }
 
     public void putString(String name, String value) {
@@ -459,13 +463,11 @@ public class StorageUtils {
                 int index1 = current_account.indexOf("~");
                 int index2 = current_account.indexOf("~", index1 +1);
                 int index3 = current_account.indexOf("~", index2 +1);
-                int index4 = current_account.indexOf("~", index3 +1);
                 String current_account_username = current_account.substring(0, index1);
                 String current_account_password = current_account.substring(index1 +1, index2);
                 String current_account_form = current_account.substring(index2 +1, index3);
-                int current_account_rights = Integer.parseInt(current_account.substring(index3 +1, index4));
-                String current_account_last_login = current_account.substring(index4 +1);
-                accounts.add(new Account(current_account_username, current_account_password, current_account_form, current_account_rights, current_account_last_login));
+                int current_account_rights = Integer.parseInt(current_account.substring(index3 +1));
+                accounts.add(new Account(current_account_username, current_account_password, current_account_form, current_account_rights));
                 allAccounts = allAccounts.substring(index +1);
             }
         }
@@ -473,24 +475,22 @@ public class StorageUtils {
     }
 
     public void setLastLoggedInAccount(String username, String password, String form , int rights) {
-        //Aktuelles Datum ermitteln und die Daten für dieses Datum laden
-        DateFormat formatierer = DateFormat.getDateInstance(DateFormat.MEDIUM, Locale.GERMANY);
-        String current_date = formatierer.format(new Date(System.currentTimeMillis()));
-        putString("LastUser", username + "~" + password + "~" + form + "~" + String.valueOf(rights) + "~" + current_date);
+        putString("LastUser", username + "~" + password + "~" + form + "~" + String.valueOf(rights));
     }
 
     public Account getLastUser() {
         String accountString = getString("LastUser");
-        if(accountString.equals("")) return null;
-        int index1 = accountString.indexOf("~");
-        int index2 = accountString.indexOf("~", index1 +1);
-        int index3 = accountString.indexOf("~", index2 +1);
-        int index4 = accountString.indexOf("~", index3 +1);
-        String account_username = accountString.substring(0, index1);
-        String account_password = accountString.substring(index1 +1, index2);
-        String account_form = accountString.substring(index2 +1, index3);
-        int account_rights = accountString.indexOf(index3 +1, index4);
-        String account_last_login = accountString.substring(index4 +1);
-        return new Account(account_username, account_password, account_form, account_rights, account_last_login);
+        if(!accountString.equals("")) {
+            if(accountString.equals("")) return null;
+            int index1 = accountString.indexOf("~");
+            int index2 = accountString.indexOf("~", index1 +1);
+            int index3 = accountString.indexOf("~", index2 +1);
+            String account_username = accountString.substring(0, index1);
+            String account_password = accountString.substring(index1 +1, index2);
+            String account_form = accountString.substring(index2 +1, index3);
+            int account_rights = accountString.indexOf(index3 +1);
+            return new Account(account_username, account_password, account_form, account_rights);
+        }
+        return new Account(res.getString(R.string.guest), "", "no_class", Account.RIGHTS_STUDENT);
     }
 }

@@ -79,7 +79,6 @@ import com.mrgames13.jimdo.bsbz_app.Tools.NotificationUtils;
 import com.mrgames13.jimdo.bsbz_app.Tools.ServerMessagingUtils;
 import com.mrgames13.jimdo.bsbz_app.Tools.StorageUtils;
 
-import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.text.DateFormat;
 import java.util.ArrayList;
@@ -203,7 +202,7 @@ public class MainActivity extends AppCompatActivity {
         prefs = PreferenceManager.getDefaultSharedPreferences(MainActivity.this);
 
         //StorageUtils initialisieren
-        su = new StorageUtils(MainActivity.this);
+        su = new StorageUtils(MainActivity.this, res);
 
         //AccountUtils initialisieren
         au = new AccountUtils(su);
@@ -3195,7 +3194,9 @@ public class MainActivity extends AppCompatActivity {
                             }
                         });
                     }
-                } catch (UnsupportedEncodingException e) {}
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
         }).start();
     }

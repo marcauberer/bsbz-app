@@ -67,7 +67,7 @@ public class SyncronisationService extends Service {
 		res = getResources();
 
         //StoratgeUtils initialisieren
-        su = new StorageUtils(this);
+        su = new StorageUtils(this, res);
 
         //NotificationUtils initialisieren
         nu = new NotificationUtils(this);

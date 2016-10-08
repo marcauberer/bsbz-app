@@ -88,7 +88,7 @@ public class TimeTableActivity extends AppCompatActivity {
         res = getResources();
 
         //StorageUtils initialisieren
-        su = new StorageUtils(TimeTableActivity.this);
+        su = new StorageUtils(TimeTableActivity.this, res);
 
 		klasse = su.getString("Klasse", "no_class");
 		if(klasse.equals("no_class")) {

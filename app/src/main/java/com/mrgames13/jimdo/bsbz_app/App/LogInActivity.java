@@ -44,7 +44,9 @@ import com.google.firebase.messaging.FirebaseMessaging;
 import com.mrgames13.jimdo.bsbz_app.FirebaseMessaging.FCM_Instance_ID_Service;
 import com.mrgames13.jimdo.bsbz_app.R;
 import com.mrgames13.jimdo.bsbz_app.Services.SyncronisationService;
+import com.mrgames13.jimdo.bsbz_app.Tools.AccountUtils;
 import com.mrgames13.jimdo.bsbz_app.Tools.ServerMessagingUtils;
+import com.mrgames13.jimdo.bsbz_app.Tools.StorageUtils;
 
 import java.net.URLEncoder;
 
@@ -56,11 +58,10 @@ public class LogInActivity extends AppCompatActivity {
     private final int REQUEST_CODE_PERMISSION_READ_PHONE_STATE = 488;
 
     //Variablen als Objekte
-    Toolbar toolbar;
-	Resources res;
-    ConnectivityManager cm;
-    SharedPreferences prefs;
-    ProgressBar pb;
+    private Toolbar toolbar;
+	private Resources res;
+    private ConnectivityManager cm;
+    private ProgressBar pb;
 
     //Variablen
     private boolean pressedOnce;
@@ -68,15 +69,17 @@ public class LogInActivity extends AppCompatActivity {
     public static String CURRENTVERSION = "";
     public static String autologin = "";
 
-    //ThemeUtils-Pakete
-    ServerMessagingUtils serverMessagingUtils;
+    //Utils-Pakete
+    private ServerMessagingUtils serverMessagingUtils;
+    private AccountUtils au;
+    private StorageUtils su;
 	
 	@Override
 	public void onStart() {
 		super.onStart();
 		
 		//Daten von den SharedPreferences abrufen
-		String layout = prefs.getString("Layout", res.getString(R.string.bsbz_layout_orange));
+		String layout = su.getString("Layout", res.getString(R.string.bsbz_layout_orange));
 		String color = "#ea690c";
 		if(layout.equals("0")) {
 			color = "#ea690c";
@@ -139,11 +142,14 @@ public class LogInActivity extends AppCompatActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
-        //SharedPreferences initialisieren
-		prefs = PreferenceManager.getDefaultSharedPreferences(this);
+        //Resourcen initialisieren
+        res = getResources();
+
+        //StorageUtils initialisieren
+        su = new StorageUtils(this, res);
 
         //Theme aus den Shared Preferences auslesen
-		String theme = prefs.getString("AppTheme", "0");
+		String theme = su.getString("AppTheme", "0");
 		if(theme.equals("0")) {
 			MainActivity.AppTheme = 0;
 			setTheme(R.style.FirstTheme);
@@ -154,13 +160,13 @@ public class LogInActivity extends AppCompatActivity {
 		
 		setContentView(R.layout.activity_log_in);
 
-		//Resourcen initialisieren
-		res = getResources();
-
         //Toolbar aufsetzen
         toolbar = (Toolbar) findViewById(R.id.toolbar_login);
 		setSupportActionBar(toolbar);
-		
+
+        //AccountUtils initialisieren
+        au = new AccountUtils(su);
+
 		try { CURRENTVERSION = getPackageManager().getPackageInfo(getPackageName(), 0).versionName; } catch (NameNotFoundException e1) {}
 		
 		//Ids herausfinden
@@ -246,7 +252,7 @@ public class LogInActivity extends AppCompatActivity {
                 Toast.makeText(LogInActivity.this, res.getString(R.string.reset_password_m), Toast.LENGTH_LONG).show();
                 Intent i = new Intent(LogInActivity.this, WebActivity.class);
                 i.putExtra("Title", res.getString(R.string.support));
-                i.putExtra("Webside", prefs.getString("SupportUrl", "http://mrgames13.jimdo.com/feedback-kommentare/"));
+                i.putExtra("Webside", su.getString("SupportUrl", "http://mrgames13.jimdo.com/feedback-kommentare/"));
                 startActivity(i);
             }
         });
@@ -260,7 +266,7 @@ public class LogInActivity extends AppCompatActivity {
         pb = (ProgressBar) findViewById(R.id.login_in_progress);
 
         //Auf Updates prüfen
-        if(serverMessagingUtils.isInternetAvailable()) checkVersionAndServerState(prefs.getString("Name", res.getString(R.string.guest)), false);
+        if(serverMessagingUtils.isInternetAvailable()) checkVersionAndServerState(su.getString("Name", res.getString(R.string.guest)), false);
     }
 
 	@Override
@@ -299,14 +305,6 @@ public class LogInActivity extends AppCompatActivity {
 			startActivity(new Intent(this, SettingsActivity.class));
 			return true;
 		} else if(id == R.id.action_gastmodus) {
-			//Daten in die Shared Preferences eintragen
-			SharedPreferences.Editor e = prefs.edit();
-			e.putString("Name", res.getString(R.string.guest));
-			e.putString("Klasse", "---");
-			e.putString("Password", res.getString(R.string.no_password));
-			e.putString("Rights", "guest");
-			e.commit();
-			
 			//startActivity(new Intent(LogInActivity.this,MainActivity.class));
 			startActivity(new Intent(LogInActivity.this, MainActivity.class));
 			//Animierter Activitywechsel starten
@@ -333,7 +331,7 @@ public class LogInActivity extends AppCompatActivity {
                 @Override
                 public void run() {
                     try {
-                        result = serverMessagingUtils.sendRequest(findViewById(R.id.container), "name="+URLEncoder.encode(username.trim(), "UTF-8")+"&command=findaccount&password="+URLEncoder.encode(password.trim(), "UTF-8")+"&androidversion="+URLEncoder.encode(androidversion, "UTF-8")+"&appversion="+URLEncoder.encode(appversion, "UTF-8")+"&fcm_token="+URLEncoder.encode(prefs.getString(FCM_Instance_ID_Service.token_preference_key, "no_token"), "UTF-8"));
+                        result = serverMessagingUtils.sendRequest(findViewById(R.id.container), "name="+URLEncoder.encode(username.trim(), "UTF-8")+"&command=findaccount&password="+URLEncoder.encode(password.trim(), "UTF-8")+"&androidversion="+URLEncoder.encode(androidversion, "UTF-8")+"&appversion="+URLEncoder.encode(appversion, "UTF-8")+"&fcm_token="+URLEncoder.encode(su.getString(FCM_Instance_ID_Service.token_preference_key, "no_token"), "UTF-8"));
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
@@ -355,20 +353,16 @@ public class LogInActivity extends AppCompatActivity {
                                         String rights = result.substring(index1 +1, index2);
                                         String account_state = result.substring(index2 +1);
                                         if(account_state.equals("1")) {
-                                            SharedPreferences.Editor e = prefs.edit();
                                             //Synchronisation aktivieren
-                                            e.putBoolean("Sync", true);
+                                            su.putBoolean("Sync", true);
+                                            //Angemeldet bleiben aktivieren
+                                            su.putBoolean("Angemeldet bleiben", ab);
                                             //Topic deabonniren
-                                            try{ FirebaseMessaging.getInstance().unsubscribeFromTopic(prefs.getString("Klasse", "")); } catch(Exception e1) {}
+                                            try{ FirebaseMessaging.getInstance().unsubscribeFromTopic(su.getString("Klasse", "")); } catch(Exception e1) {}
                                             //Accountdaten in die SharedPreferences eintragen
                                             if(rights.equals("wants to be a teacher") || rights.equals("wants_to_be_a_teacher")) rights = "student";
                                             if(rights.equals("wants to be a classspeaker") || rights.equals("wants_to_be_a_classspeaker")) rights = "student";
-                                            e.putString("Name", username);
-                                            if(!klasse.equals("no_class")) e.putString("Klasse", klasse);
-                                            e.putString("Password", password);
-                                            e.putString("Rights", rights);
-                                            e.putBoolean("Angemeldet bleiben", ab);
-                                            e.commit();
+                                            au.LogIn(username, password, klasse, rights);
                                             //Topic abonnieren
                                             try{ FirebaseMessaging.getInstance().subscribeToTopic(klasse); } catch(Exception e2) {}
                                             //Toast ausgeben
@@ -409,9 +403,7 @@ public class LogInActivity extends AppCompatActivity {
                                         } else if(account_state.equals("2")) {
                                             pb.setVisibility(View.GONE);
                                             //Synchronisation aktivieren
-                                            SharedPreferences.Editor e = prefs.edit();
-                                            e.putBoolean("Sync", true);
-                                            e.commit();
+                                            su.putBoolean("Sync", true);
                                             //Nachricht an den Nutzer ausgeben, dass sein Account gesperrt wurde
                                             Toast.makeText(LogInActivity.this, res.getString(R.string.account_locked), Toast.LENGTH_LONG).show();
                                             //Komponenten sichtbar machen
@@ -420,20 +412,17 @@ public class LogInActivity extends AppCompatActivity {
                                             pb.setVisibility(View.GONE);
                                             //Nachricht an den Nutzer ausgeben, dass seine Synchronisation blockiert wurde
                                             Toast.makeText(LogInActivity.this, res.getString(R.string.account_sync_blocked), Toast.LENGTH_LONG).show();
-                                            SharedPreferences.Editor e = prefs.edit();
                                             //Synchronisation deaktivieren
-                                            e.putBoolean("Sync", false);
+                                            su.putBoolean("Sync", false);
+                                            //Angemeldet bleiben (de)aktivieren
+                                            su.putBoolean("Angemeldet bleiben", ab);
                                             //Accountdaten in die SharedPreferences eintragen
-                                            e.putString("Name", username);
-                                            e.putString("Klasse", klasse);
-                                            e.putString("Password", password);
-                                            e.putString("Rights", rights);
-                                            e.putBoolean("Angemeldet bleiben", ab);
-                                            e.commit();
+                                            if(rights.equals("wants to be a teacher") || rights.equals("wants_to_be_a_teacher")) rights = "student";
+                                            if(rights.equals("wants to be a classspeaker") || rights.equals("wants_to_be_a_classspeaker")) rights = "student";
+                                            au.LogIn(username, password, klasse, rights);
                                             //Activities starten
                                             try {
                                                 String extra = getIntent().getStringExtra("Confirm");
-                                                Log.d("BSBZ-App", "Confirm: "+extra);
                                                 if(extra.equals("Timetable")) {
                                                     startActivity(new Intent(LogInActivity.this, TimeTableActivity.class));
                                                 } else if(extra.equals("Classtests")) {
@@ -482,16 +471,13 @@ public class LogInActivity extends AppCompatActivity {
 	}
 
     private void checkFirstStart() {
-        if(!prefs.getBoolean("appAlreadyStarted", false)) {
+        if(!su.getBoolean("appAlreadyStarted", false)) {
             //Aufgaben beim ersten Start
 
             //Erfolgreiches Ausführen aller Aufgaben beim ersten Start in die SharedPreferences eintragen
-            SharedPreferences.Editor e = prefs.edit();
-                e.putBoolean("appAlreadyStarted", true);
-            e.commit();
+            su.putBoolean("appAlreadyStarted", true);
         } else {
-
-            if(prefs.getBoolean("Angemeldet bleiben", false) && serverMessagingUtils.isInternetAvailable()) autoLogin();
+            if(su.getBoolean("Angemeldet bleiben", false) && serverMessagingUtils.isInternetAvailable()) autoLogin();
         }
     }
 
@@ -503,7 +489,7 @@ public class LogInActivity extends AppCompatActivity {
     }
 
 	private void showUpdateNews() {
-		if(!prefs.getBoolean("startedOnce_"+androidversion, false)) {
+		if(!su.getBoolean("startedOnce_"+androidversion, false)) {
             SpannableString message = new SpannableString(res.getString(R.string.update_news_message));
             Linkify.addLinks(message, Linkify.WEB_URLS);
             android.support.v7.app.AlertDialog d = new android.support.v7.app.AlertDialog.Builder(LogInActivity.this, R.style.FirstTheme_Dialog)
@@ -521,9 +507,7 @@ public class LogInActivity extends AppCompatActivity {
             d.show();
             ((TextView)d.findViewById(android.R.id.message)).setMovementMethod(LinkMovementMethod.getInstance());
 
-            SharedPreferences.Editor e = prefs.edit();
-                e.putBoolean("startedOnce_"+androidversion, true);
-            e.commit();
+            su.putBoolean("startedOnce_"+androidversion, true);
 		} else {
             checkFirstStart();
             checkMarshmellowPermissions();
@@ -585,10 +569,8 @@ public class LogInActivity extends AppCompatActivity {
                                 }
                             });
                             //In SharedPreferences eintragen
-                            SharedPreferences.Editor e = prefs.edit();
-                                e.putBoolean("UpdateAvailable", true);
-                                e.putString("SupportUrl", supporturl);
-                            e.commit();
+                            su.putBoolean("UpdateAvailable", true);
+                            su.putString("SupportUrl", supporturl);
                         } else {
                             MainActivity.isUpdateAvailable = false;
                             if (showUpdateDialog) {
@@ -625,7 +607,7 @@ public class LogInActivity extends AppCompatActivity {
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                String rights = prefs.getString("Rights", "normal user");
+                                String rights = su.getString("Rights", "normal user");
                                 if(rights.equals("team")) {
                                     android.support.v7.app.AlertDialog.Builder dialog = new android.support.v7.app.AlertDialog.Builder(LogInActivity.this);
                                     dialog.setMessage(R.string.server_is_offline_team);
@@ -668,7 +650,7 @@ public class LogInActivity extends AppCompatActivity {
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                String rights = prefs.getString("Rights", "normal user");
+                                String rights = su.getString("Rights", "normal user");
                                 if(rights.equals("team")) {
                                     android.support.v7.app.AlertDialog.Builder dialog = new android.support.v7.app.AlertDialog.Builder(LogInActivity.this);
                                     dialog.setMessage(R.string.server_is_waiting_team);
@@ -732,8 +714,8 @@ public class LogInActivity extends AppCompatActivity {
 	
 	public void autoLogin() {
 		//Angemeldet bleiben abfragen
-		String username = prefs.getString("Name", res.getString(R.string.guest));
-		String password_string = prefs.getString("Password", "");
+		String username = su.getString("Name", res.getString(R.string.guest));
+		String password_string = su.getString("Password", "");
 
         //AutoLogin vom Registrieren beachten
         if(!autologin.equals("")) {
@@ -744,7 +726,7 @@ public class LogInActivity extends AppCompatActivity {
         }
 		
 		if((!username.equals(res.getString(R.string.guest)) && MainActivity.isUpdateAvailable == false) || !autologin.equals("")) {
-            LogIn(username, password_string, androidversion, CURRENTVERSION, prefs.getBoolean("Angemeldet bleiben", false));
+            LogIn(username, password_string, androidversion, CURRENTVERSION, su.getBoolean("Angemeldet bleiben", false));
 		}
 	}
 

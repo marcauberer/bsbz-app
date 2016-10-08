@@ -78,7 +78,7 @@ public class EditTimeTableActivity extends AppCompatActivity {
         res = getResources();
 
         //StorageUtils initialisieren
-        su = new StorageUtils(EditTimeTableActivity.this);
+        su = new StorageUtils(EditTimeTableActivity.this, res);
 
         //Extras aus dem Intent auslesen
         klasse = getIntent().getStringExtra("class");
