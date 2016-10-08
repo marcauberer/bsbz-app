@@ -36,7 +36,6 @@ public class SyncronisationService extends Service {
 	//Variablen als Objekte
 	private ConnectivityManager cm;
     private ServerMessagingUtils serverMessagingUtils;
-    private SharedPreferences prefs;
     private Context context;
     private Handler handler;
     private NotificationManager nm;
@@ -72,9 +71,6 @@ public class SyncronisationService extends Service {
         //NotificationUtils initialisieren
         nu = new NotificationUtils(this);
 
-		//SharedPreferences initialisieren
-		prefs = PreferenceManager.getDefaultSharedPreferences(context);
-
 		//ServerMessagingUtils initialisieren
 		cm = (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE);
 		serverMessagingUtils = new ServerMessagingUtils(cm, context);
@@ -85,11 +81,11 @@ public class SyncronisationService extends Service {
 		//Handler initialisieren
 		handler = new Handler();
 
-		show_notifications = prefs.getBoolean("send_notifications", true);
-		klasse = prefs.getString("Klasse", "no_class");
-		username = prefs.getString("Name", res.getString(R.string.guest));
-		update = prefs.getBoolean("UpdateAvailable", false);
-		sync = prefs.getBoolean("Sync", true);
+		show_notifications = su.getBoolean("send_notifications", true);
+		klasse = MainActivity.current_account.getForm();
+		username = MainActivity.current_account.getUsername();
+		update = su.getBoolean("UpdateAvailable", false);
+		sync = su.getBoolean("Sync", true);
 
 		if(!sync) Toast.makeText(context, getResources().getString(R.string.account_sync_blocked), Toast.LENGTH_LONG).show();
 
@@ -136,9 +132,7 @@ public class SyncronisationService extends Service {
                     //Stundenplan vergleichen und ggf. eine Nachricht in der Statusleiste anzeigen
                     compareTimetables(timetable_str);
                     //in SharedPreferences eintragen
-                    SharedPreferences.Editor e = prefs.edit();
-                    e.putString("Timetables", timetable_str);
-                    e.commit();
+                    su.putString("Timetables", timetable_str);
                     //Daten auseinandernehmen
                     int i1 = timetable_str.indexOf(";", 0);
                     int i2 = timetable_str.indexOf(";", i1 +1);
@@ -156,9 +150,7 @@ public class SyncronisationService extends Service {
                     //Classtests vergleichen und ggf. eine Nachricht in die Statusleiste senden
                     compareClasstests(classtests_str);
                     //Alte Klasstests in den SharedPreferences durch neue ersetzen
-                    e = prefs.edit();
-                    e.putString("Classtests", classtests_str);
-                    e.commit();
+                    su.putString("Classtests", classtests_str);
                     //Daten auseinandernehmen
                     ArrayList<String> arraylist = new ArrayList<String>();
                     //In einzelne Klassenarbeiten unterteilen
@@ -188,15 +180,12 @@ public class SyncronisationService extends Service {
                         i++;
                     }
                     su.setClasstestCount(i);
-                    e.commit();
                 //Hausaufgaben
                     String homeworks_str = result.substring(index2 +1, index3);
                     //Homeworks vergleichen und ggf. eine Nachricht in die Statusleiste senden
                     compareHomeworks(homeworks_str);
                     //Alte Homeworks in den SharedPreferences durch neue ersetzen
-                    e = prefs.edit();
-                    e.putString("Homeworks", homeworks_str);
-                    e.commit();
+                    su.putString("Homeworks", homeworks_str);
                     //Daten auseinandernehmen
                     arraylist = new ArrayList<String>();
                     //In einzelne Hausaufgaben unterteilen
@@ -226,15 +215,12 @@ public class SyncronisationService extends Service {
                         i++;
                     }
                     su.setHomeworkCount(i);
-                    e.commit();
                 //Termine
                     String termine_str = result.substring(index3 +1, index4);
                     //Events vergleichen und ggf. eine Nachricht in die Statusleiste senden
                     compareEvents(termine_str);
                     //Alte Events in den SharedPreferences durch neue ersetzen
-                    e = prefs.edit();
-                    e.putString("Events", termine_str);
-                    e.commit();
+                    su.putString("Events", termine_str);
                     //Daten auseinandernehmen
                     arraylist = new ArrayList<String>();
                     //In einzelne Events unterteilen
@@ -264,15 +250,12 @@ public class SyncronisationService extends Service {
                         i++;
                     }
                     su.setEventCount(i);
-                    e.commit();
                 //News
                     String news_str = result.substring(index4 +1).trim();
                     //News vergleichen und ggf. eine Nachricht in die Statusleiste senden
                     compareNews(news_str);
                     //Alte News in den SharedPreferences durch neue ersetzen
-                    e = prefs.edit();
-                    e.putString("News", news_str);
-                    e.commit();
+                    su.putString("News", news_str);
                     //Daten auseinandernehmen
                     arraylist = new ArrayList<String>();
                     //In einzelne News unterteilen
@@ -306,7 +289,6 @@ public class SyncronisationService extends Service {
 					    i++;
                     }
                     su.setNewsCount(i);
-                    e.commit();
 			}
 		} catch(Exception e) {
             Log.e("BSBZ-App", "Error occured", e);
@@ -330,7 +312,7 @@ public class SyncronisationService extends Service {
 	}
 
 	private void compareClasstests(String classtests) {
-		String classtests_old = prefs.getString("Classtests", classtests);
+		String classtests_old = su.getString("Classtests", classtests);
 
 		classtests_old = classtests_old.trim();
 		classtests = classtests.trim();
@@ -346,7 +328,7 @@ public class SyncronisationService extends Service {
 	}
 
 	private void compareHomeworks(String homeworks) {
-		String homeworks_old = prefs.getString("Homeworks", homeworks);
+		String homeworks_old = su.getString("Homeworks", homeworks);
 
 		homeworks_old = homeworks_old.trim();
 		homeworks = homeworks.trim();
@@ -362,7 +344,7 @@ public class SyncronisationService extends Service {
 	}
 	
 	private void compareEvents(String events) {
-		String events_old = prefs.getString("Events", events);
+		String events_old = su.getString("Events", events);
 
 		events_old = events_old.trim();
 		events = events.trim();
@@ -377,7 +359,7 @@ public class SyncronisationService extends Service {
 	}
 
 	private void compareNews(String news) {
-		String news_old = prefs.getString("News", news);
+		String news_old = su.getString("News", news);
 
 		news_old = news_old.trim();
 		news = news.trim();
@@ -397,8 +379,6 @@ public class SyncronisationService extends Service {
 		Date date = new Date(System.currentTimeMillis());
 		String sync_time = DateFormat.getDateTimeInstance(DateFormat.MEDIUM, DateFormat.LONG, Locale.GERMANY).format(date).substring(0, 16);
 		//In Shared Preferences eintragen
-		SharedPreferences.Editor e = prefs.edit();
-			e.putString("SyncTime", sync_time);
-		e.commit();
+        su.putString("SyncTime", sync_time);
 	}
 }
