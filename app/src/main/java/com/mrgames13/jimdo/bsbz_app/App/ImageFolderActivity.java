@@ -8,7 +8,6 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -21,8 +20,10 @@ import android.view.View;
 import android.view.Window;
 import android.widget.Toast;
 
+import com.mrgames13.jimdo.bsbz_app.CommonObjects.Account;
 import com.mrgames13.jimdo.bsbz_app.R;
 import com.mrgames13.jimdo.bsbz_app.RecyclerViewAdapters.GalleryViewAdapter_Files;
+import com.mrgames13.jimdo.bsbz_app.Tools.StorageUtils;
 
 import java.net.URLEncoder;
 import java.util.ArrayList;
@@ -39,10 +40,13 @@ public class ImageFolderActivity extends AppCompatActivity {
     private RecyclerView gallery_view;
     private RecyclerView.Adapter gallery_view_adapter;
     private RecyclerView.LayoutManager gallery_view_manager;
+    private StorageUtils su;
+    private Account current_account;
 
     //Varialben
     public static ArrayList<String> filenames;
     public static String folderName;
+    private int rights = Account.RIGHTS_STUDENT;
 
     @Override
     public void onStart() {
@@ -82,11 +86,14 @@ public class ImageFolderActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        //SharedPreferences initialisieren
-        prefs = PreferenceManager.getDefaultSharedPreferences(this);
+        //Resourcen initialisieren
+        res = getResources();
+
+        //StorageUtils initialisieren
+        su = new StorageUtils(this, res);
 
         //Theme aus den Shared Preferences auslesen
-        String theme = prefs.getString("AppTheme", "0");
+        String theme = su.getString("AppTheme", "0");
         if(theme.equals("0")) {
             MainActivity.AppTheme = 0;
             setTheme(R.style.FirstTheme);
@@ -95,8 +102,10 @@ public class ImageFolderActivity extends AppCompatActivity {
             setTheme(R.style.SecondTheme);
         }
 
-        String rights = prefs.getString("Rights", "student");
-        if(rights.equals("classspeaker") || rights.equals("teacher") || rights.equals("administrator") || rights.equals("team")) {
+        //Rights laden
+        rights = current_account.getRights();
+
+        if(rights == Account.RIGHTS_CLASSSPEAKER || rights == Account.RIGHTS_TEACHER || rights == Account.RIGHTS_ADMIN || rights == Account.RIGHTS_TEAM) {
             setContentView(R.layout.activity_image_folder_admin);
         } else {
             setContentView(R.layout.activity_image_folder);
@@ -105,9 +114,6 @@ public class ImageFolderActivity extends AppCompatActivity {
         //Toolbar initialisieren
         toolbar = (Toolbar) findViewById(R.id.toolbar_image_folder_activity);
         setSupportActionBar(toolbar);
-
-        //Resourcen initialisieren
-        res = getResources();
 
         //Gallerie anzeigen
         gallery_view = (RecyclerView) findViewById(R.id.gallery_view);
@@ -127,7 +133,7 @@ public class ImageFolderActivity extends AppCompatActivity {
             if(!filenames_string.equals("")) filenames.add(filenames_string);
         }
 
-        if(rights.equals("teacher") || rights.equals("administrator") || rights.equals("team")) {
+        if(rights == Account.RIGHTS_TEACHER || rights == Account.RIGHTS_ADMIN || rights == Account.RIGHTS_TEAM) {
             //FloatingAction-Button initialisieren
             FloatingActionButton new_image = (FloatingActionButton) findViewById(R.id.new_image);
             new_image.setOnClickListener(new View.OnClickListener() {
@@ -136,7 +142,7 @@ public class ImageFolderActivity extends AppCompatActivity {
                     startActivity(new Intent(ImageFolderActivity.this, ImagePickerActivity.class));
                 }
             });
-        } else if(rights.equals("classspeaker") && folderName.equals("." + prefs.getString("Klasse", "no_class"))) {
+        } else if(rights == Account.RIGHTS_CLASSSPEAKER && folderName.equals("." + current_account.getForm())) {
             //FloatingAction-Button initialisieren
             FloatingActionButton new_image = (FloatingActionButton) findViewById(R.id.new_image);
             new_image.setOnClickListener(new View.OnClickListener() {
@@ -151,10 +157,9 @@ public class ImageFolderActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        String rights = MainActivity.prefs.getString("Rights", "student");
-        if(rights.equals("teacher") || rights.equals("administrator") || rights.equals("team")) {
+        if(rights == Account.RIGHTS_TEACHER || rights == Account.RIGHTS_ADMIN || rights == Account.RIGHTS_TEAM) {
             getMenuInflater().inflate(R.menu.image_folder_admin, menu);
-        } else if(rights.equals("classspeaker")) {
+        } else if(rights == Account.RIGHTS_CLASSSPEAKER) {
             getMenuInflater().inflate(R.menu.image_folder_classspeaker, menu);
         } else {
             getMenuInflater().inflate(R.menu.image_folder, menu);

@@ -2,13 +2,11 @@ package com.mrgames13.jimdo.bsbz_app.App;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
@@ -21,13 +19,11 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.PersistableBundle;
-import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.ListFragment;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
@@ -40,18 +36,15 @@ import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
-import android.view.ContextMenu;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -59,7 +52,6 @@ import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.HorizontalScrollView;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.SeekBar;
 import android.widget.TextView;
@@ -84,7 +76,6 @@ import java.net.URLEncoder;
 import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Collections;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.Locale;
@@ -106,14 +97,13 @@ public class MainActivity extends AppCompatActivity {
     private ActionBarDrawerToggle drawer_toggle;
     private NavigationView navView;
     public Menu action_menu;
-    private Account current_account;
+    public static Account current_account;
     public static MenuItem progress_menu_item;
     private ViewGroup container;
     private LayoutInflater layoutInflater;
     public static ArrayAdapter<String> adapter;
     public static ArrayList<String> arraylist = new ArrayList<String>();
     public static ArrayList<String> arraylist_main = new ArrayList<String>();
-    public static SharedPreferences prefs;
     private static FragmentManager fragmentManager;
     private static ConnectivityManager cm;
     public static SyncronisationService.onSyncFinishedListener syncFinishedListener;
@@ -165,6 +155,7 @@ public class MainActivity extends AppCompatActivity {
     private String currentAppVersion;
     public static ArrayList<String> gallery_view_foldernames;
     public static ArrayList<String> gallery_view_filenames;
+    private int rights = Account.RIGHTS_STUDENT;
 
     //--------------------------------------------------------------------- Klassenmethoden ------------------------------------------------------------------------
 
@@ -200,9 +191,6 @@ public class MainActivity extends AppCompatActivity {
         //LayoutInflater initialisieren
         layoutInflater = getLayoutInflater();
 
-        //SharedPreferences initialisieren
-        prefs = PreferenceManager.getDefaultSharedPreferences(MainActivity.this);
-
         //StorageUtils initialisieren
         su = new StorageUtils(MainActivity.this, res);
 
@@ -214,6 +202,9 @@ public class MainActivity extends AppCompatActivity {
 
         //Aktueller Account laden
         current_account = su.getLastUser();
+
+        //Rights abfragen
+        rights = current_account.getRights();
 
         //SynchronisationService.OnSyncFinishedListener initialisieren
         syncFinishedListener = new SyncronisationService.onSyncFinishedListener() {
@@ -589,10 +580,8 @@ public class MainActivity extends AppCompatActivity {
         //Daten von den SharedPreferences abrufen
         String User_name = current_account.getUsername();
         String User_klasse = current_account.getForm();
-        String User_rechte = prefs.getString("Rights", "student");
-        String last_syncronisation_time = prefs.getString("SyncTime", res.getString(R.string.no_synchronisation));
-
-        if(User_klasse.length() == 3) User_klasse.replace("0", "");
+        int User_rechte = current_account.getRights();
+        String last_syncronisation_time = su.getString("SyncTime", res.getString(R.string.no_synchronisation));
 
         //IDs herausfinden
         TextView Profil_name = (TextView) findViewById(R.id.Profil_Name);
@@ -685,12 +674,7 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         klasse_wahlen.setText(res.getString(R.string.choose_class_1_)+klasse1.getText().toString()+")");
-
-                        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(MainActivity.this);
-                        SharedPreferences.Editor e = prefs.edit();
-                            e.putString("Klasse", klasse1.getText().toString());
-                        e.commit();
-
+                        su.putString("Klasse", klasse1.getText().toString());
                         Synchronize(klasse1.getText().toString(), MainActivity.this);
                         dialog.cancel();
                     }
@@ -711,30 +695,26 @@ public class MainActivity extends AppCompatActivity {
         Profil_name.setText(User_name);
         Profil_klasse.setText(User_klasse);
         if(User_klasse.equals("no_class")) Profil_klasse.setText(res.getString(R.string.several_classes));
-        if(User_rechte.equals("classspeaker")) {
+        if(User_rechte == Account.RIGHTS_CLASSSPEAKER) {
             Profil_Rechte.setText(res.getString(R.string.classspeaker));
-            klasse_wahlen.setVisibility(View.INVISIBLE);
-        } else if(User_rechte.equals("parent")) {
+            klasse_wahlen.setVisibility(View.GONE);
+        } else if(User_rechte == Account.RIGHTS_PARENT) {
             Profil_Rechte.setText(res.getString(R.string.parent));
             klasse_wahlen.setText(res.getString(R.string.choose_class_1_)+User_klasse+")");
-        } else if(User_rechte.equals("teacher")) {
+        } else if(User_rechte == Account.RIGHTS_TEACHER) {
             Profil_Rechte.setText(res.getString(R.string.teacher));
             klasse_wahlen.setText(res.getString(R.string.choose_class_1_)+User_klasse+")");
             if(User_klasse.equals("no_class")) klasse_wahlen.setText(res.getString(R.string.choose_class));
-        } else if(User_rechte.equals("administrator")) {
+        } else if(User_rechte == Account.RIGHTS_ADMIN) {
             Profil_Rechte.setText(res.getString(R.string.administrator));
             klasse_wahlen.setText(res.getString(R.string.choose_class_1_)+User_klasse+")");
-        } else if(User_rechte.equals("team")) {
+        } else if(User_rechte == Account.RIGHTS_TEAM) {
             Profil_Rechte.setText(res.getString(R.string.team_mrgames));
             klasse_wahlen.setText(res.getString(R.string.choose_class_1_)+User_klasse+")");
-        } else if(User_rechte.equals("guest")) {
-            l_Rechte.setVisibility(View.INVISIBLE);
-            Profil_Rechte.setVisibility(View.INVISIBLE);
-            klasse_wahlen.setText(res.getString(R.string.choose_class_1_)+User_klasse+")");
         } else {
-            l_Rechte.setVisibility(View.INVISIBLE);
-            Profil_Rechte.setVisibility(View.INVISIBLE);
-            klasse_wahlen.setVisibility(View.INVISIBLE);
+            l_Rechte.setVisibility(View.GONE);
+            Profil_Rechte.setVisibility(View.GONE);
+            klasse_wahlen.setVisibility(View.GONE);
         }
         //Profil_email.setText(User_email);
         //Date + Time ausgeben
@@ -899,7 +879,7 @@ public class MainActivity extends AppCompatActivity {
         tv.setText(res.getString(R.string.timetable_from_) + weekString);
 
         //Daycode herausfinden
-        TimeTable tt = su.getTimeTable(prefs.getString("Klasse", "no_class"));
+        TimeTable tt = su.getTimeTable(current_account.getForm());
         String daycode = "";
         if(tt != null) {
             if(weekString.equals("Mo")) daycode = tt.getMo();
@@ -1422,18 +1402,14 @@ public class MainActivity extends AppCompatActivity {
         });
 
         //Speicher für Textfield einrichten
-        final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(MainActivity.this);
-
         final EditText et = (EditText) findViewById(R.id.TextSpeicher);
         //Text setzen
-        et.setText(prefs.getString("TextSpeicher", ""));
+        et.setText(su.getString("TextSpeicher", ""));
         //Textchange in Speicher eintragen
         et.addTextChangedListener(new TextWatcher() {
             @Override
             public void afterTextChanged(Editable arg0) {
-                SharedPreferences.Editor e = prefs.edit();
-                e.putString("TextSpeicher", et.getText().toString());
-                e.commit();
+                su.putString("TextSpeicher", et.getText().toString().trim());
             }
 
             @Override
@@ -1448,8 +1424,7 @@ public class MainActivity extends AppCompatActivity {
         //Container leeren
         container.removeAllViews();
         //Layout-Datei entfalten
-        String rights = prefs.getString("Rights", "student");
-        if(rights.equals("teacher") || rights.equals("administrator") || rights.equals("team")) {
+        if(rights == Account.RIGHTS_TEACHER || rights == Account.RIGHTS_ADMIN || rights == Account.RIGHTS_TEAM) {
             layoutInflater.inflate(R.layout.fragment_news_admin, container);
         } else {
             layoutInflater.inflate(R.layout.fragment_news, container);
@@ -1475,7 +1450,7 @@ public class MainActivity extends AppCompatActivity {
         if(news_view_adapter.getItemCount() == 0) findViewById(R.id.no_active_news).setVisibility(View.VISIBLE);
 
         //Aktionen, die nur für Admins oder Team-Mitglieder vorgesehen sind
-        if(rights.equals("teacher") || rights.equals("administrator") || rights.equals("team")) {
+        if(rights == Account.RIGHTS_TEACHER || rights == Account.RIGHTS_ADMIN || rights == Account.RIGHTS_TEAM) {
             //FloatingActionButton Aktion zuweisen
             FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.new_new);
             fab.setOnClickListener(new View.OnClickListener() {
@@ -1502,8 +1477,7 @@ public class MainActivity extends AppCompatActivity {
         //Container leeren
         container.removeAllViews();
         //Layout-Datei entfalten
-        String rights = prefs.getString("Rights", "student");
-        if(rights.equals("classspeaker") || rights.equals("teacher") || rights.equals("administrator") || rights.equals("team")) {
+        if(rights == Account.RIGHTS_CLASSSPEAKER || rights == Account.RIGHTS_TEACHER || rights == Account.RIGHTS_ADMIN || rights == Account.RIGHTS_TEAM) {
             layoutInflater.inflate(R.layout.fragment_jahresplan_admin, container);
         } else {
             layoutInflater.inflate(R.layout.fragment_jahresplan, container);
@@ -1540,7 +1514,7 @@ public class MainActivity extends AppCompatActivity {
             no_active_elements.setVisibility(View.GONE);
         }
 
-        if(rights.equals("classspeaker") || rights.equals("teacher") || rights.equals("administrator") || rights.equals("team")) {
+        if(rights == Account.RIGHTS_CLASSSPEAKER || rights == Account.RIGHTS_TEACHER || rights == Account.RIGHTS_ADMIN || rights == Account.RIGHTS_TEAM) {
             //FloatingAction Button
             FloatingActionButton new_element = (FloatingActionButton) findViewById(R.id.new_classtest_homework_event);
             new_element.setOnClickListener(new View.OnClickListener() {
@@ -2154,15 +2128,14 @@ public class MainActivity extends AppCompatActivity {
         //Container leeren
         container.removeAllViews();
         //Layout-Datei entfalten
-        String rights = prefs.getString("Rights", res.getString(R.string.guest));
-        if(rights.equals("teacher") || rights.equals("administrator") || rights.equals("team")) {
+        if(rights == Account.RIGHTS_TEACHER || rights == Account.RIGHTS_ADMIN || rights == Account.RIGHTS_TEAM) {
             layoutInflater.inflate(R.layout.fragment_gallery_admin, container);
         } else {
             layoutInflater.inflate(R.layout.fragment_gallery, container);
         }
 
         if(serverMessagingUtils.isInternetAvailable()) {
-            if(rights.equals("teacher") || rights.equals("administrator") || rights.equals("team")) {
+            if(rights == Account.RIGHTS_TEACHER || rights == Account.RIGHTS_ADMIN || rights == Account.RIGHTS_TEAM) {
                 new_folder = (FloatingActionButton) findViewById(R.id.new_folder);
                 new_folder.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -2188,8 +2161,7 @@ public class MainActivity extends AppCompatActivity {
                                                 @Override
                                                 public void run() {
                                                     try{
-                                                        String name = prefs.getString("Name", res.getString(R.string.guest));
-                                                        serverMessagingUtils.sendRequest(findViewById(R.id.container), "name="+URLEncoder.encode(name, "UTF-8")+"&command=setimageconfig&foldername="+URLEncoder.encode(foldername, "UTF-8") + "&filenames=");
+                                                        serverMessagingUtils.sendRequest(findViewById(R.id.container), "name="+URLEncoder.encode(current_account.getUsername(), "UTF-8")+"&command=setimageconfig&foldername="+URLEncoder.encode(foldername, "UTF-8") + "&filenames=");
                                                         runOnUiThread(new Runnable() {
                                                             @Override
                                                             public void run() {
@@ -2214,17 +2186,14 @@ public class MainActivity extends AppCompatActivity {
                 @Override
                 public void run() {
                     try{
-                        //Username aus den SharedPreferences auslesen
-                        String username = prefs.getString("Name", res.getString(R.string.guest));
                         //ImageConfig herunterladen
-                        result = serverMessagingUtils.sendRequest(findViewById(R.id.container), "name="+URLEncoder.encode(username, "UTF-8")+"&command=getimageconfig").trim();
+                        result = serverMessagingUtils.sendRequest(findViewById(R.id.container), "name="+URLEncoder.encode(current_account.getUsername(), "UTF-8")+"&command=getimageconfig").trim();
                         //Result auseinandernehmen
                         if(gallery_view_foldernames == null) gallery_view_foldernames = new ArrayList<String>();
                         if(gallery_view_filenames == null) gallery_view_filenames = new ArrayList<String>();
                         gallery_view_foldernames.clear();
                         gallery_view_filenames.clear();
-                        String rights = prefs.getString("Rights", "student");
-                        String klasse = prefs.getString("Klasse", "no_class");
+                        String klasse = current_account.getForm();
                         if(result.length() > 0) {
                             for(int i = 0; i < 100; i++) {
                                 if(result.length() > 0) {
@@ -2234,7 +2203,7 @@ public class MainActivity extends AppCompatActivity {
                                     String dirname = result.substring(0, index1);
                                     String filenames = result.substring(index1 +1, index2);
                                     //In Arraylists speichern
-                                    if(rights.equals("teacher") || rights.equals("administrator") || rights.equals("team")) {
+                                    if(rights == Account.RIGHTS_TEACHER || rights == Account.RIGHTS_ADMIN || rights == Account.RIGHTS_TEAM) {
                                         gallery_view_foldernames.add(dirname);
                                         gallery_view_filenames.add(filenames);
                                     } else {
@@ -2346,19 +2315,15 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void run() {
                 try {
-                    //Username aus den SharedPreferences auslesen
-                    String username = prefs.getString("Name", res.getString(R.string.guest));
                     //Antwort vom Server holen
-                    result = serverMessagingUtils.sendRequest(findViewById(R.id.container), "name="+ URLEncoder.encode(username, "UTF-8")+"&command=getfoodplan");
+                    result = serverMessagingUtils.sendRequest(findViewById(R.id.container), "name="+ URLEncoder.encode(current_account.getUsername(), "UTF-8")+"&command=getfoodplan");
                     //Speiseplan in die SharedPreferences eintragen
-                    SharedPreferences.Editor e = prefs.edit();
-                        e.putString("Speiseplan", result);
-                    e.commit();
+                    su.putString("Speiseplan", result);
                     //WebView befüllen
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            String url = prefs.getString("Speiseplan", "www.mrgames13.jimdo.com");
+                            String url = su.getString("Speiseplan", "www.mrgames13.jimdo.com");
                             if(url.endsWith(".pdf")) {
                                 speiseplanView.loadUrl("http://docs.google.com/gview?embedded=true&url="+url);
                             } else {
@@ -2527,11 +2492,8 @@ public class MainActivity extends AppCompatActivity {
                 public void run() {
                     try{
                         //Wenn Internet verfügbar ist, vom Server holen
-                        String username = prefs.getString("Name", res.getString(R.string.guest));
-                        final String info = serverMessagingUtils.sendRequest(null, "name="+URLEncoder.encode(username, "UTF-8")+"&command=getbsbzinfo");
-                        SharedPreferences.Editor e = prefs.edit();
-                            e.putString("BSBZ_Info", info);
-                        e.commit();
+                        final String info = serverMessagingUtils.sendRequest(null, "name="+URLEncoder.encode(current_account.getUsername(), "UTF-8")+"&command=getbsbzinfo");
+                        su.putString("BSBZ_Info", info);
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
@@ -2544,13 +2506,12 @@ public class MainActivity extends AppCompatActivity {
             }).start();
         } else {
             //Wenn kein Internet verfügbar ist, aus den SharedPreferences holen
-            info = prefs.getString("BSBZ_Info", res.getString(R.string.no_info_entered));
+            info = su.getString("BSBZ_Info", res.getString(R.string.no_info_entered));
             progressBar.setVisibility(View.GONE);
         }
         bsbz_info.setText(info);
 
-        String rights = su.getString("Rights");
-        if(serverMessagingUtils.isInternetAvailable() && (rights.equals("administrator") || rights.equals("team"))) {
+        if(serverMessagingUtils.isInternetAvailable() && (rights == Account.RIGHTS_ADMIN || rights == Account.RIGHTS_TEAM)) {
             //FloatingActionButton initialisieren
             FloatingActionButton edit = (FloatingActionButton) findViewById(R.id.edit_bsbz_info);
             edit.setOnClickListener(new View.OnClickListener() {
@@ -2619,487 +2580,6 @@ public class MainActivity extends AppCompatActivity {
         t.start();
     }
 
-    //-------------------------------------------------------------------------- Fragmente -----------------------------------------------------------------------
-
-    @SuppressLint("InlinedApi")
-    public static class TermineFragment_Jahresplan extends ListFragment {
-
-        //Variablen
-        String item_text;
-
-        @Override
-        public void onActivityCreated(Bundle savedInstanceState) {
-            super.onActivityCreated(savedInstanceState);
-
-            arraylist_main.clear();
-
-            // Liste aus String-Array befüllen
-            arraylist.clear();
-
-            String tmp = Integer.toString(selectedMonth);
-            while(tmp.length() < 2) tmp = "0" + tmp;
-
-            String item_title;
-            String item_date;
-            for(int i = 0; i < 101; i++) {
-                String classtest = prefs.getString("Classtests_"+Integer.toString(i), "-");
-                if(!classtest.equals("-")) {
-                    int index1 = classtest.indexOf(",");
-                    int index2 = classtest.indexOf(",", index1 +1);
-                    int index3 = classtest.indexOf(",", index2 +1);
-                    item_date = classtest.substring(0, index1);
-                    item_title = classtest.substring(index1 +1, index2);
-                    if(!item_title.equals("-") && !item_title.equals("")) {
-                        if(item_date.substring(3, 5).equals(tmp)) {
-                            arraylist.add(item_date +": "+ item_title);
-                        }
-                        arraylist_main.add(item_date +": "+ item_title);
-                    }
-                }
-            }
-
-            for(int i = 0; i < 101; i++) {
-                String homework = prefs.getString("Homeworks_"+Integer.toString(i), "-");
-                if(!homework.equals("-")) {
-                    int index1 = homework.indexOf(",");
-                    int index2 = homework.indexOf(",", index1 +1);
-                    int index3 = homework.indexOf(",", index2 +1);
-                    item_date = homework.substring(0, index1);
-                    item_title = homework.substring(index1 +1, index2);
-                    if(!item_title.equals("-") && !item_title.equals("")) {
-                        if(item_date.substring(3, 5).equals(tmp)) {
-                            arraylist.add(item_date +": "+ item_title);
-                        }
-                        arraylist_main.add(item_date +": "+ item_title);
-                    }
-                }
-            }
-
-            for(int i = 0; i < 101; i++) {
-                String event = prefs.getString("Events_"+Integer.toString(i), "-");
-                if(!event.equals("-")) {
-                    int index1 = event.indexOf(",");
-                    int index2 = event.indexOf(",", index1 +1);
-                    int index3 = event.indexOf(",", index2 +1);
-                    item_date = event.substring(0, index1);
-                    item_title = event.substring(index1 +1, index2);
-                    if(!item_title.equals("-") && !item_title.equals("")) {
-                        if(item_date.substring(3, 5).equals(tmp)) {
-                            arraylist.add(item_date +": "+ item_title);
-                        }
-                        arraylist_main.add(item_date +": "+ item_title);
-                    }
-                }
-            }
-
-            //Wenn in der ArrayList keine Elemente sind, Element mit KEINE_TERMINE_MONAT anlegen
-            if(arraylist.size() == 0) arraylist.add(KEINE_TERMINE_MONAT);
-            //ArrayList nach Datum sortieren
-            Collections.sort(arraylist);
-            //Adapter aufsetzen und der Liste zuweisen
-            adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_activated_1, arraylist);
-            setListAdapter(adapter);
-
-            String rights = prefs.getString("Rights", "student");
-            if(rights.equals("classspeaker") || rights.equals("teacher") || rights.equals("administrator") || rights.equals("team")) {
-                registerForContextMenu(getListView());
-                getListView().setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-                    @Override
-                    public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                        item_text = getListView().getItemAtPosition(position).toString();
-                        if(!item_text.equals(KEINE_TERMINE_MONAT)) {
-                            getListView().showContextMenu();
-                        }
-                        return true;
-                    }
-                });
-            }
-        }
-
-        @Override
-        public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
-            super.onCreateContextMenu(menu, v, menuInfo);
-            MenuInflater inflater = this.getActivity().getMenuInflater();
-            inflater.inflate(R.menu.plan_of_the_year_fragment_context_menu, menu);
-        }
-
-        @Override
-        public boolean onContextItemSelected(MenuItem item) {
-            Activity activity = getActivity();
-            if(activity instanceof MainActivity) {
-                switch (item.getItemId()){
-                    case R.id.context_menu_edit_element:
-                        //Daten aus den SharedPreferences herausfiltern
-                        String item_subject = "No Data";
-                        String item_description = "No Data";
-                        String item_writer = "No Data";
-                        String item_date = "No Data";
-                        String item_receiver = "No Data";
-                        //Klassenarbeiten filtern
-                        int mode = NewEditElementActivity.MODE_EDIT_CLASSTEST;
-                        for(int i = 0; i < 101; i++) {
-                            String news = prefs.getString("Classtests_"+Integer.toString(i), "-");
-                            if(!news.equals("-")) {
-                                int index1 = news.indexOf(",");
-                                int index2 = news.indexOf(",", index1 +1);
-                                int index3 = news.indexOf(",", index2 +1);
-                                item_date = news.substring(0, index1);
-                                item_subject = news.substring(index1 +1, index2);
-                                item_description = news.substring(index2 +1, index3);
-                                item_writer = news.substring(index3 +1);
-                                if(item_text.equals(item_date + ": " + item_subject)) break;
-                            }
-                        }
-                        //Hausaufgaben filtern
-                        if(!item_text.equals(item_date + ": " + item_subject)) {
-                            mode = NewEditElementActivity.MODE_EDIT_HOMEWORK;
-                            for(int i = 0; i < 101; i++) {
-                                String news = prefs.getString("Homeworks_"+Integer.toString(i), "-");
-                                if(!news.equals("-")) {
-                                    int index1 = news.indexOf(",");
-                                    int index2 = news.indexOf(",", index1 +1);
-                                    int index3 = news.indexOf(",", index2 +1);
-                                    item_date = news.substring(0, index1);
-                                    item_subject = news.substring(index1 +1, index2);
-                                    item_description = news.substring(index2 +1, index3);
-                                    item_writer = news.substring(index3 +1);
-                                    if(item_text.equals(item_date + ": " + item_subject)) break;
-                                }
-                            }
-                        }
-                        //Termine filtern
-                        if(!item_text.equals(item_date + ": " + item_subject)) {
-                            mode = NewEditElementActivity.MODE_EDIT_EVENT;
-                            for(int i = 0; i < 101; i++) {
-                                String news = prefs.getString("Events_"+Integer.toString(i), "-");
-                                if(!news.equals("-")) {
-                                    int index1 = news.indexOf(",");
-                                    int index2 = news.indexOf(",", index1 +1);
-                                    int index3 = news.indexOf(",", index2 +1);
-                                    item_date = news.substring(0, index1);
-                                    item_subject = news.substring(index1 +1, index2);
-                                    item_description = news.substring(index2 +1, index3);
-                                    item_writer = news.substring(index3 +1);
-                                    if(item_text.equals(item_date + ": " + item_subject)) break;
-                                }
-                            }
-                        }
-
-                        //Activity starten und Daten übergeben
-                        Intent i = new Intent(getActivity(), NewEditElementActivity.class);
-                        i.putExtra("old_title", item_subject);
-                        i.putExtra("old_date", item_date);
-                        i.putExtra("old_description", item_description);
-                        i.putExtra("old_writer", item_writer);
-                        i.putExtra("mode", mode);
-                        startActivity(i);
-                        return true;
-                    case R.id.context_menu_delete_element:
-                        /*android.support.v7.app.AlertDialog.Builder d = new android.support.v7.app.AlertDialog.Builder(getActivity());
-                        d.setTitle(res.getString(R.string.delete_new));
-                        d.setMessage(res.getString(R.string.do_you_want_to_delete_new));
-                        d.setPositiveButton(res.getString(R.string.delete), new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                new Thread(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        try {
-                                            //Daten aus den SharedPreferences herausfiltern
-                                            String item_subject = "No Data";
-                                            String item_description = "No Data";
-                                            String item_from = "No Data";
-                                            String item_state = "No Data";
-                                            String item_activation_date = "No Data";
-                                            String item_expiration_date = "No Data";
-                                            String item_receiver = "No Data";
-                                            for(int i = 0; i < 101; i++) {
-                                                String news = prefs.getString("News_"+Integer.toString(i), "-");
-                                                if(!news.equals("-")) {
-                                                    int index1 = news.indexOf(",");
-                                                    int index2 = news.indexOf(",", index1 +1);
-                                                    int index3 = news.indexOf(",", index2 +1);
-                                                    int index4 = news.indexOf(",", index3 +1);
-                                                    int index5 = news.indexOf(",", index4 +1);
-                                                    int index6 = news.indexOf(",", index5 +1);
-                                                    item_subject = news.substring(0, index1);
-                                                    item_description = news.substring(index1 +1, index2);
-                                                    item_from = news.substring(index2 +1, index3);
-                                                    item_state = news.substring(index3 +1, index4);
-                                                    item_activation_date = news.substring(index4 +1, index5);
-                                                    item_expiration_date = news.substring(index5 +1, index6);
-                                                    item_receiver = news.substring(index6);
-
-                                                    if(item_text.equals(item_from + ": " + item_subject)) break;
-                                                }
-                                            }
-                                            //Nachricht vom Server löschen
-                                            String username = prefs.getString("Name", res.getString(R.string.guest));
-                                            result = serverMessagingUtils.sendRequest(null, "name="+ URLEncoder.encode(username, "UTF-8")+"&command=deletenew&subject="+URLEncoder.encode(item_subject, "UTF-8"));
-                                            if(result.equals("Action Successful")) {
-                                                result = res.getString(R.string.new_successfully_created);
-                                                getActivity().startService(new Intent(getActivity(), SyncronisationService.class));
-                                            } else {
-                                                result = res.getString(R.string.error_try_again);
-                                            }
-                                            new Handler().post(new Runnable() {
-                                                @Override
-                                                public void run() {
-                                                    Toast.makeText(getActivity(), result, Toast.LENGTH_SHORT).show();
-                                                }
-                                            });
-                                        } catch (Exception e) {
-                                            result = res.getString(R.string.error_try_again);
-                                        }
-                                    }
-                                }).start();
-                                dialog.dismiss();
-                            }
-                        });
-                        d.setNegativeButton(res.getString(R.string.cancel), new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                dialog.dismiss();
-                            }
-                        });
-                        d.create().show();*/
-                        return true;
-                    default:
-                        return super.onContextItemSelected(item);
-                }
-            }
-            return super.onContextItemSelected(item);
-        }
-
-        @Override
-        public void onListItemClick(ListView listView, View v, int position, long id) {
-            super.onListItemClick(listView, v, position, id);
-
-            if(listView.getItemAtPosition(position).equals(MainActivity.KEINE_TERMINE_MONAT)) {
-                Toast.makeText(getActivity(), MainActivity.KEINE_TERMINE_MONAT, Toast.LENGTH_SHORT).show();
-            } else {
-                Intent i = new Intent(getActivity(), JDetailsActivity.class);
-                String titel = getListView().getAdapter().getItem(position).toString();
-                i.putExtra("Titel", titel.substring(12));
-                startActivity(i);
-            }
-        }
-    }
-
-    @SuppressLint("InlinedApi")
-    public static class TermineFragment_Heute extends ListFragment {
-        @Override
-        public void onActivityCreated(Bundle savedInstanceState) {
-            super.onActivityCreated(savedInstanceState);
-
-            arraylist_main.clear();
-
-            // Liste aus String-Array befüllen
-            ArrayList<String> arraylist = new ArrayList<String>();
-
-            Date date = new Date(System.currentTimeMillis());
-            String tmp = DateFormat.getDateTimeInstance(DateFormat.MEDIUM, DateFormat.SHORT, Locale.GERMANY).format(date).substring(0, 10);
-
-            String item_title;
-            String item_date;
-            for(int i = 0; i < 101; i++) {
-                String classtest = prefs.getString("Classtests_"+Integer.toString(i), "-");
-                if(!classtest.equals("-")) {
-                    int index1 = classtest.indexOf(",");
-                    int index2 = classtest.indexOf(",", index1 +1);
-                    int index3 = classtest.indexOf(",", index2 +1);
-                    item_date = classtest.substring(0, index1);
-                    item_title = classtest.substring(index1 +1, index2);
-                    if(!item_title.equals("-") && !item_title.equals("")) {
-                        if(item_date.substring(3, 5).equals(tmp)) {
-                            arraylist.add(item_date +": "+ item_title);
-                        }
-                        arraylist_main.add(item_date +": "+ item_title);
-                    }
-                }
-            }
-
-            for(int i = 0; i < 101; i++) {
-                String homework = prefs.getString("Homeworks_"+Integer.toString(i), "-");
-                if(!homework.equals("-")) {
-                    int index1 = homework.indexOf(",");
-                    int index2 = homework.indexOf(",", index1 +1);
-                    int index3 = homework.indexOf(",", index2 +1);
-                    item_date = homework.substring(0, index1);
-                    item_title = homework.substring(index1 +1, index2);
-                    if(!item_title.equals("-") && !item_title.equals("")) {
-                        if(item_date.substring(3, 5).equals(tmp)) {
-                            arraylist.add(item_date +": "+ item_title);
-                        }
-                        arraylist_main.add(item_date +": "+ item_title);
-                    }
-                }
-            }
-
-            for(int i = 0; i < 101; i++) {
-                String event = prefs.getString("Events_"+Integer.toString(i), "-");
-                if(!event.equals("-")) {
-                    int index1 = event.indexOf(",");
-                    int index2 = event.indexOf(",", index1 +1);
-                    int index3 = event.indexOf(",", index2 +1);
-                    item_date = event.substring(0, index1);
-                    item_title = event.substring(index1 +1, index2);
-                    if(!item_title.equals("-") && !item_title.equals("")) {
-                        if(item_date.substring(3, 5).equals(tmp)) {
-                            arraylist.add(item_date +": "+ item_title);
-                        }
-                        arraylist_main.add(item_date +": "+ item_title);
-                    }
-                }
-            }
-
-            if(arraylist.size() == 0) arraylist.add(MainActivity.KEINE_TERMINE_TAG);
-
-            Collections.sort(arraylist);
-
-            adapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_list_item_activated_1, arraylist);
-            setListAdapter(adapter);
-        }
-
-        @Override
-        public void onListItemClick(ListView listView, View v, int position, long id) {
-            super.onListItemClick(listView, v, position, id);
-            if(listView.getItemAtPosition(position).equals(MainActivity.KEINE_TERMINE_TAG)) {
-                Toast.makeText(getActivity(), MainActivity.KEINE_TERMINE_TAG, Toast.LENGTH_SHORT).show();
-            } else {
-                Intent i = new Intent(getActivity(), JDetailsActivity.class);
-                String titel = getListView().getAdapter().getItem(position).toString();
-                i.putExtra("Titel", titel.substring(12));
-                startActivity(i);
-            }
-        }
-    }
-
-    @SuppressLint("InlinedApi")
-    public static class KlassenArbeitenFragment extends ListFragment {
-
-        @Override
-        public void onActivityCreated(Bundle savedInstanceState) {
-            super.onActivityCreated(savedInstanceState);
-            //SharedPreferences Instanz erhalten
-            SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
-            // Liste aus String-Array befüllen
-            ArrayList<String> arraylist = new ArrayList<String>();
-
-            for(int i = 0;i < 101;i++) {
-                String item = prefs.getString("K_Titel"+Integer.toString(i), "-");
-                String date = prefs.getString("K_Date"+Integer.toString(i), "-");
-                if(!item.equals("-") && date.equals(date1) && !item.equals("") &&!date.equals("")) {
-                    arraylist.add(date+": "+item);
-                }
-            }
-
-            if(arraylist.size() == 0) arraylist.add(MainActivity.KEINE_KLASSENARBEITEN_TAG);
-
-            ArrayAdapter<String> adapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_list_item_activated_1, arraylist);
-            setListAdapter(adapter);
-        }
-
-        @Override
-        public void onListItemClick(ListView listView, View v, int position, long id) {
-            super.onListItemClick(listView, v, position, id);
-
-            if(listView.getItemAtPosition(position).equals(MainActivity.KEINE_KLASSENARBEITEN_TAG)) {
-                Toast.makeText(getActivity(), MainActivity.KEINE_KLASSENARBEITEN_TAG, Toast.LENGTH_SHORT).show();
-            } else {
-                Intent i = new Intent(getActivity(), K_DetailsActivity.class);
-                String titel = getListView().getAdapter().getItem(position).toString();
-                i.putExtra("Titel", titel);
-                i.putExtra("Text", Integer.toString(position+1));
-                startActivity(i);
-            }
-        }
-    }
-
-    @SuppressLint("InlinedApi")
-    public static class HausaufgabenFragment extends ListFragment {
-
-        @Override
-        public void onActivityCreated(Bundle savedInstanceState) {
-            super.onActivityCreated(savedInstanceState);
-            //SharedPreferences Instanz erhalten
-            SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
-            // Liste aus String-Array befüllen
-            ArrayList<String> arraylist = new ArrayList<String>();
-
-            for(int i = 0;i < 101;i++) {
-                String item = prefs.getString("H_Titel"+Integer.toString(i), "-");
-                String date = prefs.getString("H_Date"+Integer.toString(i), "-");
-                if(!item.equals("-") && date.equals(date1) && !item.equals("") &&!date.equals("")) {
-                    arraylist.add(date+": "+item);
-                }
-            }
-
-            if(arraylist.size() == 0) arraylist.add(MainActivity.KEINE_HAUSAUFGABEN_TAG);
-
-            ArrayAdapter<String> adapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_list_item_activated_1, arraylist);
-            setListAdapter(adapter);
-        }
-
-        @Override
-        public void onListItemClick(ListView listView, View v, int position, long id) {
-            super.onListItemClick(listView, v, position, id);
-
-            if(listView.getItemAtPosition(position).equals(MainActivity.KEINE_HAUSAUFGABEN_TAG)) {
-                Toast.makeText(getActivity(), MainActivity.KEINE_HAUSAUFGABEN_TAG, Toast.LENGTH_SHORT).show();
-            } else {
-                Intent i = new Intent(getActivity(), H_DetailsActivity.class);
-                String titel = getListView().getAdapter().getItem(position).toString();
-                i.putExtra("Titel", titel);
-                i.putExtra("Text", Integer.toString(position+1));
-                startActivity(i);
-            }
-        }
-    }
-
-    @SuppressLint("InlinedApi")
-    public static class TermineFragment extends ListFragment {
-
-        @Override
-        public void onActivityCreated(Bundle savedInstanceState) {
-            super.onActivityCreated(savedInstanceState);
-            //SharedPreferences Instanz erhalten
-            SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
-            // Liste aus String-Array befüllen
-            ArrayList<String> arraylist = new ArrayList<String>();
-
-            Log.d("Date", date2);
-
-            for(int i = 0;i < 101;i++) {
-                String item = prefs.getString("T_Titel"+Integer.toString(i), "-");
-                String date = prefs.getString("T_Date"+Integer.toString(i), "-");
-                if(!item.equals("-") && date.equals(date1) && !item.equals("") &&!date.equals("")) {
-                    arraylist.add(date+": "+item);
-                }
-            }
-
-            if(arraylist.size() == 0) arraylist.add(MainActivity.KEINE_TERMINE_TAG);
-
-            ArrayAdapter<String> adapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_list_item_activated_1, arraylist);
-            setListAdapter(adapter);
-        }
-
-        @Override
-        public void onListItemClick(ListView listView, View v, int position, long id) {
-            super.onListItemClick(listView, v, position, id);
-
-            if(listView.getItemAtPosition(position).equals(MainActivity.KEINE_TERMINE_TAG)) {
-                Toast.makeText(getActivity(), MainActivity.KEINE_TERMINE_TAG, Toast.LENGTH_SHORT).show();
-            } else {
-                Intent i = new Intent(getActivity(), T_DetailsActivity.class);
-                String titel = getListView().getAdapter().getItem(position).toString();
-                i.putExtra("Titel", titel);
-                i.putExtra("Text", Integer.toString(position+1));
-                startActivity(i);
-            }
-        }
-    }
-
     private void checkAppVersion(final Context context, final boolean showProgressDialog, final boolean showResultDialog) {
         new Thread(new Runnable() {
             @Override
@@ -3123,7 +2603,7 @@ public class MainActivity extends AppCompatActivity {
                         });
                     }
                     //Benutzernamen aus den SharedPreferences auslesen
-                    String username = prefs.getString("Name", res.getString(R.string.guest));
+                    String username = current_account.getUsername();
                     //Abfrage an den Server senden
                     result = serverMessagingUtils.sendRequest(findViewById(R.id.container), "name="+URLEncoder.encode(username, "UTF-8")+"&command=getserverinfo");
                     //Result auseinandernehmen

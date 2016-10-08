@@ -21,6 +21,7 @@ public class AccountUtils {
         int rights = Account.RIGHTS_STUDENT;
         if(rights_string.equals("student")) rights = Account.RIGHTS_STUDENT;
         if(rights_string.equals("classspeaker")) rights = Account.RIGHTS_CLASSSPEAKER;
+        if(rights_string.equals("parent")) rights = Account.RIGHTS_PARENT;
         if(rights_string.equals("teacher")) rights = Account.RIGHTS_TEACHER;
         if(rights_string.equals("administrator")) rights = Account.RIGHTS_ADMIN;
         if(rights_string.equals("team")) rights = Account.RIGHTS_TEAM;

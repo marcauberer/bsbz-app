@@ -5,9 +5,10 @@ public class Account {
     public static final int RIGHTS_DEFAULT = 1; // normal_user
     public static final int RIGHTS_STUDENT = 1; // student
     public static final int RIGHTS_CLASSSPEAKER = 2; // classspeaker
-    public static final int RIGHTS_TEACHER = 3; // teacher
-    public static final int RIGHTS_ADMIN = 4; // administrator
-    public static final int RIGHTS_TEAM = 5; // team
+    public static final int RIGHTS_PARENT = 3; // parent
+    public static final int RIGHTS_TEACHER = 4; // teacher
+    public static final int RIGHTS_ADMIN = 5; // administrator
+    public static final int RIGHTS_TEAM = 6; // team
 
     //Variablen als Objekte
 
@@ -44,6 +45,7 @@ public class Account {
         if(rights == RIGHTS_TEAM) return "team";
         if(rights == RIGHTS_ADMIN) return "administrator";
         if(rights == RIGHTS_TEACHER) return "teacher";
+        if(rights == RIGHTS_PARENT) return "parent";
         if(rights == RIGHTS_CLASSSPEAKER) return "classspeaker";
         return "student";
     }

@@ -287,7 +287,7 @@ public class ElementViewAdapter extends RecyclerView.Adapter<ElementViewAdapter.
                                             }
                                         });
                                         try{
-                                            String username = MainActivity.prefs.getString("Name", res.getString(R.string.guest));
+                                            String username = MainActivity.current_account.getUsername();
                                             if(holder.item_mode == MODE_CLASSTEST) {
                                                 Classtest c;
                                                 if(mode == MODE_CLASSTEST_HOMEWORK_EVENTS) {
