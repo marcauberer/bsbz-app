@@ -382,16 +382,17 @@ public class NewEditElementActivity extends AppCompatActivity {
                         String name = prefs.getString("Name", res.getString(R.string.guest));
                         //Je nach Modus Element hochladen
                         result = false;
-                        String subject = betreff.getText().toString().replace("~", "").replace("|", "");
-                        String description = beschreibung.getText().toString().replace("~", "").replace("|", "");
-                        String date = choose_date.getText().toString().replace("~", "").replace("|", "");
-                        String receiver = choose_receiver.getText().toString().replace("~", "").replace("|", "");
+                        String subject = betreff.getText().toString().replace("~", "").replace("|", "").trim();
+                        String description = beschreibung.getText().toString().replace("~", "").replace("|", "").trim();
+                        String date = choose_date.getText().toString().replace("~", "").replace("|", "").trim();
+                        String receiver = choose_receiver.getText().toString().replace("~", "").replace("|", "").trim();
+                        String from = writer.getText().toString().trim();
                         if(mode == MODE_CREATE_CLASSTEST || mode == MODE_CREATE_HOMEWORK || mode == MODE_CREATE_EVENT) {
                             if(receiver.equals(res.getString(R.string.all_classes))) receiver = "Alle";
-                            result = createElement(name, date, subject, description, receiver);
+                            result = createElement(name, date, subject, description, receiver, from);
                         } else if(mode == MODE_EDIT_CLASSTEST || mode == MODE_EDIT_HOMEWORK || mode == MODE_EDIT_EVENT) {
                             if(receiver.equals(res.getString(R.string.all_classes))) receiver = "Alle";
-                            result = editElement(old_title, name, date, subject, description, receiver);
+                            result = editElement(old_title, name, date, subject, description, receiver, from);
                         }
                         runOnUiThread(new Runnable() {
                             @Override
@@ -399,6 +400,7 @@ public class NewEditElementActivity extends AppCompatActivity {
                                 //Je nach Result handeln
                                 if(result) {
                                     pd.dismiss();
+                                    Toast.makeText(NewEditElementActivity.this, res.getString(R.string.action_successful), Toast.LENGTH_SHORT).show();
                                     startService(new Intent(NewEditElementActivity.this, SyncronisationService.class));
                                     finish();
                                 } else {
@@ -465,23 +467,25 @@ public class NewEditElementActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    private boolean createElement(final String name, final String date, final String title, final String text, final String receiver) {
-        try{
-            String element = "newclasstest";
-            if(mode == MODE_CREATE_HOMEWORK) element = "newhomework";
-            if(mode == MODE_CREATE_EVENT) element = "newevent";
-            String result = serverMessagingUtils.sendRequest(null, "name="+ URLEncoder.encode(name, "UTF-8")+"&command="+element+"&date="+URLEncoder.encode(date, "UTF-8")+"&title="+URLEncoder.encode(title, "UTF-8")+"&text="+URLEncoder.encode(text, "UTF-8")+"&class="+URLEncoder.encode(receiver, "UTF-8"));
-            if(result.equals("Action Successful")) return true;
-        } catch(Exception e) {}
+    private boolean createElement(final String name, final String date, final String title, final String text, final String receiver, final String from) {
+        if(!title.equals("") && !text.equals("") && !receiver.equals(res.getString(R.string.choose_receiver_)) && !date.equals(res.getString(R.string.choose_date))) {
+            try{
+                String element = "newclasstest";
+                if(mode == MODE_CREATE_HOMEWORK) element = "newhomework";
+                if(mode == MODE_CREATE_EVENT) element = "newevent";
+                String result = serverMessagingUtils.sendRequest(null, "name="+ URLEncoder.encode(name, "UTF-8")+"&command="+element+"&date="+URLEncoder.encode(date, "UTF-8")+"&title="+URLEncoder.encode(title, "UTF-8")+"&text="+URLEncoder.encode(text, "UTF-8")+"&class="+URLEncoder.encode(receiver, "UTF-8")+"&from="+URLEncoder.encode(from, "UTF-8"));
+                if(result.equals("Action Successful")) return true;
+            } catch(Exception e) {}
+        }
         return false;
     }
 
-    private boolean editElement(final String old_title, final String name, final String date, final String title, final String text, final String receiver) {
+    private boolean editElement(final String old_title, final String name, final String date, final String title, final String text, final String receiver, final String from) {
         try{
             String element = "editclasstest";
             if(mode == MODE_EDIT_HOMEWORK) element = "edithomework";
             if(mode == MODE_EDIT_EVENT) element = "editevent";
-            String result = serverMessagingUtils.sendRequest(null, "name="+ URLEncoder.encode(name, "UTF-8")+"&command="+element+"&old_title="+URLEncoder.encode(old_title, "UTF-8")+"&new_date="+URLEncoder.encode(date, "UTF-8")+"&new_title="+URLEncoder.encode(title, "UTF-8")+"&new_text="+URLEncoder.encode(text, "UTF-8")+"&new_class="+URLEncoder.encode(receiver, "UTF-8"));
+            String result = serverMessagingUtils.sendRequest(null, "name="+ URLEncoder.encode(name, "UTF-8")+"&command="+element+"&old_title="+URLEncoder.encode(old_title, "UTF-8")+"&new_date="+URLEncoder.encode(date, "UTF-8")+"&new_title="+URLEncoder.encode(title, "UTF-8")+"&new_text="+URLEncoder.encode(text, "UTF-8")+"&new_class="+URLEncoder.encode(receiver, "UTF-8")+"&new_from="+URLEncoder.encode(from, "UTF-8"));
             if(result.equals("Action Successful")) return true;
         } catch(Exception e) {}
         return false;

@@ -395,13 +395,13 @@ public class NewNewActivity extends AppCompatActivity {
                         Toast.makeText(NewNewActivity.this, res.getString(R.string.no_date_for_expiration), Toast.LENGTH_SHORT).show();
                     } else {
                         //Daten von den Komponenten abholen
-                        String subject = etSubject.getText().toString().replace("~", "").replace("|", "");
-                        String desciption = etDescription.getText().toString().replace("~", "").replace("|", "");
-                        String writer = etWriter.getText().toString().replace("~", "").replace("|", "");
-                        String activation_date = btn_choose_date_activation.getText().toString();
-                        String expiration_date = btn_choose_date_expiration.getText().toString();
+                        String subject = etSubject.getText().toString().replace("~", "").replace("|", "").trim();
+                        String desciption = etDescription.getText().toString().replace("~", "").replace("|", "").trim();
+                        String writer = etWriter.getText().toString().replace("~", "").replace("|", "").trim();
+                        String activation_date = btn_choose_date_activation.getText().toString().trim();
+                        String expiration_date = btn_choose_date_expiration.getText().toString().trim();
                         //Nachricht erstellen
-                        String klasse = btn_choose_receiver.getText().toString();
+                        String klasse = btn_choose_receiver.getText().toString().trim();
                         if(klasse.equals(res.getString(R.string.all_classes))) klasse = "Alle";
                         createNew(subject, desciption, writer, activation_date, expiration_date, klasse);
                     }
@@ -416,13 +416,13 @@ public class NewNewActivity extends AppCompatActivity {
                         Toast.makeText(NewNewActivity.this, res.getString(R.string.no_receiver), Toast.LENGTH_SHORT).show();
                     } else {
                         //Daten von den Komponenten abholen
-                        String subject = etSubject.getText().toString().replace("~", "").replace("|", "");
-                        String desciption = etDescription.getText().toString().replace("~", "").replace("|", "");
-                        String writer = etWriter.getText().toString().replace("~", "").replace("|", "");
+                        String subject = etSubject.getText().toString().replace("~", "").replace("|", "").trim();
+                        String desciption = etDescription.getText().toString().replace("~", "").replace("|", "").trim();
+                        String writer = etWriter.getText().toString().replace("~", "").replace("|", "").trim();
                         String activation_date = current_date;
                         String expiration_date = "0";
                         //Nachricht erstellen
-                        String klasse = btn_choose_receiver.getText().toString();
+                        String klasse = btn_choose_receiver.getText().toString().trim();
                         if(klasse.equals(res.getString(R.string.all_classes))) klasse = "Alle";
                         createNew(subject, desciption, writer, activation_date, expiration_date, klasse);
                     }
@@ -488,7 +488,7 @@ public class NewNewActivity extends AppCompatActivity {
             @Override
             public void run() {
                 try {
-                    result = serverMessagingUtils.sendRequest(findViewById(R.id.container), "name="+ URLEncoder.encode(writer, "UTF-8")+"&command=newnew&subject="+URLEncoder.encode(subject, "UTF-8")+"&description="+URLEncoder.encode(description, "UTF-8")+"&activation_date="+URLEncoder.encode(activation_date, "UTF-8")+"&expiration_date="+URLEncoder.encode(expiration_date, "UTF-8")+"&class="+URLEncoder.encode(klasse, "UTF-8"));
+                    result = serverMessagingUtils.sendRequest(findViewById(R.id.container), "name="+ URLEncoder.encode(writer, "UTF-8")+"&command=newnew&subject="+URLEncoder.encode(subject, "UTF-8")+"&description="+URLEncoder.encode(description, "UTF-8")+"&activation_date="+URLEncoder.encode(activation_date, "UTF-8")+"&expiration_date="+URLEncoder.encode(expiration_date, "UTF-8")+"&class="+URLEncoder.encode(klasse, "UTF-8")+"&from="+URLEncoder.encode(writer, "UTF-8"));
                     if(result.equals("Action Successful")) {
                         result = res.getString(R.string.new_successfully_created);
                     } else {

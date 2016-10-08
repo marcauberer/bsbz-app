@@ -92,7 +92,8 @@ public class LogInActivity extends AppCompatActivity {
 			color = "#00007f";
 		}
 		toolbar.setBackgroundDrawable(new ColorDrawable(Color.parseColor(color)));
-		
+        getSupportActionBar().setTitle(res.getString(R.string.title_activity_log_in));
+
 		if(Build.VERSION.SDK_INT >= 21) {
 			Window window = getWindow();
 			window.setStatusBarColor(MainActivity.darkenColor(Color.parseColor(color)));

@@ -91,6 +91,7 @@ public class RegistrationActivity extends AppCompatActivity {
         toolbar.setBackgroundDrawable(new ColorDrawable(Color.parseColor(color)));
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
+		getSupportActionBar().setTitle(res.getString(R.string.title_activity_registration));
 		
 		if(Build.VERSION.SDK_INT >= 21) {
 			Window window = getWindow();

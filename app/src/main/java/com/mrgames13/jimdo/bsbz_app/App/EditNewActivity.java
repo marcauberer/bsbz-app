@@ -460,7 +460,7 @@ public class EditNewActivity extends AppCompatActivity {
             @Override
             public void run() {
                 try {
-                    result = serverMessagingUtils.sendRequest(findViewById(R.id.container), "name="+ URLEncoder.encode(new_writer, "UTF-8")+"&command=editnew&old_subject="+URLEncoder.encode(old_subject, "UTF-8")+"&new_subject="+URLEncoder.encode(new_subject, "UTF-8")+"&new_description="+URLEncoder.encode(new_description, "UTF-8")+"&new_activation_date="+URLEncoder.encode(new_activation_date, "UTF-8")+"&new_expiration_date="+URLEncoder.encode(new_expiration_date, "UTF-8")+"&new_class="+URLEncoder.encode(new_receiver, "UTF-8"));
+                    result = serverMessagingUtils.sendRequest(findViewById(R.id.container), "name="+ URLEncoder.encode(new_writer, "UTF-8")+"&command=editnew&old_subject="+URLEncoder.encode(old_subject, "UTF-8")+"&new_subject="+URLEncoder.encode(new_subject, "UTF-8")+"&new_description="+URLEncoder.encode(new_description, "UTF-8")+"&new_activation_date="+URLEncoder.encode(new_activation_date, "UTF-8")+"&new_expiration_date="+URLEncoder.encode(new_expiration_date, "UTF-8")+"&new_class="+URLEncoder.encode(new_receiver, "UTF-8")+"&new_from="+URLEncoder.encode(new_writer, "UTF-8"));
                     Log.d("BSBZ-App", "Result: "+result);
                     if(result.equals("Action Successful")) {
                         result = res.getString(R.string.new_successfully_edited);
