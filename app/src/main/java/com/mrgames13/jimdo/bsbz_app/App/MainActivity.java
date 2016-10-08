@@ -65,6 +65,7 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.mrgames13.jimdo.bsbz_app.CommonObjects.Account;
 import com.mrgames13.jimdo.bsbz_app.CommonObjects.Classtest;
 import com.mrgames13.jimdo.bsbz_app.CommonObjects.Event;
 import com.mrgames13.jimdo.bsbz_app.CommonObjects.Homework;
@@ -105,6 +106,7 @@ public class MainActivity extends AppCompatActivity {
     private ActionBarDrawerToggle drawer_toggle;
     private NavigationView navView;
     public Menu action_menu;
+    private Account current_account;
     public static MenuItem progress_menu_item;
     private ViewGroup container;
     private LayoutInflater layoutInflater;
@@ -209,6 +211,9 @@ public class MainActivity extends AppCompatActivity {
 
         //NotificationUtils initialisieren
         nu = new NotificationUtils(MainActivity.this);
+
+        //Aktueller Account laden
+        current_account = su.getLastUser();
 
         //SynchronisationService.OnSyncFinishedListener initialisieren
         syncFinishedListener = new SyncronisationService.onSyncFinishedListener() {
@@ -381,7 +386,7 @@ public class MainActivity extends AppCompatActivity {
             }
         } catch(NullPointerException e) {}
 
-        String custom_startpage = prefs.getString("CustomStartPage", "Mein Profil (Standard)");
+        String custom_startpage = su.getString("CustomStartPage", "Mein Profil (Standard)");
         if(custom_startpage.equals("Mein Profil (Standard)")) selected_Menu_Item = 1;
         if(custom_startpage.equals("Heute")) selected_Menu_Item = 2;
         if(custom_startpage.equals("Diese Woche")) selected_Menu_Item = 3;
@@ -413,18 +418,15 @@ public class MainActivity extends AppCompatActivity {
             startActivity(new Intent(this, SettingsActivity.class));
             return true;
         } else if (id == R.id.action_logout) {
-            final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
-            SharedPreferences.Editor e = prefs.edit();
-                e.putBoolean(res.getString(R.string.keepLoggedIn), false);
-                e.putString("Name", res.getString(R.string.guest));
-            e.commit();
             Toast.makeText(MainActivity.this, res.getString(R.string.logoutInProgress), Toast.LENGTH_SHORT).show();
+            su.putBoolean(res.getString(R.string.keepLoggedIn), false);
             startActivity(new Intent(MainActivity.this, LogInActivity.class));
             overridePendingTransition(R.anim.in_login, R.anim.out_logout);
             finish();
             return true;
         } else if (id == R.id.action_check_for_update) {
             checkAppVersion(MainActivity.this, true, true);
+            return true;
         } else if (id == R.id.action_finish) {
             finish();
             return true;
@@ -477,9 +479,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
 
-        //Daten von den SharedPreferences abrufen
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(MainActivity.this);
-        String layout = prefs.getString("Layout", res.getString(R.string.bsbz_layout_orange));
+        String layout = su.getString("Layout", res.getString(R.string.bsbz_layout_orange));
         if(layout.equals("0")) {
             color = "#ea690c";
         } else if(layout.equals("1")) {
@@ -503,12 +503,8 @@ public class MainActivity extends AppCompatActivity {
         }
 
         //SyncFreq herausfinden
-        String syncfreq = prefs.getString("SyncFreq", "3600000");
-        if(syncfreq.equals("3600000")) {
-            SharedPreferences.Editor e = prefs.edit();
-            e.putString("SyncFreq",syncfreq);
-            e.commit();
-        }
+        String syncfreq = su.getString("SyncFreq", "3600000");
+        if(syncfreq.equals("3600000")) su.putString("SyncFreq", syncfreq);
     }
 
     @Override
@@ -591,9 +587,8 @@ public class MainActivity extends AppCompatActivity {
         layoutInflater.inflate(R.layout.fragment_profil, container);
         //Funktionalität einrichten
         //Daten von den SharedPreferences abrufen
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(MainActivity.this);
-        String User_name = prefs.getString("Name", res.getString(R.string.max_musterman)).replace("+", " ");
-        String User_klasse = prefs.getString("Klasse", "---");
+        String User_name = current_account.getUsername();
+        String User_klasse = current_account.getForm();
         String User_rechte = prefs.getString("Rights", "student");
         String last_syncronisation_time = prefs.getString("SyncTime", res.getString(R.string.no_synchronisation));
 

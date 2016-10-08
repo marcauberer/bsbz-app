@@ -40,6 +40,14 @@ public class Account {
         return rights;
     }
 
+    public String getRightsString() {
+        if(rights == RIGHTS_TEAM) return "team";
+        if(rights == RIGHTS_ADMIN) return "administrator";
+        if(rights == RIGHTS_TEACHER) return "teacher";
+        if(rights == RIGHTS_CLASSSPEAKER) return "classspeaker";
+        return "student";
+    }
+
     public void setUsername(String username) {
         this.username = username;
     }
