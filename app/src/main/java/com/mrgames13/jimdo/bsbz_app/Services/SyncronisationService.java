@@ -17,7 +17,9 @@ import android.widget.Toast;
 
 import com.mrgames13.jimdo.bsbz_app.App.LogInActivity;
 import com.mrgames13.jimdo.bsbz_app.App.MainActivity;
+import com.mrgames13.jimdo.bsbz_app.CommonObjects.Account;
 import com.mrgames13.jimdo.bsbz_app.R;
+import com.mrgames13.jimdo.bsbz_app.Tools.AccountUtils;
 import com.mrgames13.jimdo.bsbz_app.Tools.NotificationUtils;
 import com.mrgames13.jimdo.bsbz_app.Tools.ServerMessagingUtils;
 import com.mrgames13.jimdo.bsbz_app.Tools.StorageUtils;
@@ -42,6 +44,8 @@ public class SyncronisationService extends Service {
     private Resources res;
     private NotificationUtils nu;
     private StorageUtils su;
+    private AccountUtils au;
+    private Account current_account;
 
     //Variablen
 	private String klasse = "";
@@ -68,6 +72,12 @@ public class SyncronisationService extends Service {
         //StoratgeUtils initialisieren
         su = new StorageUtils(this, res);
 
+        //AccountUtils initialisieren
+        au = new AccountUtils(su);
+
+        //Aktueller Account laden
+        current_account = au.getActiveAccount();
+
         //NotificationUtils initialisieren
         nu = new NotificationUtils(this);
 
@@ -82,8 +92,8 @@ public class SyncronisationService extends Service {
 		handler = new Handler();
 
 		show_notifications = su.getBoolean("send_notifications", true);
-		klasse = MainActivity.current_account.getForm();
-		username = MainActivity.current_account.getUsername();
+		klasse = current_account.getForm();
+		username = current_account.getUsername();
 		update = su.getBoolean("UpdateAvailable", false);
 		sync = su.getBoolean("Sync", true);
 
