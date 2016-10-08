@@ -691,6 +691,8 @@ public class MainActivity extends AppCompatActivity {
         //TextView Profil_email = (TextView) findViewById(R.id.Profil_Email);
         TextView Profil_last_syncronisation_time = (TextView) findViewById(R.id.last_syncronisation_time);
 
+        Log.d("BSBZ-App", "Rights: "+rights);
+
         //Texte setzen
         Profil_name.setText(User_name);
         Profil_klasse.setText(User_klasse);
@@ -701,6 +703,7 @@ public class MainActivity extends AppCompatActivity {
         } else if(User_rechte == Account.RIGHTS_PARENT) {
             Profil_Rechte.setText(res.getString(R.string.parent));
             klasse_wahlen.setText(res.getString(R.string.choose_class_1_)+User_klasse+")");
+            if(User_klasse.equals("no_class")) klasse_wahlen.setText(res.getString(R.string.choose_class));
         } else if(User_rechte == Account.RIGHTS_TEACHER) {
             Profil_Rechte.setText(res.getString(R.string.teacher));
             klasse_wahlen.setText(res.getString(R.string.choose_class_1_)+User_klasse+")");

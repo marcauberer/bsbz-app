@@ -93,6 +93,7 @@ public class SyncronisationService extends Service {
 
 		show_notifications = su.getBoolean("send_notifications", true);
 		klasse = current_account.getForm();
+        Log.d("BSBZ-App", "Klasse: "+klasse);
 		username = current_account.getUsername();
 		update = su.getBoolean("UpdateAvailable", false);
 		sync = su.getBoolean("Sync", true);

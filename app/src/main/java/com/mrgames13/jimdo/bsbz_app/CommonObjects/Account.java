@@ -2,7 +2,7 @@ package com.mrgames13.jimdo.bsbz_app.CommonObjects;
 
 public class Account {
     //Konstanten
-    public static final int RIGHTS_DEFAULT = 1; // normal_user
+    public static final int RIGHTS_DEFAULT = 1; // student
     public static final int RIGHTS_STUDENT = 1; // student
     public static final int RIGHTS_CLASSSPEAKER = 2; // classspeaker
     public static final int RIGHTS_PARENT = 3; // parent
@@ -16,7 +16,7 @@ public class Account {
     private String username;
     private String password;
     private String form;
-    private int rights;
+    private int rights = RIGHTS_STUDENT;
 
     public Account(String username, String password, String form, int rights) {
         this.username = username;
