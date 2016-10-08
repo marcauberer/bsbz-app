@@ -1,5 +1,6 @@
 package com.mrgames13.jimdo.bsbz_app.RecyclerViewAdapters;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -45,6 +46,7 @@ public class ElementViewAdapter extends RecyclerView.Adapter<ElementViewAdapter.
     private Context context;
     private Resources res;
     private Handler h;
+    private ProgressDialog pd;
 
     //Variablen
     private String result = "";
@@ -274,6 +276,16 @@ public class ElementViewAdapter extends RecyclerView.Adapter<ElementViewAdapter.
                                 new Thread(new Runnable() {
                                     @Override
                                     public void run() {
+                                        h.post(new Runnable() {
+                                            @Override
+                                            public void run() {
+                                                pd = new ProgressDialog(context);
+                                                pd.setIndeterminate(true);
+                                                pd.setTitle(res.getString(R.string.please_wait_));
+                                                pd.setMessage(res.getString(R.string.element_is_creating_));
+                                                pd.show();
+                                            }
+                                        });
                                         try{
                                             String username = MainActivity.prefs.getString("Name", res.getString(R.string.guest));
                                             if(holder.item_mode == MODE_CLASSTEST) {
@@ -312,12 +324,11 @@ public class ElementViewAdapter extends RecyclerView.Adapter<ElementViewAdapter.
                                             h.post(new Runnable() {
                                                 @Override
                                                 public void run() {
+                                                    pd.dismiss();
                                                     Toast.makeText(context, result, Toast.LENGTH_SHORT).show();
                                                 }
                                             });
-                                        } catch(Exception e) {
-                                            e.printStackTrace();
-                                        }
+                                        } catch(Exception e) {}
                                     }
                                 }).start();
                             }
