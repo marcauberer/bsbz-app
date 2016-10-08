@@ -76,7 +76,7 @@ public class SyncronisationService extends Service {
         au = new AccountUtils(su);
 
         //Aktueller Account laden
-        current_account = au.getActiveAccount();
+        current_account = au.getLastUser();
 
         //NotificationUtils initialisieren
         nu = new NotificationUtils(this);

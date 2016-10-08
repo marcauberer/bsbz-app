@@ -481,14 +481,13 @@ public class StorageUtils {
     public Account getLastUser() {
         String accountString = getString("LastUser");
         if(!accountString.equals("")) {
-            if(accountString.equals("")) return null;
             int index1 = accountString.indexOf("~");
             int index2 = accountString.indexOf("~", index1 +1);
             int index3 = accountString.indexOf("~", index2 +1);
             String account_username = accountString.substring(0, index1);
             String account_password = accountString.substring(index1 +1, index2);
             String account_form = accountString.substring(index2 +1, index3);
-            int account_rights = accountString.indexOf(index3 +1);
+            int account_rights = Integer.parseInt(accountString.substring(index3 +1));
             return new Account(account_username, account_password, account_form, account_rights);
         }
         return new Account(res.getString(R.string.guest), "", "no_class", Account.RIGHTS_STUDENT);

@@ -201,7 +201,8 @@ public class MainActivity extends AppCompatActivity {
         nu = new NotificationUtils(MainActivity.this);
 
         //Aktueller Account laden
-        current_account = au.getActiveAccount();
+        current_account = au.getLastUser();
+        Log.d("BSBZ-App", current_account.getUsername());
 
         //Rights abfragen
         rights = current_account.getRights();

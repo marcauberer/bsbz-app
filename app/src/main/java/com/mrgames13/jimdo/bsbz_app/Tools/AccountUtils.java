@@ -11,12 +11,9 @@ public class AccountUtils {
     private StorageUtils su;
 
     //Variablen
-    private Account activeAccount;
 
     public AccountUtils(StorageUtils su) {
         this.su = su;
-        //Aktiven Account laden
-        loadActiveAccount();
     }
 
     public void LogIn(String username, String password, String form, String rights_string) {
@@ -32,8 +29,6 @@ public class AccountUtils {
         //Account in den SharedPreferences anmelden
         su.addAccountWhenNotExisting(username, password, form, rights);
         su.setLastLoggedInAccount(username, password, form, rights);
-        //ActiveAccount erstellen
-        saveActiveAccount(username, password, form, rights);
     }
 
     public Account getLastUser() {
@@ -42,29 +37,5 @@ public class AccountUtils {
 
     public ArrayList<Account> getAllUsers() {
         return su.getAllAccounts();
-    }
-
-    public Account getActiveAccount() {
-        loadActiveAccount();
-        return activeAccount;
-    }
-
-    private void saveActiveAccount(String username, String password, String form, int rights) {
-        su.putString("ActiveAccount", username + "~" + password + "~" + form + "~" + String.valueOf(rights));
-        activeAccount = new Account(username, password, form, rights);
-    }
-
-    private void loadActiveAccount() {
-        String active_account = su.getString("ActiveAccount");
-        if(!active_account.equals("")) {
-            int index1 = active_account.indexOf("~", 0);
-            int index2 = active_account.indexOf("~", index1 +1);
-            int index3 = active_account.indexOf("~", index2 +1);
-            String username = active_account.substring(0, index1);
-            String password = active_account.substring(index1 +1, index2);
-            String form = active_account.substring(index2 +1, index3);
-            int rights = Integer.parseInt(active_account.substring(index3 +1));
-            activeAccount = new Account(username, password, form, rights);
-        }
     }
 }
