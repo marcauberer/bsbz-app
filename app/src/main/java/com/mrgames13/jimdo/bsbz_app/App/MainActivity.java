@@ -201,7 +201,7 @@ public class MainActivity extends AppCompatActivity {
         nu = new NotificationUtils(MainActivity.this);
 
         //Aktueller Account laden
-        current_account = su.getLastUser();
+        current_account = au.getActiveAccount();
 
         //Rights abfragen
         rights = current_account.getRights();

@@ -45,6 +45,7 @@ public class AccountUtils {
     }
 
     public Account getActiveAccount() {
+        loadActiveAccount();
         return activeAccount;
     }
 
