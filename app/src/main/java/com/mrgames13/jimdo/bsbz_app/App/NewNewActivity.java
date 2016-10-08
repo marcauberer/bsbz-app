@@ -490,7 +490,7 @@ public class NewNewActivity extends AppCompatActivity {
                 try {
                     result = serverMessagingUtils.sendRequest(findViewById(R.id.container), "name="+ URLEncoder.encode(writer, "UTF-8")+"&command=newnew&subject="+URLEncoder.encode(subject, "UTF-8")+"&description="+URLEncoder.encode(description, "UTF-8")+"&activation_date="+URLEncoder.encode(activation_date, "UTF-8")+"&expiration_date="+URLEncoder.encode(expiration_date, "UTF-8")+"&class="+URLEncoder.encode(klasse, "UTF-8")+"&from="+URLEncoder.encode(writer, "UTF-8"));
                     if(result.equals("Action Successful")) {
-                        result = res.getString(R.string.new_successfully_created);
+                        result = res.getString(R.string.action_successful);
                     } else {
                         result = res.getString(R.string.error_try_again);
                     }
@@ -504,7 +504,7 @@ public class NewNewActivity extends AppCompatActivity {
                         Toast.makeText(NewNewActivity.this, result, Toast.LENGTH_SHORT).show();
                     }
                 });
-                if(result.equals(res.getString(R.string.new_successfully_created))) {
+                if(result.equals(res.getString(R.string.action_successful))) {
                     //Activity beenden
                     finish();
                     //Synchronisieren

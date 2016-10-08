@@ -17,7 +17,6 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.SwitchCompat;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -461,9 +460,8 @@ public class EditNewActivity extends AppCompatActivity {
             public void run() {
                 try {
                     result = serverMessagingUtils.sendRequest(findViewById(R.id.container), "name="+ URLEncoder.encode(new_writer, "UTF-8")+"&command=editnew&old_subject="+URLEncoder.encode(old_subject, "UTF-8")+"&new_subject="+URLEncoder.encode(new_subject, "UTF-8")+"&new_description="+URLEncoder.encode(new_description, "UTF-8")+"&new_activation_date="+URLEncoder.encode(new_activation_date, "UTF-8")+"&new_expiration_date="+URLEncoder.encode(new_expiration_date, "UTF-8")+"&new_class="+URLEncoder.encode(new_receiver, "UTF-8")+"&new_from="+URLEncoder.encode(new_writer, "UTF-8"));
-                    Log.d("BSBZ-App", "Result: "+result);
                     if(result.equals("Action Successful")) {
-                        result = res.getString(R.string.new_successfully_edited);
+                        result = res.getString(R.string.action_successful);
                     } else {
                         result = res.getString(R.string.error_try_again);
                     }
@@ -476,7 +474,7 @@ public class EditNewActivity extends AppCompatActivity {
                         Toast.makeText(EditNewActivity.this, result, Toast.LENGTH_SHORT).show();
                     }
                 });
-                if(result.equals(res.getString(R.string.new_successfully_edited))) {
+                if(result.equals(res.getString(R.string.action_successful))) {
                     //Activity beenden
                     finish();
                     //Synchronisieren
