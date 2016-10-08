@@ -158,7 +158,9 @@
             </intent-filter>
         </activity>
         <!-- EditInfoActivity -->
-        <activity android:name=".App.EditInfoActivity">
+        <activity
+            android:name=".App.EditInfoActivity"
+            android:windowSoftInputMode="adjustPan">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
             </intent-filter>
