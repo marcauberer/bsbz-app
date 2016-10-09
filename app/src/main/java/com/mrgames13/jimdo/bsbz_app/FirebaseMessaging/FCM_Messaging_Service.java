@@ -55,7 +55,10 @@ public class FCM_Messaging_Service extends FirebaseMessagingService {
             } else if (command.equals("clear_notifications")) {
                 nu.clearNotifications();
             } else if(command.equals("sync")) {
-
+                String data = remoteMessage.getData().get("data");
+                Intent i = new Intent(this, SyncronisationService.class);
+                i.putExtra("Data", data);
+                startService(i);
             }
         } catch (Exception e) {
         }
