@@ -99,12 +99,6 @@
                 <action android:name="android.intent.action.MAIN"/>
             </intent-filter>
         </activity>
-        <!-- JDetailsActivity -->
-        <activity android:name=".App.JDetailsActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
-            </intent-filter>
-        </activity>
         <!-- NewNewActivity -->
         <activity
             android:name=".App.NewNewActivity"

@@ -2,14 +2,12 @@ package com.mrgames13.jimdo.bsbz_app.App;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.net.ConnectivityManager;
 import android.os.Build;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.KeyEvent;
@@ -25,6 +23,7 @@ import android.widget.TextView;
 
 import com.mrgames13.jimdo.bsbz_app.R;
 import com.mrgames13.jimdo.bsbz_app.Tools.ServerMessagingUtils;
+import com.mrgames13.jimdo.bsbz_app.Tools.StorageUtils;
 
 @SuppressLint("SetJavaScriptEnabled")
 @SuppressWarnings("deprecation")
@@ -39,6 +38,7 @@ public class WebActivity extends AppCompatActivity {
     private WebView webside;
 	private ConnectivityManager cm;
 	private ServerMessagingUtils serverMessagingUtils;
+	private StorageUtils su;
 
 	//Variablen
     private String title;
@@ -49,8 +49,7 @@ public class WebActivity extends AppCompatActivity {
 		super.onStart();
 		
 		//Daten von den SharedPreferences abrufen
-		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(WebActivity.this);
-		String layout = prefs.getString("Layout", res.getString(R.string.bsbz_layout_orange));
+		String layout = su.getString("Layout", res.getString(R.string.bsbz_layout_orange));
 		String color = "#ea690c";
 		if(layout.equals("0")) {
 			color = "#ea690c";
@@ -78,14 +77,28 @@ public class WebActivity extends AppCompatActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+
+        //Resourcen initialsieren
+        res = getResources();
+
+        //StorageUtils initialisieren
+        su = new StorageUtils(this, res);
+
+        //Theme aus den Shared Preferences auslesen
+        String theme = su.getString("AppTheme", "0");
+        if(theme.equals("0")) {
+            MainActivity.AppTheme = 0;
+            setTheme(R.style.FirstTheme);
+        } else if(theme.equals("1")) {
+            MainActivity.AppTheme = 1;
+            setTheme(R.style.SecondTheme);
+        }
+
 		setContentView(R.layout.activity_web);
 
 		//Toolbar aufsetzen
 		toolbar = (Toolbar) findViewById(R.id.toolbar_web);
 		setSupportActionBar(toolbar);
-
-        //Resourcen initialsieren
-        res = getResources();
 
 		//ServerMessagingUtils initialisieren
 		cm = (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE);
