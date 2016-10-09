@@ -1,5 +1,6 @@
 package com.mrgames13.jimdo.bsbz_app.App;
 
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -39,6 +40,7 @@ import android.widget.Toast;
 
 import com.mrgames13.jimdo.bsbz_app.R;
 import com.mrgames13.jimdo.bsbz_app.Tools.ServerMessagingUtils;
+import com.mrgames13.jimdo.bsbz_app.Tools.StorageUtils;
 
 import java.net.URLEncoder;
 
@@ -53,13 +55,14 @@ public class RegistrationActivity extends AppCompatActivity {
     private ConnectivityManager cm;
     private ServerMessagingUtils serverMessagingUtils;
     private Resources res;
-    private SharedPreferences prefs;
     private EditText username;
     private Button klasse;
     private EditText password;
     private EditText repassword;
     private CheckBox auto_login;
     private CheckBox keep_logged_in;
+	private StorageUtils su;
+    private ProgressDialog pd;
 
     //Veriablen
 	public static String id = "";
@@ -116,8 +119,8 @@ public class RegistrationActivity extends AppCompatActivity {
         toolbar = (Toolbar) findViewById(R.id.toolbar_registration);
         setSupportActionBar(toolbar);
 
-        //SharedPreferences initialisieren
-        prefs = PreferenceManager.getDefaultSharedPreferences(this);
+        //StorageUtils initialisieren
+        su = new StorageUtils(this, res);
 
 		RelativeLayout rl = (RelativeLayout) findViewById(R.id.rl2);
 		if(MainActivity.AppTheme == 1) {
@@ -398,11 +401,6 @@ public class RegistrationActivity extends AppCompatActivity {
 				//Wenn die Passwörter übereinstimmen
                 if(password_string.equals(repassword_string)) {
                     Registrieren(name_string, klasse_string, password_string);
-                    SharedPreferences.Editor e = prefs.edit();
-                        e.putString("Name", name_string);
-                        e.putString("Klasse", klasse_string);
-                        e.putString("Password", password_string);
-                    e.commit();
                 } else {
                     Toast.makeText(RegistrationActivity.this, res.getString(R.string.passwords_do_not_match), Toast.LENGTH_SHORT).show();
                 }
@@ -526,6 +524,16 @@ public class RegistrationActivity extends AppCompatActivity {
 			@Override
 			public void run() {
 				try {
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            pd = new ProgressDialog(RegistrationActivity.this);
+                            pd.setTitle(res.getString(R.string.please_wait_));
+                            pd.setMessage(res.getString(R.string.account_is_creating_));
+                            pd.setIndeterminate(true);
+                            pd.show();
+                        }
+                    });
                     String klasse1 = klasse;
 					if(klasse1.equals(res.getString(R.string.no_class))) klasse1 = "no_class";
 					result = serverMessagingUtils.sendRequest(findViewById(R.id.container), "name="+URLEncoder.encode(username.trim(), "UTF-8")+"&command=newaccount&password="+URLEncoder.encode(password.trim(), "UTF-8")+"&class="+URLEncoder.encode(klasse1, "UTF-8")+"&rights="+URLEncoder.encode(rights, "UTF-8")+"&androidid="+URLEncoder.encode(id, "UTF-8"));
@@ -538,14 +546,11 @@ public class RegistrationActivity extends AppCompatActivity {
 					runOnUiThread(new Runnable() {
 						@Override
 						public void run() {
+                            pd.dismiss();
 							Toast.makeText(RegistrationActivity.this, result, Toast.LENGTH_SHORT).show();
 							if(result.equals(res.getString(R.string.account_creation_successful))) {
 								if(auto_login.isChecked()) {
-                                    SharedPreferences.Editor e = prefs.edit();
-										e.putString("Name", username);
-                                        e.putString("Password", password);
-                                        e.putBoolean("Angemeldet bleiben", keep_logged_in.isChecked());
-                                    e.commit();
+                                    su.putBoolean("Angemeldet bleiben", keep_logged_in.isChecked());
 									LogInActivity.autologin = username + "," + password;
 								}
 								finish();

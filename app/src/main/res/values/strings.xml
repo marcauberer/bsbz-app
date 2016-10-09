@@ -368,5 +368,6 @@
     <string name="edit_bsbz_info_h">BSBZ-Info hier eintragen</string>
     <string name="edit_bsbz_info_d">Vor der Veröffentlichung der BSBZ-Info bitte auf Rechtschreibfehler o.ä. prüfen.</string>
     <string name="element_is_creating_">Element wird erstellt ...</string>
+    <string name="account_is_creating_">Account wird erstellt ...</string>
 
 </resources>
