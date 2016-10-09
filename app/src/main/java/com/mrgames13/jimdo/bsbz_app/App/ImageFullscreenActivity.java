@@ -3,7 +3,6 @@ package com.mrgames13.jimdo.bsbz_app.App;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -11,7 +10,6 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.graphics.Palette;
@@ -23,7 +21,10 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
+import com.mrgames13.jimdo.bsbz_app.CommonObjects.Account;
 import com.mrgames13.jimdo.bsbz_app.R;
+import com.mrgames13.jimdo.bsbz_app.Tools.AccountUtils;
+import com.mrgames13.jimdo.bsbz_app.Tools.StorageUtils;
 
 import java.net.URLEncoder;
 
@@ -32,9 +33,10 @@ public class ImageFullscreenActivity extends AppCompatActivity {
     //Konstanten
 
     //Varialen als Objekte
-    private SharedPreferences prefs;
     private Resources res;
     private Toolbar toolbar;
+    private StorageUtils su;
+    private AccountUtils au;
 
     //Variablen
     private String folderName;
@@ -42,6 +44,7 @@ public class ImageFullscreenActivity extends AppCompatActivity {
     private Bitmap bitmap = null;
     private int index;
     private int vibrantColor;
+    private Account current_account;
 
     @Override
     protected void onStart() {
@@ -49,7 +52,7 @@ public class ImageFullscreenActivity extends AppCompatActivity {
 
         if(vibrantColor == 0) {
             //Daten von den SharedPreferences abrufen
-            String layout = prefs.getString("Layout", res.getString(R.string.bsbz_layout_orange));
+            String layout = su.getString("Layout", res.getString(R.string.bsbz_layout_orange));
             String color = "#ea690c";
             if(layout.equals("0")) {
                 color = "#ea690c";
@@ -79,11 +82,14 @@ public class ImageFullscreenActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        //SharedPreferences initialisieren
-        prefs = PreferenceManager.getDefaultSharedPreferences(this);
+        //Resourcen initialisieren
+        res = getResources();
+
+        //StorageUtils inialisieren
+        su = new StorageUtils(this, res);
 
         //Theme aus den Shared Preferences auslesen
-        String theme = prefs.getString("AppTheme", "0");
+        String theme = su.getString("AppTheme", "0");
         if(theme.equals("0")) {
             MainActivity.AppTheme = 0;
             setTheme(R.style.FirstTheme);
@@ -94,13 +100,16 @@ public class ImageFullscreenActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_image_fullscreen);
 
-        //Resourcen initialisieren
-        res = getResources();
-
         //Toolbar aufsetzen
         toolbar = (Toolbar) findViewById(R.id.toolbar_image_fullscreen_activity);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        //AccountUtils initialisieren
+        au = new AccountUtils(su);
+
+        //Account laden
+        current_account = au.getLastUser();
 
         //Schwarzer Hintergrund hinzufügen
         RelativeLayout rl = (RelativeLayout) findViewById(R.id.rl1);
@@ -144,8 +153,7 @@ public class ImageFullscreenActivity extends AppCompatActivity {
                                     public void run() {
                                         try{
                                             imageName = imageName + ".jpg";
-                                            String name = prefs.getString("Name", res.getString(R.string.guest));
-                                            MainActivity.serverMessagingUtils.sendRequest(null, "name="+ URLEncoder.encode(name, "UTF-8")+"&command=deleteimagefile&foldername="+URLEncoder.encode(folderName, "UTF-8")+"&filename="+URLEncoder.encode(imageName, "UTF-8"));
+                                            MainActivity.serverMessagingUtils.sendRequest(null, "name="+ URLEncoder.encode(current_account.getUsername(), "UTF-8")+"&command=deleteimagefile&foldername="+URLEncoder.encode(folderName, "UTF-8")+"&filename="+URLEncoder.encode(imageName, "UTF-8"));
                                             String filenames = "";
                                             for(String filename : ImageFolderActivity.filenames) {
                                                 filenames = filenames + "," + filename;
@@ -158,7 +166,7 @@ public class ImageFullscreenActivity extends AppCompatActivity {
                                             } else {
                                                 filenames = "";
                                             }
-                                            MainActivity.serverMessagingUtils.sendRequest(null, "name="+ URLEncoder.encode(name, "UTF-8")+"&command=setimageconfig&foldername="+URLEncoder.encode(folderName, "UTF-8")+"&filenames="+URLEncoder.encode(filenames, "UTF-8"));
+                                            MainActivity.serverMessagingUtils.sendRequest(null, "name="+ URLEncoder.encode(current_account.getUsername(), "UTF-8")+"&command=setimageconfig&foldername="+URLEncoder.encode(folderName, "UTF-8")+"&filenames="+URLEncoder.encode(filenames, "UTF-8"));
                                             finish();
                                         } catch(Exception e) {}
                                     }

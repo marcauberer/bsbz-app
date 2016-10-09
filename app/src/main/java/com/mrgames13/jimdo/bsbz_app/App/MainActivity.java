@@ -675,7 +675,7 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         klasse_wahlen.setText(res.getString(R.string.choose_class_1_)+klasse1.getText().toString()+")");
-                        au.editCurrentAccount(new Account(current_account.getUsername(), current_account.getPassword(), klasse1.getText().toString(), current_account.getRights()));
+                        au.editCurrentAccount(current_account, new Account(current_account.getUsername(), current_account.getPassword(), klasse1.getText().toString(), current_account.getRights()));
                         current_account = au.getLastUser();
                         Synchronize(klasse1.getText().toString(), MainActivity.this);
                         dialog.cancel();
@@ -762,7 +762,7 @@ public class MainActivity extends AppCompatActivity {
 
         //Aktuelles Datum ermitteln und die Daten für dieses Datum laden
         Date date = new Date(System.currentTimeMillis());
-        DateFormat formatierer = DateFormat.getDateInstance(DateFormat.MEDIUM,Locale.GERMANY);
+        DateFormat formatierer = DateFormat.getDateInstance(DateFormat.MEDIUM, Locale.GERMANY);
         String date_today = formatierer.format(date);
 
         classtests = su.parseClasstests(null, date_today);

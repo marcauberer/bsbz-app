@@ -115,7 +115,6 @@ public class StorageUtils {
             String current_timetable_mi = current_timetable.substring(index2 +1, index3);
             String current_timetable_do = current_timetable.substring(index3 +1, index4);
             String current_timetable_fr = current_timetable.substring(index4 +1);
-            Log.d("BSBZ-App", "MO: " + current_timetable_mo);
             //Timetable-Objekt erstellen und der ArrayList hinzufügen
             timetable = new TimeTable(tt_receiver, current_timetable_mo, current_timetable_di, current_timetable_mi, current_timetable_do, current_timetable_fr);
         }
@@ -505,6 +504,6 @@ public class StorageUtils {
             int account_rights = Integer.parseInt(accountString.substring(index3 +1));
             return new Account(account_username, account_password, account_form, account_rights);
         }
-        return new Account(res.getString(R.string.guest), "", "no_class", Account.RIGHTS_STUDENT);
+        return new Account(res.getString(R.string.guest), "", "no_class", Account.RIGHTS_DEFAULT);
     }
 }

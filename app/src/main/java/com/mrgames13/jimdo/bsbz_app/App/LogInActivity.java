@@ -268,6 +268,11 @@ public class LogInActivity extends AppCompatActivity {
         //ProgressBar finden
         pb = (ProgressBar) findViewById(R.id.login_in_progress);
 
+        if(!current_account.getUsername().equals(res.getString(R.string.guest))) {
+            name.setText(current_account.getUsername());
+            password.requestFocus();
+        }
+
         //Auf Updates prüfen
         if(serverMessagingUtils.isInternetAvailable()) checkVersionAndServerState(current_account.getUsername(), false);
     }

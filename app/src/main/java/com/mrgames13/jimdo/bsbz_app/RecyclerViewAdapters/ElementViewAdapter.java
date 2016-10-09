@@ -23,6 +23,7 @@ import android.widget.Toast;
 import com.mrgames13.jimdo.bsbz_app.App.EditNewActivity;
 import com.mrgames13.jimdo.bsbz_app.App.MainActivity;
 import com.mrgames13.jimdo.bsbz_app.App.NewEditElementActivity;
+import com.mrgames13.jimdo.bsbz_app.CommonObjects.Account;
 import com.mrgames13.jimdo.bsbz_app.CommonObjects.Classtest;
 import com.mrgames13.jimdo.bsbz_app.CommonObjects.Event;
 import com.mrgames13.jimdo.bsbz_app.CommonObjects.Homework;
@@ -354,8 +355,7 @@ public class ElementViewAdapter extends RecyclerView.Adapter<ElementViewAdapter.
                 if(!holder.item_expanded) {
                     //Expand item
                     holder.itemView.findViewById(R.id.item_area_description).setVisibility(View.VISIBLE);
-                    String rights = MainActivity.su.getString("Rights", res.getString(R.string.guest));
-                    if(mode == MODE_NEW && ((rights.equals("teacher") || rights.equals("administrator") || rights.equals("team"))) || (rights.equals("teacher") || rights.equals("administrator") || rights.equals("team"))) {
+                    if(mode == MODE_NEW && ((MainActivity.current_account.getRights() == Account.RIGHTS_TEACHER || MainActivity.current_account.getRights() == Account.RIGHTS_ADMIN || MainActivity.current_account.getRights() == Account.RIGHTS_TEAM)) || (MainActivity.current_account.getRights() == Account.RIGHTS_TEACHER || MainActivity.current_account.getRights() == Account.RIGHTS_ADMIN || MainActivity.current_account.getRights() == Account.RIGHTS_TEAM)) {
                         holder.itemView.findViewById(R.id.item_button_container).setVisibility(View.VISIBLE);
                         holder.item_description.setMinLines(4);
                     }

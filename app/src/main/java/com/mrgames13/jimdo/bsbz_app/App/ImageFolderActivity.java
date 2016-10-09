@@ -2,7 +2,6 @@ package com.mrgames13.jimdo.bsbz_app.App;
 
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -23,6 +22,7 @@ import android.widget.Toast;
 import com.mrgames13.jimdo.bsbz_app.CommonObjects.Account;
 import com.mrgames13.jimdo.bsbz_app.R;
 import com.mrgames13.jimdo.bsbz_app.RecyclerViewAdapters.GalleryViewAdapter_Files;
+import com.mrgames13.jimdo.bsbz_app.Tools.AccountUtils;
 import com.mrgames13.jimdo.bsbz_app.Tools.StorageUtils;
 
 import java.net.URLEncoder;
@@ -36,11 +36,11 @@ public class ImageFolderActivity extends AppCompatActivity {
     //Varialben als Objekte
     private Toolbar toolbar;
     private Resources res;
-    private SharedPreferences prefs;
     private RecyclerView gallery_view;
     private RecyclerView.Adapter gallery_view_adapter;
     private RecyclerView.LayoutManager gallery_view_manager;
     private StorageUtils su;
+    private AccountUtils au;
     private Account current_account;
 
     //Varialben
@@ -53,7 +53,7 @@ public class ImageFolderActivity extends AppCompatActivity {
         super.onStart();
 
         //Daten von den SharedPreferences abrufen
-        String layout = prefs.getString("Layout", res.getString(R.string.bsbz_layout_orange));
+        String layout = su.getString("Layout", res.getString(R.string.bsbz_layout_orange));
         String color = "#ea690c";
         if(layout.equals("0")) {
             color = "#ea690c";
@@ -101,6 +101,12 @@ public class ImageFolderActivity extends AppCompatActivity {
             MainActivity.AppTheme = 1;
             setTheme(R.style.SecondTheme);
         }
+
+        //AccountUtils initialisieren
+        au = new AccountUtils(su);
+
+        //Account laden
+        current_account = au.getLastUser();
 
         //Rights laden
         rights = current_account.getRights();
@@ -199,7 +205,7 @@ public class ImageFolderActivity extends AppCompatActivity {
                                 @Override
                                 public void run() {
                                     try{
-                                        MainActivity.serverMessagingUtils.sendRequest(null, "name="+ URLEncoder.encode(prefs.getString("Name", res.getString(R.string.guest)), "UTF-8")+"&command=deleteimagefolder&foldername="+URLEncoder.encode(folderName, "UTF-8"));
+                                        MainActivity.serverMessagingUtils.sendRequest(null, "name="+ URLEncoder.encode(current_account.getUsername(), "UTF-8")+"&command=deleteimagefolder&foldername="+URLEncoder.encode(folderName, "UTF-8"));
                                         finish();
                                     } catch(Exception e) {}
                                 }

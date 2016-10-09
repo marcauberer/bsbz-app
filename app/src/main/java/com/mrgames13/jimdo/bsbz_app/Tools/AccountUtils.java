@@ -44,8 +44,9 @@ public class AccountUtils {
         su.editExistingAccount(account.getUsername(), account.getPassword(), account.getForm(), account.getRights(), new_account.getUsername(), new_account.getPassword(), new_account.getForm(), new_account.getRights());
     }
 
-    public void editCurrentAccount(Account account) {
+    public void editCurrentAccount(Account current_account, Account account) {
         su.setLastLoggedInAccount(account.getUsername(), account.getPassword(), account.getForm(), account.getRights());
+        editAccount(current_account, account);
     }
 
     public Account getLastUser() {

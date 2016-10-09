@@ -3,18 +3,16 @@ package com.mrgames13.jimdo.bsbz_app.App;
 import android.app.DatePickerDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.net.ConnectivityManager;
 import android.os.Build;
+import android.os.Bundle;
 import android.os.Handler;
-import android.preference.PreferenceManager;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.SwitchCompat;
 import android.support.v7.widget.Toolbar;
 import android.view.KeyEvent;
@@ -31,9 +29,12 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.mrgames13.jimdo.bsbz_app.CommonObjects.Account;
 import com.mrgames13.jimdo.bsbz_app.R;
 import com.mrgames13.jimdo.bsbz_app.Services.SyncronisationService;
+import com.mrgames13.jimdo.bsbz_app.Tools.AccountUtils;
 import com.mrgames13.jimdo.bsbz_app.Tools.ServerMessagingUtils;
+import com.mrgames13.jimdo.bsbz_app.Tools.StorageUtils;
 
 import java.net.URLEncoder;
 import java.text.DateFormat;
@@ -50,10 +51,11 @@ public class NewNewActivity extends AppCompatActivity {
     //Variablen als Objekte
     private Resources res;
     private FloatingActionButton fab;
-    private SharedPreferences prefs;
     private Calendar calendar;
     private DatePickerDialog datePickerDialog;
     private ConnectivityManager cm;
+    private StorageUtils su;
+    private AccountUtils au;
 
     //Utils-Pakete
     private ServerMessagingUtils serverMessagingUtils;
@@ -64,18 +66,18 @@ public class NewNewActivity extends AppCompatActivity {
     private Button btn_choose_date_activation, btn_choose_date_expiration, btn_choose_receiver;
     private EditText etSubject, etDescription, etWriter;
 
-
     //Variablen
     private boolean pressedOnce;
     private String result;
     private String current_date;
+    private Account current_account;
 
     @Override
     protected void onStart() {
         super.onStart();
 
         //Daten von den SharedPreferences abrufen
-        String layout = prefs.getString("Layout", res.getString(R.string.bsbz_layout_orange));
+        String layout = su.getString("Layout", res.getString(R.string.bsbz_layout_orange));
         String color = "#ea690c";
         if(layout.equals("0")) {
             color = "#ea690c";
@@ -118,8 +120,14 @@ public class NewNewActivity extends AppCompatActivity {
         //Resourcen initialisieren
         res = getResources();
 
-        //SharedPreferences initialisieren
-        prefs = PreferenceManager.getDefaultSharedPreferences(NewNewActivity.this);
+        //StorageUtils initialisieren
+        su = new StorageUtils(this, res);
+
+        //AccountUtils initialisieren
+        au = new AccountUtils(su);
+
+        //Account laden
+        current_account = au.getLastUser();
 
         //ServerMessagingUtils initialisieren
         cm = (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE);
@@ -241,7 +249,7 @@ public class NewNewActivity extends AppCompatActivity {
         });
 
         //Textfeld des Verfassers initialisieren
-        etWriter.setText(prefs.getString("Name", res.getString(R.string.guest)));
+        etWriter.setText(current_account.getUsername());
 
         //Empfänger-Button mit Dialog verknüpfen
         btn_choose_receiver = (Button) findViewById(R.id.choose_receiver);
