@@ -91,36 +91,64 @@ public class SyncronisationService extends Service {
 		//Handler initialisieren
 		handler = new Handler();
 
-		show_notifications = su.getBoolean("send_notifications", true);
-		klasse = current_account.getForm();
-        Log.d("BSBZ-App", "Klasse: "+klasse);
-		username = current_account.getUsername();
-		update = su.getBoolean("UpdateAvailable", false);
-		sync = su.getBoolean("Sync", true);
+        final String data = intent.getStringExtra("Data");
+        if(data != null) {
+            Thread t = new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    if(serverMessagingUtils.isInternetAvailable()) {
+                        //Snchronisieren
+                        sync(data);
+                        //SyncTime eintragen
+                        EnterLastSyncTime();
+                    }
+                    //MainActivity refreshen
+                    MainActivity.isRunning = false;
+                    handler.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            try{ MainActivity.syncFinishedListener.onSyncFinished(); } catch(Exception e) {}
+                        }
+                    });
+                    stopSelf();
+                }
+            });
+            t.start();
+        } else {
+            show_notifications = su.getBoolean("send_notifications", true);
+            klasse = current_account.getForm();
+            username = current_account.getUsername();
+            update = su.getBoolean("UpdateAvailable", false);
+            sync = su.getBoolean("Sync", true);
 
-		if(!sync) Toast.makeText(context, getResources().getString(R.string.account_sync_blocked), Toast.LENGTH_LONG).show();
+            if(!sync) Toast.makeText(context, getResources().getString(R.string.account_sync_blocked), Toast.LENGTH_LONG).show();
 
-		Thread t = new Thread(new Runnable() {
-			@Override
-			public void run() {
-				if(!update && sync && serverMessagingUtils.isInternetAvailable()) {
-                    //Snchronisieren
-                    sync();
-					//SyncTime eintragen
-					EnterLastSyncTime();
-				}
-				//MainActivity refreshen
-				MainActivity.isRunning = false;
-				handler.post(new Runnable() {
-					@Override
-					public void run() {
-						try{ MainActivity.syncFinishedListener.onSyncFinished(); } catch(Exception e) {}
-					}
-				});
-				stopSelf();
-			}
-		});
-		t.start();
+            Thread t = new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    if(!update && sync && serverMessagingUtils.isInternetAvailable()) {
+                        //Snchronisieren
+                        result = "";
+                        try{
+                            result = serverMessagingUtils.sendRequest(null, "name="+ URLEncoder.encode(username, "UTF-8")+"&command=sync&class="+URLEncoder.encode(klasse, "UTF-8"));
+                        } catch(Exception e) {}
+                        sync(result);
+                        //SyncTime eintragen
+                        EnterLastSyncTime();
+                    }
+                    //MainActivity refreshen
+                    MainActivity.isRunning = false;
+                    handler.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            try{ MainActivity.syncFinishedListener.onSyncFinished(); } catch(Exception e) {}
+                        }
+                    });
+                    stopSelf();
+                }
+            });
+            t.start();
+        }
 		return super.onStartCommand(intent, flags, startId);
 	}
 	
@@ -129,9 +157,8 @@ public class SyncronisationService extends Service {
 		return null;
 	}
 
-	private void sync() {
+	public void sync(String result) {
 		try{
-			result = serverMessagingUtils.sendRequest(null, "name="+ URLEncoder.encode(username, "UTF-8")+"&command=sync&class="+URLEncoder.encode(klasse, "UTF-8"));
 			if(!result.equals("") && !result.contains("Error") && !result.contains("Warning")) {
                 //Result auseinandernehmen
                 final int index1 = result.indexOf("#", 0);

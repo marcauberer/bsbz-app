@@ -3,7 +3,6 @@ package com.mrgames13.jimdo.bsbz_app.Tools;
 import android.app.ProgressDialog;
 import android.content.ContentResolver;
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -12,7 +11,6 @@ import android.net.NetworkInfo;
 import android.net.wifi.WifiManager;
 import android.os.Environment;
 import android.os.Handler;
-import android.preference.PreferenceManager;
 import android.support.design.widget.Snackbar;
 import android.util.Log;
 import android.view.View;
@@ -50,12 +48,12 @@ public class ServerMessagingUtils {
     private ConnectivityManager cm;
     private Context context;
     private WifiManager wifiManager;
-    private SharedPreferences prefs;
     private Resources res;
     private URL url;
     private Handler handler;
     private ProgressDialog pd;
     private ContentResolver cr;
+    private StorageUtils su;
 
     //Variablen
     int i;
@@ -65,8 +63,8 @@ public class ServerMessagingUtils {
         this.cm = cm;
         this.context = context;
         wifiManager = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
-        prefs = PreferenceManager.getDefaultSharedPreferences(context);
         res = context.getResources();
+        su = new StorageUtils(context, res);
         cr = context.getContentResolver();
         handler = new Handler();
         //UTL erstellen
@@ -233,12 +231,10 @@ public class ServerMessagingUtils {
         } catch (Exception e) {}
     }
 
-    public long ping() {
-        //Nutzernamen herausfinden
-        String username = prefs.getString("Name", res.getString(R.string.guest));
+    public long ping(String username) {
         //Zeit berechnen
         long start = System.currentTimeMillis();
-        sendRequest(null, "name=" + username + "&command=ping");
+        sendRequest(null, "name="+URLEncoder.encode(username)+"&command=ping");
         long end = System.currentTimeMillis();
         return end - start;
     }

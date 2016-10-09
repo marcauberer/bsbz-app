@@ -1,14 +1,12 @@
 package com.mrgames13.jimdo.bsbz_app.App;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.net.ConnectivityManager;
 import android.os.Build;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -19,8 +17,11 @@ import android.view.Window;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.mrgames13.jimdo.bsbz_app.CommonObjects.Account;
 import com.mrgames13.jimdo.bsbz_app.R;
+import com.mrgames13.jimdo.bsbz_app.Tools.AccountUtils;
 import com.mrgames13.jimdo.bsbz_app.Tools.ServerMessagingUtils;
+import com.mrgames13.jimdo.bsbz_app.Tools.StorageUtils;
 
 import java.net.URLEncoder;
 
@@ -28,21 +29,23 @@ public class EditInfoActivity extends AppCompatActivity {
     //Konstanten
 
     //Variablen als Objekte
-    private SharedPreferences prefs;
     private ConnectivityManager cm;
     private ServerMessagingUtils serverMessagingUtils;
     private Toolbar toolbar;
     public Resources res;
+    private StorageUtils su;
+    private AccountUtils au;
 
     //Variablen
     private String result;
+    private Account current_account;
 
     @Override
     public void onStart() {
         super.onStart();
 
         //Daten von den SharedPreferences abrufen
-        String layout = prefs.getString("Layout", res.getString(R.string.bsbz_layout_orange));
+        String layout = su.getString("Layout", res.getString(R.string.bsbz_layout_orange));
         String color = "#ea690c";
         if(layout.equals("0")) {
             color = "#ea690c";
@@ -70,11 +73,14 @@ public class EditInfoActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        //SharedPreferences initialisieren
-        prefs = PreferenceManager.getDefaultSharedPreferences(this);
+        //Resourcen initialisieren
+        res = getResources();
+
+        //StorageUtils initialisieren
+        su = new StorageUtils(this, res);
 
         //Theme aus den Shared Preferences auslesen
-        String theme = prefs.getString("AppTheme", "0");
+        String theme = su.getString("AppTheme", "0");
         if(theme.equals("0")) {
             MainActivity.AppTheme = 0;
             setTheme(R.style.FirstTheme);
@@ -85,8 +91,11 @@ public class EditInfoActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_edit_info);
 
-        //Resourcen initialisieren
-        res = getResources();
+        //AccountUtils initialisieren
+        au = new AccountUtils(su);
+
+        //Account laden
+        current_account = au.getLastUser();
 
         //ServerMessagingUtils initialisieren
         cm = (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE);
@@ -112,8 +121,7 @@ public class EditInfoActivity extends AppCompatActivity {
                         String edited_info = text.getText().toString().trim();
                         if(edited_info.equals("")) edited_info = res.getString(R.string.no_info_entered);
                         try{
-                            String username = prefs.getString("Name", res.getString(R.string.guest));
-                            result = serverMessagingUtils.sendRequest(null, "name="+URLEncoder.encode(username, "UTF-8")+"&command=setbsbzinfo&description="+URLEncoder.encode(edited_info, "UTF-8"));
+                            result = serverMessagingUtils.sendRequest(null, "name="+URLEncoder.encode(current_account.getUsername(), "UTF-8")+"&command=setbsbzinfo&description="+URLEncoder.encode(edited_info, "UTF-8"));
                             if(result.equals("Action Successful")) {
                                 result = res.getString(R.string.action_successful);
                             } else {

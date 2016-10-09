@@ -2,12 +2,10 @@ package com.mrgames13.jimdo.bsbz_app.App;
 
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
@@ -22,6 +20,7 @@ import android.widget.CompoundButton;
 
 import com.mrgames13.jimdo.bsbz_app.R;
 import com.mrgames13.jimdo.bsbz_app.RecyclerViewAdapters.ViewPagerAdapterDayDetails;
+import com.mrgames13.jimdo.bsbz_app.Tools.StorageUtils;
 
 public class DayDetailsActivity extends AppCompatActivity {
 
@@ -33,6 +32,7 @@ public class DayDetailsActivity extends AppCompatActivity {
     private ViewPagerAdapterDayDetails viewpager_adapter;
     private TabLayout tablayout;
     private Resources res;
+    private StorageUtils su;
 
 	//Variablen
 	public static String current_date = "";
@@ -42,8 +42,7 @@ public class DayDetailsActivity extends AppCompatActivity {
 		super.onStart();
 
 		// Daten von den SharedPreferences abrufen
-		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(DayDetailsActivity.this);
-		String layout = prefs.getString("Layout", MainActivity.res.getString(R.string.bsbz_layout_orange));
+		String layout = su.getString("Layout", MainActivity.res.getString(R.string.bsbz_layout_orange));
 		String color = "#ea690c";
 		if (layout.equals("0")) {
 			color = "#ea690c";
@@ -87,6 +86,9 @@ public class DayDetailsActivity extends AppCompatActivity {
 
         //Resourcen initialisieren
         res = getResources();
+
+        //StorageUtils initialisieren
+        su = new StorageUtils(this, res);
 
         //Datum ermitteln
         current_date = getIntent().getStringExtra("Date").toString();
