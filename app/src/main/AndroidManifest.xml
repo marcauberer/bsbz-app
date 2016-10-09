@@ -82,23 +82,8 @@
             </intent-filter>
         </activity>
         <!-- HDetailsActivity -->
-        <activity android:name=".App.H_DetailsActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
-            </intent-filter>
-        </activity>
         <!-- KDetailsActivity -->
-        <activity android:name=".App.K_DetailsActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
-            </intent-filter>
-        </activity>
         <!-- TDetailsActivity -->
-        <activity android:name=".App.T_DetailsActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
-            </intent-filter>
-        </activity>
         <!-- NewNewActivity -->
         <activity
             android:name=".App.NewNewActivity"
