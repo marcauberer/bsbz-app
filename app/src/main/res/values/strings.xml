@@ -369,5 +369,6 @@
     <string name="edit_bsbz_info_d">Vor der Veröffentlichung der BSBZ-Info bitte auf Rechtschreibfehler o.ä. prüfen.</string>
     <string name="element_is_creating_">Element wird erstellt ...</string>
     <string name="account_is_creating_">Account wird erstellt ...</string>
+    <string name="no_offline_account_found">Offlineaccount nicht gefunden</string>
 
 </resources>

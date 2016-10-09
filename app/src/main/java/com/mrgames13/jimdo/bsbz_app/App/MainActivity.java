@@ -417,7 +417,11 @@ public class MainActivity extends AppCompatActivity {
             finish();
             return true;
         } else if (id == R.id.action_check_for_update) {
-            checkAppVersion(MainActivity.this, true, true);
+            if(serverMessagingUtils.isInternetAvailable()) {
+                checkAppVersion(MainActivity.this, true, true);
+            } else {
+                serverMessagingUtils.checkConnection(findViewById(R.id.container));
+            }
             return true;
         } else if (id == R.id.action_finish) {
             finish();

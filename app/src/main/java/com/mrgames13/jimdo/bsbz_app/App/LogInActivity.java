@@ -48,6 +48,7 @@ import com.mrgames13.jimdo.bsbz_app.Tools.ServerMessagingUtils;
 import com.mrgames13.jimdo.bsbz_app.Tools.StorageUtils;
 
 import java.net.URLEncoder;
+import java.util.ArrayList;
 
 @SuppressWarnings("deprecation")
 public class LogInActivity extends AppCompatActivity {
@@ -474,7 +475,24 @@ public class LogInActivity extends AppCompatActivity {
                 }
             }).start();
         } else {
-            serverMessagingUtils.checkConnection(findViewById(R.id.container));
+            ArrayList<Account> allUsers = au.getAllUsers();
+            for(Account user : allUsers) {
+                if(user.getUsername().equals(username) && user.getPassword().equals(password)) {
+                    au.LogIn(username, password, user.getForm(), user.getRightsString());
+                    startActivity(new Intent(LogInActivity.this, MainActivity.class));
+                    return;
+                }
+            }
+            Account current_account = au.getLastUser();
+            if(current_account.getUsername().equals(username) && current_account.getPassword().equals(password)) {
+                au.LogIn(username, password, current_account.getForm(), current_account.getRightsString());
+                startActivity(new Intent(LogInActivity.this, MainActivity.class));
+                return;
+            }
+            Toast.makeText(this, res.getString(R.string.no_offline_account_found), Toast.LENGTH_SHORT).show();
+            //Komponenten sichtbar machen
+            enableComponents(true);
+            pb.setVisibility(View.GONE);
         }
 	}
 
