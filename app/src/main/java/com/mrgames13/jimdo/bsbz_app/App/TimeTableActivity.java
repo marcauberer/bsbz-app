@@ -17,8 +17,10 @@ import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.mrgames13.jimdo.bsbz_app.CommonObjects.Account;
 import com.mrgames13.jimdo.bsbz_app.CommonObjects.TimeTable;
 import com.mrgames13.jimdo.bsbz_app.R;
+import com.mrgames13.jimdo.bsbz_app.Tools.AccountUtils;
 import com.mrgames13.jimdo.bsbz_app.Tools.StorageUtils;
 
 @SuppressWarnings("deprecation")
@@ -29,11 +31,12 @@ public class TimeTableActivity extends AppCompatActivity {
     //Variablen als Objekte
     private Toolbar toolbar;
     private StorageUtils su;
+    private AccountUtils au;
     private TimeTable timetable;
     private Resources res;
 
 	//Variablen
-    private String klasse;
+	private Account current_account;
 
 	@Override
 	protected void onStart() {
@@ -90,14 +93,19 @@ public class TimeTableActivity extends AppCompatActivity {
         //StorageUtils initialisieren
         su = new StorageUtils(TimeTableActivity.this, res);
 
-		klasse = su.getString("Klasse", "no_class");
-		if(klasse.equals("no_class")) {
+        //AccountUtils initialisieren
+        au = new AccountUtils(su);
+
+        //Account laden
+        current_account = au.getLastUser();
+
+		if(current_account.getForm().equals("no_class")) {
             Toast.makeText(TimeTableActivity.this, res.getString(R.string.no_class_selected), Toast.LENGTH_LONG).show();
             finish();
         }
 
         //TimeTable abrufen
-        timetable = su.getTimeTable(klasse);
+        timetable = su.getTimeTable(current_account.getForm());
         if(timetable == null) {
             Toast.makeText(TimeTableActivity.this, res.getString(R.string.timetable_not_synchronized), Toast.LENGTH_LONG).show();
             finish();
@@ -105,7 +113,7 @@ public class TimeTableActivity extends AppCompatActivity {
 
         //Klasse eintragen
 		TextView tv_klasse = (TextView) findViewById(R.id.tt_klasse);
-		tv_klasse.setText(klasse);
+		tv_klasse.setText(current_account.getForm());
 		
 		//TableRows einfärben
 		TableRow tr1 = (TableRow) findViewById(R.id.monate);
@@ -345,8 +353,7 @@ public class TimeTableActivity extends AppCompatActivity {
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		String rights = su.getString("Rights");
-		if(rights.equals("classspeaker") || rights.equals("teacher") || rights.equals("administrator") || rights.equals("team")) {
+		if(current_account.getRights() == Account.RIGHTS_CLASSSPEAKER || current_account.getRights() == Account.RIGHTS_TEACHER || current_account.getRights() == Account.RIGHTS_ADMIN || current_account.getRights() == Account.RIGHTS_TEAM) {
             getMenuInflater().inflate(R.menu.stundenplan_admin, menu);
         } else {
             getMenuInflater().inflate(R.menu.stundenplan, menu);
@@ -362,7 +369,7 @@ public class TimeTableActivity extends AppCompatActivity {
 			return true;
 		} else if(id == R.id.action_edit_timetable) {
             Intent i = new Intent(this, EditTimeTableActivity.class);
-            i.putExtra("class", klasse);
+            i.putExtra("class", current_account.getForm());
 			startActivity(i);
 			return true;
 		} else if(id == android.R.id.home) {

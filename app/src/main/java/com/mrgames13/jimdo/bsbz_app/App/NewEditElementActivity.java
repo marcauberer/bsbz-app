@@ -4,7 +4,6 @@ import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -12,7 +11,6 @@ import android.net.ConnectivityManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
-import android.preference.PreferenceManager;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -32,9 +30,12 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.mrgames13.jimdo.bsbz_app.CommonObjects.Account;
 import com.mrgames13.jimdo.bsbz_app.R;
 import com.mrgames13.jimdo.bsbz_app.Services.SyncronisationService;
+import com.mrgames13.jimdo.bsbz_app.Tools.AccountUtils;
 import com.mrgames13.jimdo.bsbz_app.Tools.ServerMessagingUtils;
+import com.mrgames13.jimdo.bsbz_app.Tools.StorageUtils;
 
 import java.net.URLEncoder;
 import java.util.Calendar;
@@ -51,13 +52,14 @@ public class NewEditElementActivity extends AppCompatActivity {
     //Variablen als Objekte
     private ServerMessagingUtils serverMessagingUtils;
     private Toolbar toolbar;
-    private SharedPreferences prefs;
     private Resources res;
     private ConnectivityManager cm;
     private Calendar calendar;
     private DatePickerDialog datePickerDialog;
     private Handler h = new Handler();
     private ProgressDialog pd;
+    private StorageUtils su;
+    private AccountUtils au;
 
     //Variablen
     private boolean pressedOnce;
@@ -69,12 +71,13 @@ public class NewEditElementActivity extends AppCompatActivity {
     private String old_receiver;
     private String old_date;
     private boolean result;
+    private Account current_account;
 
     @Override
     protected void onStart() {
         super.onStart();
         //Daten von den SharedPreferences abrufen
-        String layout = prefs.getString("Layout", res.getString(R.string.bsbz_layout_orange));
+        String layout = su.getString("Layout", res.getString(R.string.bsbz_layout_orange));
         String color = "#ea690c";
         if(layout.equals("0")) {
             color = "#ea690c";
@@ -120,8 +123,14 @@ public class NewEditElementActivity extends AppCompatActivity {
         //Calendar initialisieren
         calendar = Calendar.getInstance();
 
-        //SharedPreferences initialisieren
-        prefs = PreferenceManager.getDefaultSharedPreferences(NewEditElementActivity.this);
+        //StorageUtils initialisieren
+        su = new StorageUtils(this, res);
+
+        //AccountUtils initialisieren
+        au = new AccountUtils(su);
+
+        //Account laden
+        current_account = au.getLastUser();
 
         //ServerMessagingUtils initialisieren
         cm = (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE);
@@ -158,7 +167,7 @@ public class NewEditElementActivity extends AppCompatActivity {
 
         //Writer-Textfeld initialisieren
         final EditText writer = (EditText) findViewById(R.id.new_element_writer);
-        writer.setText(prefs.getString("Name", res.getString(R.string.guest)));
+        writer.setText(current_account.getUsername());
         if(old_writer != null) writer.setText(old_writer);
 
         final EditText betreff = (EditText) findViewById(R.id.new_element_betreff);
@@ -168,9 +177,8 @@ public class NewEditElementActivity extends AppCompatActivity {
 
         //ChooseReceiver-Button initialisieren
         final Button choose_receiver = (Button) findViewById(R.id.new_element_choose_receiver);
-        final String rights = prefs.getString("Rights", "student");
-        if(rights.equals("classspeaker")) {
-            choose_receiver.setText(prefs.getString("Klasse", "no_class"));
+        if(current_account.getRights() == Account.RIGHTS_CLASSSPEAKER) {
+            choose_receiver.setText(current_account.getForm());
             choose_receiver.setEnabled(false);
         } else {
             if(old_receiver != null) choose_receiver.setText(old_receiver);
@@ -379,7 +387,7 @@ public class NewEditElementActivity extends AppCompatActivity {
                             }
                         });
                         //Name aus den SharedPreferences auslesen
-                        String name = prefs.getString("Name", res.getString(R.string.guest));
+                        String name = current_account.getUsername();
                         //Je nach Modus Element hochladen
                         result = false;
                         String subject = betreff.getText().toString().replace("~", "").replace("|", "").trim();

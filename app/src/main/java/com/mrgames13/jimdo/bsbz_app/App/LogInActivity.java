@@ -4,7 +4,6 @@ import android.Manifest;
 import android.app.NotificationManager;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.content.res.Resources;
@@ -15,7 +14,6 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
-import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -41,6 +39,7 @@ import android.widget.TextView.OnEditorActionListener;
 import android.widget.Toast;
 
 import com.google.firebase.messaging.FirebaseMessaging;
+import com.mrgames13.jimdo.bsbz_app.CommonObjects.Account;
 import com.mrgames13.jimdo.bsbz_app.FirebaseMessaging.FCM_Instance_ID_Service;
 import com.mrgames13.jimdo.bsbz_app.R;
 import com.mrgames13.jimdo.bsbz_app.Services.SyncronisationService;
@@ -68,6 +67,7 @@ public class LogInActivity extends AppCompatActivity {
     private String result;
     public static String CURRENTVERSION = "";
     public static String autologin = "";
+    private Account current_account;
 
     //Utils-Pakete
     private ServerMessagingUtils serverMessagingUtils;
@@ -166,6 +166,9 @@ public class LogInActivity extends AppCompatActivity {
 
         //AccountUtils initialisieren
         au = new AccountUtils(su);
+
+        //Account laden
+        current_account = au.getLastUser();
 
 		try { CURRENTVERSION = getPackageManager().getPackageInfo(getPackageName(), 0).versionName; } catch (NameNotFoundException e1) {}
 		
@@ -266,7 +269,7 @@ public class LogInActivity extends AppCompatActivity {
         pb = (ProgressBar) findViewById(R.id.login_in_progress);
 
         //Auf Updates prüfen
-        if(serverMessagingUtils.isInternetAvailable()) checkVersionAndServerState(su.getString("Name", res.getString(R.string.guest)), false);
+        if(serverMessagingUtils.isInternetAvailable()) checkVersionAndServerState(current_account.getUsername(), false);
     }
 
 	@Override
@@ -590,11 +593,8 @@ public class LogInActivity extends AppCompatActivity {
                                 });
                             }
                             //In SharedPreferences eintragen
-                            SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(LogInActivity.this);
-                            SharedPreferences.Editor e = prefs.edit();
-                                e.putBoolean("UpdateAvailable", false);
-                                e.putString("SupportUrl", supporturl);
-                            e.commit();
+                            su.putBoolean("UpdateAvailable", false);
+                            su.putString("SupportUrl", supporturl);
                             //UpdateNews-Dialog anzeigen
                             runOnUiThread(new Runnable() {
                                 @Override
@@ -607,8 +607,7 @@ public class LogInActivity extends AppCompatActivity {
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                String rights = su.getString("Rights", "normal user");
-                                if(rights.equals("team")) {
+                                if(current_account.getRights() == Account.RIGHTS_TEAM) {
                                     android.support.v7.app.AlertDialog.Builder dialog = new android.support.v7.app.AlertDialog.Builder(LogInActivity.this);
                                     dialog.setMessage(R.string.server_is_offline_team);
                                     dialog.setPositiveButton(res.getString(R.string.open), new DialogInterface.OnClickListener() {
@@ -650,8 +649,7 @@ public class LogInActivity extends AppCompatActivity {
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                String rights = su.getString("Rights", "normal user");
-                                if(rights.equals("team")) {
+                                if(current_account.getRights() == Account.RIGHTS_TEAM) {
                                     android.support.v7.app.AlertDialog.Builder dialog = new android.support.v7.app.AlertDialog.Builder(LogInActivity.this);
                                     dialog.setMessage(R.string.server_is_waiting_team);
                                     dialog.setPositiveButton(res.getString(R.string.open), new DialogInterface.OnClickListener() {
@@ -714,8 +712,8 @@ public class LogInActivity extends AppCompatActivity {
 	
 	public void autoLogin() {
 		//Angemeldet bleiben abfragen
-		String username = su.getString("Name", res.getString(R.string.guest));
-		String password_string = su.getString("Password", "");
+		String username = current_account.getUsername();
+		String password_string = current_account.getPassword();
 
         //AutoLogin vom Registrieren beachten
         if(!autologin.equals("")) {
