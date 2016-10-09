@@ -48,10 +48,13 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.mrgames13.jimdo.bsbz_app.CommonObjects.Account;
 import com.mrgames13.jimdo.bsbz_app.R;
 import com.mrgames13.jimdo.bsbz_app.Services.PercentService;
 import com.mrgames13.jimdo.bsbz_app.Services.SyncronisationService;
+import com.mrgames13.jimdo.bsbz_app.Tools.AccountUtils;
 import com.mrgames13.jimdo.bsbz_app.Tools.ServerMessagingUtils;
+import com.mrgames13.jimdo.bsbz_app.Tools.StorageUtils;
 import com.mrgames13.jimdo.bsbz_app.Tools.ThemeUtils;
 
 import java.net.URLEncoder;
@@ -66,13 +69,15 @@ public class SettingsActivity extends PreferenceActivity {
     private ConnectivityManager cm;
 	private ServerMessagingUtils serverMessagingUtils;
 	private Toolbar toolbar;
-	private SharedPreferences prefs;
 	private Resources res;
     private ProgressDialog pd_Progress;
+	private StorageUtils su;
+	private AccountUtils au;
 
     //Variablen
 	private static final boolean ALWAYS_SIMPLE_PREFS = false;
 	private static String result;
+	private Account current_account;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -80,6 +85,15 @@ public class SettingsActivity extends PreferenceActivity {
 
         //Resourcen initialisieren
         res = getResources();
+
+        //StorageUtils initialisieren
+        su = new StorageUtils(this, res);
+
+        //AccountUtils initialisieren
+        au = new AccountUtils(su);
+
+        //Account laden
+        current_account = au.getLastUser();
 
 		//Theme setzen
 		if(MainActivity.AppTheme == 0) {
@@ -95,15 +109,12 @@ public class SettingsActivity extends PreferenceActivity {
 		    if (Build.VERSION.SDK_INT >= 16) this.getListView().setBackgroundColor(res.getColor(R.color.background_gray));
 		}
 
-		//SharedPreferences initialisieren
-		prefs = PreferenceManager.getDefaultSharedPreferences(SettingsActivity.this);
-
         //ServerMessagingUtils initialisieren
         cm = (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE);
         serverMessagingUtils = new ServerMessagingUtils(cm, SettingsActivity.this);
 
 		// Daten von den SharedPreferences abrufen
-		String layout = prefs.getString("Layout", res.getString(R.string.bsbz_layout_orange));
+		String layout = su.getString("Layout", res.getString(R.string.bsbz_layout_orange));
 		String color = "#ea690c";
 		if (layout.equals("0")) {
 			color = "#ea690c";
@@ -187,9 +198,7 @@ public class SettingsActivity extends PreferenceActivity {
 
 		Preference delete_account_Pref = findPreference("delete_account");
 
-		if(prefs.getString("Name", "Gast").equals("Gast")) {
-			delete_account_Pref.setEnabled(false);
-		}
+		if(current_account.getUsername().equals(res.getString(R.string.guest))) delete_account_Pref.setEnabled(false);
 		
 		delete_account_Pref.setOnPreferenceClickListener(new OnPreferenceClickListener() {
 			@Override
@@ -283,9 +292,7 @@ public class SettingsActivity extends PreferenceActivity {
 		
 		Preference change_password_Pref = findPreference("change_password");
 		
-		if(prefs.getString("Name", "Gast").equals("Gast")) {
-		    change_password_Pref.setEnabled(false);
-		}
+		if(current_account.getUsername().equals(res.getString(R.string.guest))) change_password_Pref.setEnabled(false);
 		
 		change_password_Pref.setOnPreferenceClickListener(new OnPreferenceClickListener() {
 			@Override
@@ -533,7 +540,7 @@ public class SettingsActivity extends PreferenceActivity {
 			@Override
 			public boolean onPreferenceChange(Preference preference, final Object newValue) {
 				//Dialog anzeigen
-				if(!prefs.getString("AppTheme", "Helles Schema (Standard)").equals(newValue)) {
+				if(!su.getString("AppTheme", "Helles Schema (Standard)").equals(newValue)) {
 					android.support.v7.app.AlertDialog.Builder builder = new android.support.v7.app.AlertDialog.Builder(SettingsActivity.this);
 					builder.setCancelable(true);
 					builder.setTitle(res.getString(R.string.restart));
@@ -647,7 +654,7 @@ public class SettingsActivity extends PreferenceActivity {
         });
 
 		final Preference custom_startpage = findPreference("CustomStartPage");
-        String startpage = prefs.getString("CustomStartPage", "0");
+        String startpage = su.getString("CustomStartPage", "0");
 		if(startpage.equals("0")) startpage = "Mein Profil";
         custom_startpage.setSummary(startpage.replace(" (Standard)", ""));
         custom_startpage.setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
@@ -674,7 +681,7 @@ public class SettingsActivity extends PreferenceActivity {
                         .setPositiveButton(res.getString(R.string.delete), new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                prefs.edit().clear().commit();
+                                su.clear();
                                 dialog.dismiss();
                                 deletestorage.setSummary(res.getString(R.string.delete_storage_s));
                                 Toast.makeText(SettingsActivity.this, res.getString(R.string.delete_storage_s), Toast.LENGTH_LONG).show();
@@ -809,10 +816,8 @@ public class SettingsActivity extends PreferenceActivity {
 					}
 				});
 			}
-			//Benutzernamen aus den SharedPreferences auslesen
-			String username = prefs.getString("Name", res.getString(R.string.guest));
 			//Abfrage an den Server senden
-			result = serverMessagingUtils.sendRequest(null, "name="+URLEncoder.encode(username, "UTF-8")+"&command=getserverinfo");
+			result = serverMessagingUtils.sendRequest(null, "name="+URLEncoder.encode(current_account.getUsername(), "UTF-8")+"&command=getserverinfo");
 			//Result auseinandernehmen
 			int index1 = result.indexOf(",");
 			int index2 = result.indexOf(",", index1 +1);

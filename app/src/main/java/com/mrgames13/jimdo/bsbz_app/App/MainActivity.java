@@ -202,7 +202,6 @@ public class MainActivity extends AppCompatActivity {
 
         //Aktueller Account laden
         current_account = au.getLastUser();
-        Log.d("BSBZ-App", current_account.getUsername());
 
         //Rights abfragen
         rights = current_account.getRights();
@@ -675,7 +674,8 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         klasse_wahlen.setText(res.getString(R.string.choose_class_1_)+klasse1.getText().toString()+")");
-                        su.putString("Klasse", klasse1.getText().toString());
+                        au.editCurrentAccount(new Account(current_account.getUsername(), current_account.getPassword(), klasse1.getText().toString(), current_account.getRights()));
+                        current_account = au.getLastUser();
                         Synchronize(klasse1.getText().toString(), MainActivity.this);
                         dialog.cancel();
                     }

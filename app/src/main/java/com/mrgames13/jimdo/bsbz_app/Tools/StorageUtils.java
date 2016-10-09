@@ -82,6 +82,10 @@ public class StorageUtils {
         return prefs.getBoolean(name, default_value);
     }
 
+    public void clear() {
+        prefs.edit().clear().commit();
+    }
+
     //-------------------------------------Stundenplan-Funktionen-----------------------------------
 
     public void addTimetable(String tt_receiver, String tt_mo, String tt_di, String tt_mi, String tt_do, String tt_fr) {
@@ -448,9 +452,17 @@ public class StorageUtils {
         DateFormat formatierer = DateFormat.getDateInstance(DateFormat.MEDIUM, Locale.GERMANY);
         String current_date = formatierer.format(new Date(System.currentTimeMillis()));
         //String zusammensetzen
-        String accountString = username + "~" + password + "~" + form + "~" + String.valueOf(rights) + "~" + current_date + "|";
+        String accountString = username + "~" + password + "~" + form + "~" + String.valueOf(rights) + "|";
         String allAccounts = getString("AllAccounts");
         if(allAccounts.contains(username + "~" + password + "~" + form + "~" + String.valueOf(rights))) putString("AllAccounts", allAccounts + accountString);
+    }
+
+    public void editExistingAccount(String old_username, String old_password, String old_form, int old_rights, String new_username, String new_password, String new_form, int new_rights) {
+        String allAccounts = getString("AllAccounts");
+        if(allAccounts.contains(old_username + "~" + old_password + "~" + old_form + "~" + String.valueOf(old_rights))) {
+            allAccounts = allAccounts.replace(old_username + "~" + old_password + "~" + old_form + "~" + String.valueOf(old_rights) + "|", "");
+            allAccounts = allAccounts + new_username + "~" + new_password + "~" + new_form + "~" + String.valueOf(new_rights) + "|";
+        }
     }
 
     public ArrayList<Account> getAllAccounts() {
