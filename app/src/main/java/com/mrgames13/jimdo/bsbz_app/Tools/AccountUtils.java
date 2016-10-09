@@ -1,6 +1,9 @@
 package com.mrgames13.jimdo.bsbz_app.Tools;
 
+import android.content.res.Resources;
+
 import com.mrgames13.jimdo.bsbz_app.CommonObjects.Account;
+import com.mrgames13.jimdo.bsbz_app.R;
 
 import java.util.ArrayList;
 
@@ -9,11 +12,13 @@ public class AccountUtils {
 
     //Variablen als Objekte
     private StorageUtils su;
+    private Resources res;
 
     //Variablen
 
     public AccountUtils(StorageUtils su) {
         this.su = su;
+        this.res = su.getRes();
     }
 
     public void LogIn(String username, String password, String form, String rights_string) {
@@ -29,6 +34,10 @@ public class AccountUtils {
         //Account in den SharedPreferences anmelden
         su.addAccountWhenNotExisting(username, password, form, rights);
         su.setLastLoggedInAccount(username, password, form, rights);
+    }
+
+    public void LogOut() {
+        su.setLastLoggedInAccount(res.getString(R.string.guest), "", "no_class", Account.RIGHTS_DEFAULT);
     }
 
     public void editAccount(Account account, Account new_account) {

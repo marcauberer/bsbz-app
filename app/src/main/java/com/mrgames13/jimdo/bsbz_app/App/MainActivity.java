@@ -411,6 +411,7 @@ public class MainActivity extends AppCompatActivity {
         } else if (id == R.id.action_logout) {
             Toast.makeText(MainActivity.this, res.getString(R.string.logoutInProgress), Toast.LENGTH_SHORT).show();
             su.putBoolean(res.getString(R.string.keepLoggedIn), false);
+            au.LogOut();
             startActivity(new Intent(MainActivity.this, LogInActivity.class));
             overridePendingTransition(R.anim.in_login, R.anim.out_logout);
             finish();

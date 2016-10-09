@@ -86,6 +86,9 @@ public class StorageUtils {
         prefs.edit().clear().commit();
     }
 
+    public Resources getRes() {
+        return res;
+    }
     //-------------------------------------Stundenplan-Funktionen-----------------------------------
 
     public void addTimetable(String tt_receiver, String tt_mo, String tt_di, String tt_mi, String tt_do, String tt_fr) {
