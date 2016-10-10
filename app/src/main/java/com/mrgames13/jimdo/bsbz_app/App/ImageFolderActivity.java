@@ -32,6 +32,7 @@ import java.util.Arrays;
 public class ImageFolderActivity extends AppCompatActivity {
 
     //Konstanten
+    public static int NO_ACTION = 0;
     public static int ACTION_FINISH = 1;
 
     //Varialben als Objekte
@@ -230,6 +231,9 @@ public class ImageFolderActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        if(action == ACTION_FINISH) finish();
+        if(action == ACTION_FINISH) {
+            action = NO_ACTION;
+            finish();
+        }
     }
 }

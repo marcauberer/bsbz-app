@@ -685,6 +685,7 @@ public class SettingsActivity extends PreferenceActivity {
                                 dialog.dismiss();
                                 deletestorage.setSummary(res.getString(R.string.delete_storage_s));
                                 Toast.makeText(SettingsActivity.this, res.getString(R.string.delete_storage_s), Toast.LENGTH_LONG).show();
+								startActivity(new Intent(SettingsActivity.this, LogoActivity.class));
                             }
                         })
                         .create();
