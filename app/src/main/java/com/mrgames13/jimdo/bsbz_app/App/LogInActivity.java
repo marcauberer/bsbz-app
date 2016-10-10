@@ -566,37 +566,69 @@ public class LogInActivity extends AppCompatActivity {
                         //AppVersion prüfen
                         if(!app_version.equals(CURRENTVERSION)) {
                             MainActivity.isUpdateAvailable = true;
-                            runOnUiThread(new Runnable() {
-                                @Override
-                                public void run() {
-                                    android.support.v7.app.AlertDialog.Builder dialog = new android.support.v7.app.AlertDialog.Builder(LogInActivity.this);
-                                    dialog.setMessage(res.getString(R.string.update_available_1) + app_version + res.getString(R.string.update_available_2));
-                                    dialog.setPositiveButton(res.getString(R.string.yes), new DialogInterface.OnClickListener() {
-                                        @Override
-                                        public void onClick(DialogInterface dialog, int which) {
-                                            final String appPackageName = getPackageName();
-                                            try {
-                                                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=" + appPackageName)));
-                                            } catch (android.content.ActivityNotFoundException anfe) {
-                                                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=" + appPackageName)));
+                            if(current_account.getRights() == Account.RIGHTS_TEAM) {
+                                runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        android.support.v7.app.AlertDialog.Builder dialog = new android.support.v7.app.AlertDialog.Builder(LogInActivity.this);
+                                        dialog.setMessage(res.getString(R.string.update_team));
+                                        dialog.setPositiveButton(res.getString(R.string.open), new DialogInterface.OnClickListener() {
+                                            @Override
+                                            public void onClick(DialogInterface dialog, int which) {
+                                                //UpdateNews-Dialog anzeigen
+                                                showUpdateNews();
+                                                //Dialog schließen
+                                                dialog.dismiss();
                                             }
-                                            finish();
-                                        }
-                                    });
-                                    dialog.setNegativeButton(res.getString(R.string.no), new DialogInterface.OnClickListener() {
-                                        @Override
-                                        public void onClick(DialogInterface dialog, int which) {
-                                            dialog.dismiss();
-                                            finish();
-                                        }
-                                    });
-                                    dialog.setCancelable(false);
-                                    dialog.show();
-                                }
-                            });
-                            //In SharedPreferences eintragen
-                            su.putBoolean("UpdateAvailable", true);
-                            su.putString("SupportUrl", supporturl);
+                                        });
+                                        dialog.setNegativeButton(res.getString(R.string.close), new DialogInterface.OnClickListener() {
+                                            @Override
+                                            public void onClick(DialogInterface dialog, int which) {
+                                                //App beenden und Dialog schließen
+                                                finish();
+                                                dialog.dismiss();
+                                            }
+                                        });
+                                        dialog.setCancelable(false);
+                                        dialog.show();
+                                    }
+                                });
+                                //In SharedPreferences eintragen
+                                su.putBoolean("UpdateAvailable", false);
+                                su.putString("SupportUrl", supporturl);
+                            } else {
+                                runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        android.support.v7.app.AlertDialog.Builder dialog = new android.support.v7.app.AlertDialog.Builder(LogInActivity.this);
+                                        dialog.setMessage(res.getString(R.string.update_available_1) + app_version + res.getString(R.string.update_available_2));
+                                        dialog.setPositiveButton(res.getString(R.string.yes), new DialogInterface.OnClickListener() {
+                                            @Override
+                                            public void onClick(DialogInterface dialog, int which) {
+                                                final String appPackageName = getPackageName();
+                                                try {
+                                                    startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=" + appPackageName)));
+                                                } catch (android.content.ActivityNotFoundException anfe) {
+                                                    startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=" + appPackageName)));
+                                                }
+                                                finish();
+                                            }
+                                        });
+                                        dialog.setNegativeButton(res.getString(R.string.no), new DialogInterface.OnClickListener() {
+                                            @Override
+                                            public void onClick(DialogInterface dialog, int which) {
+                                                dialog.dismiss();
+                                                finish();
+                                            }
+                                        });
+                                        dialog.setCancelable(false);
+                                        dialog.show();
+                                    }
+                                });
+                                //In SharedPreferences eintragen
+                                su.putBoolean("UpdateAvailable", true);
+                                su.putString("SupportUrl", supporturl);
+                            }
                         } else {
                             MainActivity.isUpdateAvailable = false;
                             if (showUpdateDialog) {

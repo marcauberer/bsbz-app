@@ -90,7 +90,7 @@
     <string name="pref_summary_sync_frequency">Ändert den Abstand der automatischen Synchronisation</string>
     <string name="pref_summary_send_notifications">Die BSBZ-App sendet Nachrichten in die Statusleiste, wenn es z.B.: eine Stundenplanänderung gab</string>
     <string name="pref_summary_app_version">Version</string>
-    <string name="pref_summary_developer">M&amp;R Games</string>
+    <string name="pref_summary_developer" translatable="false">M&amp;R Games</string>
     <string name="pref_summary_change_password">Passwort des aktiven Accounts ändern</string>
     <string name="pref_summary_send_percent_notification">Prozentanzeige des Schultages in der Statusleiste</string>
     <string name="pref_summary_app_layout1">Verändert das Farbschema der App</string>

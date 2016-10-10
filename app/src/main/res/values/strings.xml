@@ -1,7 +1,7 @@
 <resources>
-    <string name="app_name">BSBZ-App</string>
+    <string name="app_name" translatable="false">BSBZ-App</string>
     <string name="app_name_long">Die BSBZ-App</string>
-    <string name="powered_by">powered by M&#38;R Games</string>
+    <string name="powered_by" translatable="false">powered by M&#38;R Games</string>
     <string name="ok">OK</string>
     <string name="yes">Ja</string>
     <string name="no">Nein</string>
@@ -48,7 +48,7 @@
     <string name="guest">Gast</string>
     <string name="guestmode">Gastmodus</string>
     <string name="offlinemode">Offlinemodus</string>
-    <string name="copyright">© M&#38;R Games 2015 - 2016</string>
+    <string name="copyright" translatable="false">© M&#38;R Games 2015 - 2016</string>
     <string name="press_again_to_exit_app">Erneut drücken um App zu beenden</string>
     <string name="press_again_to_exit_registration">WARNUNG: Eingetragene Daten gehen verloren</string>
     <string name="press_again_to_go_back_delete_entry">WARNUNG: Eintrag geht verloren</string>
@@ -58,7 +58,7 @@
     <string name="finish">Beenden</string>
     <string name="name_">Name:</string>
     <string name="class_">Klasse:</string>
-    <string name="percent_0">0 %</string>
+    <string name="percent_0" translatable="false">0 %</string>
     <string name="keine_termine_monat">Keine Termine in diesem Monat</string>
     <string name="keine_klassenarbeiten_monat">Keine Klassenarbeiten in diesem Monat!</string>
     <string name="keine_hausaufgaben_monat">Keine Hausaufgaben in diesem Monat!</string>
@@ -183,6 +183,7 @@
     <string name="your_software_is_uptodate">Die App ist auf dem neusten Stand!</string>
     <string name="server_is_offline">Der Server ist offline! Du kannst die App derzeit nicht verwenden. Bitte versuche es in 24 Stunden noch einmal.</string>
     <string name="server_is_offline_team">Das Team hat den Server offline gestellt. Wenn du die App zum Testen neuer Serverfunktionen öffnest, tippe auf \'Öffnen\', ansonsten auf \'Schließen\'</string>
+    <string name="update_team">Neues Update erkannt. Wenn du die App zum Testen neuer Serverfunktionen öffnest, tippe auf \'Öffnen\', ansonsten auf \'Schließen\'</string>
     <string name="server_is_waiting">Der Server wird gewartet! Du kannst die App derzeit nicht verwenden. Bitte versuche es in 10 Minuten noch einmal</string>
     <string name="server_is_waiting_team">Das Team hat eine Serverwartung angesetzt. Wenn du die App zum Testen neuer Serverfunktionen öffnest, tippe auf \'Öffnen\', ansonsten auf \'Schließen\'</string>
     <string name="app_is_no_longer_supported">Diese App wird nicht mehr unterstützt! Du kannst sie nicht mehr verwenden. Bitte deinstalliere sie von deinem Gerät.</string>

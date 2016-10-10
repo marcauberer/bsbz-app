@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="link_foodplan_autumn">http://files.mrgames-server.de/bsbz_app/foodplans/Herbstferien.pdf</string>
-    <string name="link_foodplan_winter">http://files.mrgames-server.de/bsbz_app/foodplans/Weihnachtsferien.pdf</string>
-    <string name="link_foodplan_christmas">http://files.mrgames-server.de/bsbz_app/foodplans/Winterferien.pdf</string>
-    <string name="link_foodplan_easter">http://files.mrgames-server.de/bsbz_app/foodplans/Osterferien.pdf</string>
-    <string name="link_foodplan_pentecost">http://files.mrgames-server.de/bsbz_app/foodplans/Pfingstferien.pdf</string>
-    <string name="link_foodplan_summer">http://files.mrgames-server.de/bsbz_app/foodplans/Sommerferien.pdf</string>
+    <string name="link_foodplan_autumn" translatable="false">http://files.mrgames-server.de/bsbz_app/foodplans/Herbstferien.pdf</string>
+    <string name="link_foodplan_winter" translatable="false">http://files.mrgames-server.de/bsbz_app/foodplans/Weihnachtsferien.pdf</string>
+    <string name="link_foodplan_christmas" translatable="false">http://files.mrgames-server.de/bsbz_app/foodplans/Winterferien.pdf</string>
+    <string name="link_foodplan_easter" translatable="false">http://files.mrgames-server.de/bsbz_app/foodplans/Osterferien.pdf</string>
+    <string name="link_foodplan_pentecost" translatable="false">http://files.mrgames-server.de/bsbz_app/foodplans/Pfingstferien.pdf</string>
+    <string name="link_foodplan_summer" translatable="false">http://files.mrgames-server.de/bsbz_app/foodplans/Sommerferien.pdf</string>
 </resources>
