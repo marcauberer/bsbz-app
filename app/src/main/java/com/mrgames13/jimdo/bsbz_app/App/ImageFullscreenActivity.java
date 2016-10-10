@@ -141,55 +141,62 @@ public class ImageFullscreenActivity extends AppCompatActivity {
             finish();
             return true;
         } else if(id == R.id.action_delete_image) {
-            AlertDialog d = new AlertDialog.Builder(ImageFullscreenActivity.this)
-                    .setTitle(res.getString(R.string.delete_image))
-                    .setMessage(res.getString(R.string.delete_image_m))
-                    .setPositiveButton(res.getString(R.string.yes), new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            if(MainActivity.serverMessagingUtils.isInternetAvailable()) {
-                                new Thread(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        try{
-                                            imageName = imageName + ".jpg";
-                                            MainActivity.serverMessagingUtils.sendRequest(null, "name="+ URLEncoder.encode(current_account.getUsername(), "UTF-8")+"&command=deleteimagefile&foldername="+URLEncoder.encode(folderName, "UTF-8")+"&filename="+URLEncoder.encode(imageName, "UTF-8"));
-                                            String filenames = "";
-                                            for(String filename : ImageFolderActivity.filenames) {
-                                                filenames = filenames + "," + filename;
-                                            }
-                                            if(!filenames.equals("")) filenames = filenames.substring(1);
-                                            if(filenames.contains("," + imageName)) {
-                                                filenames = filenames.replace("," + imageName, "");
-                                            } else if(filenames.contains(imageName + ",")) {
-                                                filenames = filenames.replace(imageName + ",", "");
-                                            } else {
-                                                filenames = "";
-                                            }
-                                            MainActivity.serverMessagingUtils.sendRequest(null, "name="+ URLEncoder.encode(current_account.getUsername(), "UTF-8")+"&command=setimageconfig&foldername="+URLEncoder.encode(folderName, "UTF-8")+"&filenames="+URLEncoder.encode(filenames, "UTF-8"));
-                                            finish();
-                                        } catch(Exception e) {}
-                                    }
-                                }).start();
-                            } else {
-                                Toast.makeText(getApplicationContext(), res.getString(R.string.internet_is_not_available), Toast.LENGTH_SHORT).show();
-                            }
-                            dialog.dismiss();
-                        }
-                    })
-                    .setNegativeButton(res.getString(R.string.no), new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            dialog.dismiss();
-                        }
-                    })
-                    .create();
-            d.show();
+            deleteImage();
         } else if(id == R.id.action_download_image) {
             downloadImage();
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private void deleteImage() {
+        AlertDialog d = new AlertDialog.Builder(ImageFullscreenActivity.this)
+                .setTitle(res.getString(R.string.delete_image))
+                .setMessage(res.getString(R.string.delete_image_m))
+                .setPositiveButton(res.getString(R.string.yes), new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        if(MainActivity.serverMessagingUtils.isInternetAvailable()) {
+                            new Thread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    try{
+                                        imageName = imageName + ".jpg";
+                                        MainActivity.serverMessagingUtils.sendRequest(null, "name="+ URLEncoder.encode(current_account.getUsername(), "UTF-8")+"&command=deleteimagefile&foldername="+URLEncoder.encode(folderName, "UTF-8")+"&filename="+URLEncoder.encode(imageName, "UTF-8"));
+                                        String filenames = "";
+                                        for(String filename : ImageFolderActivity.filenames) {
+                                            filenames = filenames + "," + filename;
+                                        }
+                                        if(!filenames.equals("")) filenames = filenames.substring(1);
+                                        if(filenames.contains("," + imageName)) {
+                                            filenames = filenames.replace("," + imageName, "");
+                                        } else if(filenames.contains(imageName + ",")) {
+                                            filenames = filenames.replace(imageName + ",", "");
+                                        } else {
+                                            filenames = "";
+                                        }
+                                        MainActivity.serverMessagingUtils.sendRequest(null, "name="+ URLEncoder.encode(current_account.getUsername(), "UTF-8")+"&command=setimageconfig&foldername="+URLEncoder.encode(folderName, "UTF-8")+"&filenames="+URLEncoder.encode(filenames, "UTF-8"));
+                                        //FolderActivity beenden
+                                        ImageFolderActivity.action = ImageFolderActivity.ACTION_FINISH;
+                                        //Activity beenden
+                                        finish();
+                                    } catch(Exception e) {}
+                                }
+                            }).start();
+                        } else {
+                            Toast.makeText(getApplicationContext(), res.getString(R.string.internet_is_not_available), Toast.LENGTH_SHORT).show();
+                        }
+                        dialog.dismiss();
+                    }
+                })
+                .setNegativeButton(res.getString(R.string.no), new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                })
+                .create();
+        d.show();
     }
 
     private void setFullscreenImage() {

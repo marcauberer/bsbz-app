@@ -207,6 +207,8 @@ public class ImagePickerActivity extends AppCompatActivity {
                     }
                     filenames = filenames.substring(1);
                     try { MainActivity.serverMessagingUtils.sendRequest(null, "name="+URLEncoder.encode(current_account.getUsername(), "UTF-8")+"&command=setimageconfig&foldername="+URLEncoder.encode(ImageFolderActivity.folderName, "UTF-8")+"&filenames="+URLEncoder.encode(filenames, "UTF-8")); } catch (UnsupportedEncodingException e) {}
+                    //FolderActivity beenden
+                    ImageFolderActivity.action = ImageFolderActivity.ACTION_FINISH;
                     //Activity beenden
                     finish();
                 }

@@ -32,6 +32,7 @@ import java.util.Arrays;
 public class ImageFolderActivity extends AppCompatActivity {
 
     //Konstanten
+    public static int ACTION_FINISH = 1;
 
     //Varialben als Objekte
     private Toolbar toolbar;
@@ -43,10 +44,11 @@ public class ImageFolderActivity extends AppCompatActivity {
     private AccountUtils au;
     private Account current_account;
 
-    //Varialben
+    //Variablen
     public static ArrayList<String> filenames;
     public static String folderName;
     private int rights = Account.RIGHTS_STUDENT;
+    public static int action;
 
     @Override
     public void onStart() {
@@ -223,5 +225,11 @@ public class ImageFolderActivity extends AppCompatActivity {
             d.show();
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if(action == ACTION_FINISH) finish();
     }
 }
