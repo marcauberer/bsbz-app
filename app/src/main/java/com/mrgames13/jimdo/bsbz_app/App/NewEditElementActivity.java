@@ -72,6 +72,11 @@ public class NewEditElementActivity extends AppCompatActivity {
     private String old_date;
     private boolean result;
     private Account current_account;
+    private String subject;
+    private String description;
+    private String date;
+    private String receiver;
+    private String from;
 
     @Override
     protected void onStart() {
@@ -369,56 +374,60 @@ public class NewEditElementActivity extends AppCompatActivity {
         fab_create.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                //ProgressDialog anzeigen
-                                pd = new ProgressDialog(NewEditElementActivity.this);
-                                pd.setTitle(res.getString(R.string.please_wait_));
-                                if(mode == MODE_CREATE_CLASSTEST)pd.setMessage(res.getString(R.string.classtest_creating_));
-                                if(mode == MODE_CREATE_HOMEWORK)pd.setMessage(res.getString(R.string.homework_creating_));
-                                if(mode == MODE_CREATE_EVENT)pd.setMessage(res.getString(R.string.event_creating_));
-                                if(mode == MODE_EDIT_CLASSTEST || mode == MODE_EDIT_HOMEWORK || mode == MODE_EDIT_EVENT)pd.setMessage(res.getString(R.string.changings_uploading_));
-                                pd.setIndeterminate(true);
-                                pd.show();
-                            }
-                        });
-                        //Name aus den SharedPreferences auslesen
-                        String name = current_account.getUsername();
-                        //Je nach Modus Element hochladen
-                        result = false;
-                        String subject = betreff.getText().toString().replace("~", "").replace("|", "").trim();
-                        String description = beschreibung.getText().toString().replace("~", "").replace("|", "").trim();
-                        String date = choose_date.getText().toString().replace("~", "").replace("|", "").trim();
-                        String receiver = choose_receiver.getText().toString().replace("~", "").replace("|", "").trim();
-                        String from = writer.getText().toString().trim();
-                        if(mode == MODE_CREATE_CLASSTEST || mode == MODE_CREATE_HOMEWORK || mode == MODE_CREATE_EVENT) {
-                            if(receiver.equals(res.getString(R.string.all_classes))) receiver = "Alle";
-                            result = createElement(subject, date, subject, description, receiver, from);
-                        } else if(mode == MODE_EDIT_CLASSTEST || mode == MODE_EDIT_HOMEWORK || mode == MODE_EDIT_EVENT) {
-                            if(receiver.equals(res.getString(R.string.all_classes))) receiver = "Alle";
-                            result = editElement(old_title, name, date, subject, description, receiver, from);
-                        }
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                //Je nach Result handeln
-                                if(result) {
-                                    pd.dismiss();
-                                    Toast.makeText(NewEditElementActivity.this, res.getString(R.string.action_successful), Toast.LENGTH_SHORT).show();
-                                    startService(new Intent(NewEditElementActivity.this, SyncronisationService.class));
-                                    finish();
-                                } else {
-                                    pd.dismiss();
-                                    Toast.makeText(NewEditElementActivity.this, res.getString(R.string.error_occured_try_again), Toast.LENGTH_SHORT).show();
+                subject = betreff.getText().toString().replace("~", "").replace("|", "").trim();
+                description = beschreibung.getText().toString().replace("~", "").replace("|", "").trim();
+                date = choose_date.getText().toString().replace("~", "").replace("|", "").trim();
+                receiver = choose_receiver.getText().toString().replace("~", "").replace("|", "").trim();
+                from = writer.getText().toString().trim();
+                if(subject.equals("") || description.equals("") || date.equals(res.getString(R.string.choose_date)) || receiver.equals(res.getString(R.string.choose_receiver_)) || from.equals("")) {
+                    Toast.makeText(NewEditElementActivity.this, res.getString(R.string.not_all_fields_filled), Toast.LENGTH_SHORT).show();
+                } else {
+                    new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    //ProgressDialog anzeigen
+                                    pd = new ProgressDialog(NewEditElementActivity.this);
+                                    pd.setTitle(res.getString(R.string.please_wait_));
+                                    if(mode == MODE_CREATE_CLASSTEST)pd.setMessage(res.getString(R.string.classtest_creating_));
+                                    if(mode == MODE_CREATE_HOMEWORK)pd.setMessage(res.getString(R.string.homework_creating_));
+                                    if(mode == MODE_CREATE_EVENT)pd.setMessage(res.getString(R.string.event_creating_));
+                                    if(mode == MODE_EDIT_CLASSTEST || mode == MODE_EDIT_HOMEWORK || mode == MODE_EDIT_EVENT)pd.setMessage(res.getString(R.string.changings_uploading_));
+                                    pd.setIndeterminate(true);
+                                    pd.show();
                                 }
+                            });
+                            //Name aus den SharedPreferences auslesen
+                            String name = current_account.getUsername();
+                            //Je nach Modus Element hochladen
+                            result = false;
+                            if(mode == MODE_CREATE_CLASSTEST || mode == MODE_CREATE_HOMEWORK || mode == MODE_CREATE_EVENT) {
+                                if(receiver.equals(res.getString(R.string.all_classes))) receiver = "Alle";
+                                result = createElement(subject, date, subject, description, receiver, from);
+                            } else if(mode == MODE_EDIT_CLASSTEST || mode == MODE_EDIT_HOMEWORK || mode == MODE_EDIT_EVENT) {
+                                if(receiver.equals(res.getString(R.string.all_classes))) receiver = "Alle";
+                                result = editElement(old_title, name, date, subject, description, receiver, from);
                             }
-                        });
-                    }
-                }).start();
+                            runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    //Je nach Result handeln
+                                    if(result) {
+                                        pd.dismiss();
+                                        Toast.makeText(NewEditElementActivity.this, res.getString(R.string.action_successful), Toast.LENGTH_SHORT).show();
+                                        startService(new Intent(NewEditElementActivity.this, SyncronisationService.class));
+                                        finish();
+                                    } else {
+                                        pd.dismiss();
+                                        Toast.makeText(NewEditElementActivity.this, res.getString(R.string.error_occured_try_again), Toast.LENGTH_SHORT).show();
+                                    }
+                                }
+                            });
+                        }
+                    }).start();
+                }
             }
         });
     }
