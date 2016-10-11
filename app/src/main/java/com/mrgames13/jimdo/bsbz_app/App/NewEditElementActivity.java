@@ -397,7 +397,7 @@ public class NewEditElementActivity extends AppCompatActivity {
                         String from = writer.getText().toString().trim();
                         if(mode == MODE_CREATE_CLASSTEST || mode == MODE_CREATE_HOMEWORK || mode == MODE_CREATE_EVENT) {
                             if(receiver.equals(res.getString(R.string.all_classes))) receiver = "Alle";
-                            result = createElement(name, date, subject, description, receiver, from);
+                            result = createElement(subject, date, subject, description, receiver, from);
                         } else if(mode == MODE_EDIT_CLASSTEST || mode == MODE_EDIT_HOMEWORK || mode == MODE_EDIT_EVENT) {
                             if(receiver.equals(res.getString(R.string.all_classes))) receiver = "Alle";
                             result = editElement(old_title, name, date, subject, description, receiver, from);

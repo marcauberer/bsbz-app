@@ -387,6 +387,45 @@ public class MainActivity extends AppCompatActivity {
         if(custom_startpage.equals("Bildergalerie")) selected_Menu_Item = 7;
         if(custom_startpage.equals("BSBZ-Infos")) selected_Menu_Item = 8;
         if(custom_startpage.equals("Die Entwickler")) selected_Menu_Item = 9;
+
+        //Seite  refreshen
+        if(selected_Menu_Item == 1) {
+            getSupportActionBar().setTitle(res.getString(R.string.my_profile));
+            launchProfileFragment();
+            navView.getMenu().getItem(0).setChecked(true);
+        } else if(selected_Menu_Item == 2) {
+            getSupportActionBar().setTitle(res.getString(R.string.today));
+            launchTodayFragment();
+            navView.getMenu().getItem(1).setChecked(true);
+        } else if(selected_Menu_Item == 3) {
+            getSupportActionBar().setTitle(res.getString(R.string.this_week));
+            launchThisWeekFragment();
+            navView.getMenu().getItem(2).setChecked(true);
+        } else if(selected_Menu_Item == 4) {
+            getSupportActionBar().setTitle(res.getString(R.string.plan_of_the_year));
+            launchPlanOfTheYearFragment();
+            navView.getMenu().getItem(3).setChecked(true);
+        } else if(selected_Menu_Item == 5) {
+            getSupportActionBar().setTitle(res.getString(R.string.news));
+            launchNewsFragment();
+            navView.getMenu().getItem(4).setChecked(true);
+        } else if(selected_Menu_Item == 6) {
+            getSupportActionBar().setTitle(res.getString(R.string.food_plan));
+            launchFoodPlanFragment();
+            navView.getMenu().getItem(5).setChecked(true);
+        } else if(selected_Menu_Item == 7) {
+            getSupportActionBar().setTitle(res.getString(R.string.galery));
+            launchGalleryFragment();
+            navView.getMenu().getItem(6).setChecked(true);
+        } else if(selected_Menu_Item == 8) {
+            getSupportActionBar().setTitle(res.getString(R.string.bsbz_infos));
+            launchBSBZInfoFragment();
+            navView.getMenu().getItem(7).setChecked(true);
+        } else if(selected_Menu_Item == 9) {
+            getSupportActionBar().setTitle(res.getString(R.string.the_developers));
+            launchDeveloperFragment();
+            navView.getMenu().getItem(8).setChecked(true);
+        }
     }
 
     @Override

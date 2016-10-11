@@ -283,7 +283,7 @@ public class ElementViewAdapter extends RecyclerView.Adapter<ElementViewAdapter.
                                                 pd = new ProgressDialog(context);
                                                 pd.setIndeterminate(true);
                                                 pd.setTitle(res.getString(R.string.please_wait_));
-                                                pd.setMessage(res.getString(R.string.element_is_creating_));
+                                                pd.setMessage(res.getString(R.string.element_is_deleting_));
                                                 pd.show();
                                             }
                                         });

@@ -57,6 +57,7 @@ public class NotificationUtils {
         if(id == 0) id = (int) ((Math.random()) * Integer.MAX_VALUE + 1);
         //Notification aufbauen
         NotificationCompat.Builder n = buildNotification(title, message);
+        n.setAutoCancel(true);
         if(i != null) {
             PendingIntent pi = PendingIntent.getActivity(context, 0, i, 0);
             n.setContentIntent(pi);
