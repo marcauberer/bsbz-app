@@ -1,6 +1,6 @@
 package com.mrgames13.jimdo.bsbz_app.CommonObjects;
 
-public class Classtest {
+public class Classtest implements Comparable<Classtest> {
     //Konstanten
 
     //Variablen als Objekte
@@ -45,5 +45,10 @@ public class Classtest {
 
     public String getDate() {
         return new_date;
+    }
+
+    @Override
+    public int compareTo(Classtest c) {
+        return getDate().compareTo(c.getDate());
     }
 }

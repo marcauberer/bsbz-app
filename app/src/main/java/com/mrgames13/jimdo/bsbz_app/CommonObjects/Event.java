@@ -1,6 +1,6 @@
 package com.mrgames13.jimdo.bsbz_app.CommonObjects;
 
-public class Event {
+public class Event implements Comparable<Event> {
     //Konstanten
 
     //Variablen als Objekte
@@ -45,5 +45,10 @@ public class Event {
 
     public String getDate() {
         return new_date;
+    }
+
+    @Override
+    public int compareTo(Event e) {
+        return getDate().compareTo(e.getDate());
     }
 }

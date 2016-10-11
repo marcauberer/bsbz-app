@@ -1,0 +1,30 @@
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
+    <PreferenceCategory
+        android:title="@string/pref_header_infos"
+        android:key="Infos" >
+		<Preference
+            android:title="@string/pref_serverinfo"
+            android:summary="@string/loading"
+            android:key="serverinfo"/>
+
+		<SwitchPreference
+            android:title="@string/selected_server"
+            android:summary="@string/loading"
+            android:key="selectedserver"/>
+
+		<Preference
+			android:title="@string/pref_open_source_licenses"
+			android:summary="@string/pref_open_source_licenses_summary"
+			android:key="opensoucelicenses"/>
+
+        <Preference
+        	android:title="@string/pref_title_app_version"
+        	android:summary="@string/pref_summary_app_version"
+        	android:key="version" />
+    	
+		<Preference
+       		android:title="@string/pref_title_developer"
+        	android:summary="@string/pref_summary_developer"
+        	android:key="developers" />
+    </PreferenceCategory>
+</PreferenceScreen>

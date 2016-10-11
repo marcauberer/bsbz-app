@@ -76,6 +76,7 @@ import java.net.URLEncoder;
 import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.Locale;
@@ -1503,6 +1504,10 @@ public class MainActivity extends AppCompatActivity {
         homeworks = su.parseHomeworks(month, null);
         events = su.parseEvents(month, null);
 
+        Collections.sort(classtests);
+        Collections.sort(homeworks);
+        Collections.sort(events);
+
         all.clear();
         all.addAll(classtests);
         all.addAll(homeworks);
@@ -1514,7 +1519,6 @@ public class MainActivity extends AppCompatActivity {
         year_view.setLayoutManager(year_view_manager);
         year_view_adapter = new ElementViewAdapter(MainActivity.this, ElementViewAdapter.MODE_CLASSTEST_HOMEWORK_EVENTS);
         year_view.setAdapter(year_view_adapter);
-
 
         //Wenn keine Daten für diesen Monat vorhanden sind, entsprechende Anzeige sichtbar machen
         final TextView no_active_elements = (TextView) findViewById(R.id.no_active_elements);

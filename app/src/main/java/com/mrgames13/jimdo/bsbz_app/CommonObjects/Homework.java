@@ -1,6 +1,6 @@
 package com.mrgames13.jimdo.bsbz_app.CommonObjects;
 
-public class Homework {
+public class Homework implements Comparable<Homework> {
     //Konstanten
 
     //Variablen als Objekte
@@ -45,5 +45,10 @@ public class Homework {
 
     public String getDate() {
         return new_date;
+    }
+
+    @Override
+    public int compareTo(Homework h) {
+        return getDate().compareTo(h.getDate());
     }
 }

@@ -29,6 +29,7 @@ import android.preference.Preference.OnPreferenceClickListener;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
+import android.preference.SwitchPreference;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
 import android.text.Html;
@@ -77,7 +78,7 @@ public class SettingsActivity extends PreferenceActivity {
     //Variablen
 	private static final boolean ALWAYS_SIMPLE_PREFS = false;
 	private static String result;
-	private Account current_account;
+	private static Account current_account;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -187,14 +188,16 @@ public class SettingsActivity extends PreferenceActivity {
 	}
 	
 	private void setupSimplePreferencesScreen() {
-		if (!isSimplePreferences(this)) {
-			return;
-		}
+		if (!isSimplePreferences(this)) return;
 
 		addPreferencesFromResource(R.xml.pref_general);
 		addPreferencesFromResource(R.xml.pref_account);
 		addPreferencesFromResource(R.xml.pref_notifications);
-		addPreferencesFromResource(R.xml.pref_infos);
+		if(current_account.getRights() == Account.RIGHTS_TEAM) {
+            addPreferencesFromResource(R.xml.pref_infos_team);
+        } else {
+            addPreferencesFromResource(R.xml.pref_infos);
+        }
 
 		Preference delete_account_Pref = findPreference("delete_account");
 
@@ -693,6 +696,10 @@ public class SettingsActivity extends PreferenceActivity {
                 return true;
             }
         });
+
+        SwitchPreference selectedserver = (SwitchPreference) findPreference("selectedserver");
+        selectedserver.setSummaryOff(res.getString(R.string.normal_server));
+        selectedserver.setSummaryOn(res.getString(R.string.test_server));
 	}
 	
 	@Override
@@ -791,7 +798,11 @@ public class SettingsActivity extends PreferenceActivity {
 		@Override
 		public void onCreate(Bundle savedInstanceState) {
 			super.onCreate(savedInstanceState);
-			addPreferencesFromResource(R.xml.pref_infos);
+			if(current_account.getRights() == Account.RIGHTS_TEAM) {
+				addPreferencesFromResource(R.xml.pref_infos_team);
+			} else {
+				addPreferencesFromResource(R.xml.pref_infos);
+			}
 			
 			bindPreferenceSummaryToValue(findPreference("example_text"));
 			bindPreferenceSummaryToValue(findPreference("example_list"));
