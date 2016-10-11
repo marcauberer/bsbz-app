@@ -110,10 +110,11 @@ public class ServerMessagingUtils {
         try {
             if(!imageName.endsWith(".jpg")) imageName = imageName + ".jpg";
             //Connection aufbauen
+            URL url;
             if(su.getBoolean("selectedserver")) {
-                URL url = new URL(ALTERNATIVE_SERVER_ADRESS + "images/" + URLEncoder.encode(imageFolder, "UTF-8") + "/" + URLEncoder.encode(imageName, "UTF-8"));
+                url = new URL(ALTERNATIVE_SERVER_ADRESS + "images/" + URLEncoder.encode(imageFolder, "UTF-8") + "/" + URLEncoder.encode(imageName, "UTF-8"));
             } else {
-                URL url = new URL(SERVER_ADRESS + "images/" + URLEncoder.encode(imageFolder, "UTF-8") + "/" + URLEncoder.encode(imageName, "UTF-8"));
+                url = new URL(SERVER_ADRESS + "images/" + URLEncoder.encode(imageFolder, "UTF-8") + "/" + URLEncoder.encode(imageName, "UTF-8"));
             }
             URLConnection connection = url.openConnection();
             connection.connect();
@@ -183,10 +184,11 @@ public class ServerMessagingUtils {
         try {
             if(!imageName.endsWith(".jpg")) imageName = imageName + ".jpg";
             //Connection aufbauen
+            URL url;
             if(su.getBoolean("selectedserver")) {
-                URL url = new URL(ALTERNATIVE_SERVER_ADRESS + "images/" + URLEncoder.encode(imageFolder, "UTF-8") + "/" + URLEncoder.encode(imageName, "UTF-8"));
+                url = new URL(ALTERNATIVE_SERVER_ADRESS + "images/" + URLEncoder.encode(imageFolder, "UTF-8") + "/" + URLEncoder.encode(imageName, "UTF-8"));
             } else {
-                URL url = new URL(SERVER_ADRESS + "images/" + URLEncoder.encode(imageFolder, "UTF-8") + "/" + URLEncoder.encode(imageName, "UTF-8"));
+                url = new URL(SERVER_ADRESS + "images/" + URLEncoder.encode(imageFolder, "UTF-8") + "/" + URLEncoder.encode(imageName, "UTF-8"));
             }
             URLConnection connection = url.openConnection();
             connection.connect();
