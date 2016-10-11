@@ -672,8 +672,13 @@ public class SettingsActivity extends PreferenceActivity {
         deletestorage.setOnPreferenceClickListener(new OnPreferenceClickListener() {
             @Override
             public boolean onPreferenceClick(Preference preference) {
-                AlertDialog d = new AlertDialog.Builder(SettingsActivity.this)
-                        .setTitle(res.getString(R.string.delete_storage_t))
+                AlertDialog.Builder d;
+                if(MainActivity.AppTheme == 0) {
+                    d = new AlertDialog.Builder(SettingsActivity.this, R.style.FirstTheme_Dialog);
+                } else {
+                    d = new AlertDialog.Builder(SettingsActivity.this, R.style.SecondTheme_Dialog);
+                }
+                d.setTitle(res.getString(R.string.delete_storage_t))
                         .setMessage(res.getString(R.string.delete_storage_m))
                         .setNegativeButton(res.getString(R.string.cancel), new DialogInterface.OnClickListener() {
                             @Override
@@ -692,7 +697,7 @@ public class SettingsActivity extends PreferenceActivity {
                             }
                         })
                         .create();
-                d.show();
+                d.create().show();
                 return true;
             }
         });
@@ -700,6 +705,36 @@ public class SettingsActivity extends PreferenceActivity {
         SwitchPreference selectedserver = (SwitchPreference) findPreference("selectedserver");
         selectedserver.setSummaryOff(res.getString(R.string.normal_server));
         selectedserver.setSummaryOn(res.getString(R.string.test_server));
+        selectedserver.setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
+            @Override
+            public boolean onPreferenceChange(Preference preference, Object newValue) {
+                AlertDialog.Builder d;
+                if(MainActivity.AppTheme == 0) {
+                    d = new AlertDialog.Builder(SettingsActivity.this, R.style.FirstTheme_Dialog);
+                } else {
+                    d = new AlertDialog.Builder(SettingsActivity.this, R.style.SecondTheme_Dialog);
+                }
+                d.setTitle(res.getString(R.string.restart))
+                        .setMessage(res.getString(R.string.changings_will_be_visible_after_restart))
+                        .setNegativeButton(res.getString(R.string.pref_later), new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                            }
+                        })
+                        .setPositiveButton(res.getString(R.string.pref_reboot_title), new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                Intent i = getBaseContext().getPackageManager().getLaunchIntentForPackage(getBaseContext().getPackageName());
+                                i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                startActivity(i);
+                            }
+                        })
+                        .create();
+                d.create().show();
+                return true;
+            }
+        });
 	}
 	
 	@Override

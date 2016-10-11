@@ -40,7 +40,10 @@ public class ServerMessagingUtils {
     private final String SERVER_ADRESS = "http://bsbzapp.mrgames-server.de/";
     private final String ALTERNATIVE_SERVER_ADRESS = "http://mrgamesserver.esy.es/bsbz_app_masterserver/";
     private final String SERVER_MAIN_SCRIPT = SERVER_ADRESS + "ServerScript.php";
+    private final String ALTERNATIVE_SERVER_MAIN_SCRIPT = ALTERNATIVE_SERVER_ADRESS + "ServerScript.php";
     private final String SERVER_UPLOAD_SCRIPT = SERVER_ADRESS + "UploadReceiver.php";
+    private final String ALTERNATIVE_SERVER_UPLOAD_SCRIPT = ALTERNATIVE_SERVER_ADRESS + "UploadReceiver.php";
+
     private final int UPLOAD_BLOCK_SIZE = 256;
     private final int IMAGE_COMPRESSION_QUALITY = 70;
 
@@ -67,8 +70,12 @@ public class ServerMessagingUtils {
         su = new StorageUtils(context, res);
         cr = context.getContentResolver();
         handler = new Handler();
-        //UTL erstellen
-        try { url = new URL(SERVER_MAIN_SCRIPT); } catch (MalformedURLException e) {}
+        //URL erstellen
+        if(su.getBoolean("selectedserver")) {
+            try { url = new URL(ALTERNATIVE_SERVER_MAIN_SCRIPT); } catch (MalformedURLException e) {}
+        } else {
+            try { url = new URL(SERVER_MAIN_SCRIPT); } catch (MalformedURLException e) {}
+        }
     }
 
     public String sendRequest(View v, final String param) {
@@ -103,7 +110,11 @@ public class ServerMessagingUtils {
         try {
             if(!imageName.endsWith(".jpg")) imageName = imageName + ".jpg";
             //Connection aufbauen
-            URL url = new URL(SERVER_ADRESS + "images/" + URLEncoder.encode(imageFolder, "UTF-8") + "/" + URLEncoder.encode(imageName, "UTF-8"));
+            if(su.getBoolean("selectedserver")) {
+                URL url = new URL(ALTERNATIVE_SERVER_ADRESS + "images/" + URLEncoder.encode(imageFolder, "UTF-8") + "/" + URLEncoder.encode(imageName, "UTF-8"));
+            } else {
+                URL url = new URL(SERVER_ADRESS + "images/" + URLEncoder.encode(imageFolder, "UTF-8") + "/" + URLEncoder.encode(imageName, "UTF-8"));
+            }
             URLConnection connection = url.openConnection();
             connection.connect();
             //InputStream erstellen
@@ -172,7 +183,11 @@ public class ServerMessagingUtils {
         try {
             if(!imageName.endsWith(".jpg")) imageName = imageName + ".jpg";
             //Connection aufbauen
-            URL url = new URL(SERVER_ADRESS + "images/" + URLEncoder.encode(imageFolder, "UTF-8") + "/" + URLEncoder.encode(imageName, "UTF-8"));
+            if(su.getBoolean("selectedserver")) {
+                URL url = new URL(ALTERNATIVE_SERVER_ADRESS + "images/" + URLEncoder.encode(imageFolder, "UTF-8") + "/" + URLEncoder.encode(imageName, "UTF-8"));
+            } else {
+                URL url = new URL(SERVER_ADRESS + "images/" + URLEncoder.encode(imageFolder, "UTF-8") + "/" + URLEncoder.encode(imageName, "UTF-8"));
+            }
             URLConnection connection = url.openConnection();
             connection.connect();
             //InputStream erstellen
