@@ -8,7 +8,7 @@ android {
         applicationId "com.mrgames13.jimdo.bsbz_app"
         minSdkVersion 11
         targetSdkVersion 23
-        versionCode 330
+        versionCode 331
         versionName "3.3.0"
     }
     buildTypes {
