@@ -223,8 +223,7 @@ public class SettingsActivity extends PreferenceActivity {
 				builder1.setPositiveButton(res.getString(R.string.delete_account), new DialogInterface.OnClickListener() {
 					@Override
 					public void onClick(DialogInterface dialog, int which) {
-						SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(SettingsActivity.this);
-						String right_password = prefs.getString("Password", "");
+						String right_password = current_account.getPassword();
 						
 						if(!right_password.equals(password.getText().toString())) {
 							Toast.makeText(builder1.getContext(), res.getString(R.string.wrong_password), Toast.LENGTH_SHORT).show();
@@ -344,8 +343,7 @@ public class SettingsActivity extends PreferenceActivity {
 				builder1.setPositiveButton(res.getString(R.string.change_password), new DialogInterface.OnClickListener() {
 					@Override
 					public void onClick(DialogInterface dialog, int which) {
-						SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(SettingsActivity.this);
-						String right_password = prefs.getString("Password", "");
+						String right_password = current_account.getPassword();
 						
 						final String new_password = password_new.getText().toString();
 						final String new_repassword = repassword_new.getText().toString();
