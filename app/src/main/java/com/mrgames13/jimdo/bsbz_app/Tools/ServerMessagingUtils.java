@@ -216,7 +216,12 @@ public class ServerMessagingUtils {
             int uploadSize = (firstLineBoundary+contentDisposition+newLine+newLine+lastLineBoundary).getBytes().length + imageInputStream.available();
             pd.setMax(uploadSize);
 
-            URL uploadUrl = new URL(SERVER_UPLOAD_SCRIPT);
+            URL uploadUrl;
+            if(su.getBoolean("selectedserver")) {
+                uploadUrl = new URL(ALTERNATIVE_SERVER_UPLOAD_SCRIPT);
+            } else {
+                uploadUrl = new URL(SERVER_UPLOAD_SCRIPT);
+            }
             HttpURLConnection connection = (HttpURLConnection) uploadUrl.openConnection();
             connection.setDoOutput(true);
             connection.setDoInput(true);
