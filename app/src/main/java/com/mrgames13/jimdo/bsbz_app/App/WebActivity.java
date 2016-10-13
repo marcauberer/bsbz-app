@@ -122,8 +122,8 @@ public class WebActivity extends AppCompatActivity {
 			@Override
 			public void onPageFinished(WebView view, String url) {
                 if(title.equals(res.getString(R.string.loading))) getSupportActionBar().setTitle(webside.getTitle());
-				laden.setVisibility(View.INVISIBLE);
-				laden_progress_bar.setVisibility(View.INVISIBLE);
+				laden.setVisibility(View.GONE);
+				laden_progress_bar.setVisibility(View.GONE);
 			}
 			
 			@Override
