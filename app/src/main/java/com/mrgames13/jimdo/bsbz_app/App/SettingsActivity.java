@@ -9,7 +9,6 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.content.res.Configuration;
@@ -37,6 +36,7 @@ import android.text.SpannableString;
 import android.text.method.LinkMovementMethod;
 import android.text.method.PasswordTransformationMethod;
 import android.text.util.Linkify;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -240,21 +240,16 @@ public class SettingsActivity extends PreferenceActivity {
 							builder2.setPositiveButton(res.getString(R.string.yes), new DialogInterface.OnClickListener() {
 								@Override
 								public void onClick(final DialogInterface dialog, int which) {
-									final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(SettingsActivity.this);
-									final String username = prefs.getString("Name", "");
-									
 									//Vom Server löschen
 									new Thread(new Runnable() {
                                         @Override
                                         public void run() {
                                             try {
-                                                result = serverMessagingUtils.sendRequest(findViewById(R.id.container), "name="+URLEncoder.encode(username, "UTF-8")+"&command=deleteaccount");
+                                                result = serverMessagingUtils.sendRequest(findViewById(R.id.container), "name="+URLEncoder.encode(current_account.getUsername(), "UTF-8")+"&command=deleteaccount");
                                                 //Activity starten
                                                 Intent i = new Intent(SettingsActivity.this,LogInActivity.class);
                                                 if(result.equals("Action Successful")) {
-                                                    SharedPreferences.Editor e = prefs.edit();
-                                                        e.putBoolean("Angemeldet bleiben", false);
-                                                    e.commit();
+													su.putBoolean("Angemeldet bleiben", false);
                                                     //Extra erstellen
                                                     i.putExtra("Action", "deleted account");
                                                 } else {
@@ -315,7 +310,7 @@ public class SettingsActivity extends PreferenceActivity {
 		        layout.setLayoutParams(parms);
 
 		        layout.setGravity(Gravity.CLIP_VERTICAL);
-		        layout.setPadding(2, 2, 2, 2);
+		        layout.setPadding(6, 6, 6, 6);
 				
 				//Eingabefelder zeichnen
 		        final TextView tv1 = new TextView(SettingsActivity.this);
@@ -367,23 +362,20 @@ public class SettingsActivity extends PreferenceActivity {
 							builder2.setPositiveButton(res.getString(R.string.yes), new DialogInterface.OnClickListener() {
 								@Override
 								public void onClick(final DialogInterface dialog, int which) {
-									final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(SettingsActivity.this);
-									final String username = prefs.getString("Name", "");
+                                    Log.d("BSBZ-App", current_account.getUsername());
+                                    Log.d("BSBZ-App", new_password);
+                                    Log.d("BSBZ-App", current_account.getForm());
 									//Vom Server löschen
                                     new Thread(new Runnable() {
                                         @Override
                                         public void run() {
                                             try {
-                                                //Aktuelle Klasse aus den SharedPreferences auslesen und als neue Klasse zum Server senden
-                                                String new_class = prefs.getString("Klasse", "---");
-                                                result = serverMessagingUtils.sendRequest(findViewById(R.id.container), "name="+URLEncoder.encode(username, "UTF-8")+"&command=editaccount&new_password="+URLEncoder.encode(new_password, "UTF-8")+"&new_class="+URLEncoder.encode(new_class, "UTF-8"));
+                                                result = serverMessagingUtils.sendRequest(findViewById(R.id.container), "name="+URLEncoder.encode(current_account.getUsername(), "UTF-8")+"&command=editaccount&new_password="+URLEncoder.encode(new_password, "UTF-8")+"&new_class="+URLEncoder.encode(current_account.getForm(), "UTF-8"));
                                                 //Activity starten
-                                                Intent i = new Intent(SettingsActivity.this,LogInActivity.class);
+                                                Intent i = new Intent(SettingsActivity.this, LogInActivity.class);
                                                 if(result.equals("Action Successful")) {
-                                                    SharedPreferences.Editor e = prefs.edit();
-                                                        e.putBoolean("Angemeldet bleiben", false);
-                                                        e.putString("Password", new_password);
-                                                    e.commit();
+													su.putBoolean("Angemeldet bleiben", false);
+													su.putString("Password", new_password);
                                                     //Extra erstellen
                                                     i.putExtra("Action", "changed password");
                                                 } else {
