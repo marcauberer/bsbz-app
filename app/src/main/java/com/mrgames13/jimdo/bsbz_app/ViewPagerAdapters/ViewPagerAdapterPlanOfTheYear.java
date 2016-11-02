@@ -77,7 +77,7 @@ public class ViewPagerAdapterPlanOfTheYear extends FragmentPagerAdapter {
         @Nullable
         @Override
         public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-            contentView = inflater.inflate(R.layout.day_details_classtests, null);
+            contentView = inflater.inflate(R.layout.plan_of_the_year_classtests, null);
             //ClasstestRecyclerView anzeigen
             classtest_view = (RecyclerView) contentView.findViewById(R.id.day_details_recyclerview_classtests);
             classtest_view_manager = new LinearLayoutManager(contentView.getContext());
@@ -108,7 +108,7 @@ public class ViewPagerAdapterPlanOfTheYear extends FragmentPagerAdapter {
         @Nullable
         @Override
         public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-            contentView = inflater.inflate(R.layout.day_details_homework, null);
+            contentView = inflater.inflate(R.layout.plan_of_the_year_homework, null);
             //HomeworkRecyclerView anzeigen
             homework_view = (RecyclerView) contentView.findViewById(R.id.day_details_recyclerview_homework);
             homework_view_manager = new LinearLayoutManager(contentView.getContext());
@@ -139,7 +139,7 @@ public class ViewPagerAdapterPlanOfTheYear extends FragmentPagerAdapter {
         @Nullable
         @Override
         public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-            contentView = inflater.inflate(R.layout.day_details_events, null);
+            contentView = inflater.inflate(R.layout.plan_of_the_year_events, null);
             //EventRecyclerView anzeigen
             events_view = (RecyclerView) contentView.findViewById(R.id.day_details_recyclerview_events);
             events_view_manager = new LinearLayoutManager(contentView.getContext());

@@ -302,7 +302,6 @@
     <string name="really_delete_element">Soll das Element wirklich gelöscht werden?</string>
     <string name="no_class_selected">Es ist keine Klasse ausgewählt</string>
     <string name="timetable_not_synchronized">Der Stundenplan für diese Klasse wurde noch nicht synchronisiert</string>
-    <string name="no_data_for_this_month">Keine Daten für diesen Monat verhanden</string>
     <string name="delete_storage_t">App-Daten löschen?</string>
     <string name="delete_storage_m">Wollen Sie wirklich die lokalen Daten der App bereinigen? Die Daten können nicht wiederhergestellt werden!</string>
     <string name="delete_storage_s">App-Daten wurden erfolgreich bereinigt</string>
@@ -310,6 +309,7 @@
     <string name="day_details_tab_2">HAs</string>
     <string name="day_details_tab_3">Termine</string>
     <string name="no_data_for_this_day">Keine Daten für diesen Tag vorhanden</string>
+    <string name="no_data_for_this_month">Keine Daten für diesen Monat vorhanden</string>
     <string name="no_data_for_today">Keine Daten für heute vorhanden</string>
     <string name="edit_timetable">Stundenplan bearbeiten</string>
     <string name="hour1">1\n(7:30 - 8:15)</string>
