@@ -1,4 +1,4 @@
-package com.mrgames13.jimdo.bsbz_app.RecyclerViewAdapters;
+package com.mrgames13.jimdo.bsbz_app.ViewPagerAdapters;
 
 import android.content.res.Resources;
 import android.os.Bundle;
@@ -14,10 +14,11 @@ import android.view.ViewGroup;
 
 import com.mrgames13.jimdo.bsbz_app.App.MainActivity;
 import com.mrgames13.jimdo.bsbz_app.R;
+import com.mrgames13.jimdo.bsbz_app.RecyclerViewAdapters.ElementViewAdapter;
 
 import java.util.ArrayList;
 
-public class ViewPagerAdapterDayDetails extends FragmentPagerAdapter {
+public class ViewPagerAdapterPlanOfTheYear extends FragmentPagerAdapter {
 
     //Konstanten
 
@@ -26,20 +27,20 @@ public class ViewPagerAdapterDayDetails extends FragmentPagerAdapter {
     private ArrayList<String> tabTitles = new ArrayList<>();
 
     //Variablen
-    public static String current_date;
+    public static String current_month;
 
     //Konstruktor
-    public ViewPagerAdapterDayDetails(FragmentManager manager, Resources res, String current_date) {
+    public ViewPagerAdapterPlanOfTheYear(FragmentManager manager, Resources res, String current_month) {
         super(manager);
-        ViewPagerAdapterDayDetails.res = res;
+        ViewPagerAdapterPlanOfTheYear.res = res;
         tabTitles.add(res.getString(R.string.day_details_tab_1));
         tabTitles.add(res.getString(R.string.day_details_tab_2));
         tabTitles.add(res.getString(R.string.day_details_tab_3));
-        ViewPagerAdapterDayDetails.current_date = current_date;
+        ViewPagerAdapterPlanOfTheYear.current_month = current_month;
         //Daten laden
-        MainActivity.classtests = MainActivity.su.parseClasstests(null, current_date);
-        MainActivity.homeworks = MainActivity.su.parseHomeworks(null, current_date);
-        MainActivity.events = MainActivity.su.parseEvents(null, current_date);
+        MainActivity.classtests = MainActivity.su.parseClasstests(current_month, null);
+        MainActivity.homeworks = MainActivity.su.parseHomeworks(current_month, null);
+        MainActivity.events = MainActivity.su.parseEvents(current_month, null);
     }
 
     @Override

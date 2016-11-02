@@ -1,4 +1,4 @@
-package com.mrgames13.jimdo.bsbz_app.RecyclerViewAdapters;
+package com.mrgames13.jimdo.bsbz_app.ViewPagerAdapters;
 
 import android.content.DialogInterface;
 import android.content.res.Resources;

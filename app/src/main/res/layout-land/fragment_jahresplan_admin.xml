@@ -132,12 +132,25 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:background="@drawable/black_border"
+            android:padding="2dp">
 
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/plan_of_the_year_list"
+            <android.support.design.widget.TabLayout
+                android:id="@+id/plan_of_the_year_tablayout"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"/>
+                android:layout_height="wrap_content"
+                android:theme="@style/toolbarStyle"
+                android:background="@color/colorPrimary"
+                app:tabTextAppearance="@android:style/TextAppearance.Widget.TabWidget"
+                app:tabSelectedTextColor="@color/white"
+                app:tabTextColor="@color/white_dark"/>
+
+            <android.support.v4.view.ViewPager
+                android:id="@+id/plan_of_the_year_viewpager"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@+id/plan_of_the_year_tablayout" />
 
             <TextView
                 android:id="@+id/no_active_elements"

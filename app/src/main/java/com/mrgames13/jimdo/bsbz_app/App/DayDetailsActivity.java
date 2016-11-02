@@ -19,7 +19,7 @@ import android.view.View;
 import android.widget.CompoundButton;
 
 import com.mrgames13.jimdo.bsbz_app.R;
-import com.mrgames13.jimdo.bsbz_app.RecyclerViewAdapters.ViewPagerAdapterDayDetails;
+import com.mrgames13.jimdo.bsbz_app.ViewPagerAdapters.ViewPagerAdapterDayDetails;
 import com.mrgames13.jimdo.bsbz_app.Tools.StorageUtils;
 
 public class DayDetailsActivity extends AppCompatActivity {

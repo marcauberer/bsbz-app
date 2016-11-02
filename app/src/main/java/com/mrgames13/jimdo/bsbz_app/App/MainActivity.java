@@ -22,8 +22,10 @@ import android.os.PersistableBundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
@@ -71,6 +73,7 @@ import com.mrgames13.jimdo.bsbz_app.Tools.AccountUtils;
 import com.mrgames13.jimdo.bsbz_app.Tools.NotificationUtils;
 import com.mrgames13.jimdo.bsbz_app.Tools.ServerMessagingUtils;
 import com.mrgames13.jimdo.bsbz_app.Tools.StorageUtils;
+import com.mrgames13.jimdo.bsbz_app.ViewPagerAdapters.ViewPagerAdapterPlanOfTheYear;
 
 import java.net.URLEncoder;
 import java.text.DateFormat;
@@ -128,6 +131,9 @@ public class MainActivity extends AppCompatActivity {
     public static ArrayList<Event> events;
     public static ArrayList<Object> all;
     public static ArrayList<New> news;
+    private TabLayout tablayout;
+    private ViewPager viewpager;
+    private ViewPagerAdapterPlanOfTheYear viewpager_adapter;
 
     //UtilsPakete
     public static ServerMessagingUtils serverMessagingUtils;
@@ -1514,20 +1520,27 @@ public class MainActivity extends AppCompatActivity {
         all.addAll(homeworks);
         all.addAll(events);
 
-        //NewsRecyclerView anzeigen
-        year_view = (RecyclerView) findViewById(R.id.plan_of_the_year_list);
-        year_view_manager = new LinearLayoutManager(MainActivity.this);
-        year_view.setLayoutManager(year_view_manager);
-        year_view_adapter = new ElementViewAdapter(MainActivity.this, ElementViewAdapter.MODE_CLASSTEST_HOMEWORK_EVENTS);
-        year_view.setAdapter(year_view_adapter);
+        //ViewPager aufsetzen
+        viewpager_adapter = new ViewPagerAdapterPlanOfTheYear(getSupportFragmentManager(), getResources(), month);
+        viewpager = (ViewPager) findViewById(R.id.plan_of_the_year_viewpager);
+        viewpager.setAdapter(viewpager_adapter);
 
-        //Wenn keine Daten für diesen Monat vorhanden sind, entsprechende Anzeige sichtbar machen
-        final TextView no_active_elements = (TextView) findViewById(R.id.no_active_elements);
-        if(year_view_adapter.getItemCount() == 0) {
-            no_active_elements.setVisibility(View.VISIBLE);
-        } else {
-            no_active_elements.setVisibility(View.GONE);
-        }
+        //TabLayout aufsetzen
+        tablayout = (TabLayout) findViewById(R.id.plan_of_the_year_tablayout);
+        tablayout.setTabGravity(TabLayout.GRAVITY_FILL);
+        tablayout.setupWithViewPager(viewpager);
+        tablayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                viewpager.setCurrentItem(tab.getPosition());
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {}
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {}
+        });
 
         if(rights == Account.RIGHTS_CLASSSPEAKER || rights == Account.RIGHTS_TEACHER || rights == Account.RIGHTS_ADMIN || rights == Account.RIGHTS_TEAM) {
             //FloatingAction Button
@@ -1729,9 +1742,9 @@ public class MainActivity extends AppCompatActivity {
                 year_view_adapter = new ElementViewAdapter(MainActivity.this, ElementViewAdapter.MODE_CLASSTEST_HOMEWORK_EVENTS);
                 year_view.setAdapter(year_view_adapter);
                 if(year_view_adapter.getItemCount() == 0) {
-                    no_active_elements.setVisibility(View.VISIBLE);
+                    //no_active_elements.setVisibility(View.VISIBLE);
                 } else {
-                    no_active_elements.setVisibility(View.GONE);
+                    //no_active_elements.setVisibility(View.GONE);
                 }
             }
         });
@@ -1766,9 +1779,9 @@ public class MainActivity extends AppCompatActivity {
                 year_view_adapter = new ElementViewAdapter(MainActivity.this, ElementViewAdapter.MODE_CLASSTEST_HOMEWORK_EVENTS);
                 year_view.setAdapter(year_view_adapter);
                 if(year_view_adapter.getItemCount() == 0) {
-                    no_active_elements.setVisibility(View.VISIBLE);
+                    //no_active_elements.setVisibility(View.VISIBLE);
                 } else {
-                    no_active_elements.setVisibility(View.GONE);
+                    //no_active_elements.setVisibility(View.GONE);
                 }
             }
         });
@@ -1803,9 +1816,9 @@ public class MainActivity extends AppCompatActivity {
                 year_view_adapter = new ElementViewAdapter(MainActivity.this, ElementViewAdapter.MODE_CLASSTEST_HOMEWORK_EVENTS);
                 year_view.setAdapter(year_view_adapter);
                 if(year_view_adapter.getItemCount() == 0) {
-                    no_active_elements.setVisibility(View.VISIBLE);
+                    //no_active_elements.setVisibility(View.VISIBLE);
                 } else {
-                    no_active_elements.setVisibility(View.GONE);
+                    //no_active_elements.setVisibility(View.GONE);
                 }
             }
         });
@@ -1840,9 +1853,9 @@ public class MainActivity extends AppCompatActivity {
                 year_view_adapter = new ElementViewAdapter(MainActivity.this, ElementViewAdapter.MODE_CLASSTEST_HOMEWORK_EVENTS);
                 year_view.setAdapter(year_view_adapter);
                 if(year_view_adapter.getItemCount() == 0) {
-                    no_active_elements.setVisibility(View.VISIBLE);
+                    //no_active_elements.setVisibility(View.VISIBLE);
                 } else {
-                    no_active_elements.setVisibility(View.GONE);
+                    //no_active_elements.setVisibility(View.GONE);
                 }
             }
         });
@@ -1877,9 +1890,9 @@ public class MainActivity extends AppCompatActivity {
                 year_view_adapter = new ElementViewAdapter(MainActivity.this, ElementViewAdapter.MODE_CLASSTEST_HOMEWORK_EVENTS);
                 year_view.setAdapter(year_view_adapter);
                 if(year_view_adapter.getItemCount() == 0) {
-                    no_active_elements.setVisibility(View.VISIBLE);
+                    //no_active_elements.setVisibility(View.VISIBLE);
                 } else {
-                    no_active_elements.setVisibility(View.GONE);
+                    //no_active_elements.setVisibility(View.GONE);
                 }
             }
         });
@@ -1914,9 +1927,9 @@ public class MainActivity extends AppCompatActivity {
                 year_view_adapter = new ElementViewAdapter(MainActivity.this, ElementViewAdapter.MODE_CLASSTEST_HOMEWORK_EVENTS);
                 year_view.setAdapter(year_view_adapter);
                 if(year_view_adapter.getItemCount() == 0) {
-                    no_active_elements.setVisibility(View.VISIBLE);
+                    //no_active_elements.setVisibility(View.VISIBLE);
                 } else {
-                    no_active_elements.setVisibility(View.GONE);
+                    //no_active_elements.setVisibility(View.GONE);
                 }
             }
         });
@@ -1951,9 +1964,9 @@ public class MainActivity extends AppCompatActivity {
                 year_view_adapter = new ElementViewAdapter(MainActivity.this, ElementViewAdapter.MODE_CLASSTEST_HOMEWORK_EVENTS);
                 year_view.setAdapter(year_view_adapter);
                 if(year_view_adapter.getItemCount() == 0) {
-                    no_active_elements.setVisibility(View.VISIBLE);
+                    //no_active_elements.setVisibility(View.VISIBLE);
                 } else {
-                    no_active_elements.setVisibility(View.GONE);
+                    //no_active_elements.setVisibility(View.GONE);
                 }
             }
         });
@@ -1988,9 +2001,9 @@ public class MainActivity extends AppCompatActivity {
                 year_view_adapter = new ElementViewAdapter(MainActivity.this, ElementViewAdapter.MODE_CLASSTEST_HOMEWORK_EVENTS);
                 year_view.setAdapter(year_view_adapter);
                 if(year_view_adapter.getItemCount() == 0) {
-                    no_active_elements.setVisibility(View.VISIBLE);
+                    //no_active_elements.setVisibility(View.VISIBLE);
                 } else {
-                    no_active_elements.setVisibility(View.GONE);
+                    //no_active_elements.setVisibility(View.GONE);
                 }
             }
         });
@@ -2025,9 +2038,9 @@ public class MainActivity extends AppCompatActivity {
                 year_view_adapter = new ElementViewAdapter(MainActivity.this, ElementViewAdapter.MODE_CLASSTEST_HOMEWORK_EVENTS);
                 year_view.setAdapter(year_view_adapter);
                 if(year_view_adapter.getItemCount() == 0) {
-                    no_active_elements.setVisibility(View.VISIBLE);
+                    //no_active_elements.setVisibility(View.VISIBLE);
                 } else {
-                    no_active_elements.setVisibility(View.GONE);
+                    //no_active_elements.setVisibility(View.GONE);
                 }
             }
         });
@@ -2062,9 +2075,9 @@ public class MainActivity extends AppCompatActivity {
                 year_view_adapter = new ElementViewAdapter(MainActivity.this, ElementViewAdapter.MODE_CLASSTEST_HOMEWORK_EVENTS);
                 year_view.setAdapter(year_view_adapter);
                 if(year_view_adapter.getItemCount() == 0) {
-                    no_active_elements.setVisibility(View.VISIBLE);
+                    //no_active_elements.setVisibility(View.VISIBLE);
                 } else {
-                    no_active_elements.setVisibility(View.GONE);
+                    //no_active_elements.setVisibility(View.GONE);
                 }
             }
         });
@@ -2099,9 +2112,9 @@ public class MainActivity extends AppCompatActivity {
                 year_view_adapter = new ElementViewAdapter(MainActivity.this, ElementViewAdapter.MODE_CLASSTEST_HOMEWORK_EVENTS);
                 year_view.setAdapter(year_view_adapter);
                 if(year_view_adapter.getItemCount() == 0) {
-                    no_active_elements.setVisibility(View.VISIBLE);
+                    //no_active_elements.setVisibility(View.VISIBLE);
                 } else {
-                    no_active_elements.setVisibility(View.GONE);
+                    //no_active_elements.setVisibility(View.GONE);
                 }
             }
         });
