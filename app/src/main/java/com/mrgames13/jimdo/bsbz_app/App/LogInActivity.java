@@ -62,6 +62,9 @@ public class LogInActivity extends AppCompatActivity {
 	private Resources res;
     private ConnectivityManager cm;
     private ProgressBar pb;
+    private EditText et_username;
+    private EditText et_password;
+    private CheckBox cb_keep_logged_in;
 
     //Variablen
     private boolean pressedOnce;
@@ -113,7 +116,7 @@ public class LogInActivity extends AppCompatActivity {
 			String action = getIntent().getExtras().getString("Action");
 			if(action.equals("deleted account")) {
 				Toast.makeText(LogInActivity.this, res.getString(R.string.account_deleted_successfully), Toast.LENGTH_LONG).show();
-				getIntent().removeExtra("Action");
+                getIntent().removeExtra("Action");
 			} else if(action.equals("not deleted account")) {
 				Toast.makeText(LogInActivity.this, res.getString(R.string.account_deletion_failed), Toast.LENGTH_LONG).show();
                 getIntent().removeExtra("Action");
@@ -175,13 +178,13 @@ public class LogInActivity extends AppCompatActivity {
 		
 		//Ids herausfinden
 		//Edit Texte
-		final EditText name = (EditText) findViewById(R.id.LogIn_User_Name);
-		final EditText password = (EditText) findViewById(R.id.LogIn_Password);
-		final CheckBox cb = (CheckBox) findViewById(R.id.angemeldet_bleiben);
+		et_username = (EditText) findViewById(R.id.LogIn_User_Name);
+		et_password = (EditText) findViewById(R.id.LogIn_Password);
+		cb_keep_logged_in = (CheckBox) findViewById(R.id.angemeldet_bleiben);
 		//Buttons
 		final Button login = (Button) findViewById(R.id.LogIn_LogIn);
 		//Button-Ausgrau-Mechanismus aufsetzen
-		name.addTextChangedListener(new TextWatcher() {
+		et_username.addTextChangedListener(new TextWatcher() {
 			@Override
 			public void onTextChanged(CharSequence s, int start, int before, int count) {}
 			
@@ -190,11 +193,11 @@ public class LogInActivity extends AppCompatActivity {
 			
 			@Override
 			public void afterTextChanged(Editable s) {
-				login.setEnabled(s.length() > 0 && password.getText().length() > 0);
-				cb.setEnabled(s.length() > 0 && password.getText().length() > 0);
+				login.setEnabled(s.length() > 0 && et_password.getText().length() > 0);
+				cb_keep_logged_in.setEnabled(s.length() > 0 && et_password.getText().length() > 0);
 			}
 		});
-		password.addTextChangedListener(new TextWatcher() {
+		et_password.addTextChangedListener(new TextWatcher() {
 			@Override
 			public void onTextChanged(CharSequence s, int start, int before, int count) {}
 			
@@ -203,17 +206,17 @@ public class LogInActivity extends AppCompatActivity {
 			
 			@Override
 			public void afterTextChanged(Editable s) {
-				login.setEnabled(s.length() > 0 && name.getText().length() > 0);
-				cb.setEnabled(s.length() > 0 && name.getText().length() > 0);
+				login.setEnabled(s.length() > 0 && et_username.getText().length() > 0);
+				cb_keep_logged_in.setEnabled(s.length() > 0 && et_username.getText().length() > 0);
 			}
 		});
-		password.setOnEditorActionListener(new OnEditorActionListener() {
+		et_password.setOnEditorActionListener(new OnEditorActionListener() {
 			@Override
 			public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                 //Strings auslesen und Leerzeichen durch '+' ersetzen
-                final String username = name.getText().toString();
-                final String password_string = password.getText().toString();
-                final boolean ab = cb.isChecked();
+                final String username = et_username.getText().toString();
+                final String password_string = et_password.getText().toString();
+                final boolean ab = cb_keep_logged_in.isChecked();
                 //Einloggen
                 if(!username.equals("") && !password_string.equals("")) {
                     LogIn(username, password_string, androidversion, CURRENTVERSION, ab);
@@ -222,7 +225,7 @@ public class LogInActivity extends AppCompatActivity {
 			}
 		});
 		login.setEnabled(false);
-		cb.setEnabled(false);
+		cb_keep_logged_in.setEnabled(false);
 		
 		login.requestFocus();
 		
@@ -231,9 +234,9 @@ public class LogInActivity extends AppCompatActivity {
 			@Override
 			public void onClick(View v) {
 				//Strings auslesen und Leerzeichen durch '+' ersetzen
-				final String username = name.getText().toString();
-				final String password_string = password.getText().toString();
-				final boolean ab = cb.isChecked();
+				final String username = et_username.getText().toString();
+				final String password_string = et_password.getText().toString();
+				final boolean ab = cb_keep_logged_in.isChecked();
 				//Einloggen
 				if(!username.equals("") && !password_string.equals("")) {
 					LogIn(username, password_string, androidversion, CURRENTVERSION, ab);
@@ -270,8 +273,8 @@ public class LogInActivity extends AppCompatActivity {
         pb = (ProgressBar) findViewById(R.id.login_in_progress);
 
         if(!current_account.getUsername().equals(res.getString(R.string.guest))) {
-            name.setText(current_account.getUsername());
-            password.requestFocus();
+            et_username.setText(current_account.getUsername());
+            et_password.requestFocus();
         }
 
         //Auf Updates prüfen

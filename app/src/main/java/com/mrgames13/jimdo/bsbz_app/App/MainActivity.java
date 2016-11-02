@@ -2294,8 +2294,6 @@ public class MainActivity extends AppCompatActivity {
         container.removeAllViews();
         //Layout-Datei entfalten
         layoutInflater.inflate(R.layout.fragment_speiseplan, container);
-        //Speiseplan anzeigen
-        //ID herausfinden
         //Lade - TextView
         final TextView laden = (TextView) findViewById(R.id.laden1);
         laden.setVisibility(View.VISIBLE);

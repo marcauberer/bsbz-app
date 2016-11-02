@@ -49,7 +49,9 @@
             </intent-filter>
         </activity>
         <!-- SettingsActivity -->
-        <activity android:name=".App.SettingsActivity">
+        <activity
+            android:name=".App.SettingsActivity"
+            android:windowSoftInputMode="adjustPan">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
             </intent-filter>
@@ -82,9 +84,6 @@
                 <action android:name="android.intent.action.MAIN"/>
             </intent-filter>
         </activity>
-        <!-- HDetailsActivity -->
-        <!-- KDetailsActivity -->
-        <!-- TDetailsActivity -->
         <!-- NewNewActivity -->
         <activity
             android:name=".App.NewNewActivity"

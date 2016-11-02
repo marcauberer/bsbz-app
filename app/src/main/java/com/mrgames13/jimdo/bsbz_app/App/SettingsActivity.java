@@ -249,6 +249,7 @@ public class SettingsActivity extends PreferenceActivity {
                                                 //Activity starten
                                                 Intent i = new Intent(SettingsActivity.this,LogInActivity.class);
                                                 if(result.equals("Action Successful")) {
+													au.LogOut();
 													su.putBoolean("Angemeldet bleiben", false);
                                                     //Extra erstellen
                                                     i.putExtra("Action", "deleted account");
