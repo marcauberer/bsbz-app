@@ -371,6 +371,7 @@ public class TimeTableActivity extends AppCompatActivity {
             Intent i = new Intent(this, EditTimeTableActivity.class);
             i.putExtra("class", current_account.getForm());
 			startActivity(i);
+			finish();
 			return true;
 		} else if(id == android.R.id.home) {
 			finish();

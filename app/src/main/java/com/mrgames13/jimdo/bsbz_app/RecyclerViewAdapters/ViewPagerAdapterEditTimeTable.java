@@ -8,7 +8,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v7.app.AlertDialog;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -38,10 +37,20 @@ public class ViewPagerAdapterEditTimeTable extends FragmentPagerAdapter {
     private ArrayList<String> tabTitles = new ArrayList<>();
     private static ArrayList<String> savedSubjects = new ArrayList<>();
     private static StorageUtils su;
+    public static MondayFragment mondayFragment = null;
+    public static TuesdayFragment tuesdayFragment = null;
+    public static WednesdayFragment wednesdayFragment = null;
+    public static ThursdayFragment thursdayFragment = null;
+    public static FridayFragment fridayFragment = null;
 
     //Variablen
     public static String selectedName;
     public static String selectedShort;
+    public static String mondayDayCodeTmp = null;
+    public static String tuesdayDayCodeTmp = null;
+    public static String wednesdayDayCodeTmp = null;
+    public static String thursdayCodeTmp = null;
+    public static String fridayDayCodeTmp = null;
 
     //Konstruktor
     public ViewPagerAdapterEditTimeTable(FragmentManager manager, Resources res, StorageUtils su, TimeTable timetable) {
@@ -58,11 +67,11 @@ public class ViewPagerAdapterEditTimeTable extends FragmentPagerAdapter {
 
     @Override
     public Fragment getItem(int pos) {
-        if(pos == 0) return new MondayFragment();
-        if(pos == 1) return new TuesdayFragment();
-        if(pos == 2) return new WednesdayFragment();
-        if(pos == 3) return new ThursdayFragment();
-        if(pos == 4) return new FridayFragment();
+        if(pos == 0) return mondayFragment = new MondayFragment();
+        if(pos == 1) return tuesdayFragment = new TuesdayFragment();
+        if(pos == 2) return wednesdayFragment = new WednesdayFragment();
+        if(pos == 3) return thursdayFragment = new ThursdayFragment();
+        if(pos == 4) return fridayFragment = new FridayFragment();
         return null;
     }
 
@@ -82,7 +91,17 @@ public class ViewPagerAdapterEditTimeTable extends FragmentPagerAdapter {
         //Konstanten
 
         //Variablen als Objekte
-        private View contentView;
+        public static View contentView;
+        public static Button hour1;
+        public static Button hour2;
+        public static Button hour3;
+        public static Button hour4;
+        public static Button hour5;
+        public static Button hour6;
+        public static Button hour7;
+        public static Button hour8;
+        public static Button hour9;
+        public static Button hour10;
 
         //Variablen
 
@@ -91,16 +110,16 @@ public class ViewPagerAdapterEditTimeTable extends FragmentPagerAdapter {
         public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
             contentView = inflater.inflate(R.layout.edit_timetable_day, null);
             //LayoutElemente initialisieren
-            Button hour1 = (Button) contentView.findViewById(R.id.edit_timetable_hour_1);
-            Button hour2 = (Button) contentView.findViewById(R.id.edit_timetable_hour_2);
-            Button hour3 = (Button) contentView.findViewById(R.id.edit_timetable_hour_3);
-            Button hour4 = (Button) contentView.findViewById(R.id.edit_timetable_hour_4);
-            Button hour5 = (Button) contentView.findViewById(R.id.edit_timetable_hour_5);
-            Button hour6 = (Button) contentView.findViewById(R.id.edit_timetable_hour_6);
-            Button hour7 = (Button) contentView.findViewById(R.id.edit_timetable_hour_7);
-            Button hour8 = (Button) contentView.findViewById(R.id.edit_timetable_hour_8);
-            Button hour9 = (Button) contentView.findViewById(R.id.edit_timetable_hour_9);
-            Button hour10 = (Button) contentView.findViewById(R.id.edit_timetable_hour_10);
+            hour1 = (Button) contentView.findViewById(R.id.edit_timetable_hour_1);
+            hour2 = (Button) contentView.findViewById(R.id.edit_timetable_hour_2);
+            hour3 = (Button) contentView.findViewById(R.id.edit_timetable_hour_3);
+            hour4 = (Button) contentView.findViewById(R.id.edit_timetable_hour_4);
+            hour5 = (Button) contentView.findViewById(R.id.edit_timetable_hour_5);
+            hour6 = (Button) contentView.findViewById(R.id.edit_timetable_hour_6);
+            hour7 = (Button) contentView.findViewById(R.id.edit_timetable_hour_7);
+            hour8 = (Button) contentView.findViewById(R.id.edit_timetable_hour_8);
+            hour9 = (Button) contentView.findViewById(R.id.edit_timetable_hour_9);
+            hour10 = (Button) contentView.findViewById(R.id.edit_timetable_hour_10);
             //OnClickListener setzen
             hour1.setOnClickListener(this);
             hour2.setOnClickListener(this);
@@ -199,7 +218,6 @@ public class ViewPagerAdapterEditTimeTable extends FragmentPagerAdapter {
                 public void onClick(DialogInterface dialog, int which) {
                     if(rd_specific.isChecked()) {
                         String selectedItem = spinner.getSelectedItem().toString();
-                        Log.d("BSBZ-App", "'" + selectedItem + "'");
                         selectedShort = selectedItem.substring(selectedItem.indexOf("(")+1, selectedItem.indexOf(")"));
                     } else if(rd_other.isChecked()) {
                         selectedName = et_text.getText().toString().trim();
@@ -213,6 +231,10 @@ public class ViewPagerAdapterEditTimeTable extends FragmentPagerAdapter {
             });
             alert.show();
         }
+
+        public String getHourCodes() {
+            return hour1.getText().toString() + "," + hour2.getText().toString() + "," + hour3.getText().toString() + "," + hour4.getText().toString() + "," + hour5.getText().toString() + "," + hour6.getText().toString() + "," + hour7.getText().toString() + "," + hour8.getText().toString() + "," + hour9.getText().toString() + "," + hour10.getText().toString();
+        }
     }
 
     public static class TuesdayFragment extends Fragment implements View.OnClickListener {
@@ -220,6 +242,16 @@ public class ViewPagerAdapterEditTimeTable extends FragmentPagerAdapter {
 
         //Variablen als Objekte
         private View contentView;
+        public static Button hour1;
+        public static Button hour2;
+        public static Button hour3;
+        public static Button hour4;
+        public static Button hour5;
+        public static Button hour6;
+        public static Button hour7;
+        public static Button hour8;
+        public static Button hour9;
+        public static Button hour10;
 
         //Variablen
 
@@ -228,16 +260,16 @@ public class ViewPagerAdapterEditTimeTable extends FragmentPagerAdapter {
         public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
             contentView = inflater.inflate(R.layout.edit_timetable_day, null);
             //LayoutElemente initialisieren
-            Button hour1 = (Button) contentView.findViewById(R.id.edit_timetable_hour_1);
-            Button hour2 = (Button) contentView.findViewById(R.id.edit_timetable_hour_2);
-            Button hour3 = (Button) contentView.findViewById(R.id.edit_timetable_hour_3);
-            Button hour4 = (Button) contentView.findViewById(R.id.edit_timetable_hour_4);
-            Button hour5 = (Button) contentView.findViewById(R.id.edit_timetable_hour_5);
-            Button hour6 = (Button) contentView.findViewById(R.id.edit_timetable_hour_6);
-            Button hour7 = (Button) contentView.findViewById(R.id.edit_timetable_hour_7);
-            Button hour8 = (Button) contentView.findViewById(R.id.edit_timetable_hour_8);
-            Button hour9 = (Button) contentView.findViewById(R.id.edit_timetable_hour_9);
-            Button hour10 = (Button) contentView.findViewById(R.id.edit_timetable_hour_10);
+            hour1 = (Button) contentView.findViewById(R.id.edit_timetable_hour_1);
+            hour2 = (Button) contentView.findViewById(R.id.edit_timetable_hour_2);
+            hour3 = (Button) contentView.findViewById(R.id.edit_timetable_hour_3);
+            hour4 = (Button) contentView.findViewById(R.id.edit_timetable_hour_4);
+            hour5 = (Button) contentView.findViewById(R.id.edit_timetable_hour_5);
+            hour6 = (Button) contentView.findViewById(R.id.edit_timetable_hour_6);
+            hour7 = (Button) contentView.findViewById(R.id.edit_timetable_hour_7);
+            hour8 = (Button) contentView.findViewById(R.id.edit_timetable_hour_8);
+            hour9 = (Button) contentView.findViewById(R.id.edit_timetable_hour_9);
+            hour10 = (Button) contentView.findViewById(R.id.edit_timetable_hour_10);
             //OnClickListener setzen
             hour1.setOnClickListener(this);
             hour2.setOnClickListener(this);
@@ -299,6 +331,14 @@ public class ViewPagerAdapterEditTimeTable extends FragmentPagerAdapter {
 
             final Spinner spinner = (Spinner) dialogView.findViewById(R.id.spnr_specific_subject);
 
+            String[] subject_res = getResources().getStringArray(R.array.subject_items);
+            List<String> subject_res_list = new ArrayList<>();
+            subject_res_list.addAll(Arrays.asList(subject_res));
+            subject_res_list.addAll(su.getSavedSubjects());
+            ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_item, subject_res_list);
+            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            spinner.setAdapter(adapter);
+
             final EditText et_text = (EditText) dialogView.findViewById(R.id.et_other_subject_text);
             final EditText et_short = (EditText) dialogView.findViewById(R.id.et_other_subject_short);
 
@@ -331,14 +371,18 @@ public class ViewPagerAdapterEditTimeTable extends FragmentPagerAdapter {
                         selectedShort = selectedItem.substring(selectedItem.indexOf("(")+1, selectedItem.indexOf(")"));
                     } else if(rd_other.isChecked()) {
                         selectedShort = et_short.getText().toString();
-                        //Neues Fach in den SharedPreferences anlegen
-
+                        //Neues Fach anlegen
+                        su.addNewSavedSubject(selectedName, selectedShort);
                     }
                     Button btn = (Button) v;
                     btn.setText(selectedShort);
                 }
             });
             alert.show();
+        }
+
+        public String getHourCodes() {
+            return hour1.getText().toString() + "," + hour2.getText().toString() + "," + hour3.getText().toString() + "," + hour4.getText().toString() + "," + hour5.getText().toString() + "," + hour6.getText().toString() + "," + hour7.getText().toString() + "," + hour8.getText().toString() + "," + hour9.getText().toString() + "," + hour10.getText().toString();
         }
     }
 
@@ -347,6 +391,16 @@ public class ViewPagerAdapterEditTimeTable extends FragmentPagerAdapter {
 
         //Variablen als Objekte
         private View contentView;
+        public static Button hour1;
+        public static Button hour2;
+        public static Button hour3;
+        public static Button hour4;
+        public static Button hour5;
+        public static Button hour6;
+        public static Button hour7;
+        public static Button hour8;
+        public static Button hour9;
+        public static Button hour10;
 
         //Variablen
 
@@ -355,16 +409,16 @@ public class ViewPagerAdapterEditTimeTable extends FragmentPagerAdapter {
         public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
             contentView = inflater.inflate(R.layout.edit_timetable_day, null);
             //LayoutElemente initialisieren
-            Button hour1 = (Button) contentView.findViewById(R.id.edit_timetable_hour_1);
-            Button hour2 = (Button) contentView.findViewById(R.id.edit_timetable_hour_2);
-            Button hour3 = (Button) contentView.findViewById(R.id.edit_timetable_hour_3);
-            Button hour4 = (Button) contentView.findViewById(R.id.edit_timetable_hour_4);
-            Button hour5 = (Button) contentView.findViewById(R.id.edit_timetable_hour_5);
-            Button hour6 = (Button) contentView.findViewById(R.id.edit_timetable_hour_6);
-            Button hour7 = (Button) contentView.findViewById(R.id.edit_timetable_hour_7);
-            Button hour8 = (Button) contentView.findViewById(R.id.edit_timetable_hour_8);
-            Button hour9 = (Button) contentView.findViewById(R.id.edit_timetable_hour_9);
-            Button hour10 = (Button) contentView.findViewById(R.id.edit_timetable_hour_10);
+            hour1 = (Button) contentView.findViewById(R.id.edit_timetable_hour_1);
+            hour2 = (Button) contentView.findViewById(R.id.edit_timetable_hour_2);
+            hour3 = (Button) contentView.findViewById(R.id.edit_timetable_hour_3);
+            hour4 = (Button) contentView.findViewById(R.id.edit_timetable_hour_4);
+            hour5 = (Button) contentView.findViewById(R.id.edit_timetable_hour_5);
+            hour6 = (Button) contentView.findViewById(R.id.edit_timetable_hour_6);
+            hour7 = (Button) contentView.findViewById(R.id.edit_timetable_hour_7);
+            hour8 = (Button) contentView.findViewById(R.id.edit_timetable_hour_8);
+            hour9 = (Button) contentView.findViewById(R.id.edit_timetable_hour_9);
+            hour10 = (Button) contentView.findViewById(R.id.edit_timetable_hour_10);
             //OnClickListener setzen
             hour1.setOnClickListener(this);
             hour2.setOnClickListener(this);
@@ -426,6 +480,14 @@ public class ViewPagerAdapterEditTimeTable extends FragmentPagerAdapter {
 
             final Spinner spinner = (Spinner) dialogView.findViewById(R.id.spnr_specific_subject);
 
+            String[] subject_res = getResources().getStringArray(R.array.subject_items);
+            List<String> subject_res_list = new ArrayList<>();
+            subject_res_list.addAll(Arrays.asList(subject_res));
+            subject_res_list.addAll(su.getSavedSubjects());
+            ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_item, subject_res_list);
+            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            spinner.setAdapter(adapter);
+
             final EditText et_text = (EditText) dialogView.findViewById(R.id.et_other_subject_text);
             final EditText et_short = (EditText) dialogView.findViewById(R.id.et_other_subject_short);
 
@@ -458,14 +520,18 @@ public class ViewPagerAdapterEditTimeTable extends FragmentPagerAdapter {
                         selectedShort = selectedItem.substring(selectedItem.indexOf("(")+1, selectedItem.indexOf(")"));
                     } else if(rd_other.isChecked()) {
                         selectedShort = et_short.getText().toString();
-                        //Neues Fach in den SharedPreferences anlegen
-
+                        //Neues Fach anlegen
+                        su.addNewSavedSubject(selectedName, selectedShort);
                     }
                     Button btn = (Button) v;
                     btn.setText(selectedShort);
                 }
             });
             alert.show();
+        }
+
+        public String getHourCodes() {
+            return hour1.getText().toString() + "," + hour2.getText().toString() + "," + hour3.getText().toString() + "," + hour4.getText().toString() + "," + hour5.getText().toString() + "," + hour6.getText().toString() + "," + hour7.getText().toString() + "," + hour8.getText().toString() + "," + hour9.getText().toString() + "," + hour10.getText().toString();
         }
     }
 
@@ -474,6 +540,16 @@ public class ViewPagerAdapterEditTimeTable extends FragmentPagerAdapter {
 
         //Variablen als Objekte
         private View contentView;
+        public static Button hour1;
+        public static Button hour2;
+        public static Button hour3;
+        public static Button hour4;
+        public static Button hour5;
+        public static Button hour6;
+        public static Button hour7;
+        public static Button hour8;
+        public static Button hour9;
+        public static Button hour10;
 
         //Variablen
 
@@ -482,16 +558,16 @@ public class ViewPagerAdapterEditTimeTable extends FragmentPagerAdapter {
         public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
             contentView = inflater.inflate(R.layout.edit_timetable_day, null);
             //LayoutElemente initialisieren
-            Button hour1 = (Button) contentView.findViewById(R.id.edit_timetable_hour_1);
-            Button hour2 = (Button) contentView.findViewById(R.id.edit_timetable_hour_2);
-            Button hour3 = (Button) contentView.findViewById(R.id.edit_timetable_hour_3);
-            Button hour4 = (Button) contentView.findViewById(R.id.edit_timetable_hour_4);
-            Button hour5 = (Button) contentView.findViewById(R.id.edit_timetable_hour_5);
-            Button hour6 = (Button) contentView.findViewById(R.id.edit_timetable_hour_6);
-            Button hour7 = (Button) contentView.findViewById(R.id.edit_timetable_hour_7);
-            Button hour8 = (Button) contentView.findViewById(R.id.edit_timetable_hour_8);
-            Button hour9 = (Button) contentView.findViewById(R.id.edit_timetable_hour_9);
-            Button hour10 = (Button) contentView.findViewById(R.id.edit_timetable_hour_10);
+            hour1 = (Button) contentView.findViewById(R.id.edit_timetable_hour_1);
+            hour2 = (Button) contentView.findViewById(R.id.edit_timetable_hour_2);
+            hour3 = (Button) contentView.findViewById(R.id.edit_timetable_hour_3);
+            hour4 = (Button) contentView.findViewById(R.id.edit_timetable_hour_4);
+            hour5 = (Button) contentView.findViewById(R.id.edit_timetable_hour_5);
+            hour6 = (Button) contentView.findViewById(R.id.edit_timetable_hour_6);
+            hour7 = (Button) contentView.findViewById(R.id.edit_timetable_hour_7);
+            hour8 = (Button) contentView.findViewById(R.id.edit_timetable_hour_8);
+            hour9 = (Button) contentView.findViewById(R.id.edit_timetable_hour_9);
+            hour10 = (Button) contentView.findViewById(R.id.edit_timetable_hour_10);
             //OnClickListener setzen
             hour1.setOnClickListener(this);
             hour2.setOnClickListener(this);
@@ -553,6 +629,14 @@ public class ViewPagerAdapterEditTimeTable extends FragmentPagerAdapter {
 
             final Spinner spinner = (Spinner) dialogView.findViewById(R.id.spnr_specific_subject);
 
+            String[] subject_res = getResources().getStringArray(R.array.subject_items);
+            List<String> subject_res_list = new ArrayList<>();
+            subject_res_list.addAll(Arrays.asList(subject_res));
+            subject_res_list.addAll(su.getSavedSubjects());
+            ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_item, subject_res_list);
+            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            spinner.setAdapter(adapter);
+
             final EditText et_text = (EditText) dialogView.findViewById(R.id.et_other_subject_text);
             final EditText et_short = (EditText) dialogView.findViewById(R.id.et_other_subject_short);
 
@@ -585,14 +669,18 @@ public class ViewPagerAdapterEditTimeTable extends FragmentPagerAdapter {
                         selectedShort = selectedItem.substring(selectedItem.indexOf("(")+1, selectedItem.indexOf(")"));
                     } else if(rd_other.isChecked()) {
                         selectedShort = et_short.getText().toString();
-                        //Neues Fach in den SharedPreferences anlegen
-
+                        //Neues Fach anlegen
+                        su.addNewSavedSubject(selectedName, selectedShort);
                     }
                     Button btn = (Button) v;
                     btn.setText(selectedShort);
                 }
             });
             alert.show();
+        }
+
+        public String getHourCodes() {
+            return hour1.getText().toString() + "," + hour2.getText().toString() + "," + hour3.getText().toString() + "," + hour4.getText().toString() + "," + hour5.getText().toString() + "," + hour6.getText().toString() + "," + hour7.getText().toString() + "," + hour8.getText().toString() + "," + hour9.getText().toString() + "," + hour10.getText().toString();
         }
     }
 
@@ -601,6 +689,16 @@ public class ViewPagerAdapterEditTimeTable extends FragmentPagerAdapter {
 
         //Variablen als Objekte
         private View contentView;
+        public static Button hour1;
+        public static Button hour2;
+        public static Button hour3;
+        public static Button hour4;
+        public static Button hour5;
+        public static Button hour6;
+        public static Button hour7;
+        public static Button hour8;
+        public static Button hour9;
+        public static Button hour10;
 
         //Variablen
 
@@ -609,16 +707,16 @@ public class ViewPagerAdapterEditTimeTable extends FragmentPagerAdapter {
         public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
             contentView = inflater.inflate(R.layout.edit_timetable_day, null);
             //LayoutElemente initialisieren
-            Button hour1 = (Button) contentView.findViewById(R.id.edit_timetable_hour_1);
-            Button hour2 = (Button) contentView.findViewById(R.id.edit_timetable_hour_2);
-            Button hour3 = (Button) contentView.findViewById(R.id.edit_timetable_hour_3);
-            Button hour4 = (Button) contentView.findViewById(R.id.edit_timetable_hour_4);
-            Button hour5 = (Button) contentView.findViewById(R.id.edit_timetable_hour_5);
-            Button hour6 = (Button) contentView.findViewById(R.id.edit_timetable_hour_6);
-            Button hour7 = (Button) contentView.findViewById(R.id.edit_timetable_hour_7);
-            Button hour8 = (Button) contentView.findViewById(R.id.edit_timetable_hour_8);
-            Button hour9 = (Button) contentView.findViewById(R.id.edit_timetable_hour_9);
-            Button hour10 = (Button) contentView.findViewById(R.id.edit_timetable_hour_10);
+            hour1 = (Button) contentView.findViewById(R.id.edit_timetable_hour_1);
+            hour2 = (Button) contentView.findViewById(R.id.edit_timetable_hour_2);
+            hour3 = (Button) contentView.findViewById(R.id.edit_timetable_hour_3);
+            hour4 = (Button) contentView.findViewById(R.id.edit_timetable_hour_4);
+            hour5 = (Button) contentView.findViewById(R.id.edit_timetable_hour_5);
+            hour6 = (Button) contentView.findViewById(R.id.edit_timetable_hour_6);
+            hour7 = (Button) contentView.findViewById(R.id.edit_timetable_hour_7);
+            hour8 = (Button) contentView.findViewById(R.id.edit_timetable_hour_8);
+            hour9 = (Button) contentView.findViewById(R.id.edit_timetable_hour_9);
+            hour10 = (Button) contentView.findViewById(R.id.edit_timetable_hour_10);
             //OnClickListener setzen
             hour1.setOnClickListener(this);
             hour2.setOnClickListener(this);
@@ -680,6 +778,14 @@ public class ViewPagerAdapterEditTimeTable extends FragmentPagerAdapter {
 
             final Spinner spinner = (Spinner) dialogView.findViewById(R.id.spnr_specific_subject);
 
+            String[] subject_res = getResources().getStringArray(R.array.subject_items);
+            List<String> subject_res_list = new ArrayList<>();
+            subject_res_list.addAll(Arrays.asList(subject_res));
+            subject_res_list.addAll(su.getSavedSubjects());
+            ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_item, subject_res_list);
+            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            spinner.setAdapter(adapter);
+
             final EditText et_text = (EditText) dialogView.findViewById(R.id.et_other_subject_text);
             final EditText et_short = (EditText) dialogView.findViewById(R.id.et_other_subject_short);
 
@@ -712,8 +818,8 @@ public class ViewPagerAdapterEditTimeTable extends FragmentPagerAdapter {
                         selectedShort = selectedItem.substring(selectedItem.indexOf("(")+1, selectedItem.indexOf(")"));
                     } else if(rd_other.isChecked()) {
                         selectedShort = et_short.getText().toString();
-                        //Neues Fach in den SharedPreferences anlegen
-
+                        //Neues Fach anlegen
+                        su.addNewSavedSubject(selectedName, selectedShort);
                     }
                     Button btn = (Button) v;
                     btn.setText(selectedShort);
@@ -721,5 +827,54 @@ public class ViewPagerAdapterEditTimeTable extends FragmentPagerAdapter {
             });
             alert.show();
         }
+
+        public String getHourCodes() {
+            return hour1.getText().toString() + "," + hour2.getText().toString() + "," + hour3.getText().toString() + "," + hour4.getText().toString() + "," + hour5.getText().toString() + "," + hour6.getText().toString() + "," + hour7.getText().toString() + "," + hour8.getText().toString() + "," + hour9.getText().toString() + "," + hour10.getText().toString();
+        }
+    }
+
+    //----------------------------------------------Methoden------------------------------------------------
+
+    public void saveTmp() {
+        if(mondayFragment != null) mondayDayCodeTmp = mondayFragment.getHourCodes();
+        if(tuesdayFragment != null) tuesdayDayCodeTmp = tuesdayFragment.getHourCodes();
+        if(wednesdayFragment != null) wednesdayDayCodeTmp = wednesdayFragment.getHourCodes();
+        if(thursdayFragment != null) thursdayCodeTmp = thursdayFragment.getHourCodes();
+        if(fridayFragment != null) fridayDayCodeTmp = fridayFragment.getHourCodes();
+    }
+
+    public String getTimeTableCode() {
+        String mondayCode;
+        String tuesdayCode;
+        String wednesdayCode;
+        String thursdayCode;
+        String fridayCode;
+        if(mondayDayCodeTmp != null) {
+            mondayCode = mondayDayCodeTmp;
+        } else {
+            mondayCode = mondayFragment.getHourCodes();
+        }
+        if(tuesdayDayCodeTmp != null) {
+            tuesdayCode = tuesdayDayCodeTmp;
+        } else {
+            tuesdayCode = tuesdayFragment.getHourCodes();
+        }
+        if(wednesdayDayCodeTmp != null) {
+            wednesdayCode = wednesdayDayCodeTmp;
+        } else {
+            wednesdayCode = wednesdayFragment.getHourCodes();
+        }
+        if(thursdayCodeTmp != null) {
+            thursdayCode = thursdayCodeTmp;
+        } else {
+            thursdayCode = thursdayFragment.getHourCodes();
+        }
+        if(fridayDayCodeTmp != null) {
+            fridayCode = fridayDayCodeTmp;
+        } else {
+            fridayCode = fridayFragment.getHourCodes();
+        }
+        String timetableCode = mondayCode + ";" + tuesdayCode + ";" + wednesdayCode + ";" + thursdayCode + ";" + fridayCode;
+        return timetableCode;
     }
 }

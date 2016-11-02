@@ -375,5 +375,7 @@
     <string name="selected_server">Ausgewählter App-Server</string>
     <string name="normal_server">M&#38;R Games Server 01</string>
     <string name="test_server">M&#38;R Games Testserver 01</string>
+    <string name="commit_changings">Änderungen veröffentlichen</string>
+    <string name="do_you_want_to_publish_timetable">Wollen Sie den veränderten Stundenplan wirklich veröffentlichen?</string>
 
 </resources>

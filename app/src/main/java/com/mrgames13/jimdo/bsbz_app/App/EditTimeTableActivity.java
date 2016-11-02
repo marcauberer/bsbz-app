@@ -1,23 +1,37 @@
 package com.mrgames13.jimdo.bsbz_app.App;
 
+import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.net.ConnectivityManager;
 import android.os.Bundle;
+import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
+import com.mrgames13.jimdo.bsbz_app.CommonObjects.Account;
 import com.mrgames13.jimdo.bsbz_app.CommonObjects.TimeTable;
 import com.mrgames13.jimdo.bsbz_app.R;
 import com.mrgames13.jimdo.bsbz_app.RecyclerViewAdapters.ViewPagerAdapterEditTimeTable;
+import com.mrgames13.jimdo.bsbz_app.Services.SyncronisationService;
+import com.mrgames13.jimdo.bsbz_app.Tools.AccountUtils;
+import com.mrgames13.jimdo.bsbz_app.Tools.ServerMessagingUtils;
 import com.mrgames13.jimdo.bsbz_app.Tools.StorageUtils;
+
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 
 public class EditTimeTableActivity extends AppCompatActivity {
     //Konstanten
@@ -29,10 +43,17 @@ public class EditTimeTableActivity extends AppCompatActivity {
     private ViewPagerAdapterEditTimeTable viewpager_adapter;
     private Resources res;
     private StorageUtils su;
+    private static ConnectivityManager cm;
+    private ServerMessagingUtils serverMessagingUtils;
+    private AccountUtils au;
     private TimeTable timetable;
+    private ProgressDialog pd;
 
     //Variablen
     private String klasse;
+    private Account current_user;
+    private String result;
+    private boolean pressedOnce;
 
     @Override
     protected void onStart() {
@@ -80,6 +101,16 @@ public class EditTimeTableActivity extends AppCompatActivity {
         //StorageUtils initialisieren
         su = new StorageUtils(EditTimeTableActivity.this, res);
 
+        //AccountUtils initialisieren
+        au = new AccountUtils(su);
+
+        //Aktuellen Account laden
+        current_user = au.getLastUser();
+
+        //ServerMessagingUtils initialisieren
+        cm = (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE);
+        serverMessagingUtils = new ServerMessagingUtils(cm, this);
+
         //Extras aus dem Intent auslesen
         klasse = getIntent().getStringExtra("class");
         timetable = su.getTimeTable(klasse);
@@ -123,10 +154,112 @@ public class EditTimeTableActivity extends AppCompatActivity {
         if (id == R.id.action_settings) {
             startActivity(new Intent(this, SettingsActivity.class));
             return true;
+        } else if(id == R.id.action_commit_timetable_changings) {
+
+            AlertDialog d = new AlertDialog.Builder(EditTimeTableActivity.this)
+                    .setTitle(res.getString(R.string.publish))
+                    .setMessage(res.getString(R.string.do_you_want_to_publish_timetable))
+                    .setNegativeButton(res.getString(R.string.no), new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                        }
+                    })
+                    .setPositiveButton(res.getString(R.string.publish), new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            //Aktionen durchführen
+                            viewpager_adapter.saveTmp();
+                            int current_position = viewpager.getCurrentItem();
+                            viewpager.setCurrentItem(0);
+                            viewpager.setCurrentItem(1);
+                            viewpager.setCurrentItem(2);
+                            viewpager.setCurrentItem(3);
+                            viewpager.setCurrentItem(4);
+                            viewpager.setCurrentItem(current_position);
+                            uploadTimeTableChangings(viewpager_adapter.getTimeTableCode());
+                            //Dialog schließen
+                            dialog.dismiss();
+                        }
+                    })
+                    .create();
+            d.show();
+            return true;
         } else if (id == android.R.id.home) {
-            finish();
+            if (!pressedOnce) {
+                pressedOnce = true;
+                Toast.makeText(EditTimeTableActivity.this, R.string.press_again_to_go_back_delete_entry, Toast.LENGTH_SHORT).show();
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        pressedOnce = false;
+                    }
+                }, 2500);
+            } else {
+                pressedOnce = false;
+                onBackPressed();
+            }
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            if (!pressedOnce) {
+                pressedOnce = true;
+                Toast.makeText(EditTimeTableActivity.this, R.string.press_again_to_go_back_delete_entry, Toast.LENGTH_SHORT).show();
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        pressedOnce = false;
+                    }
+                }, 2500);
+            } else {
+                pressedOnce = false;
+                onBackPressed();
+            }
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
+    }
+
+    private void uploadTimeTableChangings(final String changings) {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                //ProgressDialog anzeigen
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        pd = new ProgressDialog(EditTimeTableActivity.this);
+                        pd.setIndeterminate(true);
+                        pd.setTitle(res.getString(R.string.upload_changes));
+                        pd.setMessage(res.getString(R.string.changings_uploading_));
+                        pd.setCancelable(false);
+                        pd.show();
+                    }
+                });
+                //Änderungen hochladen
+                try {
+                    result = serverMessagingUtils.sendRequest(null, "name="+URLEncoder.encode(current_user.getUsername(), "UTF-8")+"&command=settimetable&class="+URLEncoder.encode(klasse, "UTF-8")+"&code="+URLEncoder.encode(changings, "UTF-8"));
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            if(result.equals("Action Successful")) {
+                                Toast.makeText(EditTimeTableActivity.this, res.getString(R.string.action_successful), Toast.LENGTH_SHORT).show();
+                            } else {
+                                Toast.makeText(EditTimeTableActivity.this, res.getString(R.string.action_failed), Toast.LENGTH_SHORT).show();
+                            }
+                            pd.dismiss();
+                            startService(new Intent(EditTimeTableActivity.this, SyncronisationService.class));
+                            finish();
+                        }
+                    });
+                } catch (UnsupportedEncodingException e) {}
+
+            }
+        }).start();
     }
 }
