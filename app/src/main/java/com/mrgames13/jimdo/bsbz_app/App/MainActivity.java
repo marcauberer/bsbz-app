@@ -157,6 +157,7 @@ public class MainActivity extends AppCompatActivity {
     public static ArrayList<String> gallery_view_foldernames;
     public static ArrayList<String> gallery_view_filenames;
     private int rights = Account.RIGHTS_STUDENT;
+    private int last_selected_month_in_plan_of_the_year = 0;
 
     //--------------------------------------------------------------------- Klassenmethoden ------------------------------------------------------------------------
 
