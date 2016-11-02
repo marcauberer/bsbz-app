@@ -93,6 +93,7 @@ public class MainActivity extends AppCompatActivity {
     public static String KEINE_TERMINE_TAG = "";
     public static String KEINE_KLASSENARBEITEN_TAG = "";
     public static String KEINE_HAUSAUFGABEN_TAG = "";
+    private final int PLAN_OF_THE_YEAR_BUTTON_WIDTH = 300;
 
     //Variablen als Objekte
     private Toolbar toolbar;
@@ -114,7 +115,6 @@ public class MainActivity extends AppCompatActivity {
     private ProgressDialog pd_Progress;
     private RecyclerView gallery_view;
     private RecyclerView news_view;
-    private RecyclerView year_view;
     private RecyclerView today_view;
     private RecyclerView.Adapter gallery_view_adapter;
     private RecyclerView.Adapter news_view_adapter;
@@ -149,7 +149,7 @@ public class MainActivity extends AppCompatActivity {
     private static String mi2 = "";
     private static String do2 = "";
     private static String fr2 = "";
-    private static int selectedMonth = 1;
+    private static int selectedMonth = 0;
     public static String color = "#ea690c";
     private static int Selected = 0;
     private static int selected_Menu_Item = 1;
@@ -161,7 +161,6 @@ public class MainActivity extends AppCompatActivity {
     public static ArrayList<String> gallery_view_foldernames;
     public static ArrayList<String> gallery_view_filenames;
     private int rights = Account.RIGHTS_STUDENT;
-    private int last_selected_month_in_plan_of_the_year = 0;
 
     //--------------------------------------------------------------------- Klassenmethoden ------------------------------------------------------------------------
 
@@ -288,6 +287,7 @@ public class MainActivity extends AppCompatActivity {
                         menuItem.setChecked(true);
                         selected_Menu_Item = 4;
                         toolbar.setTitle(res.getString(R.string.plan_of_the_year));
+                        selectedMonth = 0;
                         launchPlanOfTheYearFragment();
                         break;
                     }
@@ -1500,7 +1500,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
         //Aktuellen Monat ermitteln
-        selectedMonth = new Date().getMonth() +1;
+        if(selectedMonth == 0) selectedMonth = new Date().getMonth() +1;
         String month = String.valueOf(selectedMonth);
         if(month.length() != 2) month = "0" + month;
 
@@ -1525,8 +1525,6 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onTabReselected(TabLayout.Tab tab) {}
         });
-
-        adjustViewPager();
 
         if(rights == Account.RIGHTS_CLASSSPEAKER || rights == Account.RIGHTS_TEACHER || rights == Account.RIGHTS_ADMIN || rights == Account.RIGHTS_TEAM) {
             //FloatingAction Button
@@ -1640,37 +1638,37 @@ public class MainActivity extends AppCompatActivity {
             Selected = 0;
         } else if(selectedMonth == 2) {
             feb.setTextColor(Color.parseColor(color));
-            Selected = 250;
+            Selected = PLAN_OF_THE_YEAR_BUTTON_WIDTH;
         } else if(selectedMonth == 3) {
             ma.setTextColor(Color.parseColor(color));
-            Selected = 500;
+            Selected = PLAN_OF_THE_YEAR_BUTTON_WIDTH*2;
         } else if(selectedMonth == 4) {
             apr.setTextColor(Color.parseColor(color));
-            Selected = 750;
+            Selected = PLAN_OF_THE_YEAR_BUTTON_WIDTH*3;
         } else if(selectedMonth == 5) {
             mai.setTextColor(Color.parseColor(color));
-            Selected = 1000;
+            Selected = PLAN_OF_THE_YEAR_BUTTON_WIDTH*4;
         } else if(selectedMonth == 6) {
             jun.setTextColor(Color.parseColor(color));
-            Selected = 1250;
+            Selected = PLAN_OF_THE_YEAR_BUTTON_WIDTH*5;
         } else if(selectedMonth == 7) {
             jul.setTextColor(Color.parseColor(color));
-            Selected = 1500;
+            Selected = PLAN_OF_THE_YEAR_BUTTON_WIDTH*6;
         } else if(selectedMonth == 8) {
             aug.setTextColor(Color.parseColor(color));
-            Selected = 1750;
+            Selected = PLAN_OF_THE_YEAR_BUTTON_WIDTH*7;
         } else if(selectedMonth == 9) {
             sep.setTextColor(Color.parseColor(color));
-            Selected = 2000;
+            Selected = PLAN_OF_THE_YEAR_BUTTON_WIDTH*8;
         } else if(selectedMonth == 10) {
             okt.setTextColor(Color.parseColor(color));
-            Selected = 2250;
+            Selected = PLAN_OF_THE_YEAR_BUTTON_WIDTH*9;
         } else if(selectedMonth == 11) {
             nov.setTextColor(Color.parseColor(color));
-            Selected = 2500;
+            Selected = PLAN_OF_THE_YEAR_BUTTON_WIDTH*10;
         } else if(selectedMonth == 12) {
             dez.setTextColor(Color.parseColor(color));
-            Selected = 2750;
+            Selected = PLAN_OF_THE_YEAR_BUTTON_WIDTH*11;
         }
 
         //Auf selektierten Monat scrollen
@@ -1681,7 +1679,6 @@ public class MainActivity extends AppCompatActivity {
                 scrollView.smoothScrollTo(Selected, 0);
             }
         }, 0);
-
 
         //Button Januar
         jan.setOnClickListener(new View.OnClickListener() {
@@ -1727,7 +1724,7 @@ public class MainActivity extends AppCompatActivity {
                 okt.setTextColor(Color.parseColor("#000000"));
                 nov.setTextColor(Color.parseColor("#000000"));
                 dez.setTextColor(Color.parseColor("#000000"));
-                scrollView.smoothScrollTo(250,0);
+                scrollView.smoothScrollTo(PLAN_OF_THE_YEAR_BUTTON_WIDTH,0);
                 //Daten aktualisieren
                 viewpager_adapter = new ViewPagerAdapterPlanOfTheYear(getSupportFragmentManager(), getResources(), "02");
                 viewpager.setAdapter(viewpager_adapter);
@@ -1752,7 +1749,7 @@ public class MainActivity extends AppCompatActivity {
                 okt.setTextColor(Color.parseColor("#000000"));
                 nov.setTextColor(Color.parseColor("#000000"));
                 dez.setTextColor(Color.parseColor("#000000"));
-                scrollView.smoothScrollTo(500,0);
+                scrollView.smoothScrollTo(PLAN_OF_THE_YEAR_BUTTON_WIDTH*2,0);
                 //Daten aktualisieren
                 viewpager_adapter = new ViewPagerAdapterPlanOfTheYear(getSupportFragmentManager(), getResources(), "03");
                 viewpager.setAdapter(viewpager_adapter);
@@ -1777,7 +1774,7 @@ public class MainActivity extends AppCompatActivity {
                 okt.setTextColor(Color.parseColor("#000000"));
                 nov.setTextColor(Color.parseColor("#000000"));
                 dez.setTextColor(Color.parseColor("#000000"));
-                scrollView.smoothScrollTo(750,0);
+                scrollView.smoothScrollTo(PLAN_OF_THE_YEAR_BUTTON_WIDTH*3,0);
                 //Daten aktualisieren
                 viewpager_adapter = new ViewPagerAdapterPlanOfTheYear(getSupportFragmentManager(), getResources(), "04");
                 viewpager.setAdapter(viewpager_adapter);
@@ -1802,7 +1799,7 @@ public class MainActivity extends AppCompatActivity {
                 okt.setTextColor(Color.parseColor("#000000"));
                 nov.setTextColor(Color.parseColor("#000000"));
                 dez.setTextColor(Color.parseColor("#000000"));
-                scrollView.smoothScrollTo(1000,0);
+                scrollView.smoothScrollTo(PLAN_OF_THE_YEAR_BUTTON_WIDTH*4,0);
                 //Daten aktualisieren
                 viewpager_adapter = new ViewPagerAdapterPlanOfTheYear(getSupportFragmentManager(), getResources(), "05");
                 viewpager.setAdapter(viewpager_adapter);
@@ -1827,7 +1824,7 @@ public class MainActivity extends AppCompatActivity {
                 okt.setTextColor(Color.parseColor("#000000"));
                 nov.setTextColor(Color.parseColor("#000000"));
                 dez.setTextColor(Color.parseColor("#000000"));
-                scrollView.smoothScrollTo(1250,0);
+                scrollView.smoothScrollTo(PLAN_OF_THE_YEAR_BUTTON_WIDTH*5,0);
                 //Daten aktualisieren
                 viewpager_adapter = new ViewPagerAdapterPlanOfTheYear(getSupportFragmentManager(), getResources(), "06");
                 viewpager.setAdapter(viewpager_adapter);
@@ -1852,7 +1849,7 @@ public class MainActivity extends AppCompatActivity {
                 okt.setTextColor(Color.parseColor("#000000"));
                 nov.setTextColor(Color.parseColor("#000000"));
                 dez.setTextColor(Color.parseColor("#000000"));
-                scrollView.smoothScrollTo(1500,0);
+                scrollView.smoothScrollTo(PLAN_OF_THE_YEAR_BUTTON_WIDTH*6,0);
                 //Daten aktualisieren
                 viewpager_adapter = new ViewPagerAdapterPlanOfTheYear(getSupportFragmentManager(), getResources(), "07");
                 viewpager.setAdapter(viewpager_adapter);
@@ -1877,7 +1874,7 @@ public class MainActivity extends AppCompatActivity {
                 okt.setTextColor(Color.parseColor("#000000"));
                 nov.setTextColor(Color.parseColor("#000000"));
                 dez.setTextColor(Color.parseColor("#000000"));
-                scrollView.smoothScrollTo(1750,0);
+                scrollView.smoothScrollTo(PLAN_OF_THE_YEAR_BUTTON_WIDTH*7,0);
                 //Daten aktualisieren
                 viewpager_adapter = new ViewPagerAdapterPlanOfTheYear(getSupportFragmentManager(), getResources(), "08");
                 viewpager.setAdapter(viewpager_adapter);
@@ -1902,7 +1899,7 @@ public class MainActivity extends AppCompatActivity {
                 okt.setTextColor(Color.parseColor("#000000"));
                 nov.setTextColor(Color.parseColor("#000000"));
                 dez.setTextColor(Color.parseColor("#000000"));
-                scrollView.smoothScrollTo(2000,0);
+                scrollView.smoothScrollTo(PLAN_OF_THE_YEAR_BUTTON_WIDTH*8,0);
                 //Daten aktualisieren
                 viewpager_adapter = new ViewPagerAdapterPlanOfTheYear(getSupportFragmentManager(), getResources(), "09");
                 viewpager.setAdapter(viewpager_adapter);
@@ -1927,7 +1924,7 @@ public class MainActivity extends AppCompatActivity {
                 okt.setTextColor(Color.parseColor(color));
                 nov.setTextColor(Color.parseColor("#000000"));
                 dez.setTextColor(Color.parseColor("#000000"));
-                scrollView.smoothScrollTo(2250,0);
+                scrollView.smoothScrollTo(PLAN_OF_THE_YEAR_BUTTON_WIDTH*9,0);
                 //Daten aktualisieren
                 viewpager_adapter = new ViewPagerAdapterPlanOfTheYear(getSupportFragmentManager(), getResources(), "10");
                 viewpager.setAdapter(viewpager_adapter);
@@ -1952,7 +1949,7 @@ public class MainActivity extends AppCompatActivity {
                 okt.setTextColor(Color.parseColor("#000000"));
                 nov.setTextColor(Color.parseColor(color));
                 dez.setTextColor(Color.parseColor("#000000"));
-                scrollView.smoothScrollTo(2500,0);
+                scrollView.smoothScrollTo(PLAN_OF_THE_YEAR_BUTTON_WIDTH*10,0);
                 //Daten aktualisieren
                 viewpager_adapter = new ViewPagerAdapterPlanOfTheYear(getSupportFragmentManager(), getResources(), "11");
                 viewpager.setAdapter(viewpager_adapter);
@@ -1977,13 +1974,15 @@ public class MainActivity extends AppCompatActivity {
                 okt.setTextColor(Color.parseColor("#000000"));
                 nov.setTextColor(Color.parseColor("#000000"));
                 dez.setTextColor(Color.parseColor(color));
-                scrollView.smoothScrollTo(2750,0);
+                scrollView.smoothScrollTo(PLAN_OF_THE_YEAR_BUTTON_WIDTH*11,0);
                 //Daten aktualisieren
                 viewpager_adapter = new ViewPagerAdapterPlanOfTheYear(getSupportFragmentManager(), getResources(), "12");
                 viewpager.setAdapter(viewpager_adapter);
                 adjustViewPager();
             }
         });
+
+        adjustViewPager();
     }
 
     public void launchGalleryFragment() {
