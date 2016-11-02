@@ -1,6 +1,6 @@
 package com.mrgames13.jimdo.bsbz_app.CommonObjects;
 
-public class New {
+public class New implements Comparable<New> {
     //Konstanten
 
     //Variablen als Objekte
@@ -57,5 +57,10 @@ public class New {
 
     public String getExpirationDate() {
         return new_expiration_date;
+    }
+
+    @Override
+    public int compareTo(New n) {
+        return getActivationDate().compareTo(n.getActivationDate());
     }
 }

@@ -79,7 +79,6 @@ import java.net.URLEncoder;
 import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Collections;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.Locale;
@@ -119,7 +118,6 @@ public class MainActivity extends AppCompatActivity {
     private RecyclerView today_view;
     private RecyclerView.Adapter gallery_view_adapter;
     private RecyclerView.Adapter news_view_adapter;
-    private RecyclerView.Adapter year_view_adapter;
     private RecyclerView.Adapter today_view_adapter;
     private RecyclerView.LayoutManager gallery_view_manager;
     private RecyclerView.LayoutManager news_view_manager;
@@ -1506,23 +1504,9 @@ public class MainActivity extends AppCompatActivity {
         String month = String.valueOf(selectedMonth);
         if(month.length() != 2) month = "0" + month;
 
-        //Daten in die ArrayList holen
-        classtests = su.parseClasstests(month, null);
-        homeworks = su.parseHomeworks(month, null);
-        events = su.parseEvents(month, null);
-
-        Collections.sort(classtests);
-        Collections.sort(homeworks);
-        Collections.sort(events);
-
-        all.clear();
-        all.addAll(classtests);
-        all.addAll(homeworks);
-        all.addAll(events);
-
         //ViewPager aufsetzen
-        viewpager_adapter = new ViewPagerAdapterPlanOfTheYear(getSupportFragmentManager(), getResources(), month);
         viewpager = (ViewPager) findViewById(R.id.plan_of_the_year_viewpager);
+        viewpager_adapter = new ViewPagerAdapterPlanOfTheYear(getSupportFragmentManager(), getResources(), month);
         viewpager.setAdapter(viewpager_adapter);
 
         //TabLayout aufsetzen
@@ -1541,6 +1525,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onTabReselected(TabLayout.Tab tab) {}
         });
+
+        adjustViewPager();
 
         if(rights == Account.RIGHTS_CLASSSPEAKER || rights == Account.RIGHTS_TEACHER || rights == Account.RIGHTS_ADMIN || rights == Account.RIGHTS_TEAM) {
             //FloatingAction Button
@@ -1647,55 +1633,42 @@ public class MainActivity extends AppCompatActivity {
         dez.setTextColor(Color.parseColor("#000000"));
 
         //Monatsinfos
-        final TextView monatsinfos = (TextView) findViewById(R.id.monatsinfos);
         final HorizontalScrollView scrollView = (HorizontalScrollView) findViewById(R.id.horizontalScrollView1);
 
         if(selectedMonth == 1) {
-            monatsinfos.setText(res.getString(R.string.january) + ":");
             jan.setTextColor(Color.parseColor(color));
             Selected = 0;
         } else if(selectedMonth == 2) {
-            monatsinfos.setText(res.getString(R.string.february) + ":");
             feb.setTextColor(Color.parseColor(color));
             Selected = 250;
         } else if(selectedMonth == 3) {
-            monatsinfos.setText(res.getString(R.string.march) + ":");
             ma.setTextColor(Color.parseColor(color));
             Selected = 500;
         } else if(selectedMonth == 4) {
-            monatsinfos.setText(res.getString(R.string.april) + ":");
             apr.setTextColor(Color.parseColor(color));
             Selected = 750;
         } else if(selectedMonth == 5) {
-            monatsinfos.setText(res.getString(R.string.may) + ":");
             mai.setTextColor(Color.parseColor(color));
             Selected = 1000;
         } else if(selectedMonth == 6) {
-            monatsinfos.setText(res.getString(R.string.june) + ":");
             jun.setTextColor(Color.parseColor(color));
             Selected = 1250;
         } else if(selectedMonth == 7) {
-            monatsinfos.setText(res.getString(R.string.july) + ":");
             jul.setTextColor(Color.parseColor(color));
             Selected = 1500;
         } else if(selectedMonth == 8) {
-            monatsinfos.setText(res.getString(R.string.august) + ":");
             aug.setTextColor(Color.parseColor(color));
             Selected = 1750;
         } else if(selectedMonth == 9) {
-            monatsinfos.setText(res.getString(R.string.september) + ":");
             sep.setTextColor(Color.parseColor(color));
             Selected = 2000;
         } else if(selectedMonth == 10) {
-            monatsinfos.setText(res.getString(R.string.october) + ":");
             okt.setTextColor(Color.parseColor(color));
             Selected = 2250;
         } else if(selectedMonth == 11) {
-            monatsinfos.setText(res.getString(R.string.november) + ":");
             nov.setTextColor(Color.parseColor(color));
             Selected = 2500;
         } else if(selectedMonth == 12) {
-            monatsinfos.setText(res.getString(R.string.december) + ":");
             dez.setTextColor(Color.parseColor(color));
             Selected = 2750;
         }
@@ -1715,7 +1688,6 @@ public class MainActivity extends AppCompatActivity {
             @SuppressLint("InlinedApi")
             @Override
             public void onClick(View v) {
-                monatsinfos.setText(jan.getText()+":");
                 selectedMonth = 1;
                 //Farben setzen
                 jan.setTextColor(Color.parseColor(color));
@@ -1732,27 +1704,15 @@ public class MainActivity extends AppCompatActivity {
                 dez.setTextColor(Color.parseColor("#000000"));
                 scrollView.smoothScrollTo(0,0);
                 //Daten aktualisieren
-                classtests = su.parseClasstests("01", null);
-                homeworks = su.parseHomeworks("01", null);
-                events = su.parseEvents("01", null);
-                all.clear();
-                all.addAll(classtests);
-                all.addAll(homeworks);
-                all.addAll(events);
-                year_view_adapter = new ElementViewAdapter(MainActivity.this, ElementViewAdapter.MODE_CLASSTEST_HOMEWORK_EVENTS);
-                year_view.setAdapter(year_view_adapter);
-                if(year_view_adapter.getItemCount() == 0) {
-                    //no_active_elements.setVisibility(View.VISIBLE);
-                } else {
-                    //no_active_elements.setVisibility(View.GONE);
-                }
+                viewpager_adapter = new ViewPagerAdapterPlanOfTheYear(getSupportFragmentManager(), getResources(), "01");
+                viewpager.setAdapter(viewpager_adapter);
+                adjustViewPager();
             }
         });
         //Button Februar
         feb.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                monatsinfos.setText(feb.getText()+":");
                 selectedMonth = 2;
                 //Farben setzen
                 jan.setTextColor(Color.parseColor("#000000"));
@@ -1769,27 +1729,15 @@ public class MainActivity extends AppCompatActivity {
                 dez.setTextColor(Color.parseColor("#000000"));
                 scrollView.smoothScrollTo(250,0);
                 //Daten aktualisieren
-                classtests = su.parseClasstests("02", null);
-                homeworks = su.parseHomeworks("02", null);
-                events = su.parseEvents("02", null);
-                all.clear();
-                all.addAll(classtests);
-                all.addAll(homeworks);
-                all.addAll(events);
-                year_view_adapter = new ElementViewAdapter(MainActivity.this, ElementViewAdapter.MODE_CLASSTEST_HOMEWORK_EVENTS);
-                year_view.setAdapter(year_view_adapter);
-                if(year_view_adapter.getItemCount() == 0) {
-                    //no_active_elements.setVisibility(View.VISIBLE);
-                } else {
-                    //no_active_elements.setVisibility(View.GONE);
-                }
+                viewpager_adapter = new ViewPagerAdapterPlanOfTheYear(getSupportFragmentManager(), getResources(), "02");
+                viewpager.setAdapter(viewpager_adapter);
+                adjustViewPager();
             }
         });
         //Button März
         ma.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                monatsinfos.setText(ma.getText()+":");
                 selectedMonth = 3;
                 //Farben setzen
                 jan.setTextColor(Color.parseColor("#000000"));
@@ -1806,27 +1754,15 @@ public class MainActivity extends AppCompatActivity {
                 dez.setTextColor(Color.parseColor("#000000"));
                 scrollView.smoothScrollTo(500,0);
                 //Daten aktualisieren
-                classtests = su.parseClasstests("03", null);
-                homeworks = su.parseHomeworks("03", null);
-                events = su.parseEvents("03", null);
-                all.clear();
-                all.addAll(classtests);
-                all.addAll(homeworks);
-                all.addAll(events);
-                year_view_adapter = new ElementViewAdapter(MainActivity.this, ElementViewAdapter.MODE_CLASSTEST_HOMEWORK_EVENTS);
-                year_view.setAdapter(year_view_adapter);
-                if(year_view_adapter.getItemCount() == 0) {
-                    //no_active_elements.setVisibility(View.VISIBLE);
-                } else {
-                    //no_active_elements.setVisibility(View.GONE);
-                }
+                viewpager_adapter = new ViewPagerAdapterPlanOfTheYear(getSupportFragmentManager(), getResources(), "03");
+                viewpager.setAdapter(viewpager_adapter);
+                adjustViewPager();
             }
         });
         //Button April
         apr.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                monatsinfos.setText(apr.getText()+":");
                 selectedMonth = 4;
                 //Farben setzen
                 jan.setTextColor(Color.parseColor("#000000"));
@@ -1843,27 +1779,15 @@ public class MainActivity extends AppCompatActivity {
                 dez.setTextColor(Color.parseColor("#000000"));
                 scrollView.smoothScrollTo(750,0);
                 //Daten aktualisieren
-                classtests = su.parseClasstests("04", null);
-                homeworks = su.parseHomeworks("04", null);
-                events = su.parseEvents("04", null);
-                all.clear();
-                all.addAll(classtests);
-                all.addAll(homeworks);
-                all.addAll(events);
-                year_view_adapter = new ElementViewAdapter(MainActivity.this, ElementViewAdapter.MODE_CLASSTEST_HOMEWORK_EVENTS);
-                year_view.setAdapter(year_view_adapter);
-                if(year_view_adapter.getItemCount() == 0) {
-                    //no_active_elements.setVisibility(View.VISIBLE);
-                } else {
-                    //no_active_elements.setVisibility(View.GONE);
-                }
+                viewpager_adapter = new ViewPagerAdapterPlanOfTheYear(getSupportFragmentManager(), getResources(), "04");
+                viewpager.setAdapter(viewpager_adapter);
+                adjustViewPager();
             }
         });
         //Button Mai
         mai.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                monatsinfos.setText(mai.getText()+":");
                 selectedMonth = 5;
                 //Farben setzen
                 jan.setTextColor(Color.parseColor("#000000"));
@@ -1880,27 +1804,15 @@ public class MainActivity extends AppCompatActivity {
                 dez.setTextColor(Color.parseColor("#000000"));
                 scrollView.smoothScrollTo(1000,0);
                 //Daten aktualisieren
-                classtests = su.parseClasstests("05", null);
-                homeworks = su.parseHomeworks("05", null);
-                events = su.parseEvents("05", null);
-                all.clear();
-                all.addAll(classtests);
-                all.addAll(homeworks);
-                all.addAll(events);
-                year_view_adapter = new ElementViewAdapter(MainActivity.this, ElementViewAdapter.MODE_CLASSTEST_HOMEWORK_EVENTS);
-                year_view.setAdapter(year_view_adapter);
-                if(year_view_adapter.getItemCount() == 0) {
-                    //no_active_elements.setVisibility(View.VISIBLE);
-                } else {
-                    //no_active_elements.setVisibility(View.GONE);
-                }
+                viewpager_adapter = new ViewPagerAdapterPlanOfTheYear(getSupportFragmentManager(), getResources(), "05");
+                viewpager.setAdapter(viewpager_adapter);
+                adjustViewPager();
             }
         });
         //Button Juni
         jun.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                monatsinfos.setText(jun.getText()+":");
                 selectedMonth = 6;
                 //Farben setzen
                 jan.setTextColor(Color.parseColor("#000000"));
@@ -1917,27 +1829,15 @@ public class MainActivity extends AppCompatActivity {
                 dez.setTextColor(Color.parseColor("#000000"));
                 scrollView.smoothScrollTo(1250,0);
                 //Daten aktualisieren
-                classtests = su.parseClasstests("06", null);
-                homeworks = su.parseHomeworks("06", null);
-                events = su.parseEvents("06", null);
-                all.clear();
-                all.addAll(classtests);
-                all.addAll(homeworks);
-                all.addAll(events);
-                year_view_adapter = new ElementViewAdapter(MainActivity.this, ElementViewAdapter.MODE_CLASSTEST_HOMEWORK_EVENTS);
-                year_view.setAdapter(year_view_adapter);
-                if(year_view_adapter.getItemCount() == 0) {
-                    //no_active_elements.setVisibility(View.VISIBLE);
-                } else {
-                    //no_active_elements.setVisibility(View.GONE);
-                }
+                viewpager_adapter = new ViewPagerAdapterPlanOfTheYear(getSupportFragmentManager(), getResources(), "06");
+                viewpager.setAdapter(viewpager_adapter);
+                adjustViewPager();
             }
         });
         //Button Juli
         jul.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                monatsinfos.setText(jul.getText()+":");
                 selectedMonth = 7;
                 //Farben setzen
                 jan.setTextColor(Color.parseColor("#000000"));
@@ -1954,27 +1854,15 @@ public class MainActivity extends AppCompatActivity {
                 dez.setTextColor(Color.parseColor("#000000"));
                 scrollView.smoothScrollTo(1500,0);
                 //Daten aktualisieren
-                classtests = su.parseClasstests("07", null);
-                homeworks = su.parseHomeworks("07", null);
-                events = su.parseEvents("07", null);
-                all.clear();
-                all.addAll(classtests);
-                all.addAll(homeworks);
-                all.addAll(events);
-                year_view_adapter = new ElementViewAdapter(MainActivity.this, ElementViewAdapter.MODE_CLASSTEST_HOMEWORK_EVENTS);
-                year_view.setAdapter(year_view_adapter);
-                if(year_view_adapter.getItemCount() == 0) {
-                    //no_active_elements.setVisibility(View.VISIBLE);
-                } else {
-                    //no_active_elements.setVisibility(View.GONE);
-                }
+                viewpager_adapter = new ViewPagerAdapterPlanOfTheYear(getSupportFragmentManager(), getResources(), "07");
+                viewpager.setAdapter(viewpager_adapter);
+                adjustViewPager();
             }
         });
         //Button August
         aug.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                monatsinfos.setText(aug.getText()+":");
                 selectedMonth = 8;
                 //Farben setzen
                 jan.setTextColor(Color.parseColor("#000000"));
@@ -1991,27 +1879,15 @@ public class MainActivity extends AppCompatActivity {
                 dez.setTextColor(Color.parseColor("#000000"));
                 scrollView.smoothScrollTo(1750,0);
                 //Daten aktualisieren
-                classtests = su.parseClasstests("08", null);
-                homeworks = su.parseHomeworks("08", null);
-                events = su.parseEvents("08", null);
-                all.clear();
-                all.addAll(classtests);
-                all.addAll(homeworks);
-                all.addAll(events);
-                year_view_adapter = new ElementViewAdapter(MainActivity.this, ElementViewAdapter.MODE_CLASSTEST_HOMEWORK_EVENTS);
-                year_view.setAdapter(year_view_adapter);
-                if(year_view_adapter.getItemCount() == 0) {
-                    //no_active_elements.setVisibility(View.VISIBLE);
-                } else {
-                    //no_active_elements.setVisibility(View.GONE);
-                }
+                viewpager_adapter = new ViewPagerAdapterPlanOfTheYear(getSupportFragmentManager(), getResources(), "08");
+                viewpager.setAdapter(viewpager_adapter);
+                adjustViewPager();
             }
         });
         //Button September
         sep.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                monatsinfos.setText(sep.getText()+":");
                 selectedMonth = 9;
                 //Farben setzen
                 jan.setTextColor(Color.parseColor("#000000"));
@@ -2028,27 +1904,15 @@ public class MainActivity extends AppCompatActivity {
                 dez.setTextColor(Color.parseColor("#000000"));
                 scrollView.smoothScrollTo(2000,0);
                 //Daten aktualisieren
-                classtests = su.parseClasstests("09", null);
-                homeworks = su.parseHomeworks("09", null);
-                events = su.parseEvents("09", null);
-                all.clear();
-                all.addAll(classtests);
-                all.addAll(homeworks);
-                all.addAll(events);
-                year_view_adapter = new ElementViewAdapter(MainActivity.this, ElementViewAdapter.MODE_CLASSTEST_HOMEWORK_EVENTS);
-                year_view.setAdapter(year_view_adapter);
-                if(year_view_adapter.getItemCount() == 0) {
-                    //no_active_elements.setVisibility(View.VISIBLE);
-                } else {
-                    //no_active_elements.setVisibility(View.GONE);
-                }
+                viewpager_adapter = new ViewPagerAdapterPlanOfTheYear(getSupportFragmentManager(), getResources(), "09");
+                viewpager.setAdapter(viewpager_adapter);
+                adjustViewPager();
             }
         });
         //Button Oktober
         okt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                monatsinfos.setText(okt.getText()+":");
                 selectedMonth = 10;
                 //Farben setzen
                 jan.setTextColor(Color.parseColor("#000000"));
@@ -2065,27 +1929,15 @@ public class MainActivity extends AppCompatActivity {
                 dez.setTextColor(Color.parseColor("#000000"));
                 scrollView.smoothScrollTo(2250,0);
                 //Daten aktualisieren
-                classtests = su.parseClasstests("10", null);
-                homeworks = su.parseHomeworks("10", null);
-                events = su.parseEvents("10", null);
-                all.clear();
-                all.addAll(classtests);
-                all.addAll(homeworks);
-                all.addAll(events);
-                year_view_adapter = new ElementViewAdapter(MainActivity.this, ElementViewAdapter.MODE_CLASSTEST_HOMEWORK_EVENTS);
-                year_view.setAdapter(year_view_adapter);
-                if(year_view_adapter.getItemCount() == 0) {
-                    //no_active_elements.setVisibility(View.VISIBLE);
-                } else {
-                    //no_active_elements.setVisibility(View.GONE);
-                }
+                viewpager_adapter = new ViewPagerAdapterPlanOfTheYear(getSupportFragmentManager(), getResources(), "10");
+                viewpager.setAdapter(viewpager_adapter);
+                adjustViewPager();
             }
         });
         //Button November
         nov.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                monatsinfos.setText(nov.getText()+":");
                 selectedMonth = 11;
                 //Farben setzen
                 jan.setTextColor(Color.parseColor("#000000"));
@@ -2102,27 +1954,15 @@ public class MainActivity extends AppCompatActivity {
                 dez.setTextColor(Color.parseColor("#000000"));
                 scrollView.smoothScrollTo(2500,0);
                 //Daten aktualisieren
-                classtests = su.parseClasstests("11", null);
-                homeworks = su.parseHomeworks("11", null);
-                events = su.parseEvents("11", null);
-                all.clear();
-                all.addAll(classtests);
-                all.addAll(homeworks);
-                all.addAll(events);
-                year_view_adapter = new ElementViewAdapter(MainActivity.this, ElementViewAdapter.MODE_CLASSTEST_HOMEWORK_EVENTS);
-                year_view.setAdapter(year_view_adapter);
-                if(year_view_adapter.getItemCount() == 0) {
-                    //no_active_elements.setVisibility(View.VISIBLE);
-                } else {
-                    //no_active_elements.setVisibility(View.GONE);
-                }
+                viewpager_adapter = new ViewPagerAdapterPlanOfTheYear(getSupportFragmentManager(), getResources(), "11");
+                viewpager.setAdapter(viewpager_adapter);
+                adjustViewPager();
             }
         });
         //Button Dezember
         dez.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                monatsinfos.setText(dez.getText()+":");
                 selectedMonth = 12;
                 //Farben setzen
                 jan.setTextColor(Color.parseColor("#000000"));
@@ -2139,15 +1979,9 @@ public class MainActivity extends AppCompatActivity {
                 dez.setTextColor(Color.parseColor(color));
                 scrollView.smoothScrollTo(2750,0);
                 //Daten aktualisieren
-                classtests = su.parseClasstests("12", null);
-                homeworks = su.parseHomeworks("12", null);
-                events = su.parseEvents("12", null);
-                all.clear();
-                all.addAll(classtests);
-                all.addAll(homeworks);
-                all.addAll(events);
-                year_view_adapter = new ElementViewAdapter(MainActivity.this, ElementViewAdapter.MODE_CLASSTEST_HOMEWORK_EVENTS);
-                year_view.setAdapter(year_view_adapter);
+                viewpager_adapter = new ViewPagerAdapterPlanOfTheYear(getSupportFragmentManager(), getResources(), "12");
+                viewpager.setAdapter(viewpager_adapter);
+                adjustViewPager();
             }
         });
     }
@@ -2604,6 +2438,16 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         t.start();
+    }
+
+    private void adjustViewPager() {
+        if(classtests.size() > 0) {
+            viewpager.setCurrentItem(tablayout.getTabAt(0).getPosition());
+        } else if(homeworks.size() > 0) {
+            viewpager.setCurrentItem(tablayout.getTabAt(1).getPosition());
+        } else if(events.size() > 0) {
+            viewpager.setCurrentItem(tablayout.getTabAt(2).getPosition());
+        }
     }
 
     private void checkAppVersion(final Context context, final boolean showProgressDialog, final boolean showResultDialog) {

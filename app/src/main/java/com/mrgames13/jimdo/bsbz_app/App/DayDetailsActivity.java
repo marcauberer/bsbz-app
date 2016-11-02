@@ -115,6 +115,14 @@ public class DayDetailsActivity extends AppCompatActivity {
             public void onTabReselected(TabLayout.Tab tab) {}
         });
 
+        if(MainActivity.classtests.size() > 0) {
+            viewpager.setCurrentItem(tablayout.getTabAt(0).getPosition());
+        } else if(MainActivity.homeworks.size() > 0) {
+            viewpager.setCurrentItem(tablayout.getTabAt(1).getPosition());
+        } else if(MainActivity.events.size() > 0) {
+            viewpager.setCurrentItem(tablayout.getTabAt(2).getPosition());
+        }
+
         //FloatingAction Button
         FloatingActionButton new_element = (FloatingActionButton) findViewById(R.id.day_details_new_element);
         new_element.setOnClickListener(new View.OnClickListener() {

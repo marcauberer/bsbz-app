@@ -134,19 +134,11 @@
             android:background="#80828A" >
         </LinearLayout>
 
-        <TextView
-            android:id="@+id/monatsinfos"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="@string/monthinfo_"
-            android:textAppearance="?android:attr/textAppearanceMedium" />
-
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@drawable/black_border"
-            android:padding="2dp">
+            android:padding="1dp">
 
             <android.support.design.widget.TabLayout
                 android:id="@+id/plan_of_the_year_tablayout"

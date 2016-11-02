@@ -16,6 +16,7 @@ import com.mrgames13.jimdo.bsbz_app.R;
 
 import java.text.DateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.Locale;
 
@@ -178,6 +179,7 @@ public class StorageUtils {
                 break;
             }
         }
+        Collections.sort(classtests);
         return classtests;
     }
 
@@ -245,6 +247,7 @@ public class StorageUtils {
                 break;
             }
         }
+        Collections.sort(homeworks);
         return homeworks;
     }
 
@@ -312,6 +315,7 @@ public class StorageUtils {
                 break;
             }
         }
+        Collections.sort(events);
         return events;
     }
 
@@ -373,6 +377,7 @@ public class StorageUtils {
                 break;
             }
         }
+        Collections.sort(news);
         return news;
     }
 
