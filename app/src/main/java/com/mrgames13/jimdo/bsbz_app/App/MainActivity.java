@@ -129,9 +129,9 @@ public class MainActivity extends AppCompatActivity {
     public static ArrayList<Event> events;
     public static ArrayList<Object> all;
     public static ArrayList<New> news;
-    private TabLayout tablayout;
-    private ViewPager viewpager;
-    private ViewPagerAdapterPlanOfTheYear viewpager_adapter;
+    private TabLayout tablayout = null;
+    private ViewPager viewpager = null;
+    private ViewPagerAdapterPlanOfTheYear viewpager_adapter = null;
 
     //UtilsPakete
     public static ServerMessagingUtils serverMessagingUtils;
@@ -152,7 +152,7 @@ public class MainActivity extends AppCompatActivity {
     private static int selectedMonth = 0;
     public static String color = "#ea690c";
     private static int Selected = 0;
-    private static int selected_Menu_Item = 1;
+    private static int selected_Menu_Item = 0;
     public static String date1 = "";
     public static String date2 = "";
     private boolean showInvisibleEntries = false;
@@ -260,7 +260,6 @@ public class MainActivity extends AppCompatActivity {
         navView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(MenuItem menuItem) {
-                String item_text = menuItem.getTitle().toString();
                 switch (menuItem.getItemId()) {
                     case R.id.drawer_item_account: {
                         menuItem.setChecked(true);
@@ -383,7 +382,7 @@ public class MainActivity extends AppCompatActivity {
             }
         } catch(NullPointerException e) {}
 
-        if(selected_Menu_Item != 1) {
+        if(selected_Menu_Item == 0) {
             String custom_startpage = su.getString("CustomStartPage", "Mein Profil (Standard)");
             if(custom_startpage.equals("Heute")) selected_Menu_Item = 2;
             if(custom_startpage.equals("Diese Woche")) selected_Menu_Item = 3;
@@ -393,6 +392,45 @@ public class MainActivity extends AppCompatActivity {
             if(custom_startpage.equals("Bildergalerie")) selected_Menu_Item = 7;
             if(custom_startpage.equals("BSBZ-Infos")) selected_Menu_Item = 8;
             if(custom_startpage.equals("Die Entwickler")) selected_Menu_Item = 9;
+        }
+
+        //Seite  refreshen
+        if(selected_Menu_Item == 1) {
+            getSupportActionBar().setTitle(res.getString(R.string.my_profile));
+            launchProfileFragment();
+            navView.getMenu().getItem(0).setChecked(true);
+        } else if(selected_Menu_Item == 2) {
+            getSupportActionBar().setTitle(res.getString(R.string.today));
+            launchTodayFragment();
+            navView.getMenu().getItem(1).setChecked(true);
+        } else if(selected_Menu_Item == 3) {
+            getSupportActionBar().setTitle(res.getString(R.string.this_week));
+            launchThisWeekFragment();
+            navView.getMenu().getItem(2).setChecked(true);
+        } else if(selected_Menu_Item == 4) {
+            getSupportActionBar().setTitle(res.getString(R.string.plan_of_the_year));
+            launchPlanOfTheYearFragment();
+            navView.getMenu().getItem(3).setChecked(true);
+        } else if(selected_Menu_Item == 5) {
+            getSupportActionBar().setTitle(res.getString(R.string.news));
+            launchNewsFragment();
+            navView.getMenu().getItem(4).setChecked(true);
+        } else if(selected_Menu_Item == 6) {
+            getSupportActionBar().setTitle(res.getString(R.string.food_plan));
+            launchFoodPlanFragment();
+            navView.getMenu().getItem(5).setChecked(true);
+        } else if(selected_Menu_Item == 7) {
+            getSupportActionBar().setTitle(res.getString(R.string.galery));
+            launchGalleryFragment();
+            navView.getMenu().getItem(6).setChecked(true);
+        } else if(selected_Menu_Item == 8) {
+            getSupportActionBar().setTitle(res.getString(R.string.bsbz_infos));
+            launchBSBZInfoFragment();
+            navView.getMenu().getItem(7).setChecked(true);
+        } else if(selected_Menu_Item == 9) {
+            getSupportActionBar().setTitle(res.getString(R.string.the_developers));
+            launchDeveloperFragment();
+            navView.getMenu().getItem(8).setChecked(true);
         }
     }
 
