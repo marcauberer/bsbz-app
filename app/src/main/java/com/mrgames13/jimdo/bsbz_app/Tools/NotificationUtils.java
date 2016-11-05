@@ -22,6 +22,8 @@ public class NotificationUtils {
         public final int ID_COMP_HOMEWORKS = 10005;
         public final int ID_COMP_EVENTS = 10006;
         public final int ID_COMP_NEWS = 10007;
+        public final int ID_ACCOUNT_LOCKED = 10008;
+        public final int ID_UPDATE_FOUND = 10009;
         //Modes
         public final int MODE_ANNOUNCE_UPDATE = 101;
         //Priorities
@@ -52,7 +54,7 @@ public class NotificationUtils {
         nm = (NotificationManager) context.getSystemService(NOTIFICATION_SERVICE);
     }
 
-    public void displayNotification(String title, String message, int id, Intent i, int mode, int priority, int light_lenght, long[] vibration) {
+    public void displayNotification(String title, String message, int id, Intent i, int priority, int light_lenght, long[] vibration) {
         //ID ermitteln
         if(id == 0) id = (int) ((Math.random()) * Integer.MAX_VALUE + 1);
         //Notification aufbauen

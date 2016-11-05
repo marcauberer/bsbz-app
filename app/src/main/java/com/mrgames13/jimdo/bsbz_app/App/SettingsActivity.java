@@ -3,7 +3,6 @@ package com.mrgames13.jimdo.bsbz_app.App;
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.app.AlarmManager;
-import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -54,6 +53,7 @@ import com.mrgames13.jimdo.bsbz_app.R;
 import com.mrgames13.jimdo.bsbz_app.Services.PercentService;
 import com.mrgames13.jimdo.bsbz_app.Services.SyncronisationService;
 import com.mrgames13.jimdo.bsbz_app.Tools.AccountUtils;
+import com.mrgames13.jimdo.bsbz_app.Tools.NotificationUtils;
 import com.mrgames13.jimdo.bsbz_app.Tools.ServerMessagingUtils;
 import com.mrgames13.jimdo.bsbz_app.Tools.StorageUtils;
 import com.mrgames13.jimdo.bsbz_app.Tools.ThemeUtils;
@@ -74,6 +74,7 @@ public class SettingsActivity extends PreferenceActivity {
     private ProgressDialog pd_Progress;
 	private StorageUtils su;
 	private AccountUtils au;
+    private NotificationUtils nu;
 
     //Variablen
 	private static final boolean ALWAYS_SIMPLE_PREFS = false;
@@ -95,6 +96,9 @@ public class SettingsActivity extends PreferenceActivity {
 
         //Account laden
         current_account = au.getLastUser();
+
+        //NotificationUtils initialisieren
+        nu = new NotificationUtils(SettingsActivity.this);
 
 		//Theme setzen
 		if(MainActivity.AppTheme == 0) {
@@ -422,8 +426,7 @@ public class SettingsActivity extends PreferenceActivity {
 				
 				if(newValue.equals("true")) {
 					//Alarmmanager aufsetzen
-					@SuppressWarnings("static-access")
-					AlarmManager alarmmanager2 = (AlarmManager) SettingsActivity.this.getSystemService(SettingsActivity.this.ALARM_SERVICE);
+					AlarmManager alarmmanager2 = (AlarmManager) SettingsActivity.this.getSystemService(ALARM_SERVICE);
 					
 					Intent startServiceIntent2 = new Intent(SettingsActivity.this, PercentService.class);
 					PendingIntent startServicePendingIntent2 = PendingIntent.getService(SettingsActivity.this,0,startServiceIntent2, 0);
@@ -431,17 +434,16 @@ public class SettingsActivity extends PreferenceActivity {
 					Calendar calendar = Calendar.getInstance();
 					calendar.setTimeInMillis(System.currentTimeMillis());
 					
-					alarmmanager2.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), 60000, startServicePendingIntent2);
+					alarmmanager2.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), 30000, startServicePendingIntent2);
 					
 					//Service starten
 					startService(new Intent(getApplicationContext(), PercentService.class));
 				} else if(newValue.equals("false")) {
-					NotificationManager nm = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-					nm.cancel(4);
-					@SuppressWarnings("static-access")
-					AlarmManager alarmmanager1 = (AlarmManager) SettingsActivity.this.getSystemService(SettingsActivity.this.ALARM_SERVICE);
+                    //Alarmmanager abbrechen
+                    nu.clearNotification(nu.ID_SHOW_TODAY_PROGRESS);
+					AlarmManager alarmmanager1 = (AlarmManager) SettingsActivity.this.getSystemService(ALARM_SERVICE);
 					Intent startServiceIntent2 = new Intent(SettingsActivity.this, PercentService.class);
-					PendingIntent startServicePendingIntent2 = PendingIntent.getService(SettingsActivity.this,0,startServiceIntent2, 0);
+					PendingIntent startServicePendingIntent2 = PendingIntent.getService(SettingsActivity.this,0,startServiceIntent2, PendingIntent.FLAG_CANCEL_CURRENT);
 					alarmmanager1.cancel(startServicePendingIntent2);
 				}
 				
@@ -485,19 +487,16 @@ public class SettingsActivity extends PreferenceActivity {
 			@Override
 			public boolean onPreferenceChange(Preference preference, Object newValue) {
 				//Alarmmanager für Hintergrundprozess aufsetzen
-				@SuppressWarnings("static-access")
-				AlarmManager alarmmanager = (AlarmManager) SettingsActivity.this.getSystemService(SettingsActivity.this.ALARM_SERVICE);
+				AlarmManager alarmmanager = (AlarmManager) SettingsActivity.this.getSystemService(ALARM_SERVICE);
 				
 				Intent startServiceIntent = new Intent(SettingsActivity.this, SyncronisationService.class);
-				PendingIntent startServicePendingIntent = PendingIntent.getService(SettingsActivity.this,0,startServiceIntent,0);
+				PendingIntent startServicePendingIntent = PendingIntent.getService(SettingsActivity.this, 0, startServiceIntent, 0);
 				
-				if (alarmmanager!= null) {
-				    alarmmanager.cancel(startServicePendingIntent);
-				}
+				if (alarmmanager!= null)  alarmmanager.cancel(startServicePendingIntent);
 				
 				Calendar calendar = Calendar.getInstance();
-				calendar.setTimeInMillis(System.currentTimeMillis() + 10);
-				
+				calendar.setTimeInMillis(System.currentTimeMillis());
+
 				alarmmanager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), Integer.parseInt(newValue.toString()), startServicePendingIntent);
 
 				return true;

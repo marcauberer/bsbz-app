@@ -1,6 +1,5 @@
 package com.mrgames13.jimdo.bsbz_app.Services;
 
-import android.annotation.SuppressLint;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
@@ -30,7 +29,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Locale;
 
-@SuppressWarnings("deprecation")
 public class SyncronisationService extends Service {
 	
 	//Konstanten
@@ -60,9 +58,12 @@ public class SyncronisationService extends Service {
 		void onSyncFinished();
 	}
 
-	@SuppressLint("UseValueOf")
 	@Override
 	public int onStartCommand(Intent intent, int flags, int startId) {
+        Log.d("BSBZ-App", "SynchronisationService started");
+        Toast.makeText(this, "SynchronisationService started", Toast.LENGTH_SHORT).show();
+
+
         //Kontext initialisieren
 		context = getApplicationContext();
 
@@ -345,7 +346,7 @@ public class SyncronisationService extends Service {
 			Intent i = new Intent(this, LogInActivity.class);
 			i.putExtra("Confirm", "Timetable");
 
-            nu.displayNotification(res.getString(R.string.app_name), res.getString(R.string.timetable_changings), nu.ID_COMP_TIMETABLES, i, 0, nu.PRIORITY_LOW, 0, new long[0]);
+            nu.displayNotification(res.getString(R.string.app_name), res.getString(R.string.timetable_changings), nu.ID_COMP_TIMETABLES, i, nu.PRIORITY_LOW, 0, new long[0]);
 		}
 	}
 
@@ -361,7 +362,7 @@ public class SyncronisationService extends Service {
 			i.putExtra("Confirm", "Classtests");
 			PendingIntent pi = PendingIntent.getActivity(this, (int) System.currentTimeMillis(), i, 0);
 
-            nu.displayNotification(res.getString(R.string.app_name), res.getString(R.string.classtest_changings), nu.ID_COMP_CLASSTESTS, i, 0, nu.PRIORITY_LOW, 0, new long[0]);
+            nu.displayNotification(res.getString(R.string.app_name), res.getString(R.string.classtest_changings), nu.ID_COMP_CLASSTESTS, i, nu.PRIORITY_LOW, 0, new long[0]);
 		}
 	}
 
@@ -377,7 +378,7 @@ public class SyncronisationService extends Service {
 			i.putExtra("Confirm", "Homework");
 			PendingIntent pi = PendingIntent.getActivity(this, (int) System.currentTimeMillis(), i, 0);
 
-            nu.displayNotification(res.getString(R.string.app_name), res.getString(R.string.homework_changings), nu.ID_COMP_HOMEWORKS, i, 0, nu.PRIORITY_LOW, 0, new long[0]);
+            nu.displayNotification(res.getString(R.string.app_name), res.getString(R.string.homework_changings), nu.ID_COMP_HOMEWORKS, i, nu.PRIORITY_LOW, 0, new long[0]);
 		}
 	}
 	
@@ -392,7 +393,7 @@ public class SyncronisationService extends Service {
 			Intent i = new Intent(this, LogInActivity.class);
 			i.putExtra("Confirm", "Events");
 
-            nu.displayNotification(res.getString(R.string.app_name), res.getString(R.string.event_changings), nu.ID_COMP_EVENTS, i, 0, nu.PRIORITY_LOW, 0, new long[0]);
+            nu.displayNotification(res.getString(R.string.app_name), res.getString(R.string.event_changings), nu.ID_COMP_EVENTS, i, nu.PRIORITY_LOW, 0, new long[0]);
 		}
 	}
 
@@ -407,7 +408,7 @@ public class SyncronisationService extends Service {
 			Intent i = new Intent(this, LogInActivity.class);
 			i.putExtra("Confirm", "News");
 
-            nu.displayNotification(res.getString(R.string.app_name), res.getString(R.string.news_changings), nu.ID_COMP_NEWS, i, 0, nu.PRIORITY_LOW, 0, new long[0]);
+            nu.displayNotification(res.getString(R.string.app_name), res.getString(R.string.news_changings), nu.ID_COMP_NEWS, i, nu.PRIORITY_LOW, 0, new long[0]);
 		}
 	}
 	

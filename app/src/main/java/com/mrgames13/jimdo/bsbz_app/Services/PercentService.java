@@ -2,15 +2,16 @@ package com.mrgames13.jimdo.bsbz_app.Services;
 
 import android.app.Service;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.content.SharedPreferences.Editor;
 import android.content.res.Resources;
 import android.os.IBinder;
-import android.preference.PreferenceManager;
 
 import com.mrgames13.jimdo.bsbz_app.App.LogInActivity;
+import com.mrgames13.jimdo.bsbz_app.CommonObjects.Account;
+import com.mrgames13.jimdo.bsbz_app.CommonObjects.TimeTable;
 import com.mrgames13.jimdo.bsbz_app.R;
+import com.mrgames13.jimdo.bsbz_app.Tools.AccountUtils;
 import com.mrgames13.jimdo.bsbz_app.Tools.NotificationUtils;
+import com.mrgames13.jimdo.bsbz_app.Tools.StorageUtils;
 
 import java.text.DateFormat;
 import java.util.Calendar;
@@ -19,28 +20,48 @@ import java.util.GregorianCalendar;
 import java.util.Locale;
 
 public class PercentService extends Service {
-	
-	private SharedPreferences prefs;
+
+    //Konstanten
+
+    //Variablen als Objekte
+    private Resources res;
+    private StorageUtils su;
+    private AccountUtils au;
+    private NotificationUtils nu;
+
+    //Variablen
 	private boolean show;
-	private Resources res;
-	private NotificationUtils nu;
+    private Account current_account;
 	
 	@Override
 	public int onStartCommand(Intent intent, int flags, int startId) {
-		//Resourcen initialisieren
-		res = getResources();
-		//SharedPreferences initialisieren
-		prefs = PreferenceManager.getDefaultSharedPreferences(this);
+
+        //Resourcen initialisieren
+        res = getResources();
+
+        //StorageUtils initialsieren
+        su = new StorageUtils(PercentService.this, res);
+
+        //AccountUtils initialsieren
+        au = new AccountUtils(su);
+
+        //Aktuellen Account laden
+        current_account = au.getLastUser();
+
 		//NotificationUtils initialisieren
 		nu = new NotificationUtils(getApplicationContext());
-		//show aus den SharedPreferences ermitteln
-		show = prefs.getBoolean("send", true);
+
+		show = su.getBoolean("send", true);
+
 		//Prozentanzahl berechnen
 		int percent = (int) computePercent();
+
 		//Show auf true setzen, wenn die Prozentzahl auf 1 steht
 		if(percent == 1) show = true;
+
 		//Nachricht in die Statusleiste senden
 		if(show) sendNotification(percent);
+
 		//Service stoppen
 		stopSelf();
 		return super.onStartCommand(intent, flags, startId);
@@ -52,9 +73,8 @@ public class PercentService extends Service {
 	}
 	
 	private void sendNotification(final int progress) {
-		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(PercentService.this);
 		
-		boolean send = prefs.getBoolean("send_percent_notification", false);
+		boolean send = su.getBoolean("send_percent_notification", false);
 		
 		if(progress != 0 && progress < 100) {
 			//Notification senden
@@ -63,9 +83,7 @@ public class PercentService extends Service {
 
 			nu.displayProgressMessage(res.getString(R.string.app_name), res.getString(R.string.so_much_schooltime_is_over_) + Integer.toString(progress) + "%", nu.ID_SHOW_TODAY_PROGRESS, progress, i, nu.PRIORITY_MAX);
 			//show auf true setzen
-			Editor e = prefs.edit();
-				e.putBoolean("send", true);
-			e.commit();
+            su.putBoolean("send", true);
 		} else if(send == true && progress >= 100) {
 			//Notification senden
 			Intent i = new Intent(this, LogInActivity.class);
@@ -74,9 +92,7 @@ public class PercentService extends Service {
             nu.displayNotification(res.getString(R.string.app_name), res.getString(R.string.congradulations_schoolday_is_over), nu.ID_SHOW_TODAY_PROGRESS, i, nu.ID_SHOW_TODAY_PROGRESS, nu.PRIORITY_HIGH, 0, new long[0]);
 			
 			//show auf false setzten
-			Editor e = prefs.edit();
-				e.putBoolean("send", false);
-			e.commit();
+            su.putBoolean("send", false);
 		} else {
 			nu.clearNotification(nu.ID_SHOW_TODAY_PROGRESS);
 		}
@@ -86,27 +102,20 @@ public class PercentService extends Service {
 		Calendar cal = new GregorianCalendar();
 		cal.setTime(new Date());
 		int weekday = cal.get(Calendar.DAY_OF_WEEK);
-		
-		String weekString = "";
-		
-		if(weekday == 2) {
-			weekString = "Mo";
-		} else if (weekday == 3) {
-			weekString = "Di";
-		} else if (weekday == 4) {
-			weekString = "Mi";
-		} else if (weekday == 5) {
-			weekString = "Do";
-		} else if (weekday == 6) {
-			weekString = "Fr";
-		} else if (weekday == 7) {
-			weekString = "Mo";
-		} else if (weekday == 1) {
-			weekString = "Mo";
-		}
 
-		//Daycode herausfinden
-		String daycode= prefs.getString(weekString, "-,-,-,-,-,-,-,-,-,-");
+        //Daycode herausfinden
+        TimeTable tt = su.getTimeTable(current_account.getForm());
+        String daycode = "";
+        if(tt != null) {
+            if(weekday == 2) daycode = tt.getMo();
+            if(weekday == 3) daycode = tt.getDi();
+            if(weekday == 4) daycode = tt.getMi();
+            if(weekday == 5) daycode = tt.getDo();
+            if(weekday == 6) daycode = tt.getFr();
+            if(weekday == 7 || weekday == 1) return 0;
+        } else {
+            daycode = "-,-,-,-,-,-,-,-,-,-";
+        }
 
 		//Hourcode herausfinden
 		int index1 = daycode.indexOf(",", 0);

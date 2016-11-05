@@ -1,7 +1,6 @@
 package com.mrgames13.jimdo.bsbz_app.App;
 
 import android.app.AlarmManager;
-import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
@@ -13,31 +12,37 @@ import android.net.ConnectivityManager;
 import android.net.Uri;
 import android.preference.PreferenceManager;
 
+import com.mrgames13.jimdo.bsbz_app.CommonObjects.Account;
 import com.mrgames13.jimdo.bsbz_app.R;
 import com.mrgames13.jimdo.bsbz_app.Services.PercentService;
 import com.mrgames13.jimdo.bsbz_app.Services.SyncronisationService;
+import com.mrgames13.jimdo.bsbz_app.Tools.AccountUtils;
+import com.mrgames13.jimdo.bsbz_app.Tools.NotificationUtils;
 import com.mrgames13.jimdo.bsbz_app.Tools.ServerMessagingUtils;
+import com.mrgames13.jimdo.bsbz_app.Tools.StorageUtils;
 
 import java.net.URLEncoder;
 import java.util.Calendar;
 
-@SuppressWarnings("deprecation")
 public class BootCompletedReceiver extends BroadcastReceiver {
 	
 	//Konstanten
 
     //Variablen als Objekte
-    ConnectivityManager cm;
-    ServerMessagingUtils serverMessagingUtils;
-    SharedPreferences prefs;
-    Resources res;
-    Context context;
-    NotificationManager nm;
+    private ConnectivityManager cm;
+    private ServerMessagingUtils serverMessagingUtils;
+    private Resources res;
+    private Context context;
+    private StorageUtils su;
+    private AccountUtils au;
+    private NotificationUtils nu;
+    private NotificationManager nm;
 
     //Variablen
 	private String CURRENTVERSION;
 	private final String androidversion = android.os.Build.VERSION.RELEASE;
     private String result;
+    private Account current_account;
 	
 	@Override
 	public void onReceive(Context context, Intent intent) {
@@ -48,8 +53,17 @@ public class BootCompletedReceiver extends BroadcastReceiver {
             //Resourcen initialisieren
             res = context.getResources();
 
-			//SharedPreferences initialisieren
-            prefs = PreferenceManager.getDefaultSharedPreferences(context);
+            //StorageUtils initialisieren
+            su = new StorageUtils(context, res);
+
+            //AccountUtils initialisieren
+            au = new AccountUtils(su);
+
+            //Aktuellen Account laden
+            current_account = au.getLastUser();
+
+            //NotificationUtils initialisieren
+            nu = new NotificationUtils(context);
 
             //ServerMessagingUtils initialisieren
             cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -57,7 +71,7 @@ public class BootCompletedReceiver extends BroadcastReceiver {
 
             //SyncFreq herausfinden
 			SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
-			String syncfreq = prefs.getString("SyncFreq", "60000");
+			String syncfreq = prefs.getString("SyncFreq", "600000");
 
 			//Alarmmanager für Hintergrundprozess aufsetzen
 			AlarmManager alarmmanager_background_process = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
@@ -71,23 +85,21 @@ public class BootCompletedReceiver extends BroadcastReceiver {
 			alarmmanager_background_process.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), Integer.parseInt(syncfreq), startServicePendingIntent1);
 			
 			//Prozentanzeige in der Statusleiste anzeigen
-			boolean percent = prefs.getBoolean("send_percent_notification", false);
+			boolean percent = su.getBoolean("send_percent_notification", false);
 			if(percent == true) {
-				//Alarmmanager aufsetzen
-				AlarmManager alarmmanager_percent_display = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
-				
-				Intent startServiceIntent2 = new Intent(context, PercentService.class);
-				PendingIntent startServicePendingIntent2 = PendingIntent.getService(context,0,startServiceIntent2, 0);
+                //Alarmmanager aufsetzen
+                AlarmManager alarmmanager2 = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
 
-                //Alle 60 Sekunden ausführen
-				alarmmanager_percent_display.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), 60000, startServicePendingIntent2);
+                Intent startServiceIntent2 = new Intent(context, PercentService.class);
+                PendingIntent startServicePendingIntent2 = PendingIntent.getService(context, 0, startServiceIntent2, 0);
+
+                alarmmanager2.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), 30000, startServicePendingIntent2);
+
+                //Service starten
+                context.startService(new Intent(context, PercentService.class));
             }
 
-            if(serverMessagingUtils.isInternetAvailable()) {
-                //Version und Serverstatus prüfen und ggf. Nachrichten in die Statusleiste senden
-                String username = prefs.getString("Name", res.getString(R.string.guest));
-                checkVersionAndAccountState(username);
-            }
+            if(serverMessagingUtils.isInternetAvailable()) checkVersionAndAccountState(current_account.getUsername());
 		}
 	}
 
@@ -114,32 +126,19 @@ public class BootCompletedReceiver extends BroadcastReceiver {
                     //AppVersion prüfen
                     if(!app_version.equals(CURRENTVERSION)) {
                         MainActivity.isUpdateAvailable = true;
-
-                        //In SharedPreferences eintragen
-                        SharedPreferences.Editor e = prefs.edit();
-                            e.putBoolean("UpdateAvailable", true);
-                            e.putString("SupportUrl", supporturl);
-                        e.commit();
+                        su.putBoolean("UpdateAvailable", true);
+                        su.putString("SupportUrl", supporturl);
                     } else {
                         MainActivity.isUpdateAvailable = false;
                         //Nachricht in die Statusleiste senden
                         Intent i = new Intent(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=" + context.getPackageName())));
                         i.putExtra("Confirm", "Classtests");
-                        PendingIntent pi = PendingIntent.getActivity(context, (int) System.currentTimeMillis(), i, 0);
 
-                        Notification n = new Notification.Builder(context)
-                                .setContentTitle(res.getString(R.string.app_name))
-                                .setContentText(res.getString(R.string.update_found_tap_to_download_1) + app_version + res.getString(R.string.update_found_tap_to_download_2))
-                                .setSmallIcon(R.mipmap.ic_launcher)
-                                .setAutoCancel(true)
-                                .setContentIntent(pi)
-                                .getNotification();
-                        nm.notify(6, n);
+                        nu.displayNotification(res.getString(R.string.app_name), res.getString(R.string.update_found_tap_to_download_1) + app_version + res.getString(R.string.update_found_tap_to_download_2), nu.ID_UPDATE_FOUND, i, nu.PRIORITY_HIGH, 300, null);
+
                         //In SharedPreferences eintragen
-                        SharedPreferences.Editor e = prefs.edit();
-                            e.putBoolean("UpdateAvailable", false);
-                            e.putString("SupportUrl", supporturl);
-                        e.commit();
+                        su.putBoolean("UpdateAvailable", false);
+                        su.putString("SupportUrl", supporturl);
                     }
                     //Accountstate prüfen
                     result = serverMessagingUtils.sendRequest(null, "name="+URLEncoder.encode(username, "UTF-8")+"&command=getserverinfo");
@@ -151,23 +150,13 @@ public class BootCompletedReceiver extends BroadcastReceiver {
                     String account_state = result.substring(index2 +1);
                     //Accountstate auswerten
                     if(account_state.equals("2")) {
-                        Notification n = new Notification.Builder(context)
-                                .setContentTitle(res.getString(R.string.app_name))
-                                .setContentText(res.getString(R.string.account_locked))
-                                .setSmallIcon(R.mipmap.ic_launcher)
-                                .setAutoCancel(true)
-                                .getNotification();
-                        nm.notify(7, n);
+                        nu.displayNotification(res.getString(R.string.app_name), res.getString(R.string.account_locked), nu.ID_ACCOUNT_LOCKED, new Intent(context, LogoActivity.class), nu.PRIORITY_HIGH, 300, null);
                     } else if(account_state.equals("3")) {
-                        SharedPreferences.Editor e = prefs.edit();
-                            e.putBoolean("Sync", false);
-                            e.putString("SupportUrl", supporturl);
-                        e.commit();
+                        su.putBoolean("Sync", false);
+                        su.putString("SupportUrl", supporturl);
                     } else {
-                        SharedPreferences.Editor e = prefs.edit();
-                            e.putBoolean("Sync", true);
-                            e.putString("SupportUrl", supporturl);
-                        e.commit();
+                        su.putBoolean("Sync", true);
+                        su.putString("SupportUrl", supporturl);
                     }
                 } catch(Exception e) {}
             }

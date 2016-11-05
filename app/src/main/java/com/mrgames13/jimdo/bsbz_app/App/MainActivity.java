@@ -392,6 +392,7 @@ public class MainActivity extends AppCompatActivity {
             if(custom_startpage.equals("Bildergalerie")) selected_Menu_Item = 7;
             if(custom_startpage.equals("BSBZ-Infos")) selected_Menu_Item = 8;
             if(custom_startpage.equals("Die Entwickler")) selected_Menu_Item = 9;
+            if(selected_Menu_Item == 0) selected_Menu_Item = 1;
         }
 
         //Seite  refreshen
