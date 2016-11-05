@@ -40,12 +40,12 @@ public class FCM_Messaging_Service extends FirebaseMessagingService {
             if (command.equals("display_notification")) {
                 String message_title = remoteMessage.getData().get("title");
                 String message_text = remoteMessage.getData().get("message");
-                nu.displayNotification(message_title, message_text, 0, null, 0, nu.PRIORITY_HIGH, nu.LIGHT_LONG, new long[]{0, nu.VIBRATION_SHORT, nu.VIBRATION_SHORT, nu.VIBRATION_SHORT});
+                nu.displayNotification(message_title, message_text, 0, null, nu.PRIORITY_HIGH, nu.LIGHT_LONG, new long[]{0, nu.VIBRATION_SHORT, nu.VIBRATION_SHORT, nu.VIBRATION_SHORT});
             } else if (command.equals("announce_update")) {
                 String version = remoteMessage.getData().get("version");
                 String message_text = remoteMessage.getData().get("message");
                 Intent i = new Intent(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=" + this.getPackageName())));
-                nu.displayNotification(res.getString(R.string.update_to_version) + version, message_text, nu.ID_ANNOUNCE_UPDATE, i, nu.MODE_ANNOUNCE_UPDATE, nu.PRIORITY_NORMAL, 0, new long[0]);
+                nu.displayNotification(res.getString(R.string.update_to_version) + version, message_text, nu.ID_ANNOUNCE_UPDATE, i, nu.PRIORITY_NORMAL, 0, new long[0]);
             } else if (command.equals("initiate_sync")) {
                 startService(new Intent(this, SyncronisationService.class));
             } else if (command.equals("start_app")) {

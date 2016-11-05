@@ -24,8 +24,6 @@ public class NotificationUtils {
         public final int ID_COMP_NEWS = 10007;
         public final int ID_ACCOUNT_LOCKED = 10008;
         public final int ID_UPDATE_FOUND = 10009;
-        //Modes
-        public final int MODE_ANNOUNCE_UPDATE = 101;
         //Priorities
         public final int PRIORITY_MAX = 2;
         public final int PRIORITY_HIGH = 1;
