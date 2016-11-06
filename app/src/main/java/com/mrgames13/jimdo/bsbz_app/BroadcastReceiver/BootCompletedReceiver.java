@@ -91,7 +91,7 @@ public class BootCompletedReceiver extends BroadcastReceiver {
                 Intent startServiceIntent2 = new Intent(context, PercentService.class);
                 PendingIntent startServicePendingIntent2 = PendingIntent.getService(context, 0, startServiceIntent2, 0);
 
-                alarmmanager2.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), 30000, startServicePendingIntent2);
+                alarmmanager2.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), 60000, startServicePendingIntent2);
 
                 //Service starten
                 context.startService(new Intent(context, PercentService.class));

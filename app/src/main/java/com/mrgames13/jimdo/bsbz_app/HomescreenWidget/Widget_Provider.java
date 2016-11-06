@@ -114,6 +114,7 @@ public class Widget_Provider extends AppWidgetProvider {
 		Intent intent = new Intent(context, LogoActivity.class);
 		PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent, 0);
 		remoteView.setOnClickPendingIntent(R.id.app_oeffnen, pendingIntent);
+        remoteView.setTextViewText(R.id.last_sync, res.getString(R.string.lastSyncronisation_) + su.getString("SyncTime"));
 		
 		ComponentName widgetComponent = new ComponentName(context, Widget_Provider.class);
 		AppWidgetManager.getInstance(context).updateAppWidget(widgetComponent, remoteView);

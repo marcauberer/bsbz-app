@@ -998,7 +998,7 @@ public class MainActivity extends AppCompatActivity {
         //Fortschrittsbalken zeichnen
         long start = 0;
         long end = 0;
-        long now = 0;
+        long now;
 
         if(!hour1.equals("-")) {
             if(start == 0) {

@@ -434,7 +434,7 @@ public class SettingsActivity extends PreferenceActivity {
 					Calendar calendar = Calendar.getInstance();
 					calendar.setTimeInMillis(System.currentTimeMillis());
 					
-					alarmmanager2.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), 30000, startServicePendingIntent2);
+					alarmmanager2.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), 60000, startServicePendingIntent2);
 					
 					//Service starten
 					startService(new Intent(getApplicationContext(), PercentService.class));
