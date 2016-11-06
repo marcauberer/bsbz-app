@@ -1,4 +1,4 @@
-package com.mrgames13.jimdo.bsbz_app.App;
+package com.mrgames13.jimdo.bsbz_app.BroadcastReceiver;
 
 import android.app.AlarmManager;
 import android.app.NotificationManager;
@@ -10,6 +10,8 @@ import android.content.res.Resources;
 import android.net.ConnectivityManager;
 import android.net.Uri;
 
+import com.mrgames13.jimdo.bsbz_app.App.LogoActivity;
+import com.mrgames13.jimdo.bsbz_app.App.MainActivity;
 import com.mrgames13.jimdo.bsbz_app.CommonObjects.Account;
 import com.mrgames13.jimdo.bsbz_app.R;
 import com.mrgames13.jimdo.bsbz_app.Services.PercentService;

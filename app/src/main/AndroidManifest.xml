@@ -149,9 +149,15 @@
         <!-- PercentService -->
         <service android:name=".Services.PercentService"/>
         <!-- BootCompletedReceiver -->
-        <receiver android:name=".App.BootCompletedReceiver">
+        <receiver android:name=".BroadcastReceiver.BootCompletedReceiver">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED"/>
+            </intent-filter>
+        </receiver>
+        <!-- TimeChangedReceiver -->
+        <receiver android:name=".BroadcastReceiver.TimeChangedReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.TIME_TICK"/>
             </intent-filter>
         </receiver>
         <!-- HomescreenHidgetReceiver -->
