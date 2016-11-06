@@ -60,9 +60,6 @@ public class SyncronisationService extends Service {
 
 	@Override
 	public int onStartCommand(Intent intent, int flags, int startId) {
-        Log.d("BSBZ-App", "SynchronisationService started");
-        Toast.makeText(this, "SynchronisationService started", Toast.LENGTH_SHORT).show();
-
 
         //Kontext initialisieren
 		context = getApplicationContext();

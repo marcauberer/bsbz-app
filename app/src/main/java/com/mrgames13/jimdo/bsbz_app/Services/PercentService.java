@@ -30,7 +30,7 @@ public class PercentService extends Service {
     private NotificationUtils nu;
 
     //Variablen
-	private boolean show;
+	private boolean show_notification;
     private Account current_account;
 	
 	@Override
@@ -51,16 +51,11 @@ public class PercentService extends Service {
 		//NotificationUtils initialisieren
 		nu = new NotificationUtils(getApplicationContext());
 
-		show = su.getBoolean("send", true);
-
 		//Prozentanzahl berechnen
 		int percent = (int) computePercent();
 
-		//Show auf true setzen, wenn die Prozentzahl auf 1 steht
-		if(percent == 1) show = true;
-
 		//Nachricht in die Statusleiste senden
-		if(show) sendNotification(percent);
+		sendNotification(percent);
 
 		//Service stoppen
 		stopSelf();
@@ -74,26 +69,22 @@ public class PercentService extends Service {
 	
 	private void sendNotification(final int progress) {
 		
-		boolean send = su.getBoolean("send_percent_notification", false);
-		
-		if(progress != 0 && progress < 100) {
+		boolean send = su.getBoolean("send_percent_notification");
+		show_notification = su.getBoolean("show_notification_for_schoolday", true);
+
+		if(send && progress > 0 && progress < 100) {
 			//Notification senden
 			Intent i = new Intent(this, LogInActivity.class);
 			i.putExtra("Confirm", "Today");
-
 			nu.displayProgressMessage(res.getString(R.string.app_name), res.getString(R.string.so_much_schooltime_is_over_) + Integer.toString(progress) + "%", nu.ID_SHOW_TODAY_PROGRESS, progress, i, nu.PRIORITY_MAX);
-			//show auf true setzen
-            su.putBoolean("send", true);
-		} else if(send == true && progress >= 100) {
+            su.putBoolean("show_notification_for_schoolday", true);
+        } else if(show_notification && send && progress == 100) {
 			//Notification senden
 			Intent i = new Intent(this, LogInActivity.class);
 			i.putExtra("Confirm", "Today");
-
-            nu.displayNotification(res.getString(R.string.app_name), res.getString(R.string.congradulations_schoolday_is_over), nu.ID_SHOW_TODAY_PROGRESS, i, nu.ID_SHOW_TODAY_PROGRESS, nu.PRIORITY_HIGH, 0, new long[0]);
-			
-			//show auf false setzten
-            su.putBoolean("send", false);
-		} else {
+            nu.displayNotification(res.getString(R.string.app_name), res.getString(R.string.congradulations_schoolday_is_over), nu.ID_SHOW_TODAY_PROGRESS, i, nu.PRIORITY_HIGH, 0, new long[0]);
+            su.putBoolean("show_notification_for_schoolday", false);
+        } else {
 			nu.clearNotification(nu.ID_SHOW_TODAY_PROGRESS);
 		}
 	}
@@ -221,10 +212,6 @@ public class PercentService extends Service {
 			if(percent > 100) {
 				percent = 100;
 			} else if(percent < 0) {
-				percent = 0;
-			}
-			//Wenn Samstag oder Sonntag ist Prozentanzahl auf 0% setzen
-			if(!(weekday != 7 && weekday != 1)) {
 				percent = 0;
 			}
 			return percent;

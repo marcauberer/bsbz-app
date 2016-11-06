@@ -6,11 +6,9 @@ import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.net.ConnectivityManager;
 import android.net.Uri;
-import android.preference.PreferenceManager;
 
 import com.mrgames13.jimdo.bsbz_app.CommonObjects.Account;
 import com.mrgames13.jimdo.bsbz_app.R;
@@ -69,24 +67,22 @@ public class BootCompletedReceiver extends BroadcastReceiver {
             cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
             serverMessagingUtils = new ServerMessagingUtils(cm, context);
 
-            //SyncFreq herausfinden
-			SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
-			String syncfreq = prefs.getString("SyncFreq", "600000");
+            //Alarmmanager aufsetzen
+            AlarmManager alarmmanager1 = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
 
-			//Alarmmanager für Hintergrundprozess aufsetzen
-			AlarmManager alarmmanager_background_process = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
-			
-			Intent startServiceIntent1 = new Intent(context, SyncronisationService.class);
-			PendingIntent startServicePendingIntent1 = PendingIntent.getService(context,0,startServiceIntent1, 0);
-			
-			Calendar calendar = Calendar.getInstance();
-			calendar.setTimeInMillis(System.currentTimeMillis());
-			
-			alarmmanager_background_process.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), Integer.parseInt(syncfreq), startServicePendingIntent1);
+            Intent startServiceIntent1 = new Intent(context, SyncronisationService.class);
+            PendingIntent startServicePendingIntent1 = PendingIntent.getService(context, 0, startServiceIntent1, 0);
+
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTimeInMillis(System.currentTimeMillis());
+
+            alarmmanager1.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), Integer.parseInt(su.getString("SyncFreq", "600000")), startServicePendingIntent1);
+
+            //Service starten
+            context.startService(new Intent(context, PercentService.class));
 			
 			//Prozentanzeige in der Statusleiste anzeigen
-			boolean percent = su.getBoolean("send_percent_notification", false);
-			if(percent == true) {
+			if(su.getBoolean("send_percent_notification", false)) {
                 //Alarmmanager aufsetzen
                 AlarmManager alarmmanager2 = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
 

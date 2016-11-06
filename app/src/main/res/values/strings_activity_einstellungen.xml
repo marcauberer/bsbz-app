@@ -11,7 +11,7 @@
     <string name="pref_header_accounts">Account-einstellungen</string>
     <string name="pref_header_infos">Über die BSZB-App</string>
     <string-array name="pref_sync_frequency_titles">
-        <item>5 Minuten</item>
+        <item>2 Minuten</item>
         <item>10 Minuten</item>
         <item>30 Minuten</item>
         <item>1 Stunde</item>
@@ -21,7 +21,7 @@
 
     
     <string-array name="pref_sync_frequency_values">
-        <item>300000</item>
+        <item>120000</item>
         <item>600000</item>
         <item>1800000</item>
         <item>3600000</item>

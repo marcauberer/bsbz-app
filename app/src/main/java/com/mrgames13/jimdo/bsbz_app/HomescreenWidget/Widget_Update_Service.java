@@ -5,7 +5,6 @@ import android.appwidget.AppWidgetManager;
 import android.content.Intent;
 import android.os.Handler;
 import android.os.IBinder;
-import android.util.Log;
 
 public class Widget_Update_Service extends Service {
 
@@ -26,7 +25,7 @@ public class Widget_Update_Service extends Service {
 	}
 	
 	private void sendBroadcast() {
-		Intent i = new Intent(Widget_Update_Service.this, Widget_Provider.class);
+		Intent i = new Intent(this, Widget_Provider.class);
 		i.setAction(AppWidgetManager.EXTRA_CUSTOM_EXTRAS);
 		i.putExtra("UpdateAll", "UpdateAll");
 		sendBroadcast(i);
@@ -37,6 +36,6 @@ public class Widget_Update_Service extends Service {
 			public void run() {
 				sendBroadcast();
 			}
-		}, 10000);
+		}, 60000);
 	}
 }

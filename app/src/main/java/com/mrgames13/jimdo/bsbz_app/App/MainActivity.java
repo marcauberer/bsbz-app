@@ -368,19 +368,26 @@ public class MainActivity extends AppCompatActivity {
         //All erstellen
         all = new ArrayList<>();
 
+        //Extras auslesen
         try {
-            //Extras auslesen
-            String extra = getIntent().getExtras().getString("Open");
+            String extra = getIntent().getStringExtra("Open");
+            Log.d("BSBZ-App", "Open: "+extra);
             if(extra.equals("Diese Woche")) {
                 navView.getMenu().getItem(2).setChecked(true);
+                launchThisWeekFragment();
             } else if(extra.equals("Jahresplan")) {
                 navView.getMenu().getItem(3).setChecked(true);
+                launchPlanOfTheYearFragment();
             } else if(extra.equals("Today")) {
+                Log.d("BSBZ-App", "Extra received");
                 navView.getMenu().getItem(1).setChecked(true);
+                launchTodayFragment();
             } else {
                 Log.d("BSBZ-App", "Nicht verständliches Extra");
             }
-        } catch(NullPointerException e) {}
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
 
         if(selected_Menu_Item == 0) {
             String custom_startpage = su.getString("CustomStartPage", "Mein Profil (Standard)");
