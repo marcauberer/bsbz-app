@@ -2326,54 +2326,58 @@ public class MainActivity extends AppCompatActivity {
                         }
                     });
 
-                    AlertDialog alert = new AlertDialog.Builder(MainActivity.this)
-                            .setTitle(res.getString(R.string.edit_foodplan_t))
-                            .setView(view)
-                            .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-                                    dialog.dismiss();
-                                }
-                            })
-                            .setPositiveButton(R.string.publish, new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(final DialogInterface dialog, int which) {
-                                    final String url = et_link.getText().toString().trim();
-                                    if(url.startsWith("https://www.bsbz.de/") || url.startsWith("http://files.mrgames-server.de/") || url.startsWith("https://goo.gl/")) {
-                                        new Thread(new Runnable() {
-                                            @Override
-                                            public void run() {
-                                                //Speiseplan-Url hochladen
-                                                try{
-                                                    String name = su.getString("Name", res.getString(R.string.guest));
-                                                    serverMessagingUtils.sendRequest(null, "name="+URLEncoder.encode(name, "UTF-8")+"&command=setfoodplan&url="+URLEncoder.encode(url, "UTF-8"));
-                                                    runOnUiThread(new Runnable() {
-                                                        @Override
-                                                        public void run() {
-                                                            //Dialog schließen und Speiseplan-Seite refreshen
-                                                            dialog.dismiss();
-                                                            launchFoodPlanFragment();
-                                                            Toast.makeText(MainActivity.this, res.getString(R.string.action_successful), Toast.LENGTH_SHORT).show();
-                                                        }
-                                                    });
-                                                } catch(Exception e) {
-                                                    e.printStackTrace();
-                                                    runOnUiThread(new Runnable() {
-                                                        @Override
-                                                        public void run() {
-                                                            Toast.makeText(MainActivity.this, res.getString(R.string.action_failed), Toast.LENGTH_SHORT).show();
-                                                        }
-                                                    });
+                    AlertDialog.Builder d;
+                    if(MainActivity.AppTheme == 0) {
+                        d = new AlertDialog.Builder(MainActivity.this, R.style.FirstTheme_Dialog);
+                    } else {
+                        d = new AlertDialog.Builder(MainActivity.this, R.style.SecondTheme_Dialog);
+                    }
+                    d.setTitle(res.getString(R.string.edit_foodplan_t));
+                    d.setView(view);
+                    d.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                        }
+                    });
+                    d.setPositiveButton(R.string.publish, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(final DialogInterface dialog, int which) {
+                            final String url = et_link.getText().toString().trim();
+                            if(url.startsWith("https://www.bsbz.de/") || url.startsWith("http://files.mrgames-server.de/") || url.startsWith("https://goo.gl/")) {
+                                new Thread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        //Speiseplan-Url hochladen
+                                        try{
+                                            String name = su.getString("Name", res.getString(R.string.guest));
+                                            serverMessagingUtils.sendRequest(null, "name="+URLEncoder.encode(name, "UTF-8")+"&command=setfoodplan&url="+URLEncoder.encode(url, "UTF-8"));
+                                            runOnUiThread(new Runnable() {
+                                                @Override
+                                                public void run() {
+                                                    //Dialog schließen und Speiseplan-Seite refreshen
+                                                    dialog.dismiss();
+                                                    launchFoodPlanFragment();
+                                                    Toast.makeText(MainActivity.this, res.getString(R.string.action_successful), Toast.LENGTH_SHORT).show();
                                                 }
-                                            }
-                                        }).start();
-                                    } else {
-                                        Toast.makeText(MainActivity.this, res.getString(R.string.no_valid_url), Toast.LENGTH_SHORT).show();
+                                            });
+                                        } catch(Exception e) {
+                                            e.printStackTrace();
+                                            runOnUiThread(new Runnable() {
+                                                @Override
+                                                public void run() {
+                                                    Toast.makeText(MainActivity.this, res.getString(R.string.action_failed), Toast.LENGTH_SHORT).show();
+                                                }
+                                            });
+                                        }
                                     }
-                                }
-                            })
-                            .create();
-                    alert.show();
+                                }).start();
+                            } else {
+                                Toast.makeText(MainActivity.this, res.getString(R.string.no_valid_url), Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    });
+                    d.create().show();
                 }
             });
             edit_foodplan.setVisibility(View.VISIBLE);

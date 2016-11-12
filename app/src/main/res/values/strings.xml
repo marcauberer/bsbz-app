@@ -360,8 +360,8 @@
     <string name="edit_foodplan_easter">Osterferien</string>
     <string name="edit_foodplan_pentecost">Pfinstferien</string>
     <string name="edit_foodplan_summer">Sommerferien</string>
-    <string name="edit_foodplan_open">Stundenplan-Seite öffnen</string>
-    <string name="edit_foodplan_open_t">Stundenplan-Seite</string>
+    <string name="edit_foodplan_open">Speiseplan-Seite öffnen</string>
+    <string name="edit_foodplan_open_t">Speiseplan-Seite</string>
     <string name="no_valid_url">Dies ist keine gültige Internetseite</string>
     <string name="paste">Zwischenablage einfügen</string>
     <string name="no_clipboard">Kein Text in der Zwischenablage gefunden</string>

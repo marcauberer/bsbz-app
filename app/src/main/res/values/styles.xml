@@ -29,7 +29,7 @@
     </style>
 
     <style name="FirstTheme_Dialog" parent="Theme.AppCompat.Light.Dialog.Alert">
-        <item name="android:textColor">@color/black</item>
+        <item name="android:textColor">@color/colorAccent</item>
         <item name="android:textColorAlertDialogListItem">@color/black</item>
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
@@ -37,7 +37,7 @@
     </style>
 
     <style name="SecondTheme_Dialog" parent="Base.Theme.AppCompat.Dialog.Alert">
-        <item name="android:textColor">@color/white</item>
+        <item name="android:textColor">@color/colorAccent</item>
         <item name="android:textColorAlertDialogListItem">@color/white</item>
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
