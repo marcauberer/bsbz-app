@@ -128,42 +128,47 @@ public class DayDetailsActivity extends AppCompatActivity {
         new_element.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                final AlertDialog d = new AlertDialog.Builder(DayDetailsActivity.this)
-                        .setTitle(res.getString(R.string.create_))
-                        .setView(R.layout.dialogview_chooser_element)
-                        .setNegativeButton(res.getString(R.string.cancel), new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                dialog.dismiss();
-                            }
-                        })
-                        .setPositiveButton(res.getString(R.string.next), new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                SwitchCompat sw1 = (SwitchCompat) ((AlertDialog) dialog).findViewById(R.id.chooser_element_classtest);
-                                SwitchCompat sw2 = (SwitchCompat) ((AlertDialog) dialog).findViewById(R.id.chooser_element_homework);
-                                SwitchCompat sw3 = (SwitchCompat) ((AlertDialog) dialog).findViewById(R.id.chooser_element_event);
-                                if(sw1.isChecked()) {
-                                    Intent i = new Intent(DayDetailsActivity.this, NewEditElementActivity.class);
-                                    i.putExtra("mode", NewEditElementActivity.MODE_CREATE_CLASSTEST);
-                                    startActivity(i);
-                                } else if(sw2.isChecked()) {
-                                    Intent i = new Intent(DayDetailsActivity.this, NewEditElementActivity.class);
-                                    i.putExtra("mode", NewEditElementActivity.MODE_CREATE_HOMEWORK);
-                                    startActivity(i);
-                                } else if(sw3.isChecked()) {
-                                    Intent i = new Intent(DayDetailsActivity.this, NewEditElementActivity.class);
-                                    i.putExtra("mode", NewEditElementActivity.MODE_CREATE_EVENT);
-                                    startActivity(i);
-                                }
-                            }
-                        })
-                        .create();
-                d.show();
+                AlertDialog.Builder d;
+                if(MainActivity.AppTheme == 0) {
+                    d = new AlertDialog.Builder(DayDetailsActivity.this, R.style.FirstTheme_Dialog);
+                } else {
+                    d = new AlertDialog.Builder(DayDetailsActivity.this, R.style.SecondTheme_Dialog);
+                }
+                d.setTitle(res.getString(R.string.create_));
+                d.setView(R.layout.dialogview_chooser_element);
+                d.setNegativeButton(res.getString(R.string.cancel), new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+                d.setPositiveButton(res.getString(R.string.next), new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        SwitchCompat sw1 = (SwitchCompat) ((AlertDialog) dialog).findViewById(R.id.chooser_element_classtest);
+                        SwitchCompat sw2 = (SwitchCompat) ((AlertDialog) dialog).findViewById(R.id.chooser_element_homework);
+                        SwitchCompat sw3 = (SwitchCompat) ((AlertDialog) dialog).findViewById(R.id.chooser_element_event);
+                        if(sw1.isChecked()) {
+                            Intent i = new Intent(DayDetailsActivity.this, NewEditElementActivity.class);
+                            i.putExtra("mode", NewEditElementActivity.MODE_CREATE_CLASSTEST);
+                            startActivity(i);
+                        } else if(sw2.isChecked()) {
+                            Intent i = new Intent(DayDetailsActivity.this, NewEditElementActivity.class);
+                            i.putExtra("mode", NewEditElementActivity.MODE_CREATE_HOMEWORK);
+                            startActivity(i);
+                        } else if(sw3.isChecked()) {
+                            Intent i = new Intent(DayDetailsActivity.this, NewEditElementActivity.class);
+                            i.putExtra("mode", NewEditElementActivity.MODE_CREATE_EVENT);
+                            startActivity(i);
+                        }
+                    }
+                });
+                AlertDialog dialog = d.create();
+                dialog.show();
 
-                final SwitchCompat sw1 = (SwitchCompat) d.findViewById(R.id.chooser_element_classtest);
-                final SwitchCompat sw2 = (SwitchCompat) d.findViewById(R.id.chooser_element_homework);
-                final SwitchCompat sw3 = (SwitchCompat) d.findViewById(R.id.chooser_element_event);
+                final SwitchCompat sw1 = (SwitchCompat) dialog.findViewById(R.id.chooser_element_classtest);
+                final SwitchCompat sw2 = (SwitchCompat) dialog.findViewById(R.id.chooser_element_homework);
+                final SwitchCompat sw3 = (SwitchCompat) dialog.findViewById(R.id.chooser_element_event);
                 //Swiches voreinstellen
                 int state = tablayout.getSelectedTabPosition();
                 sw1.setChecked(state == 0);

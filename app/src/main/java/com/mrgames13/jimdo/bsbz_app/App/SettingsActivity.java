@@ -631,17 +631,23 @@ public class SettingsActivity extends PreferenceActivity {
             public boolean onPreferenceClick(Preference preference) {
                 SpannableString s = new SpannableString(res.getString(R.string.openSourceLicense));
                 Linkify.addLinks(s, Linkify.ALL);
-                AlertDialog d = new AlertDialog.Builder(SettingsActivity.this)
-                        .setTitle(opensouce.getTitle())
-                        .setMessage(Html.fromHtml(s.toString()))
-                        .setPositiveButton(res.getString(R.string.ok), new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                dialog.dismiss();
-                            }
-                        })
-                        .show();
-                ((TextView)d.findViewById(android.R.id.message)).setMovementMethod(LinkMovementMethod.getInstance());
+				AlertDialog.Builder d;
+				if(MainActivity.AppTheme == 0) {
+					d = new AlertDialog.Builder(SettingsActivity.this, R.style.FirstTheme_Dialog);
+				} else {
+					d = new AlertDialog.Builder(SettingsActivity.this, R.style.SecondTheme_Dialog);
+				}
+                d.setTitle(opensouce.getTitle());
+                d.setMessage(Html.fromHtml(s.toString()));
+                d.setPositiveButton(res.getString(R.string.ok), new DialogInterface.OnClickListener() {
+                	@Override
+					public void onClick(DialogInterface dialog, int which) {
+                    	dialog.dismiss();
+                	}
+            	});
+   				AlertDialog dialog = d.create();
+				dialog.show();
+                ((TextView)dialog.findViewById(android.R.id.message)).setMovementMethod(LinkMovementMethod.getInstance());
                 return false;
             }
         });
