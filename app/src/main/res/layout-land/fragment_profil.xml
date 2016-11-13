@@ -86,16 +86,8 @@
         android:id="@+id/klasse_wahlen"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/support_developers"
-        android:text="@string/choose_class_actually" />
-
-    <Button
-        android:id="@+id/support_developers"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
         android:layout_above="@+id/ll1"
-        android:visibility="gone"
-        android:text="@string/support_developers"/>
+        android:text="@string/choose_class_actually" />
     
     <LinearLayout
         android:id="@+id/ll1"

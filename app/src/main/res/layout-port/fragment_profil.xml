@@ -85,18 +85,10 @@
         tools:ignore="HardcodedText,RtlHardcoded" />
 
     <Button
-        android:id="@+id/support_developers"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/ideen"
-        android:visibility="gone"
-        android:text="@string/support_developers"/>
-
-    <Button
         android:id="@+id/klasse_wahlen"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/support_developers"
+        android:layout_above="@+id/ideen"
         android:text="@string/choose_class_actually" />
 
     <TextView

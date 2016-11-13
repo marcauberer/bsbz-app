@@ -74,7 +74,6 @@ import com.mrgames13.jimdo.bsbz_app.Tools.NotificationUtils;
 import com.mrgames13.jimdo.bsbz_app.Tools.ServerMessagingUtils;
 import com.mrgames13.jimdo.bsbz_app.Tools.StorageUtils;
 import com.mrgames13.jimdo.bsbz_app.ViewPagerAdapters.ViewPagerAdapterPlanOfTheYear;
-import com.vungle.publisher.VunglePub;
 
 import java.net.URLEncoder;
 import java.text.DateFormat;
@@ -133,7 +132,6 @@ public class MainActivity extends AppCompatActivity {
     private TabLayout tablayout = null;
     private ViewPager viewpager = null;
     private ViewPagerAdapterPlanOfTheYear viewpager_adapter = null;
-    public static VunglePub vungle_pub;
 
     //UtilsPakete
     public static ServerMessagingUtils serverMessagingUtils;
@@ -442,10 +440,6 @@ public class MainActivity extends AppCompatActivity {
             launchDeveloperFragment();
             navView.getMenu().getItem(8).setChecked(true);
         }
-
-        //Vungle initialisieren
-        vungle_pub = VunglePub.getInstance();
-        vungle_pub.init(this, res.getString(R.string.app_id_vungle));
     }
 
     @Override
@@ -563,15 +557,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onPause() {
-        super.onPause();
-        vungle_pub.onPause();
-    }
-
-    @Override
     protected void onResume() {
         super.onResume();
-        vungle_pub.onResume();
         //Seite  refreshen
         if(selected_Menu_Item == 1) {
             getSupportActionBar().setTitle(res.getString(R.string.my_profile));
@@ -764,15 +751,6 @@ public class MainActivity extends AppCompatActivity {
         TextView Profil_last_syncronisation_time = (TextView) findViewById(R.id.last_syncronisation_time);
 
         Log.d("BSBZ-App", "Rights: "+rights);
-
-        //Ad-Button Click-Listener setzen
-        final Button ad_button = (Button) findViewById(R.id.support_developers);
-        ad_button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                vungle_pub.playAd();
-            }
-        });
 
         //Texte setzen
         Profil_name.setText(User_name);

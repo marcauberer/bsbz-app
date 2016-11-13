@@ -1,7 +1,6 @@
 <resources>
     <string name="app_name" translatable="false">BSBZ-App</string>
     <string name="app_name_long">Die BSBZ-App</string>
-    <string name="app_id_vungle">5827321246de888b100000ce</string>
     <string name="powered_by" translatable="false">powered by M&#38;R Games</string>
     <string name="ok">OK</string>
     <string name="yes">Ja</string>
@@ -378,6 +377,5 @@
     <string name="test_server">M&#38;R Games Testserver 01</string>
     <string name="commit_changings">Änderungen veröffentlichen</string>
     <string name="do_you_want_to_publish_timetable">Wollen Sie den veränderten Stundenplan wirklich veröffentlichen?</string>
-    <string name="support_developers">M&#38;R Games unterstützen</string>
 
 </resources>

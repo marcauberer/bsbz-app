@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="openSourceLicense" translatable="false"><![CDATA[<b>This application may use or contain portions of libraries subject to the following licenses:</b><br><br>- support-appcompat-v7<br>- support-v4<br>- support-design<br>- support-recyclerview-v7<br>- support-palette-v7<br>- selectable-rounded-imageview<br><br><b><a href="http://www.apache.org/licenses/LICENSE-2.0">Apache 2.0 License</a></b>]]></string>
-    <string name="update_news_message">Die Version 3.3.4 der BSBZ-App ist da!\n\nNeuerungen:\n- Die Jahresplan-Seite wurde neu gestaltet\n- Stundenplan-bearbeiten-Funktion eingebaut\n\nVerbesserungen:\n- Fehlerbehebungen\n\nViel Spaß mit der BSBZ-App wünscht\nDas M&#38;R Games Team</string>
+    <string name="update_news_message">Die Version 3.3.5 der BSBZ-App ist da!\n\nVerbesserungen:\n- Fehlerbehebungen\n- Fehler mit der Prozentanzeige in der Statusleiste wurde behoben\n- Farbschema wurde angepasst\n\nViel Spaß mit der BSBZ-App wünscht\nDas M&#38;R Games Team</string>
 </resources>
