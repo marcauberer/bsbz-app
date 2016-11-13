@@ -2,16 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    tools:ignore="UnusedAttribute" >
-
-    <TextView
-        android:id="@+id/section_label"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+    android:padding="@dimen/activity_vertical_margin" >
 
     <TextView
         android:id="@+id/Name_l"
@@ -53,8 +44,8 @@
         android:id="@+id/Bewertung_l"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/section_label"
-        android:layout_marginTop="24dp"
+        android:layout_below="@+id/Name_l"
+        android:layout_marginTop="10dp"
         android:text="@string/class_"
         android:textAppearance="?android:attr/textAppearanceLarge"
         tools:ignore="RtlHardcoded" />
@@ -81,22 +72,29 @@
 
     <TextView
         android:id="@+id/Profil_Rechte"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignBaseline="@+id/l_Rechte"
         android:layout_alignBottom="@+id/l_Rechte"
         android:layout_alignParentRight="true"
+        android:gravity="right"
+        android:layout_toRightOf="@id/l_Rechte"
         android:text="@string/loading"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <Button
         android:id="@+id/klasse_wahlen"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/support_developers"
+        android:text="@string/choose_class_actually" />
+
+    <Button
+        android:id="@+id/support_developers"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_above="@+id/ll1"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true"
-        android:text="@string/choose_class_actually" />
+        android:text="@string/support_developers"/>
     
     <LinearLayout
         android:id="@+id/ll1"
