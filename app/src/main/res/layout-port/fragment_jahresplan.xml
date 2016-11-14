@@ -139,7 +139,7 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@drawable/black_border"
+            android:background="@drawable/rounded_border"
             android:padding="1dp">
 
             <android.support.design.widget.TabLayout
