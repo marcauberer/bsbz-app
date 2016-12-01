@@ -563,6 +563,8 @@ public class SettingsActivity extends PreferenceActivity {
 						}
 					});
 					builder.create().show();
+
+					AlertDialog.Builder builder1 = new AlertDialog.Builder(getApplicationContext());
 				}
 				return true;
 			}

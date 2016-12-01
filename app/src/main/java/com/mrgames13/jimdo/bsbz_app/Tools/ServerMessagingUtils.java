@@ -139,9 +139,7 @@ public class ServerMessagingUtils {
             o.flush();
             o.close();
             i.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        } catch (Exception e) {}
     }
 
     public void downloadFolder(final Context context, String imageFolder, final ArrayList<String> fileNames) {

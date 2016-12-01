@@ -89,64 +89,66 @@ public class SyncronisationService extends Service {
 		//Handler initialisieren
 		handler = new Handler();
 
-        final String data = intent.getStringExtra("Data");
-        if(data != null) {
-            Thread t = new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    if(serverMessagingUtils.isInternetAvailable()) {
-                        //Snchronisieren
-                        sync(data);
-                        //SyncTime eintragen
-                        EnterLastSyncTime();
-                    }
-                    //MainActivity refreshen
-                    MainActivity.isRunning = false;
-                    handler.post(new Runnable() {
-                        @Override
-                        public void run() {
-                            try{ MainActivity.syncFinishedListener.onSyncFinished(); } catch(Exception e) {}
+        try{
+            final String data = intent.getStringExtra("Data");
+            if(data != null) {
+                Thread t = new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        if(serverMessagingUtils.isInternetAvailable()) {
+                            //Snchronisieren
+                            sync(data);
+                            //SyncTime eintragen
+                            EnterLastSyncTime();
                         }
-                    });
-                    stopSelf();
-                }
-            });
-            t.start();
-        } else {
-            show_notifications = su.getBoolean("send_notifications", true);
-            klasse = current_account.getForm();
-            username = current_account.getUsername();
-            update = su.getBoolean("UpdateAvailable", false);
-            sync = su.getBoolean("Sync", true);
-
-            if(!sync) Toast.makeText(context, getResources().getString(R.string.account_sync_blocked), Toast.LENGTH_LONG).show();
-
-            Thread t = new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    if(!update && sync && serverMessagingUtils.isInternetAvailable()) {
-                        //Snchronisieren
-                        result = "";
-                        try{
-                            result = serverMessagingUtils.sendRequest(null, "name="+ URLEncoder.encode(username, "UTF-8")+"&command=sync&class="+URLEncoder.encode(klasse, "UTF-8"));
-                        } catch(Exception e) {}
-                        sync(result);
-                        //SyncTime eintragen
-                        EnterLastSyncTime();
+                        //MainActivity refreshen
+                        MainActivity.isRunning = false;
+                        handler.post(new Runnable() {
+                            @Override
+                            public void run() {
+                                try{ MainActivity.syncFinishedListener.onSyncFinished(); } catch(Exception e) {}
+                            }
+                        });
+                        stopSelf();
                     }
-                    //MainActivity refreshen
-                    MainActivity.isRunning = false;
-                    handler.post(new Runnable() {
-                        @Override
-                        public void run() {
-                            try{ MainActivity.syncFinishedListener.onSyncFinished(); } catch(Exception e) {}
+                });
+                t.start();
+            } else {
+                show_notifications = su.getBoolean("send_notifications", true);
+                klasse = current_account.getForm();
+                username = current_account.getUsername();
+                update = su.getBoolean("UpdateAvailable", false);
+                sync = su.getBoolean("Sync", true);
+
+                if(!sync) Toast.makeText(context, getResources().getString(R.string.account_sync_blocked), Toast.LENGTH_LONG).show();
+
+                Thread t = new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        if(!update && sync && serverMessagingUtils.isInternetAvailable()) {
+                            //Snchronisieren
+                            result = "";
+                            try{
+                                result = serverMessagingUtils.sendRequest(null, "name="+ URLEncoder.encode(username, "UTF-8")+"&command=sync&class="+URLEncoder.encode(klasse, "UTF-8"));
+                            } catch(Exception e) {}
+                            sync(result);
+                            //SyncTime eintragen
+                            EnterLastSyncTime();
                         }
-                    });
-                    stopSelf();
-                }
-            });
-            t.start();
-        }
+                        //MainActivity refreshen
+                        MainActivity.isRunning = false;
+                        handler.post(new Runnable() {
+                            @Override
+                            public void run() {
+                                try{ MainActivity.syncFinishedListener.onSyncFinished(); } catch(Exception e) {}
+                            }
+                        });
+                        stopSelf();
+                    }
+                });
+                t.start();
+            }
+        } catch(Exception e) {}
 		return super.onStartCommand(intent, flags, startId);
 	}
 	
