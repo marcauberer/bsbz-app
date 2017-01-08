@@ -26,7 +26,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceSmall"
-        android:text="@string/tap_on_new"
+        android:text="@string/tap_on_news"
         android:gravity="center"
         android:layout_alignParentBottom="true"/>
 </RelativeLayout>

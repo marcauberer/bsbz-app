@@ -60,8 +60,7 @@ public class FCM_Messaging_Service extends FirebaseMessagingService {
                 i.putExtra("Data", data);
                 startService(i);
             }
-        } catch (Exception e) {
-        }
+        } catch (Exception e) {}
         stopSelf();
     }
 }

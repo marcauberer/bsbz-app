@@ -26,7 +26,6 @@ import com.mrgames13.jimdo.bsbz_app.Tools.ServerMessagingUtils;
 import com.mrgames13.jimdo.bsbz_app.Tools.StorageUtils;
 
 @SuppressLint("SetJavaScriptEnabled")
-@SuppressWarnings("deprecation")
 public class WebActivity extends AppCompatActivity {
 
     //Konstanten

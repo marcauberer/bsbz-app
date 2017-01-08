@@ -113,9 +113,7 @@ public class ImageFullscreenActivity extends AppCompatActivity {
 
         //Schwarzer Hintergrund hinzufügen
         RelativeLayout rl = (RelativeLayout) findViewById(R.id.rl1);
-        if(theme.equals("1")) {
-            rl.setBackgroundColor(Color.BLACK);
-        }
+        if(theme.equals("1")) rl.setBackgroundColor(Color.BLACK);
 
         folderName = getIntent().getExtras().getString("foldername");
         imageName = getIntent().getExtras().getString("imagename");

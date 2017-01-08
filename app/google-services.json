@@ -15,6 +15,22 @@
       },
       "oauth_client": [
         {
+          "client_id": "1087927243833-c6ndfhj242ee4oaiofl9ssm4non92jk2.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.mrgames13.jimdo.bsbz_app",
+            "certificate_hash": "412594E7738AA6A1DA19F58B5005DD5C0B812CAB"
+          }
+        },
+        {
+          "client_id": "1087927243833-pt50rbtdnthij2bfsqn34j04ceibu8uc.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.mrgames13.jimdo.bsbz_app",
+            "certificate_hash": "2C38AA1BEE8E76A1905C66162089178384ADE96D"
+          }
+        },
+        {
           "client_id": "1087927243833-ib0i3vc9gdfan7qle3q1hj9esnrsvstl.apps.googleusercontent.com",
           "client_type": 3
         }

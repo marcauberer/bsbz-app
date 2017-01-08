@@ -28,6 +28,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
+import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -254,7 +255,7 @@ public class ServerMessagingUtils {
     public long ping(String username) {
         //Zeit berechnen
         long start = System.currentTimeMillis();
-        sendRequest(null, "name="+URLEncoder.encode(username)+"&command=ping");
+        try { sendRequest(null, "name="+URLEncoder.encode(username, "UTF-8")+"&command=ping"); } catch (UnsupportedEncodingException e) {}
         long end = System.currentTimeMillis();
         return end - start;
     }

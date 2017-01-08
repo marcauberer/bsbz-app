@@ -50,7 +50,6 @@ import com.mrgames13.jimdo.bsbz_app.Tools.StorageUtils;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 
-@SuppressWarnings("deprecation")
 public class LogInActivity extends AppCompatActivity {
 
 	//Konstanten festlegen
@@ -405,10 +404,8 @@ public class LogInActivity extends AppCompatActivity {
                                                 } else {
                                                     startActivity(new Intent(LogInActivity.this, MainActivity.class));
                                                 }
-                                            } catch(NullPointerException e2) {
-                                                startActivity(new Intent(LogInActivity.this, MainActivity.class));
-                                            }
-                                            startActivity(new Intent(LogInActivity.this,MainActivity.class));
+                                            } catch(NullPointerException e2) {}
+                                            startActivity(new Intent(LogInActivity.this, MainActivity.class));
                                             //Animierter Activitywechsel starten
                                             overridePendingTransition(R.anim.in_login, R.anim.out_login);
                                             finish();
@@ -456,10 +453,8 @@ public class LogInActivity extends AppCompatActivity {
                                                 } else {
                                                     startActivity(new Intent(LogInActivity.this, MainActivity.class));
                                                 }
-                                            } catch(NullPointerException e2) {
-                                                startActivity(new Intent(LogInActivity.this, MainActivity.class));
-                                            }
-                                            startActivity(new Intent(LogInActivity.this,MainActivity.class));
+                                            } catch(NullPointerException e2) {}
+                                            startActivity(new Intent(LogInActivity.this, MainActivity.class));
                                             //Animierter Activitywechsel starten
                                             overridePendingTransition(R.anim.in_login, R.anim.out_login);
                                             finish();
