@@ -371,7 +371,6 @@ public class MainActivity extends AppCompatActivity {
         //Extras auslesen
         try {
             String extra = getIntent().getStringExtra("Open");
-            Log.d("BSBZ-App", "Open: "+extra);
             if(extra.equals("Diese Woche")) {
                 navView.getMenu().getItem(2).setChecked(true);
                 launchThisWeekFragment();
@@ -379,15 +378,12 @@ public class MainActivity extends AppCompatActivity {
                 navView.getMenu().getItem(3).setChecked(true);
                 launchPlanOfTheYearFragment();
             } else if(extra.equals("Today")) {
-                Log.d("BSBZ-App", "Extra received");
                 navView.getMenu().getItem(1).setChecked(true);
                 launchTodayFragment();
             } else {
-                Log.d("BSBZ-App", "Nicht verständliches Extra");
+                Log.w("BSBZ-App", "Nicht verständliches Extra");
             }
-        } catch(Exception e) {
-            e.printStackTrace();
-        }
+        } catch(Exception e) {}
 
         if(selected_Menu_Item == 0) {
             String custom_startpage = su.getString("CustomStartPage", "Mein Profil (Standard)");
@@ -749,8 +745,6 @@ public class MainActivity extends AppCompatActivity {
         });
         //TextView Profil_email = (TextView) findViewById(R.id.Profil_Email);
         TextView Profil_last_syncronisation_time = (TextView) findViewById(R.id.last_syncronisation_time);
-
-        Log.d("BSBZ-App", "Rights: "+rights);
 
         //Texte setzen
         Profil_name.setText(User_name);
@@ -2160,6 +2154,7 @@ public class MainActivity extends AppCompatActivity {
                                     gallery_view_manager = new GridLayoutManager(MainActivity.this, 2);
                                     gallery_view.setLayoutManager(gallery_view_manager);
                                     gallery_view_adapter = new GalleryViewAdapter_Folders();
+                                    gallery_view_adapter.setHasStableIds(true);
                                     gallery_view.setAdapter(gallery_view_adapter);
                                     if(gallery_view_adapter.getItemCount() > 0) {
                                         //ProgressBar und Laden ausblenden

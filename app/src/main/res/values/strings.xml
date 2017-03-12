@@ -48,7 +48,7 @@
     <string name="guest">Gast</string>
     <string name="guestmode">Gastmodus</string>
     <string name="offlinemode">Offlinemodus</string>
-    <string name="copyright" translatable="false">© M&#38;R Games 2015 - 2016</string>
+    <string name="copyright" translatable="false">© M&#38;R Games 2015 - 2017</string>
     <string name="press_again_to_exit_app">Erneut drücken um App zu beenden</string>
     <string name="press_again_to_exit_registration">WARNUNG: Eingetragene Daten gehen verloren</string>
     <string name="press_again_to_go_back_delete_entry">WARNUNG: Eintrag geht verloren</string>
@@ -377,5 +377,6 @@
     <string name="test_server">M&#38;R Games Testserver 01</string>
     <string name="commit_changings">Änderungen veröffentlichen</string>
     <string name="do_you_want_to_publish_timetable">Wollen Sie den veränderten Stundenplan wirklich veröffentlichen?</string>
+    <string name="empty_folder">Leerer Ordner</string>
 
 </resources>

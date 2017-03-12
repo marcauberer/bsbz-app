@@ -8,6 +8,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.net.ConnectivityManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -23,10 +24,9 @@ import android.widget.ImageView;
 import com.mrgames13.jimdo.bsbz_app.CommonObjects.Account;
 import com.mrgames13.jimdo.bsbz_app.R;
 import com.mrgames13.jimdo.bsbz_app.Tools.AccountUtils;
+import com.mrgames13.jimdo.bsbz_app.Tools.ServerMessagingUtils;
 import com.mrgames13.jimdo.bsbz_app.Tools.StorageUtils;
 
-import java.io.FileNotFoundException;
-import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 
 public class ImagePickerActivity extends AppCompatActivity {
@@ -34,6 +34,7 @@ public class ImagePickerActivity extends AppCompatActivity {
     //Konstanten
     private final int REQ_CODE_PICK_IMAGE = 10001;
     private final int MAX_PIXELS = 1000;
+    private final int MAX_PIXELS_THUMBNAIL = 300;
 
     //Variablen als Objekte
     private Resources res;
@@ -44,10 +45,13 @@ public class ImagePickerActivity extends AppCompatActivity {
     private ProgressDialog pd;
     private StorageUtils su;
     private AccountUtils au;
+    private ConnectivityManager cm;
+    private ServerMessagingUtils smu;
 
     //Variablen
     private Uri imageUri;
     private Account current_account;
+    private String foldername = "";
 
     @Override
     protected void onStart() {
@@ -83,6 +87,10 @@ public class ImagePickerActivity extends AppCompatActivity {
 
         //StorageUtils initialisieren
         su = new StorageUtils(this, res);
+
+        //ServerMessagingUtils initialisieren
+        cm = (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE);
+        smu = new ServerMessagingUtils(cm, this);
 
         //Theme aus den Shared Preferences auslesen
         String theme = su.getString("AppTheme", "0");
@@ -143,6 +151,8 @@ public class ImagePickerActivity extends AppCompatActivity {
                 d.show();
             }
         });
+
+        if(getIntent().hasExtra("foldername")) foldername = getIntent().getStringExtra("foldername");
     }
 
     @Override
@@ -197,20 +207,26 @@ public class ImagePickerActivity extends AppCompatActivity {
                     try {
                         bitmap = BitmapFactory.decodeStream(getContentResolver().openInputStream(imageUri));
                         bitmap = scaleBitmap(bitmap);
-                    } catch (FileNotFoundException e) {}
-                    MainActivity.serverMessagingUtils.uploadImage(pd, bitmap, ImageFolderActivity.folderName, imagename);
+                        smu.uploadImage(pd, bitmap, foldername, imagename);
+                        bitmap = getThumbnail(bitmap);
+                        smu.uploadImage(pd, bitmap, foldername, imagename.substring(0, 3) + "_preview.jpg");
+                    } catch (Exception e) {}
                     //ServerCommit durchführen
                     ImageFolderActivity.filenames.add(imagename);
                     String filenames = "";
-                    for(String fileName : ImageFolderActivity.filenames) {
-                        filenames = filenames + "," + fileName;
-                    }
+                    for(String fileName : ImageFolderActivity.filenames) filenames = filenames + "," + fileName;
                     filenames = filenames.substring(1);
-                    try { MainActivity.serverMessagingUtils.sendRequest(null, "name="+URLEncoder.encode(current_account.getUsername(), "UTF-8")+"&command=setimageconfig&foldername="+URLEncoder.encode(ImageFolderActivity.folderName, "UTF-8")+"&filenames="+URLEncoder.encode(filenames, "UTF-8")); } catch (UnsupportedEncodingException e) {}
+                    try{ smu.sendRequest(null, "name="+URLEncoder.encode(current_account.getUsername(), "UTF-8")+"&command=setimageconfig&foldername="+URLEncoder.encode(foldername, "UTF-8")+"&filenames="+URLEncoder.encode(filenames, "UTF-8")); } catch (Exception e) {}
                     //FolderActivity beenden
                     ImageFolderActivity.action = ImageFolderActivity.ACTION_FINISH;
                     //Activity beenden
-                    finish();
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            pd.dismiss();
+                            finish();
+                        }
+                    });
                 }
             }).start();
         }
@@ -232,6 +248,29 @@ public class ImagePickerActivity extends AppCompatActivity {
                     factor = (float) height / MAX_PIXELS;
                     target_width = Math.round(width / factor);
                     target_height = MAX_PIXELS;
+                }
+            }
+            return Bitmap.createScaledBitmap(bitmap, target_width, target_height, false);
+        } catch(Exception e) {}
+        return null;
+    }
+
+    private Bitmap getThumbnail(Bitmap bitmap) {
+        try{
+            int width = bitmap.getWidth();
+            int height = bitmap.getHeight();
+            float factor;
+            int target_width = width;
+            int target_height = height;
+            if(width > MAX_PIXELS_THUMBNAIL || height > MAX_PIXELS_THUMBNAIL) {
+                if(width > height) {
+                    factor = (float) width / MAX_PIXELS_THUMBNAIL;
+                    target_width = MAX_PIXELS_THUMBNAIL;
+                    target_height = Math.round(height / factor);
+                } else {
+                    factor = (float) height / MAX_PIXELS_THUMBNAIL;
+                    target_width = Math.round(width / factor);
+                    target_height = MAX_PIXELS_THUMBNAIL;
                 }
             }
             return Bitmap.createScaledBitmap(bitmap, target_width, target_height, false);

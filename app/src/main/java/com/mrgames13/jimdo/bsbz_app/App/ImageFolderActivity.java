@@ -13,6 +13,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -46,7 +47,7 @@ public class ImageFolderActivity extends AppCompatActivity {
     private Account current_account;
 
     //Variablen
-    public static ArrayList<String> filenames;
+    public static ArrayList<String> filenames = new ArrayList<>();
     public static String folderName;
     private int rights = Account.RIGHTS_STUDENT;
     public static int action;
@@ -128,17 +129,17 @@ public class ImageFolderActivity extends AppCompatActivity {
         gallery_view = (RecyclerView) findViewById(R.id.gallery_view);
         gallery_view_manager = new GridLayoutManager(ImageFolderActivity.this, 2);
         gallery_view.setLayoutManager(gallery_view_manager);
-
         gallery_view_adapter = new GalleryViewAdapter_Files();
+        gallery_view_adapter.setHasStableIds(true);
         gallery_view.setAdapter(gallery_view_adapter);
 
         //ArrayList Filenames anlegen und befüllen
         folderName = getIntent().getExtras().getString("foldername").toString();
-        String filenames_string = getIntent().getExtras().getString("filenames");
+        filenames.clear();
+        final String filenames_string = getIntent().getExtras().getString("filenames");
         if(filenames_string.contains(",")) {
-            filenames = new ArrayList<String>(Arrays.asList(filenames_string.split(",")));
+            filenames.addAll(Arrays.asList(filenames_string.split(",")));
         } else {
-            filenames = new ArrayList<>();
             if(!filenames_string.equals("")) filenames.add(filenames_string);
         }
 
@@ -148,7 +149,9 @@ public class ImageFolderActivity extends AppCompatActivity {
             new_image.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    startActivity(new Intent(ImageFolderActivity.this, ImagePickerActivity.class));
+                    Intent i = new Intent(ImageFolderActivity.this, ImagePickerActivity.class);
+                    i.putExtra("foldername", folderName);
+                    startActivity(i);
                 }
             });
         } else if(rights == Account.RIGHTS_CLASSSPEAKER && folderName.equals("." + current_account.getForm())) {
@@ -157,10 +160,15 @@ public class ImageFolderActivity extends AppCompatActivity {
             new_image.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    startActivity(new Intent(ImageFolderActivity.this, ImagePickerActivity.class));
+                    Intent i = new Intent(ImageFolderActivity.this, ImagePickerActivity.class);
+                    i.putExtra("foldername", folderName);
+                    startActivity(i);
                 }
             });
         }
+
+        Log.d("BSBZ-App", String.valueOf(filenames.size()));
+
         if(gallery_view_adapter.getItemCount() == 0) findViewById(R.id.dir_empty).setVisibility(View.VISIBLE);
     }
 

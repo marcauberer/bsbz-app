@@ -3,7 +3,6 @@ package com.mrgames13.jimdo.bsbz_app.RecyclerViewAdapters;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Handler;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -32,12 +31,14 @@ public class GalleryViewAdapter_Folders extends RecyclerView.Adapter<GalleryView
         private TextView item_name;
         private ImageView item_icon;
         private ProgressBar item_progress;
+        private TextView item_no_images;
 
         public ViewHolderClass(View itemView) {
             super(itemView);
             item_icon = (ImageView) itemView.findViewById(R.id.gallery_folder_icon);
             item_name = (TextView) itemView.findViewById(R.id.gallery_folder_name);
             item_progress = (ProgressBar) itemView.findViewById(R.id.gallery_folder_progress);
+            item_no_images = (TextView) itemView.findViewById(R.id.no_images);
         }
     }
 
@@ -46,7 +47,10 @@ public class GalleryViewAdapter_Folders extends RecyclerView.Adapter<GalleryView
         context = parent.getContext();
         View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.gallery_view_item_folder, null);
 
-        return new ViewHolderClass(itemView);
+        ViewHolderClass holder = new ViewHolderClass(itemView);
+        holder.setIsRecyclable(false);
+
+        return holder;
     }
 
     @Override
@@ -65,17 +69,24 @@ public class GalleryViewAdapter_Folders extends RecyclerView.Adapter<GalleryView
                     firstImageName = MainActivity.gallery_view_filenames.get(pos).substring(0);
                 }
                 if(!firstImageName.equals("")) {
-                    firstImage = MainActivity.serverMessagingUtils.downloadImage(MainActivity.gallery_view_foldernames.get(pos), firstImageName);
+                    firstImage = MainActivity.serverMessagingUtils.downloadImage(MainActivity.gallery_view_foldernames.get(pos), firstImageName.substring(0, 3) + "_preview.jpg");
+                    h.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            holder.item_progress.setVisibility(View.GONE);
+                            holder.item_icon.setImageBitmap(firstImage);
+                        }
+                    });
                 } else {
-                    firstImage = BitmapFactory.decodeResource(MainActivity.res, R.drawable.ic_image_48pt_2x);
+                    h.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            holder.item_progress.setVisibility(View.GONE);
+                            holder.item_icon.setImageBitmap(null);
+                            holder.item_no_images.setVisibility(View.VISIBLE);
+                        }
+                    });
                 }
-                h.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        holder.item_progress.setVisibility(View.GONE);
-                        holder.item_icon.setImageBitmap(firstImage);
-                    }
-                });
             }
         }).start();
         holder.itemView.setOnClickListener(new View.OnClickListener() {
