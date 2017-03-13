@@ -84,7 +84,7 @@ public class BootCompletedReceiver extends BroadcastReceiver {
             context.startService(new Intent(context, PercentService.class));
 			
 			//Prozentanzeige in der Statusleiste anzeigen
-			if(su.getBoolean("send_percent_notification", false)) {
+			if(su.getBoolean("send_percent_notification", true)) {
                 //Alarmmanager aufsetzen
                 AlarmManager alarmmanager2 = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
 

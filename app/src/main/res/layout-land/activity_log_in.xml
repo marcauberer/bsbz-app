@@ -97,7 +97,7 @@
             android:layout_alignLeft="@+id/LogIn_LogIn"
             android:layout_alignParentRight="true"
             android:layout_below="@+id/LogIn_LogIn"
-            android:text="@string/keepLoggedIn"
+            android:text="@string/keep_logged_in"
             tools:ignore="HardcodedText,RtlHardcoded" />
 
         <TextView

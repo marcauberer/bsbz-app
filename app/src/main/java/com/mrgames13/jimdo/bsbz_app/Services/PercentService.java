@@ -69,7 +69,7 @@ public class PercentService extends Service {
 	
 	private void sendNotification(final int progress) {
 		
-		boolean send = su.getBoolean("send_percent_notification");
+		boolean send = su.getBoolean("send_percent_notification", true);
 		show_notification = su.getBoolean("show_notification_for_schoolday", true);
 
 		if(send && progress > 0 && progress < 100) {

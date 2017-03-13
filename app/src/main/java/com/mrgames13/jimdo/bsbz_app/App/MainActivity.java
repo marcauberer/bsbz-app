@@ -459,7 +459,7 @@ public class MainActivity extends AppCompatActivity {
             return true;
         } else if (id == R.id.action_logout) {
             Toast.makeText(MainActivity.this, res.getString(R.string.logoutInProgress), Toast.LENGTH_SHORT).show();
-            su.putBoolean(res.getString(R.string.keepLoggedIn), false);
+            su.putBoolean(res.getString(R.string.keep_logged_in), false);
             au.LogOut();
             startActivity(new Intent(MainActivity.this, LogInActivity.class));
             overridePendingTransition(R.anim.in_login, R.anim.out_logout);
@@ -546,6 +546,9 @@ public class MainActivity extends AppCompatActivity {
             Window window = getWindow();
             window.setStatusBarColor(darkenColor(Color.parseColor(color)));
         }
+
+        //Prozentanzeige in der Statusleiste standardmäßig anzeigen
+        su.putBoolean("send_percent_notification", true);
 
         //SyncFreq herausfinden
         String syncfreq = su.getString("SyncFreq", "3600000");

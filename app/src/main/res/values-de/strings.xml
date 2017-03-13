@@ -106,7 +106,6 @@
     <string name="ok">OK</string>
     <string name="ok_showcase_view">Alles klar!</string>
     <string name="open">Öffnen</string>
-    <string name="openSourceLicense" translatable="false"></string>
     <string name="open_bsbz_app">BSBZ-App öffnen</string>
     <string name="our_homepage">Unsere Homepage</string>
     <string name="owners">Serverinhaber</string>
@@ -141,7 +140,6 @@
     <string name="pref_summary_change_password">Passwort des aktiven Accounts ändern</string>
     <string name="pref_summary_delete_account">Aktiven Account löschen</string>
     <string name="pref_summary_delete_app_storage">Bei App-Fehlern zur App-Zurücksetzung wählen</string>
-    <string name="pref_summary_developer" translatable="false"></string>
     <string name="pref_summary_send_notifications">Die BSBZ-App sendet Nachrichten in die Statusleiste, wenn es z.B.: eine Stundenplanänderung gab</string>
     <string name="pref_summary_send_percent_notification">Prozentanzeige des Schultages in der Statusleiste</string>
     <string name="pref_summary_sync_frequency">Ändert den Abstand der automatischen Synchronisation</string>
@@ -263,7 +261,6 @@
     <string name="commit_changings">Änderungen veröffentlichen</string>
     <string name="confirm_password">Passwort bestätigen</string>
     <string name="congradulations_schoolday_is_over">Herzlichen Glückwunsch! Der Schultag ist vorbei!</string>
-    <string name="copyright" translatable="false"></string>
     <string name="create_">Erstellen ...</string>
     <string name="day_details_tab_1">KAs</string>
     <string name="day_details_tab_2">HAs</string>
@@ -371,4 +368,93 @@
     <string name="error_try_again">Fehler. Bitte erneut versuchen</string>
     <string name="event">Termin</string>
     <string name="event_changings">Änderungen an den Terminen wurden auf dem Server gefunden</string>
+    <string-array name="subject_items">
+        <item>Unterrichtsfrei (-)</item>
+        <item>Morgenkreis (MK)</item>
+        <item>Vernetzter Unterricht (VU)</item>
+        <item>Mathematik (M)</item>
+        <item>Deutsch (D)</item>
+        <item>Englisch (E)</item>
+        <item>Religion (R)</item>
+        <item>Sport (SP)</item>
+        <item>Naturwissenschaften (NWA)</item>
+        <item>Chemie (CH)</item>
+        <item>Biologie (BIO)</item>
+        <item>Physik (PH)</item>
+        <item>Geschichte (G)</item>
+        <item>Gemeinschaftskunde (GK)</item>
+        <item>Technik (T)</item>
+        <item>Mensch und Umwelt (MUM)</item>
+        <item>Französisch (F)</item>
+        <item>Informatik (ITG)</item>
+        <item>Geschichte (G)</item>
+        <item>Geschichte (G)</item>
+        <item>Fo/Fö (FOFOE)</item>
+        <item>Freie Stillarbeit/-studien (FSA)</item>
+        <item>Musik (MU)</item>
+        <item>Bildende Kunst (BK)</item>
+    </string-array>
+    <string-array name="pref_sync_frequency_titles">
+        <item>2 Minuten</item>
+        <item>10 Minuten</item>
+        <item>30 Minuten</item>
+        <item>1 Stunde</item>
+        <item>3 Stunden</item>
+        <item>Manuell</item>
+    </string-array>
+    <string-array name="pref_sync_frequency_values">
+        <item>120000</item>
+        <item>600000</item>
+        <item>1800000</item>
+        <item>3600000</item>
+        <item>10800000</item>
+        <item>-1</item>
+    </string-array>
+    <string-array name="pref_app_layout">
+        <item>BSBZ Layout (orange)</item>
+        <item>Schwarzes Layout</item>
+        <item>Grünes Layout</item>
+        <item>Rotes Layout</item>
+        <item>Blaues Layout</item>
+        <item>Dunkelblaues Layout</item>
+    </string-array>
+    <string-array name="pref_app_layout_values">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+    </string-array>
+    <string-array name="pref_app_layout1_titles">
+        <item>Helles Schema (Standard)</item>
+        <item>Dunkles Schema</item>
+    </string-array>
+    <string-array name="pref_app_layout1_values">
+        <item>0</item>
+        <item>1</item>
+    </string-array>
+    <string-array name="pref_startpage_titles">
+        <item>Mein Profil (Standard)</item>
+        <item>Heute</item>
+        <item>Diese Woche</item>
+        <item>Jahresplan</item>
+        <item>News</item>
+        <item>Speiseplan</item>
+        <item>Bildergalerie</item>
+        <item>BSBZ-Infos</item>
+        <item>Die Entwickler</item>
+    </string-array>
+    <string-array name="pref_startpage_values">
+        <item>Mein Profil</item>
+        <item>Heute</item>
+        <item>Diese Woche</item>
+        <item>Jahresplan</item>
+        <item>News</item>
+        <item>Speiseplan</item>
+        <item>Bildergalerie</item>
+        <item>BSBZ-Infos</item>
+        <item>Die Entwickler</item>
+    </string-array>
+
 </resources>
