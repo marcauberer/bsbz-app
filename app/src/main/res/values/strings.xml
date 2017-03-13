@@ -1,4 +1,5 @@
 <resources>
+    <!-- CommonStrings -->
     <string name="app_name" translatable="false">BSBZ-App</string>
     <string name="app_name_long">Die BSBZ-App</string>
     <string name="powered_by" translatable="false">powered by M&#38;R Games</string>
@@ -15,6 +16,8 @@
     <string name="action_successful">Aktion erfolgreich abgeschlossen</string>
     <string name="action_failed">Aktion fehlgeschlagen, bitte erneut versuchen</string>
     <string name="error_occured_try_again">Fehler. Bitte erneut versuchen</string>
+
+    <!-- Strings -->
     <string name="title_activity_heute">Heute</string>
     <string name="title_activity_profil">Mein Profil</string>
     <string name="title_activity_diese_woche">Diese Woche</string>
@@ -30,7 +33,7 @@
     <string name="title_activity_jahresplan">Jahresplan</string>
     <string name="title_activity_news">News</string>
     <string name="title_activity_stundenplan">Stundenplan</string>
-    <string name="title_activity_details">DetailsActivity</string>
+    <string name="title_activity_details">Heute - Details</string>
     <string name="title_activity_settings">Einstellungen</string>
     <string name="title_activity_new_new">Neue New</string>
     <string name="title_activity_edit_new">New bearbeiten</string>
@@ -66,7 +69,6 @@
     <string name="keine_klassenarbeiten_heute">Heute stehen keine Klassenarbeiten an!</string>
     <string name="keine_hausaufgaben_heute">Heute stehen keine Hausaufgaben an!</string>
     <string name="keine_aktiven_news">Keine aktiven News gefunden</string>
-    <string name="keepLoggedIn">Angemeldet bleiben</string>
     <string name="logoutInProgress">Logout wird ausgeführt ...</string>
     <string name="please_logIn">Bitte logge dich ein:</string>
     <string name="username">Benutzername</string>
@@ -162,7 +164,7 @@
     <string name="homework_changings">Änderungen an den Hausaufgaben wurden auf dem Server gefunden</string>
     <string name="event_changings">Änderungen an den Terminen wurden auf dem Server gefunden</string>
     <string name="news_changings">Änderungen an den News wurden auf dem Server gefunden</string>
-    <string name="no_synchronisation">Keine Syncronisation</string>
+    <string name="no_synchronisation">Keine Synchronisation</string>
     <string name="max_musterman">Max Mustermann</string>
     <string name="classspeaker">Klassensprecher</string>
     <string name="teacher">Lehrer</string>
@@ -170,7 +172,7 @@
     <string name="team_mrgames">Team (M&amp;R Games)</string>
     <string name="choose_class_1_">Klasse auswählen (Aktuell:\u0020</string>
     <string name="choose_class">Klasse auswählen</string>
-    <string name="lastSyncronisation_">Letzte Syncronisation:\u0020</string>
+    <string name="lastSyncronisation_">"Letzte Synchronisation: "</string>
     <string name="timetable_from_">Stundenplan von:\u0020</string>
     <string name="please_wait_">Bitte warten ...</string>
     <string name="sync_is_running_">Synchronisation wird ausgeführt ...</string>
@@ -312,16 +314,16 @@
     <string name="no_data_for_this_month">Keine Daten für diesen Monat vorhanden</string>
     <string name="no_data_for_today">Keine Daten für heute vorhanden</string>
     <string name="edit_timetable">Stundenplan bearbeiten</string>
-    <string name="hour1">1\n(7:30 - 8:15)</string>
-    <string name="hour2">2\n(8:15 - 9:00)</string>
-    <string name="hour3">3\n(9:05 - 9:50)</string>
-    <string name="hour4">4\n(10:10 - 10:55)</string>
-    <string name="hour5">5\n(10:55 - 11:40)</string>
-    <string name="hour6">6\n(11:45 - 12:30)</string>
-    <string name="hour7">7\n(13:15 - 14:00)</string>
-    <string name="hour8">8\n(14:05 - 14:50)</string>
-    <string name="hour9">9\n(14:55 - 15:40)</string>
-    <string name="hour10">10\n(15:40 - 16:25)</string>
+    <string name="hour1" translatable="false">1\n(7:30 - 8:15)</string>
+    <string name="hour2" translatable="false">2\n(8:15 - 9:00)</string>
+    <string name="hour3" translatable="false">3\n(9:05 - 9:50)</string>
+    <string name="hour4" translatable="false">4\n(10:10 - 10:55)</string>
+    <string name="hour5" translatable="false">5\n(10:55 - 11:40)</string>
+    <string name="hour6" translatable="false">6\n(11:45 - 12:30)</string>
+    <string name="hour7" translatable="false">7\n(13:15 - 14:00)</string>
+    <string name="hour8" translatable="false">8\n(14:05 - 14:50)</string>
+    <string name="hour9" translatable="false">9\n(14:55 - 15:40)</string>
+    <string name="hour10" translatable="false">10\n(15:40 - 16:25)</string>
     <string name="name">Bezeichnung</string>
     <string name="shortcut">Kürzel</string>
     <string-array name="subject_items">
@@ -373,10 +375,15 @@
     <string name="element_is_deleting_">Element wird gelöscht ...</string>
     <string name="no_offline_account_found">Offlineaccount nicht gefunden</string>
     <string name="selected_server">Ausgewählter App-Server</string>
-    <string name="normal_server">M&#38;R Games Server 01</string>
-    <string name="test_server">M&#38;R Games Testserver 01</string>
+    <string name="normal_server" translatable="false">M&#38;R Games Server 01</string>
+    <string name="test_server" translatable="false">M&#38;R Games Testserver 01</string>
     <string name="commit_changings">Änderungen veröffentlichen</string>
     <string name="do_you_want_to_publish_timetable">Wollen Sie den veränderten Stundenplan wirklich veröffentlichen?</string>
     <string name="empty_folder">Leerer Ordner</string>
+
+
+    <!--LongStrings -->
+    <string name="openSourceLicense" translatable="false"><![CDATA[<b>This application may use or contain portions of libraries subject to the following licenses:</b><br><br>- support-appcompat-v7<br>- support-v4<br>- support-design<br>- support-recyclerview-v7<br>- support-palette-v7<br>- selectable-rounded-imageview<br><br><b><a href="http://www.apache.org/licenses/LICENSE-2.0">Apache 2.0 License</a></b>]]></string>
+    <string name="update_news_message">Die Version 3.3.6 der BSBZ-App ist da!\n\nVerbesserungen:\n- Fehlerbehebungen\n- Kleinere Textverbesserungen\n\nViel Spaß mit der BSBZ-App wünscht\nDas M&#38;R Games Team</string>
 
 </resources>
