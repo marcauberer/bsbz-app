@@ -202,7 +202,7 @@ public class ImageFullscreenActivity extends AppCompatActivity {
             @Override
             public void run() {
                 bitmap = MainActivity.serverMessagingUtils.downloadImage(folderName, ImageFolderActivity.filenames.get(index));
-                if(bitmap == null) bitmap = BitmapFactory.decodeResource(res, R.drawable.ic_image_black_48dp);
+                if(bitmap == null) bitmap = BitmapFactory.decodeResource(res, R.drawable.ic_image);
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {

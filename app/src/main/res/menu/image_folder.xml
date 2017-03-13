@@ -8,7 +8,7 @@
         android:orderInCategory="100"
         android:title="@string/download_dir"
         app:showAsAction="always"
-        android:icon="@drawable/ic_file_download_white_48dp" />
+        android:icon="@drawable/ic_file_download_white" />
 
     <item
         android:id="@+id/action_settings"

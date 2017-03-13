@@ -35,7 +35,7 @@
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:id="@+id/imageView"
-        android:src="@drawable/ic_folder_open_black_48dp"
+        android:src="@drawable/ic_folder_open"
         android:layout_above="@+id/gallery_folder_name"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"/>

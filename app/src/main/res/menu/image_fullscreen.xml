@@ -8,14 +8,14 @@
         android:orderInCategory="100"
         android:title="@string/delete_image"
         app:showAsAction="always"
-        android:icon="@drawable/ic_delete_white_48dp" />
+        android:icon="@drawable/ic_delete_white" />
 
     <item
         android:id="@+id/action_download_image"
         android:orderInCategory="200"
         android:title="@string/download_image"
         app:showAsAction="always"
-        android:icon="@drawable/ic_file_download_white_48dp" />
+        android:icon="@drawable/ic_file_download_white" />
 
     <item
         android:id="@+id/action_settings"

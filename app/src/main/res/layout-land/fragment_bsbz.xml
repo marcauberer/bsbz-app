@@ -59,7 +59,7 @@
         android:id="@+id/edit_bsbz_info"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/ic_edit_white_48dp"
+        android:src="@drawable/ic_edit_white"
         android:theme="@style/toolbarStyle"
         app:backgroundTint="@color/colorPrimary"
         android:layout_gravity="right|bottom"

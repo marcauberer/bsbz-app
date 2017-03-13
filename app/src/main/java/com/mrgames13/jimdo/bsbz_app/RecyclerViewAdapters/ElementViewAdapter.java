@@ -360,7 +360,7 @@ public class ElementViewAdapter extends RecyclerView.Adapter<ElementViewAdapter.
                         holder.item_description.setMinLines(4);
                     }
                     //Rotations-Animation für DropDown-Arrow starten
-                    holder.item_dropdown_arrow.setImageResource(R.drawable.ic_arrow_drop_up_36pt);
+                    holder.item_dropdown_arrow.setImageResource(R.drawable.ic_arrow_drop_up);
                     Animation rot = AnimationUtils.loadAnimation(holder.itemView.getContext(), R.anim.item_element_rotation);
                     holder.item_dropdown_arrow.startAnimation(rot);
                     //Expand-Animation für Item starten
@@ -369,7 +369,7 @@ public class ElementViewAdapter extends RecyclerView.Adapter<ElementViewAdapter.
                     holder.item_button_container.startAnimation(exp);
                 } else {
                     //Rotations-Animation für DropDown-Arrow starten
-                    holder.item_dropdown_arrow.setImageResource(R.drawable.ic_arrow_drop_down_black_36dp);
+                    holder.item_dropdown_arrow.setImageResource(R.drawable.ic_arrow_drop_down);
                     Animation rot = AnimationUtils.loadAnimation(holder.itemView.getContext(), R.anim.item_element_rotation);
                     holder.item_dropdown_arrow.startAnimation(rot);
                     //Expand-Animation für Item starten
