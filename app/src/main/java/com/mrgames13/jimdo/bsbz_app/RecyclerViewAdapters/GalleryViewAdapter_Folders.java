@@ -46,21 +46,19 @@ public class GalleryViewAdapter_Folders extends RecyclerView.Adapter<GalleryView
     public ViewHolderClass onCreateViewHolder(ViewGroup parent, int viewType) {
         context = parent.getContext();
         View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.gallery_view_item_folder, null);
-
-        ViewHolderClass holder = new ViewHolderClass(itemView);
-        holder.setIsRecyclable(false);
-
-        return holder;
+        return new ViewHolderClass(itemView);
     }
 
     @Override
     public void onBindViewHolder(final ViewHolderClass holder, final int pos) {
+        holder.item_icon.setImageBitmap(null);
         //Ordner-Titel setzen
         holder.item_name.setText(MainActivity.gallery_view_foldernames.get(pos).replace(".", ""));
         //Bild setzen, wenn vorhanden
         new Thread(new Runnable() {
             @Override
             public void run() {
+                firstImage = null;
                 int index = MainActivity.gallery_view_filenames.get(pos).indexOf(",");
                 final String firstImageName;
                 if(index != -1) {
@@ -84,6 +82,7 @@ public class GalleryViewAdapter_Folders extends RecyclerView.Adapter<GalleryView
                             holder.item_progress.setVisibility(View.GONE);
                             holder.item_icon.setImageBitmap(null);
                             holder.item_no_images.setVisibility(View.VISIBLE);
+                            holder.item_icon.bringToFront();
                         }
                     });
                 }

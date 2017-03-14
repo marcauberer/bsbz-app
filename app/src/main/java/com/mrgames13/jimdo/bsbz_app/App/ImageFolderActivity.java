@@ -130,7 +130,7 @@ public class ImageFolderActivity extends AppCompatActivity {
         gallery_view_manager = new GridLayoutManager(ImageFolderActivity.this, 2);
         gallery_view.setLayoutManager(gallery_view_manager);
         gallery_view_adapter = new GalleryViewAdapter_Files();
-        gallery_view_adapter.setHasStableIds(true);
+        gallery_view_adapter.setHasStableIds(false);
         gallery_view.setAdapter(gallery_view_adapter);
 
         //ArrayList Filenames anlegen und befüllen

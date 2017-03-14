@@ -49,6 +49,7 @@ public class GalleryViewAdapter_Files extends RecyclerView.Adapter<GalleryViewAd
 
     @Override
     public void onBindViewHolder(final ViewHolderClass holder, final int pos) {
+        holder.item_icon.setImageBitmap(null);
         //Bild setzen
         new Thread(new Runnable() {
             @Override

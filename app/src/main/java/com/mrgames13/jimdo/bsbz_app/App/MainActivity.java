@@ -2157,7 +2157,7 @@ public class MainActivity extends AppCompatActivity {
                                     gallery_view_manager = new GridLayoutManager(MainActivity.this, 2);
                                     gallery_view.setLayoutManager(gallery_view_manager);
                                     gallery_view_adapter = new GalleryViewAdapter_Folders();
-                                    gallery_view_adapter.setHasStableIds(true);
+                                    gallery_view_adapter.setHasStableIds(false);
                                     gallery_view.setAdapter(gallery_view_adapter);
                                     if(gallery_view_adapter.getItemCount() > 0) {
                                         //ProgressBar und Laden ausblenden

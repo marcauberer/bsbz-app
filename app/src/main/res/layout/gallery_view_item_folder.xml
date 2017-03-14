@@ -57,6 +57,7 @@
         android:textColor="@color/colorPrimary"
         android:gravity="center"
         android:textStyle="bold"
-        android:textSize="18sp"/>
+        android:textSize="18sp"
+        android:layout_alignBottom="@+id/gallery_folder_icon"/>
 
 </RelativeLayout>

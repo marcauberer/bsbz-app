@@ -194,9 +194,7 @@ public class ServerMessagingUtils {
             //InputStream erstellen
             InputStream i = new BufferedInputStream(connection.getInputStream(), 8192);
             b = BitmapFactory.decodeStream(i);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        } catch (Exception e) {}
         return b;
     }
 

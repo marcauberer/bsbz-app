@@ -297,8 +297,8 @@ public class Widget_Provider extends AppWidgetProvider {
 		
 		//Fehlerträchtige Berechnung
 		now = (Integer.parseInt(zeit.substring(0, zeit.indexOf(":"))) * 60 + Integer.parseInt(zeit.substring(zeit.indexOf(":") + 1))) * 60000;
-		long percent = ((now - start) * 100) / (end - start);
-		
+		long percent = 0;
+		try { percent = ((now - start) * 100) / (end - start); } catch (Exception e) {}
 		//In Ladebalken eintragen
 		if(percent > 100) {
 			percent = 100;

@@ -310,7 +310,7 @@
     <string name="update_found_tap_to_download_1">"Update der BSBZ-App auf Version "</string>
     <string name="update_found_tap_to_download_2">" wurde gefunden. Hier tippen um Update herunterzuladen."</string>
     <string name="update_news">Update News!</string>
-    <string name="update_news_message">Die Version 3.3.6 der BSBZ-App ist da!  Verbesserungen: - Fehlerbehebungen - Kleinere Textverbesserungen  Viel Spaß mit der BSBZ-App wünscht Das M&#38;R Games Team</string>
+    <string name="update_news_message">Die Version 3.3.7 der BSBZ-App ist da!\n\nVerbesserungen:\n- Fehlerbehebungen in der Bildergalerie\n- Performance verbessert\n- Appgröße reduziert\n- Kleinere Textverbesserungen\n\nViel Spaß mit der BSBZ-App wünscht\nDas M&#38;R Games Team</string>
     <string name="update_team">Neues Update erkannt. Wenn du die App zum Testen neuer Serverfunktionen öffnest, tippe auf \'Öffnen\', ansonsten auf \'Schließen\'</string>
     <string name="update_to_version">"Update auf Version "</string>
     <string name="updates_found">Es ist ein Update verfügbar. Möchten Sie es herunterladen?</string>
