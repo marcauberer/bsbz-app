@@ -385,7 +385,7 @@
 
     <!--LongStrings -->
     <string name="openSourceLicense" translatable="false"><![CDATA[<b>This application may use or contain portions of libraries subject to the following licenses:</b><br><br>- support-appcompat-v7<br>- support-v4<br>- support-design<br>- support-recyclerview-v7<br>- support-palette-v7<br>- selectable-rounded-imageview<br><br><b><a href="http://www.apache.org/licenses/LICENSE-2.0">Apache 2.0 License</a></b>]]></string>
-    <string name="update_news_message">Die Version 3.3.7 der BSBZ-App ist da!\n\nVerbesserungen:\n- Fehlerbehebungen in der Bildergalerie\n- Performance verbessert\n- Appgröße reduziert\n- Kleinere Textverbesserungen\n\nViel Spaß mit der BSBZ-App wünscht\nDas M&#38;R Games Team</string>
+    <string name="update_news_message">Die Version 3.3.8 der BSBZ-App ist da!\n\nVerbesserungen:\n- Fehler im dunklen Theme gefixt\n- Performance verbessert\n- Kleinere Textverbesserungen\n\nViel Spaß mit der BSBZ-App wünscht\nDas M&#38;R Games Team</string>
     <string name="pref_title_more_apps">Mehr Apps von uns</string>
 
 </resources>

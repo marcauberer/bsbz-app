@@ -23,7 +23,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/Name_l"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="5dp"
         android:text="@string/email_mr_games"
         android:textAppearance="?android:attr/textAppearanceMedium"
         tools:ignore="RtlHardcoded" />
@@ -34,7 +34,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/Profil_Name"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="5dp"
         android:text="@string/homepage_mr_games"
         android:textAppearance="?android:attr/textAppearanceMedium"
         tools:ignore="RtlHardcoded" />
@@ -45,7 +45,7 @@
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/textView5"
         android:layout_below="@+id/textView3"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="5dp"
         android:text="@string/twitter_mr_games"
         android:textAppearance="?android:attr/textAppearanceMedium"
         tools:ignore="RtlHardcoded,HardcodedText" />
@@ -56,7 +56,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/klasse"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="5dp"
         android:text="@string/facebook_mr_games"
         android:textAppearance="?android:attr/textAppearanceMedium"
         tools:ignore="HardcodedText,RtlHardcoded" />
