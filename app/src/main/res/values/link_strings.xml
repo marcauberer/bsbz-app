@@ -1,5 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- CommonLinks -->
+    <string name="link_homepage" translatable="false">https://mrgames13.jimdo.com/</string>
+    <string name="link_password_reset" translatable="false">https://mrgames13.jimdo.com/feedback-kommentare/</string>
+    <string name="link_app_info" translatable="false">https://mrgames13.jimdo.com/info/bsbz-app/</string>
+    <string name="link_feedback" translatable="false">https://mrgames13.jimdo.com/feedback-kommentare/</string>
+    <string name="link_ideas_to_develop_further" translatable="false">https://mrgames13.jimdo.com/info/bsbz-app/ideen-zur-weiterentwicklung/</string>
+    <!-- Foodplans -->
     <string name="link_foodplan_autumn" translatable="false">http://files.mrgames-server.de/bsbz_app/foodplans/Herbstferien.pdf</string>
     <string name="link_foodplan_winter" translatable="false">http://files.mrgames-server.de/bsbz_app/foodplans/Winterferien.pdf</string>
     <string name="link_foodplan_christmas" translatable="false">http://files.mrgames-server.de/bsbz_app/foodplans/Weihnachtsferien.pdf</string>
