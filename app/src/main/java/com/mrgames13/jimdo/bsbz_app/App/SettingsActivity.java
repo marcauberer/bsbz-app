@@ -474,13 +474,26 @@ public class SettingsActivity extends PreferenceActivity {
 		developers.setOnPreferenceClickListener(new OnPreferenceClickListener() {
 			@Override
 			public boolean onPreferenceClick(Preference preference) {
-				Intent i = new Intent(SettingsActivity.this, WebActivity.class);
-				i.putExtra("Webside", "http://mrgames13.jimdo.com/");
-				i.putExtra("Title", "Unsere Homepage");
-				startActivity(i);
+                Intent i = new Intent(SettingsActivity.this, WebActivity.class);
+                i.putExtra("Webside", res.getString(R.string.link_homepage));
+                i.putExtra("Title", res.getString(R.string.pref_title_more_apps));
+                startActivity(i);
 				return false;
 			}
 		});
+
+        Preference more_apps = findPreference("more_apps");
+        more_apps.setOnPreferenceClickListener(new OnPreferenceClickListener() {
+            @Override
+            public boolean onPreferenceClick(Preference preference) {
+                try {
+                    startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://dev?id=5593276126732355283")));
+                } catch (android.content.ActivityNotFoundException anfe) {
+                    startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(res.getString(R.string.link_playstore_developer_site))));
+                }
+                return false;
+            }
+        });
 		
 		Preference syncfrequency = findPreference("SyncFreq");
 		syncfrequency.setOnPreferenceChangeListener(new OnPreferenceChangeListener() {

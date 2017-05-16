@@ -26,5 +26,10 @@
        		android:title="@string/pref_title_developer"
         	android:summary="@string/pref_summary_developer"
         	android:key="developers" />
+
+		<Preference
+			android:title="@string/pref_title_more_apps"
+			android:summary="@string/pref_summary_more_apps"
+			android:key="more_apps" />
     </PreferenceCategory>
 </PreferenceScreen>

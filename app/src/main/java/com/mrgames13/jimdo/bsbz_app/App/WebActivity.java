@@ -29,7 +29,7 @@ import com.mrgames13.jimdo.bsbz_app.Tools.StorageUtils;
 public class WebActivity extends AppCompatActivity {
 
     //Konstanten
-    private final String NO_DATA_URL = "http://www.mrgames13.jimdo.com/";
+    private String NO_DATA_URL;
 
     //Variablen als Objekte
     private Toolbar toolbar;
@@ -79,6 +79,7 @@ public class WebActivity extends AppCompatActivity {
 
         //Resourcen initialsieren
         res = getResources();
+		NO_DATA_URL = res.getString(R.string.link_homepage);
 
         //StorageUtils initialisieren
         su = new StorageUtils(this, res);

@@ -785,7 +785,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View arg0) {
                 Intent i = new Intent(MainActivity.this, WebActivity.class);
-                i.putExtra("Webside", "http://mrgames13.jimdo.com/feedback-kommentare/");
+                i.putExtra("Webside", res.getString(R.string.link_feedback));
                 i.putExtra("Title", "Feedback geben");
                 startActivity(i);
             }
@@ -797,7 +797,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(MainActivity.this, WebActivity.class);
-                i.putExtra("Webside", "http://mrgames13.jimdo.com/info/bsbz-app/ideen-zur-weiterentwicklung/");
+                i.putExtra("Webside", res.getString(R.string.link_ideas_to_develop_further));
                 i.putExtra("Title", "Ideen zur Weiterentwicklung");
                 startActivity(i);
             }
@@ -2237,7 +2237,7 @@ public class MainActivity extends AppCompatActivity {
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            String url = su.getString("Speiseplan", "www.mrgames13.jimdo.com");
+                            String url = su.getString("Speiseplan", res.getString(R.string.link_homepage));
                             if(url.endsWith(".pdf")) {
                                 speiseplanView.loadUrl("http://docs.google.com/gview?embedded=true&url="+url);
                             } else {
@@ -2453,13 +2453,14 @@ public class MainActivity extends AppCompatActivity {
         //IDs herausfinden
         Button hpbutton = (Button) findViewById(R.id.Homepage_btn);
         Button hilfe = (Button) findViewById(R.id.Hilfe);
+        Button more_apps = (Button) findViewById(R.id.Mehr_Apps);
 
         //Funktionen belegen
         hpbutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(MainActivity.this, WebActivity.class);
-                i.putExtra("Webside", "http://www.mrgames13.jimdo.com");
+                i.putExtra("Webside", res.getString(R.string.link_homepage));
                 i.putExtra("Title", "Unsere Homepage");
                 startActivity(i);
             }
@@ -2469,9 +2470,20 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(MainActivity.this, WebActivity.class);
-                i.putExtra("Webside", "http://mrgames13.jimdo.com/info/bsbz-app");
+                i.putExtra("Webside", res.getString(R.string.link_app_info));
                 i.putExtra("Title", "Hilfeseite");
                 startActivity(i);
+            }
+        });
+
+        more_apps.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                try {
+                    startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://dev?id=5593276126732355283")));
+                } catch (android.content.ActivityNotFoundException anfe) {
+                    startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(res.getString(R.string.link_playstore_developer_site))));
+                }
             }
         });
     }

@@ -258,7 +258,7 @@ public class LogInActivity extends AppCompatActivity {
                 Toast.makeText(LogInActivity.this, res.getString(R.string.reset_password_m), Toast.LENGTH_LONG).show();
                 Intent i = new Intent(LogInActivity.this, WebActivity.class);
                 i.putExtra("Title", res.getString(R.string.support));
-                i.putExtra("Webside", su.getString("SupportUrl", "http://mrgames13.jimdo.com/feedback-kommentare/"));
+                i.putExtra("Webside", su.getString("SupportUrl", res.getString(R.string.link_password_reset)));
                 startActivity(i);
             }
         });

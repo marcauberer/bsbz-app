@@ -38,6 +38,7 @@ public class LogoActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_logo);
 
+        //Handler initialisieren
         h = new Handler();
 
         container = (RelativeLayout) findViewById(R.id.logo_container);
