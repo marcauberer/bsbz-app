@@ -801,8 +801,7 @@ public class SettingsActivity extends PreferenceActivity {
 
 		// Trigger the listener immediately with the preference's
 		// current value.
-		sBindPreferenceSummaryToValueListener.onPreferenceChange(preference, PreferenceManager
-				.getDefaultSharedPreferences(preference.getContext()).getString(preference.getKey(), ""));
+		sBindPreferenceSummaryToValueListener.onPreferenceChange(preference, PreferenceManager.getDefaultSharedPreferences(preference.getContext()).getString(preference.getKey(), ""));
 	}
 
 	@TargetApi(Build.VERSION_CODES.HONEYCOMB)

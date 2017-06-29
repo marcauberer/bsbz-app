@@ -2104,8 +2104,8 @@ public class MainActivity extends AppCompatActivity {
                         //ImageConfig herunterladen
                         result = serverMessagingUtils.sendRequest(findViewById(R.id.container), "name="+URLEncoder.encode(current_account.getUsername(), "UTF-8")+"&command=getimageconfig").trim();
                         //Result auseinandernehmen
-                        if(gallery_view_foldernames == null) gallery_view_foldernames = new ArrayList<String>();
-                        if(gallery_view_filenames == null) gallery_view_filenames = new ArrayList<String>();
+                        if(gallery_view_foldernames == null) gallery_view_foldernames = new ArrayList<>();
+                        if(gallery_view_filenames == null) gallery_view_filenames = new ArrayList<>();
                         gallery_view_foldernames.clear();
                         gallery_view_filenames.clear();
                         String klasse = current_account.getForm();
