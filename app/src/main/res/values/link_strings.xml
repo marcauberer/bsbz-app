@@ -2,10 +2,10 @@
 <resources>
     <!-- CommonLinks -->
     <string name="link_homepage" translatable="false">https://mrgames13.jimdo.com/</string>
-    <string name="link_password_reset" translatable="false">https://mrgames13.jimdo.com/feedback-kommentare/</string>
-    <string name="link_app_info" translatable="false">https://mrgames13.jimdo.com/info/bsbz-app/</string>
+    <string name="link_password_reset" translatable="false">https://mrgames13.jimdo.com/bsbz-app/hilfe-fragen/</string>
+    <string name="link_app_info" translatable="false">https://mrgames13.jimdo.com/bsbz-app/info/</string>
     <string name="link_feedback" translatable="false">https://mrgames13.jimdo.com/feedback-kommentare/</string>
-    <string name="link_ideas_to_develop_further" translatable="false">https://mrgames13.jimdo.com/info/bsbz-app/ideen-zur-weiterentwicklung/</string>
+    <string name="link_ideas_to_develop_further" translatable="false">https://mrgames13.jimdo.com/bsbz-app/info/ideen-zur-weiterentwicklung/</string>
     <string name="link_playstore_developer_site" translatable="false">https://play.google.com/store/apps/dev?id=5593276126732355283</string>
     <!-- Foodplans -->
     <string name="link_foodplan_autumn" translatable="false">http://files.mrgames-server.de/bsbz_app/foodplans/Herbstferien.pdf</string>
