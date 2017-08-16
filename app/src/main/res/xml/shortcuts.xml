@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shortcuts xmlns:android="http://schemas.android.com/apk/res/android">
+    <shortcut
+        android:enabled="true"
+        android:icon="@drawable/ic_apps_primary"
+        android:shortcutDisabledMessage="@string/shortcut_disabled"
+        android:shortcutId="100"
+        android:shortcutLongLabel="@string/shortcut_plan_of_the_year_long"
+        android:shortcutShortLabel="@string/shortcut_plan_of_the_year_short">
+        <intent
+            android:action="android.intent.action.VIEW"
+            android:targetClass="com.mrgames13.jimdo.bsbz_app.App.MainActivity"
+            android:targetPackage="com.mrgames13.jimdo.bsbz_app" >
+            <extra android:name="Open" android:value="Jahresplan" />
+        </intent>
+        <categories android:name="android.shortcut.app" />
+    </shortcut>
+    <shortcut
+        android:enabled="true"
+        android:icon="@drawable/ic_store_primary"
+        android:shortcutDisabledMessage="@string/shortcut_disabled"
+        android:shortcutId="200"
+        android:shortcutLongLabel="@string/shortcut_foodplan_long"
+        android:shortcutShortLabel="@string/shortcut_foodplan_short">
+        <intent
+            android:action="android.intent.action.VIEW"
+            android:targetClass="com.mrgames13.jimdo.bsbz_app.App.MainActivity"
+            android:targetPackage="com.mrgames13.jimdo.bsbz_app" >
+            <extra android:name="Open" android:value="Foodplan" />
+        </intent>
+        <categories android:name="android.shortcut.app" />
+    </shortcut>
+    <shortcut
+        android:enabled="true"
+        android:icon="@drawable/ic_settings_primary"
+        android:shortcutDisabledMessage="@string/shortcut_disabled"
+        android:shortcutId="300"
+        android:shortcutLongLabel="@string/shortcut_settings_long"
+        android:shortcutShortLabel="@string/shortcut_settings_short">
+        <intent
+            android:action="android.intent.action.VIEW"
+            android:targetClass="com.mrgames13.jimdo.bsbz_app.App.SettingsActivity"
+            android:targetPackage="com.mrgames13.jimdo.bsbz_app" />
+            <extra android:name="action" android:value="photo" />
+        <categories android:name="android.shortcut.app" />
+    </shortcut>
+</shortcuts>

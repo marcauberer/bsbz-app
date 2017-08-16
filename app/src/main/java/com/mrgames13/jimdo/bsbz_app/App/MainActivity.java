@@ -372,14 +372,13 @@ public class MainActivity extends AppCompatActivity {
         try {
             String extra = getIntent().getStringExtra("Open");
             if(extra.equals("Diese Woche")) {
-                navView.getMenu().getItem(2).setChecked(true);
-                launchThisWeekFragment();
+                selected_Menu_Item = 3;
             } else if(extra.equals("Jahresplan")) {
-                navView.getMenu().getItem(3).setChecked(true);
-                launchPlanOfTheYearFragment();
+                selected_Menu_Item = 4;
             } else if(extra.equals("Today")) {
-                navView.getMenu().getItem(1).setChecked(true);
-                launchTodayFragment();
+                selected_Menu_Item = 2;
+            } else if(extra.equals("Foodplan")) {
+                selected_Menu_Item = 6;
             } else {
                 Log.w("BSBZ-App", "Nicht verständliches Extra");
             }
