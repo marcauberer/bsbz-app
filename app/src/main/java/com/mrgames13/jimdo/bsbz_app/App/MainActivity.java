@@ -187,11 +187,11 @@ public class MainActivity extends AppCompatActivity {
         } catch (PackageManager.NameNotFoundException e1) {}
 
         //Toolbar finden
-        toolbar = (Toolbar) findViewById(R.id.toolbar_main);
+        toolbar = findViewById(R.id.toolbar_main);
         setSupportActionBar(toolbar);
 
         //Container finden
-        container = (ViewGroup) findViewById(R.id.container);
+        container = findViewById(R.id.container);
 
         //LayoutInflater initialisieren
         layoutInflater = getLayoutInflater();
@@ -245,16 +245,16 @@ public class MainActivity extends AppCompatActivity {
         };
 
         //DrawerLayout finden
-        drawer_layout_gesamt = (DrawerLayout) findViewById(R.id.drawer_layout_gesamt);
+        drawer_layout_gesamt = findViewById(R.id.drawer_layout_gesamt);
         //DrawerToggle aufsetzen
         drawer_toggle = new ActionBarDrawerToggle(MainActivity.this, drawer_layout_gesamt, R.string.navDrawer_opened, R.string.navDrawer_closed);
         //DrawerToggle setzen
         drawer_layout_gesamt.setDrawerListener(drawer_toggle);
         //NavigationView finden
-        navView = (NavigationView) findViewById(R.id.navView);
+        navView = findViewById(R.id.navView);
         if(AppTheme == 1) {
             //Bei dunklem Layout Bild austauschen
-            ImageView navView_Image = (ImageView) navView.getHeaderView(0).findViewById(R.id.navView_image);
+            ImageView navView_Image = navView.getHeaderView(0).findViewById(R.id.navView_image);
             navView_Image.setImageResource(R.drawable.bsbz_logo_gross_mrgames_black);
         }
         navView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
@@ -307,7 +307,7 @@ public class MainActivity extends AppCompatActivity {
                     case R.id.drawer_item_gallery: {
                         menuItem.setChecked(true);
                         selected_Menu_Item = 7;
-                        toolbar.setTitle(res.getString(R.string.galery));
+                        toolbar.setTitle(res.getString(R.string.gallery));
                         //Permission 'WRITE_EXTERNAL_STORAGE' abfragen
                         if(!(ActivityCompat.checkSelfPermission(MainActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED)) {
                             ActivityCompat.requestPermissions(MainActivity.this, new String[] {Manifest.permission.WRITE_EXTERNAL_STORAGE}, REQUEST_CODE_PERMISSION_WRITE_EXTERNAL_STORAGE);
@@ -423,7 +423,7 @@ public class MainActivity extends AppCompatActivity {
             launchFoodPlanFragment();
             navView.getMenu().getItem(5).setChecked(true);
         } else if(selected_Menu_Item == 7) {
-            getSupportActionBar().setTitle(res.getString(R.string.galery));
+            getSupportActionBar().setTitle(res.getString(R.string.gallery));
             launchGalleryFragment();
             navView.getMenu().getItem(6).setChecked(true);
         } else if(selected_Menu_Item == 8) {
@@ -583,7 +583,7 @@ public class MainActivity extends AppCompatActivity {
             launchFoodPlanFragment();
             navView.getMenu().getItem(5).setChecked(true);
         } else if(selected_Menu_Item == 7) {
-            getSupportActionBar().setTitle(res.getString(R.string.galery));
+            getSupportActionBar().setTitle(res.getString(R.string.gallery));
             launchGalleryFragment();
             navView.getMenu().getItem(6).setChecked(true);
         } else if(selected_Menu_Item == 8) {
@@ -640,11 +640,11 @@ public class MainActivity extends AppCompatActivity {
         String last_syncronisation_time = su.getString("SyncTime", res.getString(R.string.no_synchronisation));
 
         //IDs herausfinden
-        TextView Profil_name = (TextView) findViewById(R.id.Profil_Name);
-        TextView Profil_klasse = (TextView) findViewById(R.id.Profil_Klasse);
-        TextView Profil_Rechte = (TextView) findViewById(R.id.Profil_Rechte);
-        TextView l_Rechte = (TextView) findViewById(R.id.l_Rechte);
-        final Button klasse_wahlen = (Button) findViewById(R.id.klasse_wahlen);
+        TextView Profil_name = findViewById(R.id.Profil_Name);
+        TextView Profil_klasse = findViewById(R.id.Profil_Klasse);
+        TextView Profil_Rechte = findViewById(R.id.Profil_Rechte);
+        TextView l_Rechte = findViewById(R.id.l_Rechte);
+        final Button klasse_wahlen = findViewById(R.id.klasse_wahlen);
         klasse_wahlen.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -658,15 +658,15 @@ public class MainActivity extends AppCompatActivity {
                 View dialogView = layoutInflater.inflate(R.layout.dialogview_class_chooser, null);
                 alert.setView(dialogView);
 
-                final TextView schulart = (TextView) dialogView.findViewById(R.id.schulart);
-                final TextView klassenstufe = (TextView) dialogView.findViewById(R.id.klassenstufe);
-                final TextView klassenart = (TextView) dialogView.findViewById(R.id.klassenart);
+                final TextView schulart = dialogView.findViewById(R.id.schulart);
+                final TextView klassenstufe = dialogView.findViewById(R.id.klassenstufe);
+                final TextView klassenart = dialogView.findViewById(R.id.klassenart);
 
-                final TextView klasse1 = (TextView) dialogView.findViewById(R.id.klasse);
+                final TextView klasse1 = dialogView.findViewById(R.id.klasse);
 
-                SeekBar s1 = (SeekBar) dialogView.findViewById(R.id.seekBar1);
-                SeekBar s2 = (SeekBar) dialogView.findViewById(R.id.seekBar2);
-                SeekBar s3 = (SeekBar) dialogView.findViewById(R.id.seekBar3);
+                SeekBar s1 = dialogView.findViewById(R.id.seekBar1);
+                SeekBar s2 = dialogView.findViewById(R.id.seekBar2);
+                SeekBar s3 = dialogView.findViewById(R.id.seekBar3);
 
                 s1.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
                     @Override
@@ -746,7 +746,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         //TextView Profil_email = (TextView) findViewById(R.id.Profil_Email);
-        TextView Profil_last_syncronisation_time = (TextView) findViewById(R.id.last_syncronisation_time);
+        TextView Profil_last_syncronisation_time = findViewById(R.id.last_syncronisation_time);
 
         //Texte setzen
         Profil_name.setText(User_name);
@@ -779,7 +779,7 @@ public class MainActivity extends AppCompatActivity {
         Profil_last_syncronisation_time.setText("Letzte Syncronisation: "+last_syncronisation_time);
 
         //Feedback-Button einrichten
-        Button feedback = (Button) findViewById(R.id.feedback);
+        Button feedback = findViewById(R.id.feedback);
         feedback.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View arg0) {
@@ -791,7 +791,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         //Ideene zur Weiterentwicklung-Button einrichten
-        Button ideen = (Button) findViewById(R.id.ideen);
+        Button ideen = findViewById(R.id.ideen);
         ideen.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -827,7 +827,7 @@ public class MainActivity extends AppCompatActivity {
         all.addAll(events);
 
         //NewsRecyclerView anzeigen
-        today_view = (RecyclerView) findViewById(R.id.today_recycler_view);
+        today_view = findViewById(R.id.today_recycler_view);
         today_view_manager = new LinearLayoutManager(MainActivity.this);
         today_view.setLayoutManager(today_view_manager);
         today_view_adapter = new ElementViewAdapter(MainActivity.this, ElementViewAdapter.MODE_CLASSTEST_HOMEWORK_EVENTS);
@@ -836,7 +836,7 @@ public class MainActivity extends AppCompatActivity {
         if(today_view_adapter.getItemCount() == 0) findViewById(R.id.no_data).setVisibility(View.VISIBLE);
 
         //FloatingActionButton
-        FloatingActionButton new_element = (FloatingActionButton) findViewById(R.id.today_new_element);
+        FloatingActionButton new_element = findViewById(R.id.today_new_element);
         new_element.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -857,9 +857,9 @@ public class MainActivity extends AppCompatActivity {
                 d.setPositiveButton(res.getString(R.string.next), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        SwitchCompat sw1 = (SwitchCompat) ((AlertDialog) dialog).findViewById(R.id.chooser_element_classtest);
-                        SwitchCompat sw2 = (SwitchCompat) ((AlertDialog) dialog).findViewById(R.id.chooser_element_homework);
-                        SwitchCompat sw3 = (SwitchCompat) ((AlertDialog) dialog).findViewById(R.id.chooser_element_event);
+                        SwitchCompat sw1 = ((AlertDialog) dialog).findViewById(R.id.chooser_element_classtest);
+                        SwitchCompat sw2 = ((AlertDialog) dialog).findViewById(R.id.chooser_element_homework);
+                        SwitchCompat sw3 = ((AlertDialog) dialog).findViewById(R.id.chooser_element_event);
                         if(sw1.isChecked()) {
                             Intent i = new Intent(MainActivity.this, NewEditElementActivity.class);
                             i.putExtra("mode", NewEditElementActivity.MODE_CREATE_CLASSTEST);
@@ -878,9 +878,9 @@ public class MainActivity extends AppCompatActivity {
                 AlertDialog dialog = d.create();
                 dialog.show();
 
-                final SwitchCompat sw1 = (SwitchCompat) dialog.findViewById(R.id.chooser_element_classtest);
-                final SwitchCompat sw2 = (SwitchCompat) dialog.findViewById(R.id.chooser_element_homework);
-                final SwitchCompat sw3 = (SwitchCompat) dialog.findViewById(R.id.chooser_element_event);
+                final SwitchCompat sw1 = dialog.findViewById(R.id.chooser_element_classtest);
+                final SwitchCompat sw2 = dialog.findViewById(R.id.chooser_element_homework);
+                final SwitchCompat sw3 = dialog.findViewById(R.id.chooser_element_event);
                 //Auf Änderungen reagieren
                 sw1.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                     @Override
@@ -938,7 +938,7 @@ public class MainActivity extends AppCompatActivity {
             weekString = "Mo";
         }
 
-        TextView tv = (TextView) rootView.findViewById(R.id.SV);
+        TextView tv = rootView.findViewById(R.id.SV);
         tv.setText(res.getString(R.string.timetable_from_) + weekString);
 
         //Daycode herausfinden
@@ -975,25 +975,25 @@ public class MainActivity extends AppCompatActivity {
         String hour9 = daycode.substring(index8 +1, index9);
         String hour10 = daycode.substring(index9 +1);
 
-        TextView tt_1 = (TextView) rootView.findViewById(R.id.tt_1);
+        TextView tt_1 = rootView.findViewById(R.id.tt_1);
         tt_1.setText(hour1);
-        TextView tt_2 = (TextView) rootView.findViewById(R.id.tt_2);
+        TextView tt_2 = rootView.findViewById(R.id.tt_2);
         tt_2.setText(hour2);
-        TextView tt_3 = (TextView) rootView.findViewById(R.id.tt_3);
+        TextView tt_3 = rootView.findViewById(R.id.tt_3);
         tt_3.setText(hour3);
-        TextView tt_4 = (TextView) rootView.findViewById(R.id.tt_4);
+        TextView tt_4 = rootView.findViewById(R.id.tt_4);
         tt_4.setText(hour4);
-        TextView tt_5 = (TextView) rootView.findViewById(R.id.tt_5);
+        TextView tt_5 = rootView.findViewById(R.id.tt_5);
         tt_5.setText(hour5);
-        TextView tt_6 = (TextView) rootView.findViewById(R.id.tt_6);
+        TextView tt_6 = rootView.findViewById(R.id.tt_6);
         tt_6.setText(hour6);
-        TextView tt_7 = (TextView) rootView.findViewById(R.id.tt_7);
+        TextView tt_7 = rootView.findViewById(R.id.tt_7);
         tt_7.setText(hour7);
-        TextView tt_8 = (TextView) rootView.findViewById(R.id.tt_8);
+        TextView tt_8 = rootView.findViewById(R.id.tt_8);
         tt_8.setText(hour8);
-        TextView tt_9 = (TextView) rootView.findViewById(R.id.tt_9);
+        TextView tt_9 = rootView.findViewById(R.id.tt_9);
         tt_9.setText(hour9);
-        TextView tt_10 = (TextView) rootView.findViewById(R.id.tt_10);
+        TextView tt_10 = rootView.findViewById(R.id.tt_10);
         tt_10.setText(hour10);
 
         //Fortschrittsbalken zeichnen
@@ -1070,7 +1070,7 @@ public class MainActivity extends AppCompatActivity {
         //Fehlerträchtige Berechnung
         now = (Integer.parseInt(zeit.substring(0, zeit.indexOf(":"))) * 60 + Integer.parseInt(zeit.substring(zeit.indexOf(":") + 1))) * 60000;
 
-        ProgressBar progbar = (ProgressBar) rootView.findViewById(R.id.Percent_Bar);
+        ProgressBar progbar = rootView.findViewById(R.id.Percent_Bar);
         progbar.getProgressDrawable().setColorFilter(Color.parseColor(color), android.graphics.PorterDuff.Mode.SRC_IN);
         try{
             long percent = ((now - start) * 100) / (end - start);
@@ -1082,7 +1082,7 @@ public class MainActivity extends AppCompatActivity {
                 percent = 0;
             }
 
-            TextView prozentanzeige = (TextView) rootView.findViewById(R.id.Prozentanzeige);
+            TextView prozentanzeige = rootView.findViewById(R.id.Prozentanzeige);
             if(weekday != 7 && weekday != 1) {
                 progbar.setProgress((int) percent);
                 prozentanzeige.setText(String.valueOf(percent) + " %");
@@ -1218,7 +1218,7 @@ public class MainActivity extends AppCompatActivity {
 
         //Buttons initialisieren
         //Montag
-        Button Mo = (Button) findViewById(R.id.Mo);
+        Button Mo = findViewById(R.id.Mo);
         if(weekString.equals("Mo")) Mo.setTextColor(Color.parseColor(color));
         Mo.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -1230,7 +1230,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         //Dienstag
-        Button Di = (Button) findViewById(R.id.Di);
+        Button Di = findViewById(R.id.Di);
         if(weekString.equals("Di")) Di.setTextColor(Color.parseColor(color));
         Di.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -1242,7 +1242,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         //Mittwoch
-        Button Mi = (Button) findViewById(R.id.Mi);
+        Button Mi = findViewById(R.id.Mi);
         if(weekString.equals("Mi")) Mi.setTextColor(Color.parseColor(color));
         Mi.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -1254,7 +1254,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         //Donnerstag
-        Button Do = (Button) findViewById(R.id.Do);
+        Button Do = findViewById(R.id.Do);
         if(weekString.equals("Do")) Do.setTextColor(Color.parseColor(color));
         Do.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -1266,7 +1266,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         //Freitag
-        Button Fr = (Button) findViewById(R.id.Fr);
+        Button Fr = findViewById(R.id.Fr);
         if(weekString.equals("Fr")) Fr.setTextColor(Color.parseColor(color));
         Fr.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -1314,8 +1314,8 @@ public class MainActivity extends AppCompatActivity {
             //Klassenarbeiten
             classtests = su.parseClasstests(null, mo2);
             if(classtests.size() > 0) {
-                ImageView hintitem_iv = (ImageView) findViewById(R.id.Mo_K);
-                TextView hintitem_tv = (TextView) findViewById(R.id.Mo_K_Text);
+                ImageView hintitem_iv = findViewById(R.id.Mo_K);
+                TextView hintitem_tv = findViewById(R.id.Mo_K_Text);
                 hintitem_iv.setVisibility(View.VISIBLE);
                 hintitem_tv.setVisibility(View.VISIBLE);
                 hintitem_tv.setText("K"+String.valueOf(classtests.size()));
@@ -1323,8 +1323,8 @@ public class MainActivity extends AppCompatActivity {
             //Hausaufgaben
             homeworks = su.parseHomeworks(null, mo2);
             if(homeworks.size() > 0) {
-                ImageView hintitem_iv = (ImageView) findViewById(R.id.Mo_H);
-                TextView hintitem_tv = (TextView) findViewById(R.id.Mo_H_Text);
+                ImageView hintitem_iv = findViewById(R.id.Mo_H);
+                TextView hintitem_tv = findViewById(R.id.Mo_H_Text);
                 hintitem_iv.setVisibility(View.VISIBLE);
                 hintitem_tv.setVisibility(View.VISIBLE);
                 hintitem_tv.setText("H"+String.valueOf(homeworks.size()));
@@ -1332,8 +1332,8 @@ public class MainActivity extends AppCompatActivity {
             //Termine
             events = su.parseEvents(null, mo2);
             if(events.size() > 0) {
-                ImageView hintitem_iv = (ImageView) findViewById(R.id.Mo_T);
-                TextView hintitem_tv = (TextView) findViewById(R.id.Mo_T_Text);
+                ImageView hintitem_iv = findViewById(R.id.Mo_T);
+                TextView hintitem_tv = findViewById(R.id.Mo_T_Text);
                 hintitem_iv.setVisibility(View.VISIBLE);
                 hintitem_tv.setVisibility(View.VISIBLE);
                 hintitem_tv.setText("T"+String.valueOf(events.size()));
@@ -1342,8 +1342,8 @@ public class MainActivity extends AppCompatActivity {
             //Klassenarbeiten
             classtests = su.parseClasstests(null, di2);
             if(classtests.size() > 0) {
-                ImageView hintitem_iv = (ImageView) findViewById(R.id.Di_K);
-                TextView hintitem_tv = (TextView) findViewById(R.id.Di_K_Text);
+                ImageView hintitem_iv = findViewById(R.id.Di_K);
+                TextView hintitem_tv = findViewById(R.id.Di_K_Text);
                 hintitem_iv.setVisibility(View.VISIBLE);
                 hintitem_tv.setVisibility(View.VISIBLE);
                 hintitem_tv.setText("K"+String.valueOf(classtests.size()));
@@ -1351,8 +1351,8 @@ public class MainActivity extends AppCompatActivity {
             //Hausaufgaben
             homeworks = su.parseHomeworks(null, di2);
             if(homeworks.size() > 0) {
-                ImageView hintitem_iv = (ImageView) findViewById(R.id.Di_H);
-                TextView hintitem_tv = (TextView) findViewById(R.id.Di_H_Text);
+                ImageView hintitem_iv = findViewById(R.id.Di_H);
+                TextView hintitem_tv = findViewById(R.id.Di_H_Text);
                 hintitem_iv.setVisibility(View.VISIBLE);
                 hintitem_tv.setVisibility(View.VISIBLE);
                 hintitem_tv.setText("H"+String.valueOf(homeworks.size()));
@@ -1360,8 +1360,8 @@ public class MainActivity extends AppCompatActivity {
             //Termine
             events = su.parseEvents(null, di2);
             if(events.size() > 0) {
-                ImageView hintitem_iv = (ImageView) findViewById(R.id.Di_T);
-                TextView hintitem_tv = (TextView) findViewById(R.id.Di_T_Text);
+                ImageView hintitem_iv = findViewById(R.id.Di_T);
+                TextView hintitem_tv = findViewById(R.id.Di_T_Text);
                 hintitem_iv.setVisibility(View.VISIBLE);
                 hintitem_tv.setVisibility(View.VISIBLE);
                 hintitem_tv.setText("T"+String.valueOf(events.size()));
@@ -1370,8 +1370,8 @@ public class MainActivity extends AppCompatActivity {
             //Klassenarbeiten
             classtests = su.parseClasstests(null, mi2);
             if(classtests.size() > 0) {
-                ImageView hintitem_iv = (ImageView) findViewById(R.id.Mi_K);
-                TextView hintitem_tv = (TextView) findViewById(R.id.Mi_K_Text);
+                ImageView hintitem_iv = findViewById(R.id.Mi_K);
+                TextView hintitem_tv = findViewById(R.id.Mi_K_Text);
                 hintitem_iv.setVisibility(View.VISIBLE);
                 hintitem_tv.setVisibility(View.VISIBLE);
                 hintitem_tv.setText("K"+String.valueOf(classtests.size()));
@@ -1379,8 +1379,8 @@ public class MainActivity extends AppCompatActivity {
             //Hausaufgaben
             homeworks = su.parseHomeworks(null, mi2);
             if(homeworks.size() > 0) {
-                ImageView hintitem_iv = (ImageView) findViewById(R.id.Mi_H);
-                TextView hintitem_tv = (TextView) findViewById(R.id.Mi_H_Text);
+                ImageView hintitem_iv = findViewById(R.id.Mi_H);
+                TextView hintitem_tv = findViewById(R.id.Mi_H_Text);
                 hintitem_iv.setVisibility(View.VISIBLE);
                 hintitem_tv.setVisibility(View.VISIBLE);
                 hintitem_tv.setText("H"+String.valueOf(homeworks.size()));
@@ -1388,8 +1388,8 @@ public class MainActivity extends AppCompatActivity {
             //Termine
             events = su.parseEvents(null, mi2);
             if(events.size() > 0) {
-                ImageView hintitem_iv = (ImageView) findViewById(R.id.Mi_T);
-                TextView hintitem_tv = (TextView) findViewById(R.id.Mi_T_Text);
+                ImageView hintitem_iv = findViewById(R.id.Mi_T);
+                TextView hintitem_tv = findViewById(R.id.Mi_T_Text);
                 hintitem_iv.setVisibility(View.VISIBLE);
                 hintitem_tv.setVisibility(View.VISIBLE);
                 hintitem_tv.setText("T"+String.valueOf(events.size()));
@@ -1398,8 +1398,8 @@ public class MainActivity extends AppCompatActivity {
             //Klassenarbeiten
             classtests = su.parseClasstests(null, do2);
             if(classtests.size() > 0) {
-                ImageView hintitem_iv = (ImageView) findViewById(R.id.Do_K);
-                TextView hintitem_tv = (TextView) findViewById(R.id.Do_K_Text);
+                ImageView hintitem_iv = findViewById(R.id.Do_K);
+                TextView hintitem_tv = findViewById(R.id.Do_K_Text);
                 hintitem_iv.setVisibility(View.VISIBLE);
                 hintitem_tv.setVisibility(View.VISIBLE);
                 hintitem_tv.setText("K"+String.valueOf(classtests.size()));
@@ -1407,8 +1407,8 @@ public class MainActivity extends AppCompatActivity {
             //Hausaufgaben
             homeworks = su.parseHomeworks(null, do2);
             if(homeworks.size() > 0) {
-                ImageView hintitem_iv = (ImageView) findViewById(R.id.Do_H);
-                TextView hintitem_tv = (TextView) findViewById(R.id.Do_H_Text);
+                ImageView hintitem_iv = findViewById(R.id.Do_H);
+                TextView hintitem_tv = findViewById(R.id.Do_H_Text);
                 hintitem_iv.setVisibility(View.VISIBLE);
                 hintitem_tv.setVisibility(View.VISIBLE);
                 hintitem_tv.setText("H"+String.valueOf(homeworks.size()));
@@ -1416,8 +1416,8 @@ public class MainActivity extends AppCompatActivity {
             //Termine
             events = su.parseEvents(null, do2);
             if(events.size() > 0) {
-                ImageView hintitem_iv = (ImageView) findViewById(R.id.Do_T);
-                TextView hintitem_tv = (TextView) findViewById(R.id.Do_T_Text);
+                ImageView hintitem_iv = findViewById(R.id.Do_T);
+                TextView hintitem_tv = findViewById(R.id.Do_T_Text);
                 hintitem_iv.setVisibility(View.VISIBLE);
                 hintitem_tv.setVisibility(View.VISIBLE);
                 hintitem_tv.setText("T"+String.valueOf(events.size()));
@@ -1426,8 +1426,8 @@ public class MainActivity extends AppCompatActivity {
             //Klassenarbeiten
             classtests = su.parseClasstests(null, fr2);
             if(classtests.size() > 0) {
-                ImageView hintitem_iv = (ImageView) findViewById(R.id.Fr_K);
-                TextView hintitem_tv = (TextView) findViewById(R.id.Fr_K_Text);
+                ImageView hintitem_iv = findViewById(R.id.Fr_K);
+                TextView hintitem_tv = findViewById(R.id.Fr_K_Text);
                 hintitem_iv.setVisibility(View.VISIBLE);
                 hintitem_tv.setVisibility(View.VISIBLE);
                 hintitem_tv.setText("K"+String.valueOf(classtests.size()));
@@ -1435,8 +1435,8 @@ public class MainActivity extends AppCompatActivity {
             //Hausaufgaben
             homeworks = su.parseHomeworks(null, fr2);
             if(homeworks.size() > 0) {
-                ImageView hintitem_iv = (ImageView) findViewById(R.id.Fr_H);
-                TextView hintitem_tv = (TextView) findViewById(R.id.Fr_H_Text);
+                ImageView hintitem_iv = findViewById(R.id.Fr_H);
+                TextView hintitem_tv = findViewById(R.id.Fr_H_Text);
                 hintitem_iv.setVisibility(View.VISIBLE);
                 hintitem_tv.setVisibility(View.VISIBLE);
                 hintitem_tv.setText("H"+String.valueOf(homeworks.size()));
@@ -1444,15 +1444,15 @@ public class MainActivity extends AppCompatActivity {
             //Termine
             events = su.parseEvents(null, fr2);
             if(events.size() > 0) {
-                ImageView hintitem_iv = (ImageView) findViewById(R.id.Fr_T);
-                TextView hintitem_tv = (TextView) findViewById(R.id.Fr_T_Text);
+                ImageView hintitem_iv = findViewById(R.id.Fr_T);
+                TextView hintitem_tv = findViewById(R.id.Fr_T_Text);
                 hintitem_iv.setVisibility(View.VISIBLE);
                 hintitem_tv.setVisibility(View.VISIBLE);
                 hintitem_tv.setText("T"+String.valueOf(events.size()));
             }
 
         //Stundenplan
-        Button Stundenplan = (Button) findViewById(R.id.Stundenplan);
+        Button Stundenplan = findViewById(R.id.Stundenplan);
         Stundenplan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -1465,7 +1465,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         //Speicher für Textfield einrichten
-        final EditText et = (EditText) findViewById(R.id.TextSpeicher);
+        final EditText et = findViewById(R.id.TextSpeicher);
         //Text setzen
         et.setText(su.getString("TextSpeicher", ""));
         //Textchange in Speicher eintragen
@@ -1500,7 +1500,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
         //NewsRecyclerView anzeigen
-        news_view = (RecyclerView) findViewById(R.id.news_view);
+        news_view = findViewById(R.id.news_view);
         news_view_manager = new LinearLayoutManager(MainActivity.this);
         news_view.setLayoutManager(news_view_manager);
         if(showInvisibleEntries) {
@@ -1515,7 +1515,7 @@ public class MainActivity extends AppCompatActivity {
         //Aktionen, die nur für Admins oder Team-Mitglieder vorgesehen sind
         if(rights == Account.RIGHTS_TEACHER || rights == Account.RIGHTS_ADMIN || rights == Account.RIGHTS_TEAM) {
             //FloatingActionButton Aktion zuweisen
-            FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.new_new);
+            FloatingActionButton fab = findViewById(R.id.new_new);
             fab.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -1524,7 +1524,7 @@ public class MainActivity extends AppCompatActivity {
             });
 
             //Checkbox aufsetzen
-            CheckBox showInvisible = (CheckBox) findViewById(R.id.showInvisible);
+            CheckBox showInvisible = findViewById(R.id.showInvisible);
             showInvisible.setChecked(showInvisibleEntries);
             showInvisible.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 @Override
@@ -1552,12 +1552,12 @@ public class MainActivity extends AppCompatActivity {
         if(month.length() != 2) month = "0" + month;
 
         //ViewPager aufsetzen
-        viewpager = (ViewPager) findViewById(R.id.plan_of_the_year_viewpager);
+        viewpager = findViewById(R.id.plan_of_the_year_viewpager);
         viewpager_adapter = new ViewPagerAdapterPlanOfTheYear(getSupportFragmentManager(), getResources(), month);
         viewpager.setAdapter(viewpager_adapter);
 
         //TabLayout aufsetzen
-        tablayout = (TabLayout) findViewById(R.id.plan_of_the_year_tablayout);
+        tablayout = findViewById(R.id.plan_of_the_year_tablayout);
         tablayout.setTabGravity(TabLayout.GRAVITY_FILL);
         tablayout.setupWithViewPager(viewpager);
         tablayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
@@ -1575,7 +1575,7 @@ public class MainActivity extends AppCompatActivity {
 
         if(rights == Account.RIGHTS_CLASSSPEAKER || rights == Account.RIGHTS_TEACHER || rights == Account.RIGHTS_ADMIN || rights == Account.RIGHTS_TEAM) {
             //FloatingAction Button
-            FloatingActionButton new_element = (FloatingActionButton) findViewById(R.id.new_classtest_homework_event);
+            FloatingActionButton new_element = findViewById(R.id.new_classtest_homework_event);
             new_element.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -1597,9 +1597,9 @@ public class MainActivity extends AppCompatActivity {
                     d.setPositiveButton(res.getString(R.string.next), new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            SwitchCompat sw1 = (SwitchCompat) ((AlertDialog) dialog).findViewById(R.id.chooser_element_classtest);
-                            SwitchCompat sw2 = (SwitchCompat) ((AlertDialog) dialog).findViewById(R.id.chooser_element_homework);
-                            SwitchCompat sw3 = (SwitchCompat) ((AlertDialog) dialog).findViewById(R.id.chooser_element_event);
+                            SwitchCompat sw1 = ((AlertDialog) dialog).findViewById(R.id.chooser_element_classtest);
+                            SwitchCompat sw2 = ((AlertDialog) dialog).findViewById(R.id.chooser_element_homework);
+                            SwitchCompat sw3 = ((AlertDialog) dialog).findViewById(R.id.chooser_element_event);
                             if(sw1.isChecked()) {
                                 Intent i = new Intent(MainActivity.this, NewEditElementActivity.class);
                                 i.putExtra("mode", NewEditElementActivity.MODE_CREATE_CLASSTEST);
@@ -1618,9 +1618,9 @@ public class MainActivity extends AppCompatActivity {
                     AlertDialog dialog = d.create();
                     dialog.show();
 
-                    final SwitchCompat sw1 = (SwitchCompat) dialog.findViewById(R.id.chooser_element_classtest);
-                    final SwitchCompat sw2 = (SwitchCompat) dialog.findViewById(R.id.chooser_element_homework);
-                    final SwitchCompat sw3 = (SwitchCompat) dialog.findViewById(R.id.chooser_element_event);
+                    final SwitchCompat sw1 = dialog.findViewById(R.id.chooser_element_classtest);
+                    final SwitchCompat sw2 = dialog.findViewById(R.id.chooser_element_homework);
+                    final SwitchCompat sw3 = dialog.findViewById(R.id.chooser_element_event);
                     sw1.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                         @Override
                         public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -1656,18 +1656,18 @@ public class MainActivity extends AppCompatActivity {
         }
 
         //Buttons
-        final Button jan = (Button) findViewById(R.id.januar);
-        final Button feb = (Button) findViewById(R.id.februar);
-        final Button ma = (Button) findViewById(R.id.maerz);
-        final Button apr = (Button) findViewById(R.id.april);
-        final Button mai = (Button) findViewById(R.id.mai);
-        final Button jun = (Button) findViewById(R.id.juni);
-        final Button jul = (Button) findViewById(R.id.juli);
-        final Button aug = (Button) findViewById(R.id.august);
-        final Button sep = (Button) findViewById(R.id.september);
-        final Button okt = (Button) findViewById(R.id.oktober);
-        final Button nov = (Button) findViewById(R.id.november);
-        final Button dez = (Button) findViewById(R.id.dezember);
+        final Button jan = findViewById(R.id.januar);
+        final Button feb = findViewById(R.id.februar);
+        final Button ma = findViewById(R.id.maerz);
+        final Button apr = findViewById(R.id.april);
+        final Button mai = findViewById(R.id.mai);
+        final Button jun = findViewById(R.id.juni);
+        final Button jul = findViewById(R.id.juli);
+        final Button aug = findViewById(R.id.august);
+        final Button sep = findViewById(R.id.september);
+        final Button okt = findViewById(R.id.oktober);
+        final Button nov = findViewById(R.id.november);
+        final Button dez = findViewById(R.id.dezember);
 
         //Farben setzen
         jan.setTextColor(Color.parseColor("#000000"));
@@ -1684,7 +1684,7 @@ public class MainActivity extends AppCompatActivity {
         dez.setTextColor(Color.parseColor("#000000"));
 
         //Monatsinfos
-        final HorizontalScrollView scrollView = (HorizontalScrollView) findViewById(R.id.horizontalScrollView1);
+        final HorizontalScrollView scrollView = findViewById(R.id.horizontalScrollView1);
 
         if(selectedMonth == 1) {
             jan.setTextColor(Color.parseColor(color));
@@ -2050,7 +2050,7 @@ public class MainActivity extends AppCompatActivity {
 
         if(serverMessagingUtils.isInternetAvailable()) {
             if(rights == Account.RIGHTS_TEACHER || rights == Account.RIGHTS_ADMIN || rights == Account.RIGHTS_TEAM) {
-                new_folder = (FloatingActionButton) findViewById(R.id.new_folder);
+                new_folder = findViewById(R.id.new_folder);
                 new_folder.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -2152,7 +2152,7 @@ public class MainActivity extends AppCompatActivity {
                             public void run() {
                                 try{
                                     //Gallerie anzeigen
-                                    gallery_view = (RecyclerView) findViewById(R.id.gallery_view);
+                                    gallery_view = findViewById(R.id.gallery_view);
                                     gallery_view_manager = new GridLayoutManager(MainActivity.this, 2);
                                     gallery_view.setLayoutManager(gallery_view_manager);
                                     gallery_view_adapter = new GalleryViewAdapter_Folders();
@@ -2196,10 +2196,10 @@ public class MainActivity extends AppCompatActivity {
         //Layout-Datei entfalten
         layoutInflater.inflate(R.layout.fragment_speiseplan, container);
         //Lade - TextView
-        final TextView laden = (TextView) findViewById(R.id.laden1);
+        final TextView laden = findViewById(R.id.laden1);
         laden.setVisibility(View.VISIBLE);
         //WebView
-        final WebView speiseplanView = (WebView) findViewById(R.id.SpeiseplanView);
+        final WebView speiseplanView = findViewById(R.id.SpeiseplanView);
         speiseplanView.setWebViewClient(new WebViewClient() {
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
@@ -2250,21 +2250,21 @@ public class MainActivity extends AppCompatActivity {
 
         if(serverMessagingUtils.isInternetAvailable()) {
             //FloatingAction Button befüllen
-            FloatingActionButton edit_foodplan = (FloatingActionButton) findViewById(R.id.edit_foodplan);
+            FloatingActionButton edit_foodplan = findViewById(R.id.edit_foodplan);
             edit_foodplan.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     View view = layoutInflater.inflate(R.layout.dialogview_edit_foodplan, null);
 
-                    final EditText et_link = (EditText) view.findViewById(R.id.edit_foodplan_link);
-                    Button btn_autumn = (Button) view.findViewById(R.id.edit_foodplan_autumn);
-                    Button btn_winter = (Button) view.findViewById(R.id.edit_foodplan_winter);
-                    Button btn_christmas = (Button) view.findViewById(R.id.edit_foodplan_chrismas);
-                    Button btn_easter = (Button) view.findViewById(R.id.edit_foodplan_easter);
-                    Button btn_pentecost = (Button) view.findViewById(R.id.edit_foodplan_pentecost);
-                    Button btn_summer = (Button) view.findViewById(R.id.edit_foodplan_summer);
-                    Button btn_paste = (Button) view.findViewById(R.id.edit_foodplan_paste);
-                    Button btn_open = (Button) view.findViewById(R.id.edit_foodplan_open);
+                    final EditText et_link = view.findViewById(R.id.edit_foodplan_link);
+                    Button btn_autumn = view.findViewById(R.id.edit_foodplan_autumn);
+                    Button btn_winter = view.findViewById(R.id.edit_foodplan_winter);
+                    Button btn_christmas = view.findViewById(R.id.edit_foodplan_chrismas);
+                    Button btn_easter = view.findViewById(R.id.edit_foodplan_easter);
+                    Button btn_pentecost = view.findViewById(R.id.edit_foodplan_pentecost);
+                    Button btn_summer = view.findViewById(R.id.edit_foodplan_summer);
+                    Button btn_paste = view.findViewById(R.id.edit_foodplan_paste);
+                    Button btn_open = view.findViewById(R.id.edit_foodplan_open);
                     btn_open.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
@@ -2388,7 +2388,7 @@ public class MainActivity extends AppCompatActivity {
         layoutInflater.inflate(R.layout.fragment_bsbz, container);
         //Funktionalität entfalten
         //BSBZ-Homepage Button einrichten
-        Button bsbz_homepage = (Button) findViewById(R.id.bsbz_homepage);
+        Button bsbz_homepage = findViewById(R.id.bsbz_homepage);
         bsbz_homepage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -2398,8 +2398,8 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(i);
             }
         });
-        final TextView bsbz_info = (TextView) findViewById(R.id.tv_bsbz_info);
-        final ProgressBar progressBar = (ProgressBar) findViewById(R.id.pb_loading);
+        final TextView bsbz_info = findViewById(R.id.tv_bsbz_info);
+        final ProgressBar progressBar = findViewById(R.id.pb_loading);
         //Info vom Server oder aus den SharedPreferences holen
         String info = res.getString(R.string.no_info_entered);
         if(serverMessagingUtils.isInternetAvailable()) {
@@ -2430,7 +2430,7 @@ public class MainActivity extends AppCompatActivity {
 
         if(serverMessagingUtils.isInternetAvailable() && (rights == Account.RIGHTS_ADMIN || rights == Account.RIGHTS_TEAM)) {
             //FloatingActionButton initialisieren
-            FloatingActionButton edit = (FloatingActionButton) findViewById(R.id.edit_bsbz_info);
+            FloatingActionButton edit = findViewById(R.id.edit_bsbz_info);
             edit.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -2450,9 +2450,9 @@ public class MainActivity extends AppCompatActivity {
         layoutInflater.inflate(R.layout.fragment_entwickler, container);
         //Funktionalität entfalten
         //IDs herausfinden
-        Button hpbutton = (Button) findViewById(R.id.Homepage_btn);
-        Button hilfe = (Button) findViewById(R.id.Hilfe);
-        Button more_apps = (Button) findViewById(R.id.Mehr_Apps);
+        Button hpbutton = findViewById(R.id.Homepage_btn);
+        Button hilfe = findViewById(R.id.Hilfe);
+        Button more_apps = findViewById(R.id.Mehr_Apps);
 
         //Funktionen belegen
         hpbutton.setOnClickListener(new View.OnClickListener() {

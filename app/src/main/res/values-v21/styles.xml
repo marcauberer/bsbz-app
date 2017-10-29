@@ -24,8 +24,4 @@
         <item name="android:windowBackground">@color/background_gray</item>
         <item name="android:textColorAlertDialogListItem">@color/white</item>
     </style>
-
-    <style name="drawerArrowStyle" parent="Widget.AppCompat.DrawerArrowToggle">
-        <item name="spinBars">true</item>
-    </style>
 </resources>
