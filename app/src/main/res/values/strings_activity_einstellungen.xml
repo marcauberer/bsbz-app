@@ -8,7 +8,7 @@
     <!-- Example settings for Data & Sync -->
     <string name="pref_header_notifications">Benachrichtigungen</string>
     <string name="pref_header_data_sync">Nachrichten &amp; Zusätzliche Funktionen</string>
-    <string name="pref_header_accounts">Account-einstellungen</string>
+    <string name="pref_header_accounts">Account-Einstellungen</string>
     <string name="pref_header_infos">Über die BSZB-App</string>
     <string-array name="pref_sync_frequency_titles">
         <item>2 Minuten</item>
@@ -97,7 +97,7 @@
     <string name="pref_reboot_title">Neustart</string>
     <string name="pref_serverinfo">Serverinfo</string>
     <string name="pref_open_source_licenses">Open-Source-Lizenzen</string>
-    <string name="pref_open_source_licenses_summary">Lizenzdetails für Open-Source-Lizenzen</string>
+    <string name="pref_open_source_licenses_summary">Lizenzdetails für Open-Source-Software</string>
     <string name="pref_custom_startpage">Benutzerdefinierte Startseite</string>
     <string name="pref_title_delete_app_storage">App-Daten löschen</string>
     <string name="pref_summary_delete_app_storage">Bei App-Fehlern zur App-Zurücksetzung wählen</string>
