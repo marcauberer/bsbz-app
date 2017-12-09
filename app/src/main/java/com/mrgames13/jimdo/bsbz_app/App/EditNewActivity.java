@@ -32,7 +32,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.mrgames13.jimdo.bsbz_app.R;
-import com.mrgames13.jimdo.bsbz_app.Services.SyncronisationService;
+import com.mrgames13.jimdo.bsbz_app.Services.SyncService;
 import com.mrgames13.jimdo.bsbz_app.Tools.ServerMessagingUtils;
 
 import java.net.URLEncoder;
@@ -122,7 +122,7 @@ public class EditNewActivity extends AppCompatActivity {
         serverMessagingUtils = new ServerMessagingUtils(cm, this);
 
         //Toolbar aufsetzen
-        toolbar = (Toolbar) findViewById(R.id.toolbar_new_new);
+        toolbar = findViewById(R.id.toolbar_new_new);
         setSupportActionBar(toolbar);
 
         //Calendar initialisieren
@@ -141,13 +141,13 @@ public class EditNewActivity extends AppCompatActivity {
 
         //Komponenten voreinstellen
         //IDs finden
-        switch_timed_activation = (SwitchCompat) findViewById(R.id.switch_timed_activation);
-        btn_choose_date_activation = (Button) findViewById(R.id.btn_choose_activation_date);
-        btn_choose_date_expiration = (Button) findViewById(R.id.btn_choose_expiration_date);
-        btn_choose_receiver = (Button) findViewById(R.id.choose_receiver);
-        etSubject = (EditText) findViewById(R.id.new_new_betreff);
-        etDescription = (EditText) findViewById(R.id.new_new_description);
-        etWriter = (EditText) findViewById(R.id.new_new_writer);
+        switch_timed_activation = findViewById(R.id.switch_timed_activation);
+        btn_choose_date_activation = findViewById(R.id.btn_choose_activation_date);
+        btn_choose_date_expiration = findViewById(R.id.btn_choose_expiration_date);
+        btn_choose_receiver = findViewById(R.id.choose_receiver);
+        etSubject = findViewById(R.id.new_new_betreff);
+        etDescription = findViewById(R.id.new_new_description);
+        etWriter = findViewById(R.id.new_new_writer);
 
         //Daten auf Komponenten übertragen
         etSubject.setText(subject);
@@ -231,19 +231,19 @@ public class EditNewActivity extends AppCompatActivity {
                 View dialogView = inflater.inflate(R.layout.dialogview_class_chooser_admin, null);
                 alert.setView(dialogView);
 
-                final TextView schulart = (TextView) dialogView.findViewById(R.id.schulart);
-                final TextView klassenstufe = (TextView) dialogView.findViewById(R.id.klassenstufe);
-                final TextView klassenart = (TextView) dialogView.findViewById(R.id.klassenart);
+                final TextView schulart = dialogView.findViewById(R.id.schulart);
+                final TextView klassenstufe = dialogView.findViewById(R.id.klassenstufe);
+                final TextView klassenart = dialogView.findViewById(R.id.klassenart);
 
-                final TextView klasse1 = (TextView) dialogView.findViewById(R.id.klasse);
+                final TextView klasse1 = dialogView.findViewById(R.id.klasse);
 
-                final TextView schulart_lbl = (TextView) dialogView.findViewById(R.id.l_Rechte);
-                final TextView klassenstufe_lbl = (TextView) dialogView.findViewById(R.id.textView2);
-                final TextView klassenart_lbl = (TextView) dialogView.findViewById(R.id.textView3);
+                final TextView schulart_lbl = dialogView.findViewById(R.id.l_Rechte);
+                final TextView klassenstufe_lbl = dialogView.findViewById(R.id.textView2);
+                final TextView klassenart_lbl = dialogView.findViewById(R.id.textView3);
 
-                final SeekBar s1 = (SeekBar) dialogView.findViewById(R.id.seekBar1);
-                final SeekBar s2 = (SeekBar) dialogView.findViewById(R.id.seekBar2);
-                final SeekBar s3 = (SeekBar) dialogView.findViewById(R.id.seekBar3);
+                final SeekBar s1 = dialogView.findViewById(R.id.seekBar1);
+                final SeekBar s2 = dialogView.findViewById(R.id.seekBar2);
+                final SeekBar s3 = dialogView.findViewById(R.id.seekBar3);
 
                 s1.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
                     @Override
@@ -301,7 +301,7 @@ public class EditNewActivity extends AppCompatActivity {
                     }
                 });
 
-                final SwitchCompat all_classes = (SwitchCompat) dialogView.findViewById(R.id.all_classes);
+                final SwitchCompat all_classes = dialogView.findViewById(R.id.all_classes);
                 all_classes.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                     @Override
                     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -356,7 +356,7 @@ public class EditNewActivity extends AppCompatActivity {
         });
 
         //FloatingActionButton initialisieren
-        fab = (FloatingActionButton) findViewById(R.id.new_new);
+        fab = findViewById(R.id.new_new);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -478,7 +478,7 @@ public class EditNewActivity extends AppCompatActivity {
                     //Activity beenden
                     finish();
                     //Synchronisieren
-                    startService(new Intent(EditNewActivity.this, SyncronisationService.class));
+                    startService(new Intent(EditNewActivity.this, SyncService.class));
                 }
             }
         }).start();

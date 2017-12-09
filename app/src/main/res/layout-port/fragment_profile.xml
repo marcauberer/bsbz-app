@@ -99,6 +99,6 @@
         android:layout_alignParentLeft="true"
         android:text="@string/last_sync_loading"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        tools:ignore="HardcodedText,RtlHardcoded" />
+        android:textSize="16sp" />
 
 </RelativeLayout>

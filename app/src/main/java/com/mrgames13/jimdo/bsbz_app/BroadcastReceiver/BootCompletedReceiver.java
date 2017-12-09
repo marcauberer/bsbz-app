@@ -10,12 +10,12 @@ import android.content.res.Resources;
 import android.net.ConnectivityManager;
 import android.net.Uri;
 
-import com.mrgames13.jimdo.bsbz_app.App.LogoActivity;
 import com.mrgames13.jimdo.bsbz_app.App.MainActivity;
+import com.mrgames13.jimdo.bsbz_app.App.SplashScreenActivity;
 import com.mrgames13.jimdo.bsbz_app.CommonObjects.Account;
 import com.mrgames13.jimdo.bsbz_app.R;
 import com.mrgames13.jimdo.bsbz_app.Services.PercentService;
-import com.mrgames13.jimdo.bsbz_app.Services.SyncronisationService;
+import com.mrgames13.jimdo.bsbz_app.Services.SyncService;
 import com.mrgames13.jimdo.bsbz_app.Tools.AccountUtils;
 import com.mrgames13.jimdo.bsbz_app.Tools.NotificationUtils;
 import com.mrgames13.jimdo.bsbz_app.Tools.ServerMessagingUtils;
@@ -72,7 +72,7 @@ public class BootCompletedReceiver extends BroadcastReceiver {
             //Alarmmanager aufsetzen
             AlarmManager alarmmanager1 = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
 
-            Intent startServiceIntent1 = new Intent(context, SyncronisationService.class);
+            Intent startServiceIntent1 = new Intent(context, SyncService.class);
             PendingIntent startServicePendingIntent1 = PendingIntent.getService(context, 0, startServiceIntent1, 0);
 
             Calendar calendar = Calendar.getInstance();
@@ -148,7 +148,7 @@ public class BootCompletedReceiver extends BroadcastReceiver {
                     String account_state = result.substring(index2 +1);
                     //Accountstate auswerten
                     if(account_state.equals("2")) {
-                        nu.displayNotification(res.getString(R.string.app_name), res.getString(R.string.account_locked), nu.ID_ACCOUNT_LOCKED, new Intent(context, LogoActivity.class), nu.PRIORITY_HIGH, 300, null);
+                        nu.displayNotification(res.getString(R.string.app_name), res.getString(R.string.account_locked), nu.ID_ACCOUNT_LOCKED, new Intent(context, SplashScreenActivity.class), nu.PRIORITY_HIGH, 300, null);
                     } else if(account_state.equals("3")) {
                         su.putBoolean("Sync", false);
                         su.putString("SupportUrl", supporturl);

@@ -311,7 +311,7 @@
     <string name="update_found_tap_to_download_1">"Update der BSBZ-App auf Version "</string>
     <string name="update_found_tap_to_download_2">" wurde gefunden. Hier tippen um Update herunterzuladen."</string>
     <string name="update_news">Update News!</string>
-    <string name="update_news_message">Die Version 3.3.7 der BSBZ-App ist da!\n\nVerbesserungen:\n- Fehlerbehebungen in der Bildergalerie\n- Performance verbessert\n- Appgröße reduziert\n- Kleinere Textverbesserungen\n\nViel Spaß mit der BSBZ-App wünscht\nDas M&#38;R Games Team</string>
+    <string name="update_news_message">Die Version 3.3.11 der BSBZ-App ist da!\n\nVerbesserungen:\n- Performance verbessert\n- Kleinere Textverbesserungen\n\nViel Spaß mit der BSBZ-App wünscht\nDas M&#38;R Games Team</string>
     <string name="update_team">Neues Update erkannt. Wenn du die App zum Testen neuer Serverfunktionen öffnest, tippe auf \'Öffnen\', ansonsten auf \'Schließen\'</string>
     <string name="update_to_version">"Update auf Version "</string>
     <string name="updates_found">Es ist ein Update verfügbar. Möchten Sie es herunterladen?</string>
@@ -459,5 +459,14 @@
     </string-array>
     <string name="more_apps">Mehr Apps von uns</string>
     <string name="pref_summary_more_apps">Unsere Playstore-Seite</string>
+    <string name="normal_server">M&amp;R Games Server 01</string>
+    <string name="test_server">M&amp;R Games Testserver 01</string>
+    <string name="shortcut_disabled">Aktion deaktiviert</string>
+    <string name="shortcut_settings_short">Einstellungen</string>
+    <string name="shortcut_settings_long">BSBZ-App Einstellungen</string>
+    <string name="shortcut_plan_of_the_year_short">Jahresplan</string>
+    <string name="shortcut_plan_of_the_year_long">BSBZ-App Jahresplan</string>
+    <string name="shortcut_foodplan_short">Speiseplan</string>
+    <string name="shortcut_foodplan_long">BSBZ-App Speiseplan</string>
 
 </resources>

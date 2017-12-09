@@ -34,14 +34,14 @@ public class WebActivity extends AppCompatActivity {
     //Variablen als Objekte
     private Toolbar toolbar;
     private Resources res;
-    private WebView webside;
+    private WebView website;
 	private ConnectivityManager cm;
 	private ServerMessagingUtils serverMessagingUtils;
 	private StorageUtils su;
 
 	//Variablen
     private String title;
-    private String webside_url = NO_DATA_URL;
+    private String website_url = NO_DATA_URL;
 
 	@Override
 	protected void onStart() {
@@ -97,7 +97,7 @@ public class WebActivity extends AppCompatActivity {
 		setContentView(R.layout.activity_web);
 
 		//Toolbar aufsetzen
-		toolbar = (Toolbar) findViewById(R.id.toolbar_web);
+		toolbar = findViewById(R.id.toolbar_web);
 		setSupportActionBar(toolbar);
 
 		//ServerMessagingUtils initialisieren
@@ -106,13 +106,13 @@ public class WebActivity extends AppCompatActivity {
         serverMessagingUtils.checkConnection(findViewById(R.id.container));
 
 		//Lade-TextView
-		final TextView laden = (TextView) findViewById(R.id.laden);
-		final ProgressBar laden_progress_bar = (ProgressBar) findViewById(R.id.progressBar1);
+		final TextView laden = findViewById(R.id.laden);
+		final ProgressBar laden_progress_bar = findViewById(R.id.progressBar1);
 		laden.setVisibility(View.VISIBLE);
 		laden_progress_bar.setVisibility(View.VISIBLE);
 		//WebView
-		webside = (WebView) findViewById(R.id.Webside);
-		webside.setWebViewClient(new WebViewClient() {
+		website = findViewById(R.id.Website);
+		website.setWebViewClient(new WebViewClient() {
 			@Override
 			public boolean shouldOverrideUrlLoading(WebView view, String url) {
 				view.loadUrl(url);
@@ -121,7 +121,7 @@ public class WebActivity extends AppCompatActivity {
 			
 			@Override
 			public void onPageFinished(WebView view, String url) {
-                if(title.equals(res.getString(R.string.loading))) getSupportActionBar().setTitle(webside.getTitle());
+                if(title.equals(res.getString(R.string.loading))) getSupportActionBar().setTitle(website.getTitle());
 				laden.setVisibility(View.GONE);
 				laden_progress_bar.setVisibility(View.GONE);
 			}
@@ -132,27 +132,27 @@ public class WebActivity extends AppCompatActivity {
 				
 			}
 		});
-		webside.getSettings().setBuiltInZoomControls(true);
-		webside.getSettings().setLoadWithOverviewMode(true);
-		webside.getSettings().setUseWideViewPort(true);
-		webside.getSettings().setJavaScriptEnabled(true);
+		website.getSettings().setBuiltInZoomControls(true);
+		website.getSettings().setLoadWithOverviewMode(true);
+		website.getSettings().setUseWideViewPort(true);
+		website.getSettings().setJavaScriptEnabled(true);
 		
 		//Extras im Intent auslesen
-		webside_url = getIntent().getStringExtra("Webside");
+		website_url = getIntent().getStringExtra("Website");
 		//SeitenTitel aus dem Intent auslesen
 		title = getIntent().getStringExtra("Title");
 
-        if(title == null && webside_url == null) {
-            webside_url = getIntent().getData().toString();
+        if(title == null && website_url == null) {
+            website_url = getIntent().getData().toString();
             title = res.getString(R.string.loading);
         }
 
-        if(title == null && webside_url == null) {
-            webside_url = getIntent().getData().toString();
+        if(title == null && website_url == null) {
+            website_url = getIntent().getData().toString();
             title = res.getString(R.string.loading);
         }
 
-        webside.loadUrl(webside_url);
+        website.loadUrl(website_url);
 		getSupportActionBar().setTitle(title);
 	}
 
@@ -169,8 +169,8 @@ public class WebActivity extends AppCompatActivity {
 			startActivity(new Intent(this, SettingsActivity.class));
 			return true;
 		} else if(id == android.R.id.home) {
-            if(webside.canGoBack()) {
-                webside.goBack();
+            if(website.canGoBack()) {
+                website.goBack();
             } else {
                 finish();
             }
@@ -188,8 +188,8 @@ public class WebActivity extends AppCompatActivity {
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (event.getAction() == KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_BACK) {
-            if (webside.canGoBack()) {
-                webside.goBack();
+            if (website.canGoBack()) {
+                website.goBack();
             } else {
                 finish();
             }

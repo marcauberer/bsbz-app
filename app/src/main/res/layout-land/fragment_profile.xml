@@ -58,7 +58,7 @@
         android:layout_alignParentLeft="true"
         android:text="@string/last_sync_loading"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        tools:ignore="HardcodedText,RtlHardcoded" />
+        android:textSize="16sp"/>
 
     <TextView
         android:id="@+id/l_Rechte"

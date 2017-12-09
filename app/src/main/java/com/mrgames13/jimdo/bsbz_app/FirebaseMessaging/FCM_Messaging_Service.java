@@ -8,7 +8,7 @@ import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 import com.mrgames13.jimdo.bsbz_app.App.LogInActivity;
 import com.mrgames13.jimdo.bsbz_app.R;
-import com.mrgames13.jimdo.bsbz_app.Services.SyncronisationService;
+import com.mrgames13.jimdo.bsbz_app.Services.SyncService;
 import com.mrgames13.jimdo.bsbz_app.Tools.NotificationUtils;
 import com.mrgames13.jimdo.bsbz_app.Tools.StorageUtils;
 
@@ -47,7 +47,7 @@ public class FCM_Messaging_Service extends FirebaseMessagingService {
                 Intent i = new Intent(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=" + this.getPackageName())));
                 nu.displayNotification(res.getString(R.string.update_to_version) + version, message_text, nu.ID_ANNOUNCE_UPDATE, i, nu.PRIORITY_NORMAL, 0, new long[0]);
             } else if (command.equals("initiate_sync")) {
-                startService(new Intent(this, SyncronisationService.class));
+                startService(new Intent(this, SyncService.class));
             } else if (command.equals("start_app")) {
                 Intent dialogIntent = new Intent(this, LogInActivity.class);
                 dialogIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -56,7 +56,7 @@ public class FCM_Messaging_Service extends FirebaseMessagingService {
                 nu.clearNotifications();
             } else if(command.equals("sync")) {
                 String data = remoteMessage.getData().get("data");
-                Intent i = new Intent(this, SyncronisationService.class);
+                Intent i = new Intent(this, SyncService.class);
                 i.putExtra("Data", data);
                 startService(i);
             }

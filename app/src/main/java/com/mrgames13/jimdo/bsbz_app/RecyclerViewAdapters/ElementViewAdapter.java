@@ -29,7 +29,7 @@ import com.mrgames13.jimdo.bsbz_app.CommonObjects.Event;
 import com.mrgames13.jimdo.bsbz_app.CommonObjects.Homework;
 import com.mrgames13.jimdo.bsbz_app.CommonObjects.New;
 import com.mrgames13.jimdo.bsbz_app.R;
-import com.mrgames13.jimdo.bsbz_app.Services.SyncronisationService;
+import com.mrgames13.jimdo.bsbz_app.Services.SyncService;
 import com.mrgames13.jimdo.bsbz_app.Tools.SimpleAnimationListener;
 
 import java.net.URLEncoder;
@@ -78,18 +78,18 @@ public class ElementViewAdapter extends RecyclerView.Adapter<ElementViewAdapter.
 
         public ViewHolderClass(View itemView) {
             super(itemView);
-            item_icon = (TextView) itemView.findViewById(R.id.item_icon);
-            item_dropdown_arrow = (ImageView) itemView.findViewById(R.id.item_dropdown_arrow);
-            item_subject = (TextView) itemView.findViewById(R.id.item_subject);
-            item_description = (TextView) itemView.findViewById(R.id.item_description);
-            item_date = (TextView) itemView.findViewById(R.id.item_date);
-            item_receiver = (TextView) itemView.findViewById(R.id.item_receiver);
-            item_writer = (TextView) itemView.findViewById(R.id.item_writer);
-            item_edit = (FloatingActionButton) itemView.findViewById(R.id.item_edit);
-            item_delete = (FloatingActionButton) itemView.findViewById(R.id.item_delete);
-            item_area_description = (RelativeLayout) itemView.findViewById(R.id.item_area_description);
+            item_icon = itemView.findViewById(R.id.item_icon);
+            item_dropdown_arrow = itemView.findViewById(R.id.item_dropdown_arrow);
+            item_subject = itemView.findViewById(R.id.item_subject);
+            item_description = itemView.findViewById(R.id.item_description);
+            item_date = itemView.findViewById(R.id.item_date);
+            item_receiver = itemView.findViewById(R.id.item_receiver);
+            item_writer = itemView.findViewById(R.id.item_writer);
+            item_edit = itemView.findViewById(R.id.item_edit);
+            item_delete = itemView.findViewById(R.id.item_delete);
+            item_area_description = itemView.findViewById(R.id.item_area_description);
             item_area_description.setVisibility(View.GONE);
-            item_button_container = (RelativeLayout) itemView.findViewById(R.id.item_button_container);
+            item_button_container = itemView.findViewById(R.id.item_button_container);
             item_button_container.setVisibility(View.GONE);
         }
     }
@@ -318,7 +318,7 @@ public class ElementViewAdapter extends RecyclerView.Adapter<ElementViewAdapter.
                                             }
                                             if(result.equals("Action Successful")) {
                                                 result = res.getString(R.string.action_successful);
-                                                context.startService(new Intent(context, SyncronisationService.class));
+                                                context.startService(new Intent(context, SyncService.class));
                                             } else {
                                                 result = res.getString(R.string.error_try_again);
                                             }

@@ -24,11 +24,11 @@ import android.widget.Toast;
 import com.mrgames13.jimdo.bsbz_app.CommonObjects.Account;
 import com.mrgames13.jimdo.bsbz_app.CommonObjects.TimeTable;
 import com.mrgames13.jimdo.bsbz_app.R;
-import com.mrgames13.jimdo.bsbz_app.ViewPagerAdapters.ViewPagerAdapterEditTimeTable;
-import com.mrgames13.jimdo.bsbz_app.Services.SyncronisationService;
+import com.mrgames13.jimdo.bsbz_app.Services.SyncService;
 import com.mrgames13.jimdo.bsbz_app.Tools.AccountUtils;
 import com.mrgames13.jimdo.bsbz_app.Tools.ServerMessagingUtils;
 import com.mrgames13.jimdo.bsbz_app.Tools.StorageUtils;
+import com.mrgames13.jimdo.bsbz_app.ViewPagerAdapters.ViewPagerAdapterEditTimeTable;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
@@ -116,16 +116,16 @@ public class EditTimeTableActivity extends AppCompatActivity {
         timetable = su.getTimeTable(klasse);
 
         //Toolbar initialisieren
-        toolbar = (Toolbar) findViewById(R.id.toolbar_edit_timetable);
+        toolbar = findViewById(R.id.toolbar_edit_timetable);
         setSupportActionBar(toolbar);
 
         //ViewPager aufsetzen
         viewpager_adapter = new ViewPagerAdapterEditTimeTable(getSupportFragmentManager(), res, su, timetable);
-        viewpager = (ViewPager) findViewById(R.id.edit_timetable_view_pager);
+        viewpager = findViewById(R.id.edit_timetable_view_pager);
         viewpager.setAdapter(viewpager_adapter);
 
         //TabLayout aufsetzen
-        tablayout = (TabLayout) findViewById(R.id.edit_timetable_tab_layout);
+        tablayout = findViewById(R.id.edit_timetable_tab_layout);
         tablayout.setTabGravity(TabLayout.GRAVITY_FILL);
         tablayout.setupWithViewPager(viewpager);
         tablayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
@@ -253,7 +253,7 @@ public class EditTimeTableActivity extends AppCompatActivity {
                                 Toast.makeText(EditTimeTableActivity.this, res.getString(R.string.action_failed), Toast.LENGTH_SHORT).show();
                             }
                             pd.dismiss();
-                            startService(new Intent(EditTimeTableActivity.this, SyncronisationService.class));
+                            startService(new Intent(EditTimeTableActivity.this, SyncService.class));
                             finish();
                         }
                     });

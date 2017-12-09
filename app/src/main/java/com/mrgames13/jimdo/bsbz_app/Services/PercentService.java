@@ -5,7 +5,7 @@ import android.content.Intent;
 import android.content.res.Resources;
 import android.os.IBinder;
 
-import com.mrgames13.jimdo.bsbz_app.App.LogoActivity;
+import com.mrgames13.jimdo.bsbz_app.App.SplashScreenActivity;
 import com.mrgames13.jimdo.bsbz_app.CommonObjects.Account;
 import com.mrgames13.jimdo.bsbz_app.CommonObjects.TimeTable;
 import com.mrgames13.jimdo.bsbz_app.R;
@@ -74,13 +74,13 @@ public class PercentService extends Service {
 
 		if(send && progress > 0 && progress < 100) {
 			//Notification senden
-			Intent i = new Intent(this, LogoActivity.class);
+			Intent i = new Intent(this, SplashScreenActivity.class);
 			i.putExtra("Confirm", "Today");
 			nu.displayProgressMessage(res.getString(R.string.app_name), res.getString(R.string.so_much_schooltime_is_over_) + Integer.toString(progress) + "%", nu.ID_SHOW_TODAY_PROGRESS, progress, i, nu.PRIORITY_MAX);
             su.putBoolean("show_notification_for_schoolday", true);
         } else if(show_notification && send && progress == 100) {
 			//Notification senden
-			Intent i = new Intent(this, LogoActivity.class);
+			Intent i = new Intent(this, SplashScreenActivity.class);
 			i.putExtra("Confirm", "Today");
             nu.displayNotification(res.getString(R.string.app_name), res.getString(R.string.congradulations_schoolday_is_over), nu.ID_SHOW_TODAY_PROGRESS, i, nu.PRIORITY_HIGH, 0, new long[0]);
             su.putBoolean("show_notification_for_schoolday", false);

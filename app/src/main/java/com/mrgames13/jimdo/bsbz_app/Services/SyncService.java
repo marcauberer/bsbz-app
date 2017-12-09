@@ -29,7 +29,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Locale;
 
-public class SyncronisationService extends Service {
+public class SyncService extends Service {
 	
 	//Konstanten
 

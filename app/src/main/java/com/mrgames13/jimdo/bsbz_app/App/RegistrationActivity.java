@@ -1,9 +1,11 @@
 package com.mrgames13.jimdo.bsbz_app.App;
 
+import android.Manifest;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -12,6 +14,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.preference.PreferenceManager;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.SwitchCompat;
@@ -61,92 +64,90 @@ public class RegistrationActivity extends AppCompatActivity {
     private EditText repassword;
     private CheckBox auto_login;
     private CheckBox keep_logged_in;
-	private StorageUtils su;
+    private StorageUtils su;
     private ProgressDialog pd;
 
     //Veriablen
-	public static String id = "";
+    public static String id = "no_permission";
     private String result = "";
     private boolean pressedOnce;
     private String rights = "student";
 
-	@Override
-	public void onStart() {
-		super.onStart();
-		
-		//Daten von den SharedPreferences abrufen
-		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(RegistrationActivity.this);
-		String layout = prefs.getString("Layout", res.getString(R.string.bsbz_layout_orange));
-		String color = "#ea690c";
-		if(layout.equals("0")) {
-			color = "#ea690c";
-		} else if(layout.equals("1")) {
-			color = "#000000";
-		} else if(layout.equals("2")) {
-			color = "#3ded25";
-		} else if(layout.equals("3")) {
-			color = "#ff0000";
-		} else if(layout.equals("4")) {
-			color = "#0000ff";
-		} else if(layout.equals("5")) {
-			color = "#00007f";
-		}
+    @Override
+    public void onStart() {
+        super.onStart();
+
+        //Daten von den SharedPreferences abrufen
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(RegistrationActivity.this);
+        String layout = prefs.getString("Layout", res.getString(R.string.bsbz_layout_orange));
+        String color = "#ea690c";
+        if (layout.equals("0")) {
+            color = "#ea690c";
+        } else if (layout.equals("1")) {
+            color = "#000000";
+        } else if (layout.equals("2")) {
+            color = "#3ded25";
+        } else if (layout.equals("3")) {
+            color = "#ff0000";
+        } else if (layout.equals("4")) {
+            color = "#0000ff";
+        } else if (layout.equals("5")) {
+            color = "#00007f";
+        }
         toolbar.setBackgroundDrawable(new ColorDrawable(Color.parseColor(color)));
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
-		getSupportActionBar().setTitle(res.getString(R.string.title_activity_registration));
-		
-		if(Build.VERSION.SDK_INT >= 21) {
-			Window window = getWindow();
-			window.setStatusBarColor(MainActivity.darkenColor(Color.parseColor(color)));
-		}
-	}
-	
-	@Override
-	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
+        getSupportActionBar().setTitle(res.getString(R.string.title_activity_registration));
 
-		//Theme setzen
-		if(MainActivity.AppTheme == 0) {
-			setTheme(R.style.FirstTheme);
-		} else if(MainActivity.AppTheme == 1) {
-			setTheme(R.style.SecondTheme);
-		}
-		
-		setContentView(R.layout.activity_registration);
+        if (Build.VERSION.SDK_INT >= 21) {
+            Window window = getWindow();
+            window.setStatusBarColor(MainActivity.darkenColor(Color.parseColor(color)));
+        }
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        //Theme setzen
+        if (MainActivity.AppTheme == 0) {
+            setTheme(R.style.FirstTheme);
+        } else if (MainActivity.AppTheme == 1) {
+            setTheme(R.style.SecondTheme);
+        }
+
+        setContentView(R.layout.activity_registration);
 
         //Toolbar aufsetzen
-        toolbar = (Toolbar) findViewById(R.id.toolbar_registration);
+        toolbar = findViewById(R.id.toolbar_registration);
         setSupportActionBar(toolbar);
 
         //StorageUtils initialisieren
         su = new StorageUtils(this, res);
 
-		RelativeLayout rl = (RelativeLayout) findViewById(R.id.rl2);
-		if(MainActivity.AppTheme == 1) {
-			rl.setBackgroundColor(Color.BLACK);
-		}
+        RelativeLayout rl = findViewById(R.id.rl2);
+        if (MainActivity.AppTheme == 1) {
+            rl.setBackgroundColor(Color.BLACK);
+        }
 
         //Resourcen initialisieren
         res = getResources();
 
-		//Android ID ermitteln
-		try{
-			TelephonyManager tm = (TelephonyManager) RegistrationActivity.this.getSystemService(TELEPHONY_SERVICE);
-			id = tm.getDeviceId();
-		} catch(Exception e) {
-            e.printStackTrace();
-        }
+        //Android ID ermitteln
+        try {
+            TelephonyManager tm = (TelephonyManager) RegistrationActivity.this.getSystemService(TELEPHONY_SERVICE);
+            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.READ_PHONE_STATE) == PackageManager.PERMISSION_GRANTED) id = tm.getDeviceId();
+        } catch(Exception e) {}
 
 		//Ids herausfinden
 		//Button
-		final Button Registrieren = (Button) findViewById(R.id.Registration_Registrieren);
+		final Button Registrieren = findViewById(R.id.Registration_Registrieren);
 		//Textfelder
-		username = (EditText) findViewById(R.id.Registration_User_name);
-		klasse = (Button) findViewById(R.id.Registration_klasse);
+		username = findViewById(R.id.Registration_User_name);
+		klasse = findViewById(R.id.Registration_klasse);
 		//final EditText email = (EditText) findViewById(R.id.Registration_Email);
-		password = (EditText) findViewById(R.id.Registration_Password);
-		repassword = (EditText) findViewById(R.id.Registration_Remember_Password);
+		password = findViewById(R.id.Registration_Password);
+		repassword = findViewById(R.id.Registration_Remember_Password);
 		
 		klasse.setOnClickListener(new OnClickListener() {
 			@Override
@@ -162,22 +163,22 @@ public class RegistrationActivity extends AppCompatActivity {
 				View dialogView = inflater.inflate(R.layout.dialogview_class_chooser_registration, null);
 				alert.setView(dialogView);
 				
-				final TextView schulart = (TextView) dialogView.findViewById(R.id.schulart);
-				final TextView klassenstufe = (TextView) dialogView.findViewById(R.id.klassenstufe);
-				final TextView klassenart = (TextView) dialogView.findViewById(R.id.klassenart);
+				final TextView schulart =  dialogView.findViewById(R.id.schulart);
+				final TextView klassenstufe = dialogView.findViewById(R.id.klassenstufe);
+				final TextView klassenart = dialogView.findViewById(R.id.klassenart);
 				
-				final TextView klasse1 = (TextView) dialogView.findViewById(R.id.klasse);
+				final TextView klasse1 = dialogView.findViewById(R.id.klasse);
 				
-				final SeekBar s1 = (SeekBar) dialogView.findViewById(R.id.seekBar1);
-				final SeekBar s2 = (SeekBar) dialogView.findViewById(R.id.seekBar2);
-				final SeekBar s3 = (SeekBar) dialogView.findViewById(R.id.seekBar3);
-                final SwitchCompat sw1 = (SwitchCompat) dialogView.findViewById(R.id.student);
-				final SwitchCompat sw2 = (SwitchCompat) dialogView.findViewById(R.id.classspeaker);
-                final SwitchCompat sw3 = (SwitchCompat) dialogView.findViewById(R.id.classteacher);
-                final SwitchCompat sw4 = (SwitchCompat) dialogView.findViewById(R.id.teacher);
-                final SwitchCompat sw5 = (SwitchCompat) dialogView.findViewById(R.id.parent);
-                final ImageView warning_iv = (ImageView) findViewById(R.id.ic_warning) ;
-                final TextView warning_tv = (TextView) findViewById(R.id.warning);
+				final SeekBar s1 = dialogView.findViewById(R.id.seekBar1);
+				final SeekBar s2 = dialogView.findViewById(R.id.seekBar2);
+				final SeekBar s3 = dialogView.findViewById(R.id.seekBar3);
+                final SwitchCompat sw1 = dialogView.findViewById(R.id.student);
+				final SwitchCompat sw2 = dialogView.findViewById(R.id.classspeaker);
+                final SwitchCompat sw3 = dialogView.findViewById(R.id.classteacher);
+                final SwitchCompat sw4 = dialogView.findViewById(R.id.teacher);
+                final SwitchCompat sw5 = dialogView.findViewById(R.id.parent);
+                final ImageView warning_iv = findViewById(R.id.ic_warning) ;
+                final TextView warning_tv = findViewById(R.id.warning);
 				
 				s1.setOnSeekBarChangeListener(new OnSeekBarChangeListener() {
 					@Override
@@ -444,12 +445,12 @@ public class RegistrationActivity extends AppCompatActivity {
 			}
 		});
 
-        keep_logged_in = (CheckBox) findViewById(R.id.angemeldet_bleiben);
-
-		auto_login = (CheckBox) findViewById(R.id.automatisch_einloggen);
+        keep_logged_in = findViewById(R.id.angemeldet_bleiben);
+		auto_login = findViewById(R.id.automatisch_einloggen);
         auto_login.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+            	if(!isChecked) keep_logged_in.setChecked(false);
                 keep_logged_in.setEnabled(isChecked);
             }
         });

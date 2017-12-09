@@ -19,7 +19,7 @@ import android.widget.VideoView;
 import com.mrgames13.jimdo.bsbz_app.R;
 import com.mrgames13.jimdo.bsbz_app.Tools.SimpleAnimationListener;
 
-public class LogoActivity extends AppCompatActivity {
+public class SplashScreenActivity extends AppCompatActivity {
     //Konstanten
 
     //Variablen als Objekte
@@ -41,12 +41,12 @@ public class LogoActivity extends AppCompatActivity {
         //Handler initialisieren
         h = new Handler();
 
-        container = (RelativeLayout) findViewById(R.id.logo_container);
+        container = findViewById(R.id.logo_container);
         container.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 video.stopPlayback();
-                Intent i = new Intent(LogoActivity.this, LogInActivity.class);
+                Intent i = new Intent(SplashScreenActivity.this, LogInActivity.class);
                 startActivity(i);
                 overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
                 finish();
@@ -54,13 +54,13 @@ public class LogoActivity extends AppCompatActivity {
             }
         });
 
-        app_name = (TextView) findViewById(R.id.logo_app_title);
-        powered = (TextView) findViewById(R.id.logo_powered);
+        app_name = findViewById(R.id.logo_app_title);
+        powered = findViewById(R.id.logo_powered);
 
-        app_logo = (ImageView) findViewById(R.id.logo_image_view);
+        app_logo = findViewById(R.id.logo_image_view);
 
         final Uri video_uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.logo_animation);
-        video = (VideoView) findViewById(R.id.logo_video_view);
+        video = findViewById(R.id.logo_video_view);
         video.setVideoURI(video_uri);
         video.setDrawingCacheEnabled(true);
         video.setZOrderOnTop(true);
@@ -84,14 +84,14 @@ public class LogoActivity extends AppCompatActivity {
             public void onCompletion(MediaPlayer mp) {
                 video.setVisibility(View.GONE);
                 //Schriftzug langsam einblenden
-                Animation fade_in = AnimationUtils.loadAnimation(LogoActivity.this, android.R.anim.fade_in);
+                Animation fade_in = AnimationUtils.loadAnimation(SplashScreenActivity.this, android.R.anim.fade_in);
                 fade_in.setAnimationListener(new SimpleAnimationListener() {
                     @Override
                     public void onAnimationEnd(Animation animation) {
                         h.postDelayed(new Runnable() {
                             @Override
                             public void run() {
-                                Intent i = new Intent(LogoActivity.this, LogInActivity.class);
+                                Intent i = new Intent(SplashScreenActivity.this, LogInActivity.class);
                                 startActivity(i);
                                 overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
                                 finish();

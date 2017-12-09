@@ -51,7 +51,7 @@ import android.widget.Toast;
 import com.mrgames13.jimdo.bsbz_app.CommonObjects.Account;
 import com.mrgames13.jimdo.bsbz_app.R;
 import com.mrgames13.jimdo.bsbz_app.Services.PercentService;
-import com.mrgames13.jimdo.bsbz_app.Services.SyncronisationService;
+import com.mrgames13.jimdo.bsbz_app.Services.SyncService;
 import com.mrgames13.jimdo.bsbz_app.Tools.AccountUtils;
 import com.mrgames13.jimdo.bsbz_app.Tools.NotificationUtils;
 import com.mrgames13.jimdo.bsbz_app.Tools.ServerMessagingUtils;
@@ -148,7 +148,7 @@ public class SettingsActivity extends PreferenceActivity {
 
 			root.addView(toolbar, 0);
 		} else {
-			ViewGroup root = (ViewGroup) findViewById(android.R.id.content);
+			ViewGroup root = findViewById(android.R.id.content);
 			ListView content = (ListView) root.getChildAt(0);
 
 			root.removeAllViews();
@@ -475,7 +475,7 @@ public class SettingsActivity extends PreferenceActivity {
 			@Override
 			public boolean onPreferenceClick(Preference preference) {
                 Intent i = new Intent(SettingsActivity.this, WebActivity.class);
-                i.putExtra("Webside", res.getString(R.string.link_homepage));
+                i.putExtra("Website", res.getString(R.string.link_homepage));
                 i.putExtra("Title", res.getString(R.string.pref_title_more_apps));
                 startActivity(i);
 				return false;
@@ -502,7 +502,7 @@ public class SettingsActivity extends PreferenceActivity {
 				//Alarmmanager für Hintergrundprozess aufsetzen
 				AlarmManager alarmmanager = (AlarmManager) SettingsActivity.this.getSystemService(ALARM_SERVICE);
 				
-				Intent startServiceIntent = new Intent(SettingsActivity.this, SyncronisationService.class);
+				Intent startServiceIntent = new Intent(SettingsActivity.this, SyncService.class);
 				PendingIntent startServicePendingIntent = PendingIntent.getService(SettingsActivity.this, 0, startServiceIntent, 0);
 				
 				if (alarmmanager!= null)  alarmmanager.cancel(startServicePendingIntent);
@@ -704,7 +704,7 @@ public class SettingsActivity extends PreferenceActivity {
                                 dialog.dismiss();
                                 deletestorage.setSummary(res.getString(R.string.delete_storage_s));
                                 Toast.makeText(SettingsActivity.this, res.getString(R.string.delete_storage_s), Toast.LENGTH_LONG).show();
-								startActivity(new Intent(SettingsActivity.this, LogoActivity.class));
+								startActivity(new Intent(SettingsActivity.this, SplashScreenActivity.class));
                             }
                         })
                         .create();

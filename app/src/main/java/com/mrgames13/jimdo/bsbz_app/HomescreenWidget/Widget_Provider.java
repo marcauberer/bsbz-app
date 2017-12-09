@@ -10,7 +10,7 @@ import android.content.res.Resources;
 import android.graphics.Color;
 import android.widget.RemoteViews;
 
-import com.mrgames13.jimdo.bsbz_app.App.LogoActivity;
+import com.mrgames13.jimdo.bsbz_app.App.SplashScreenActivity;
 import com.mrgames13.jimdo.bsbz_app.CommonObjects.Account;
 import com.mrgames13.jimdo.bsbz_app.CommonObjects.TimeTable;
 import com.mrgames13.jimdo.bsbz_app.R;
@@ -111,7 +111,7 @@ public class Widget_Provider extends AppWidgetProvider {
 	}
 	
 	public void updateWidget(Context context, RemoteViews remoteView) {
-		Intent intent = new Intent(context, LogoActivity.class);
+		Intent intent = new Intent(context, SplashScreenActivity.class);
 		PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent, 0);
 		remoteView.setOnClickPendingIntent(R.id.app_oeffnen, pendingIntent);
         remoteView.setTextViewText(R.id.last_sync, res.getString(R.string.lastSyncronisation_) + su.getString("SyncTime", res.getString(R.string.no_synchronisation)));

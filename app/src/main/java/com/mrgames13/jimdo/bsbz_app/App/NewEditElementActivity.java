@@ -32,7 +32,7 @@ import android.widget.Toast;
 
 import com.mrgames13.jimdo.bsbz_app.CommonObjects.Account;
 import com.mrgames13.jimdo.bsbz_app.R;
-import com.mrgames13.jimdo.bsbz_app.Services.SyncronisationService;
+import com.mrgames13.jimdo.bsbz_app.Services.SyncService;
 import com.mrgames13.jimdo.bsbz_app.Tools.AccountUtils;
 import com.mrgames13.jimdo.bsbz_app.Tools.ServerMessagingUtils;
 import com.mrgames13.jimdo.bsbz_app.Tools.StorageUtils;
@@ -142,7 +142,7 @@ public class NewEditElementActivity extends AppCompatActivity {
         serverMessagingUtils = new ServerMessagingUtils(cm, this);
 
         //Toolbar aufsetzen
-        toolbar = (Toolbar) findViewById(R.id.toolbar_new_element);
+        toolbar = findViewById(R.id.toolbar_new_element);
         setSupportActionBar(toolbar);
 
         //Mode aus dem Intent auslesen
@@ -171,17 +171,17 @@ public class NewEditElementActivity extends AppCompatActivity {
         }
 
         //Writer-Textfeld initialisieren
-        final EditText writer = (EditText) findViewById(R.id.new_element_writer);
+        final EditText writer = findViewById(R.id.new_element_writer);
         writer.setText(current_account.getUsername());
         if(old_writer != null) writer.setText(old_writer);
 
-        final EditText betreff = (EditText) findViewById(R.id.new_element_betreff);
-        final EditText beschreibung = (EditText) findViewById(R.id.new_element_description);
+        final EditText betreff = findViewById(R.id.new_element_betreff);
+        final EditText beschreibung = findViewById(R.id.new_element_description);
         if(old_title != null) betreff.setText(old_title);
         if(old_description != null) beschreibung.setText(old_description);
 
         //ChooseReceiver-Button initialisieren
-        final Button choose_receiver = (Button) findViewById(R.id.new_element_choose_receiver);
+        final Button choose_receiver = findViewById(R.id.new_element_choose_receiver);
         if(current_account.getRights() == Account.RIGHTS_CLASSSPEAKER) {
             choose_receiver.setText(current_account.getForm());
             choose_receiver.setEnabled(false);
@@ -201,19 +201,19 @@ public class NewEditElementActivity extends AppCompatActivity {
                     View dialogView = inflater.inflate(R.layout.dialogview_class_chooser_admin, null);
                     alert.setView(dialogView);
 
-                    final TextView schulart = (TextView) dialogView.findViewById(R.id.schulart);
-                    final TextView klassenstufe = (TextView) dialogView.findViewById(R.id.klassenstufe);
-                    final TextView klassenart = (TextView) dialogView.findViewById(R.id.klassenart);
+                    final TextView schulart = dialogView.findViewById(R.id.schulart);
+                    final TextView klassenstufe = dialogView.findViewById(R.id.klassenstufe);
+                    final TextView klassenart = dialogView.findViewById(R.id.klassenart);
 
-                    final TextView klasse1 = (TextView) dialogView.findViewById(R.id.klasse);
+                    final TextView klasse1 = dialogView.findViewById(R.id.klasse);
 
-                    final TextView schulart_lbl = (TextView) dialogView.findViewById(R.id.l_Rechte);
-                    final TextView klassenstufe_lbl = (TextView) dialogView.findViewById(R.id.textView2);
-                    final TextView klassenart_lbl = (TextView) dialogView.findViewById(R.id.textView3);
+                    final TextView schulart_lbl = dialogView.findViewById(R.id.l_Rechte);
+                    final TextView klassenstufe_lbl = dialogView.findViewById(R.id.textView2);
+                    final TextView klassenart_lbl = dialogView.findViewById(R.id.textView3);
 
-                    final SeekBar s1 = (SeekBar) dialogView.findViewById(R.id.seekBar1);
-                    final SeekBar s2 = (SeekBar) dialogView.findViewById(R.id.seekBar2);
-                    final SeekBar s3 = (SeekBar) dialogView.findViewById(R.id.seekBar3);
+                    final SeekBar s1 = dialogView.findViewById(R.id.seekBar1);
+                    final SeekBar s2 = dialogView.findViewById(R.id.seekBar2);
+                    final SeekBar s3 = dialogView.findViewById(R.id.seekBar3);
 
                     s1.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
                         @Override
@@ -271,7 +271,7 @@ public class NewEditElementActivity extends AppCompatActivity {
                         }
                     });
 
-                    final SwitchCompat all_classes = (SwitchCompat) dialogView.findViewById(R.id.all_classes);
+                    final SwitchCompat all_classes = dialogView.findViewById(R.id.all_classes);
                     if(mode != MODE_CREATE_EVENT && mode != MODE_EDIT_EVENT) {
                         all_classes.setVisibility(View.GONE);
                         all_classes.setChecked(false);
@@ -331,7 +331,7 @@ public class NewEditElementActivity extends AppCompatActivity {
             });
         }
 
-        final Button choose_date = (Button) findViewById(R.id.new_element_choose_date);
+        final Button choose_date = findViewById(R.id.new_element_choose_date);
         if(old_date != null) choose_date.setText(old_date);
         choose_date.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -370,7 +370,7 @@ public class NewEditElementActivity extends AppCompatActivity {
             }
         });
 
-        FloatingActionButton fab_create = (FloatingActionButton) findViewById(R.id.new_element_create);
+        FloatingActionButton fab_create = findViewById(R.id.new_element_create);
         fab_create.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -417,7 +417,7 @@ public class NewEditElementActivity extends AppCompatActivity {
                                     if(result) {
                                         pd.dismiss();
                                         Toast.makeText(NewEditElementActivity.this, res.getString(R.string.action_successful), Toast.LENGTH_SHORT).show();
-                                        startService(new Intent(NewEditElementActivity.this, SyncronisationService.class));
+                                        startService(new Intent(NewEditElementActivity.this, SyncService.class));
                                         finish();
                                     } else {
                                         pd.dismiss();

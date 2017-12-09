@@ -42,7 +42,7 @@ import com.google.firebase.messaging.FirebaseMessaging;
 import com.mrgames13.jimdo.bsbz_app.CommonObjects.Account;
 import com.mrgames13.jimdo.bsbz_app.FirebaseMessaging.FCM_Instance_ID_Service;
 import com.mrgames13.jimdo.bsbz_app.R;
-import com.mrgames13.jimdo.bsbz_app.Services.SyncronisationService;
+import com.mrgames13.jimdo.bsbz_app.Services.SyncService;
 import com.mrgames13.jimdo.bsbz_app.Tools.AccountUtils;
 import com.mrgames13.jimdo.bsbz_app.Tools.ServerMessagingUtils;
 import com.mrgames13.jimdo.bsbz_app.Tools.StorageUtils;
@@ -164,7 +164,7 @@ public class LogInActivity extends AppCompatActivity {
 		setContentView(R.layout.activity_log_in);
 
         //Toolbar aufsetzen
-        toolbar = (Toolbar) findViewById(R.id.toolbar_login);
+        toolbar = findViewById(R.id.toolbar_login);
 		setSupportActionBar(toolbar);
 
         //AccountUtils initialisieren
@@ -177,11 +177,11 @@ public class LogInActivity extends AppCompatActivity {
 		
 		//Ids herausfinden
 		//Edit Texte
-		et_username = (EditText) findViewById(R.id.LogIn_User_Name);
-		et_password = (EditText) findViewById(R.id.LogIn_Password);
-		cb_keep_logged_in = (CheckBox) findViewById(R.id.angemeldet_bleiben);
+		et_username = findViewById(R.id.LogIn_User_Name);
+		et_password = findViewById(R.id.LogIn_Password);
+		cb_keep_logged_in = findViewById(R.id.angemeldet_bleiben);
 		//Buttons
-		final Button login = (Button) findViewById(R.id.LogIn_LogIn);
+		final Button login = findViewById(R.id.LogIn_LogIn);
 		//Button-Ausgrau-Mechanismus aufsetzen
 		et_username.addTextChangedListener(new TextWatcher() {
 			@Override
@@ -243,7 +243,7 @@ public class LogInActivity extends AppCompatActivity {
 			}
 		});
 		//Registrieren
-		Button register = (Button) findViewById(R.id.LogIn_Registrieren);
+		Button register = findViewById(R.id.LogIn_Registrieren);
 		register.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
@@ -251,14 +251,14 @@ public class LogInActivity extends AppCompatActivity {
 			}
 		});
         //Passwort vergessen
-        final TextView forgot_password = (TextView) findViewById(R.id.forgot_password);
+        final TextView forgot_password = findViewById(R.id.forgot_password);
         forgot_password.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
                 Toast.makeText(LogInActivity.this, res.getString(R.string.reset_password_m), Toast.LENGTH_LONG).show();
                 Intent i = new Intent(LogInActivity.this, WebActivity.class);
                 i.putExtra("Title", res.getString(R.string.support));
-                i.putExtra("Webside", su.getString("SupportUrl", res.getString(R.string.link_password_reset)));
+                i.putExtra("Website", su.getString("SupportUrl", res.getString(R.string.link_password_reset)));
                 startActivity(i);
             }
         });
@@ -269,7 +269,7 @@ public class LogInActivity extends AppCompatActivity {
         serverMessagingUtils.checkConnection(findViewById(R.id.container));
 
         //ProgressBar finden
-        pb = (ProgressBar) findViewById(R.id.login_in_progress);
+        pb = findViewById(R.id.login_in_progress);
 
         if(!current_account.getUsername().equals(res.getString(R.string.guest))) {
             et_username.setText(current_account.getUsername());
@@ -330,8 +330,8 @@ public class LogInActivity extends AppCompatActivity {
         //ProgressBar sichtbar machen
         pb.setVisibility(View.VISIBLE);
         //Inhalt der Variablen in die Komponenten übertragen
-        EditText et_username = (EditText) findViewById(R.id.LogIn_User_Name);
-        EditText et_password = (EditText) findViewById(R.id.LogIn_Password);
+        EditText et_username = findViewById(R.id.LogIn_User_Name);
+        EditText et_password = findViewById(R.id.LogIn_Password);
         et_username.setText(username);
         et_password.setText(password);
         //Komponenten unveränderbar machen
@@ -379,7 +379,7 @@ public class LogInActivity extends AppCompatActivity {
                                             //Toast ausgeben
                                             Toast.makeText(LogInActivity.this, "LogIn erfolgreich", Toast.LENGTH_SHORT).show();
                                             //Synchronisation initiieren
-                                            startService(new Intent(LogInActivity.this, SyncronisationService.class));
+                                            startService(new Intent(LogInActivity.this, SyncService.class));
                                             //Activities starten
                                             try {
                                                 String extra = getIntent().getStringExtra("Confirm");

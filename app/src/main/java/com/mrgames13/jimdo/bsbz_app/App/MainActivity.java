@@ -68,7 +68,7 @@ import com.mrgames13.jimdo.bsbz_app.CommonObjects.TimeTable;
 import com.mrgames13.jimdo.bsbz_app.R;
 import com.mrgames13.jimdo.bsbz_app.RecyclerViewAdapters.ElementViewAdapter;
 import com.mrgames13.jimdo.bsbz_app.RecyclerViewAdapters.GalleryViewAdapter_Folders;
-import com.mrgames13.jimdo.bsbz_app.Services.SyncronisationService;
+import com.mrgames13.jimdo.bsbz_app.Services.SyncService;
 import com.mrgames13.jimdo.bsbz_app.Tools.AccountUtils;
 import com.mrgames13.jimdo.bsbz_app.Tools.NotificationUtils;
 import com.mrgames13.jimdo.bsbz_app.Tools.ServerMessagingUtils;
@@ -110,7 +110,7 @@ public class MainActivity extends AppCompatActivity {
     public static ArrayList<String> arraylist_main = new ArrayList<String>();
     private static FragmentManager fragmentManager;
     private static ConnectivityManager cm;
-    public static SyncronisationService.onSyncFinishedListener syncFinishedListener;
+    public static SyncService.onSyncFinishedListener syncFinishedListener;
     public static Resources res;
     private ProgressDialog pd_Progress;
     private RecyclerView gallery_view;
@@ -212,7 +212,7 @@ public class MainActivity extends AppCompatActivity {
         rights = current_account.getRights();
 
         //SynchronisationService.OnSyncFinishedListener initialisieren
-        syncFinishedListener = new SyncronisationService.onSyncFinishedListener() {
+        syncFinishedListener = new SyncService.onSyncFinishedListener() {
             @Override
             public void onSyncFinished() {
                 //Fragmente refreshen
@@ -309,10 +309,10 @@ public class MainActivity extends AppCompatActivity {
                         selected_Menu_Item = 7;
                         toolbar.setTitle(res.getString(R.string.gallery));
                         //Permission 'WRITE_EXTERNAL_STORAGE' abfragen
-                        if(!(ActivityCompat.checkSelfPermission(MainActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED)) {
-                            ActivityCompat.requestPermissions(MainActivity.this, new String[] {Manifest.permission.WRITE_EXTERNAL_STORAGE}, REQUEST_CODE_PERMISSION_WRITE_EXTERNAL_STORAGE);
-                        } else {
+                        if(ActivityCompat.checkSelfPermission(MainActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
                             launchGalleryFragment();
+                        } else {
+                            ActivityCompat.requestPermissions(MainActivity.this, new String[] {Manifest.permission.WRITE_EXTERNAL_STORAGE}, REQUEST_CODE_PERMISSION_WRITE_EXTERNAL_STORAGE);
                         }
                         break;
                     }
@@ -486,7 +486,7 @@ public class MainActivity extends AppCompatActivity {
                     new Thread(new Runnable() {
                         @Override
                         public void run() {
-                            startService(new Intent(MainActivity.this, SyncronisationService.class));
+                            startService(new Intent(MainActivity.this, SyncService.class));
                         }
                     }).start();
                     progress_menu_item.setActionView(R.layout.menu_item_layout);
@@ -495,7 +495,7 @@ public class MainActivity extends AppCompatActivity {
                     new Thread(new Runnable() {
                         @Override
                         public void run() {
-                            startService(new Intent(MainActivity.this, SyncronisationService.class));
+                            startService(new Intent(MainActivity.this, SyncService.class));
                         }
                     }).start();
                 }
@@ -631,7 +631,7 @@ public class MainActivity extends AppCompatActivity {
         //Container leeren
         container.removeAllViews();
         //Layout-Datei entfalten
-        layoutInflater.inflate(R.layout.fragment_profil, container);
+        layoutInflater.inflate(R.layout.fragment_profile, container);
         //Funktionalität einrichten
         //Daten von den SharedPreferences abrufen
         String User_name = current_account.getUsername();
@@ -776,7 +776,7 @@ public class MainActivity extends AppCompatActivity {
         }
         //Profil_email.setText(User_email);
         //Date + Time ausgeben
-        Profil_last_syncronisation_time.setText("Letzte Syncronisation: "+last_syncronisation_time);
+        Profil_last_syncronisation_time.setText(res.getString(R.string.lastSyncronisation_) + last_syncronisation_time);
 
         //Feedback-Button einrichten
         Button feedback = findViewById(R.id.feedback);
@@ -784,7 +784,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View arg0) {
                 Intent i = new Intent(MainActivity.this, WebActivity.class);
-                i.putExtra("Webside", res.getString(R.string.link_feedback));
+                i.putExtra("Website", res.getString(R.string.link_feedback));
                 i.putExtra("Title", "Feedback geben");
                 startActivity(i);
             }
@@ -796,7 +796,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(MainActivity.this, WebActivity.class);
-                i.putExtra("Webside", res.getString(R.string.link_ideas_to_develop_further));
+                i.putExtra("Website", res.getString(R.string.link_ideas_to_develop_further));
                 i.putExtra("Title", "Ideen zur Weiterentwicklung");
                 startActivity(i);
             }
@@ -2393,7 +2393,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(MainActivity.this, WebActivity.class);
-                i.putExtra("Webside", "https://www.bsbz.de/");
+                i.putExtra("Website", "https://www.bsbz.de/");
                 i.putExtra("Title", "BSBZ Homepage");
                 startActivity(i);
             }
@@ -2459,7 +2459,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(MainActivity.this, WebActivity.class);
-                i.putExtra("Webside", res.getString(R.string.link_homepage));
+                i.putExtra("Website", res.getString(R.string.link_homepage));
                 i.putExtra("Title", "Unsere Homepage");
                 startActivity(i);
             }
@@ -2469,7 +2469,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(MainActivity.this, WebActivity.class);
-                i.putExtra("Webside", res.getString(R.string.link_app_info));
+                i.putExtra("Website", res.getString(R.string.link_app_info));
                 i.putExtra("Title", "Hilfeseite");
                 startActivity(i);
             }
@@ -2495,7 +2495,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void run() {
                 MainActivity.isRunning = true;
-                context.startService(new Intent(context, SyncronisationService.class));
+                context.startService(new Intent(context, SyncService.class));
 
                 while(isRunning == true) {
                     try {
