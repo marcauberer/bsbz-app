@@ -68,7 +68,7 @@ public class LogInActivity extends AppCompatActivity {
     //Variablen
     private boolean pressedOnce;
     private String result;
-    public static String CURRENTVERSION = "";
+    public static String current_version = "";
     public static String autologin = "";
     private Account current_account;
 
@@ -173,7 +173,7 @@ public class LogInActivity extends AppCompatActivity {
         //Account laden
         current_account = au.getLastUser();
 
-		try { CURRENTVERSION = getPackageManager().getPackageInfo(getPackageName(), 0).versionName; } catch (NameNotFoundException e1) {}
+		try { current_version = getPackageManager().getPackageInfo(getPackageName(), 0).versionName; } catch (NameNotFoundException e1) {}
 		
 		//Ids herausfinden
 		//Edit Texte
@@ -218,7 +218,7 @@ public class LogInActivity extends AppCompatActivity {
                 final boolean ab = cb_keep_logged_in.isChecked();
                 //Einloggen
                 if(!username.equals("") && !password_string.equals("")) {
-                    LogIn(username, password_string, androidversion, CURRENTVERSION, ab);
+                    LogIn(username, password_string, androidversion, current_version, ab);
                 }
 				return true;
 			}
@@ -238,7 +238,7 @@ public class LogInActivity extends AppCompatActivity {
 				final boolean ab = cb_keep_logged_in.isChecked();
 				//Einloggen
 				if(!username.equals("") && !password_string.equals("")) {
-					LogIn(username, password_string, androidversion, CURRENTVERSION, ab);
+					LogIn(username, password_string, androidversion, current_version, ab);
 				}
 			}
 		});
@@ -562,7 +562,7 @@ public class LogInActivity extends AppCompatActivity {
                     if(server_state.equals("1")) {
                         Log.i("BSBZ-App", "The server is online!");
                         //AppVersion prüfen
-                        if(!app_version.equals(CURRENTVERSION)) {
+                        if(!app_version.equals(current_version)) {
                             MainActivity.isUpdateAvailable = true;
                             if(current_account.getRights() == Account.RIGHTS_TEAM) {
                                 runOnUiThread(new Runnable() {
@@ -777,7 +777,7 @@ public class LogInActivity extends AppCompatActivity {
         }
 		
 		if((!username.equals(res.getString(R.string.guest)) && MainActivity.isUpdateAvailable == false) || !autologin.equals("")) {
-            LogIn(username, password_string, androidversion, CURRENTVERSION, su.getBoolean("Angemeldet bleiben", false));
+            LogIn(username, password_string, androidversion, current_version, su.getBoolean("Angemeldet bleiben", false));
 		}
 	}
 

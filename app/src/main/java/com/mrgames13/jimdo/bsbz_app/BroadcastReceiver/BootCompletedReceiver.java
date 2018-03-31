@@ -6,6 +6,7 @@ import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.net.ConnectivityManager;
 import android.net.Uri;
@@ -39,14 +40,13 @@ public class BootCompletedReceiver extends BroadcastReceiver {
     private NotificationManager nm;
 
     //Variablen
-	private String CURRENTVERSION;
-	private final String androidversion = android.os.Build.VERSION.RELEASE;
+	private String current_version = "";
     private String result;
     private Account current_account;
 	
 	@Override
 	public void onReceive(Context context, Intent intent) {
-		if(intent.getAction().equals("android.intent.action.BOOT_COMPLETED")) {
+		if(intent.getAction().equals("android.intent.action.BOOT_COMPLETED") || intent.getAction().equals("android.intent.action.QUICKBOOT_POWERON") || intent.getAction().equals("com.htc.intent.action.QUICKBOOT_POWERON")) {
             //Kontext initialisieren
             this.context = context;
 
@@ -55,6 +55,7 @@ public class BootCompletedReceiver extends BroadcastReceiver {
 
             //StorageUtils initialisieren
             su = new StorageUtils(context, res);
+            try { current_version = context.getPackageManager().getPackageInfo(context.getPackageName(), 0).versionName; } catch (PackageManager.NameNotFoundException e1) {}
 
             //AccountUtils initialisieren
             au = new AccountUtils(su);
@@ -122,7 +123,7 @@ public class BootCompletedReceiver extends BroadcastReceiver {
                     String supporturl = result.substring(index4 +1, index5);
                     String owners = result.substring(index5 +1);
                     //AppVersion prüfen
-                    if(!app_version.equals(CURRENTVERSION)) {
+                    if(!app_version.equals(current_version)) {
                         MainActivity.isUpdateAvailable = true;
                         su.putBoolean("UpdateAvailable", true);
                         su.putString("SupportUrl", supporturl);
