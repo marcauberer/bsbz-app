@@ -159,7 +159,6 @@
                 android:layout_below="@+id/plan_of_the_year_tablayout" />
 
             <TextView
-                android:id="@+id/no_active_elements"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:text="@string/no_data_for_this_month"

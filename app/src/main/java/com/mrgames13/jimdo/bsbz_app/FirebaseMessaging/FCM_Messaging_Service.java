@@ -9,8 +9,8 @@ import com.google.firebase.messaging.RemoteMessage;
 import com.mrgames13.jimdo.bsbz_app.App.LogInActivity;
 import com.mrgames13.jimdo.bsbz_app.R;
 import com.mrgames13.jimdo.bsbz_app.Services.SyncService;
-import com.mrgames13.jimdo.bsbz_app.Tools.NotificationUtils;
-import com.mrgames13.jimdo.bsbz_app.Tools.StorageUtils;
+import com.mrgames13.jimdo.bsbz_app.Utils.NotificationUtils;
+import com.mrgames13.jimdo.bsbz_app.Utils.StorageUtils;
 
 public class FCM_Messaging_Service extends FirebaseMessagingService {
     //Konstanten

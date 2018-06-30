@@ -9,7 +9,6 @@
     <string name="next">Weiter</string>
     <string name="cancel">Abbrechen</string>
     <string name="delete">Löschen</string>
-    <string name="edit">Bearbeiten</string>
     <string name="open">Öffnen</string>
     <string name="close">Schließen</string>
     <string name="publish">Veröffentlichen</string>
@@ -18,22 +17,9 @@
     <string name="error_occured_try_again">Fehler. Bitte erneut versuchen</string>
 
     <!-- Strings -->
-    <string name="title_activity_heute">Heute</string>
-    <string name="title_activity_profil">Mein Profil</string>
-    <string name="title_activity_diese_woche">Diese Woche</string>
-    <string name="title_activity_bsbz">BSBZ-Infos</string>
-    <string name="title_activity_entwickler">Die Entwickler</string>
-    <string name="title_activity_homepage">Unsere Homepage</string>
     <string name="title_activity_splash_screen">Die BSBZ-App</string>
     <string name="title_activity_log_in">BSBZ-App - LogIn</string>
     <string name="title_activity_registration">BSBZ-App - Registrieren</string>
-    <string name="title_activity_speiseplan">Speiseplan</string>
-    <string name="title_activity_web">Laden #8230;</string>
-    <string name="title_activity_day_details">Tagesdetails</string>
-    <string name="title_activity_jahresplan">Jahresplan</string>
-    <string name="title_activity_news">News</string>
-    <string name="title_activity_stundenplan">Stundenplan</string>
-    <string name="title_activity_details">Heute - Details</string>
     <string name="title_activity_settings">Einstellungen</string>
     <string name="title_activity_new_new">Neue New</string>
     <string name="title_activity_edit_new">New bearbeiten</string>
@@ -49,7 +35,6 @@
     <string name="bsbz_infos">BSBZ-Infos</string>
     <string name="the_developers">Die Entwickler</string>
     <string name="guest">Gast</string>
-    <string name="guestmode">Gastmodus</string>
     <string name="offlinemode">Offlinemodus</string>
     <string name="copyright" translatable="false">© M&amp;R Games 2015 - 2018</string>
     <string name="press_again_to_exit_app">Erneut drücken um App zu beenden</string>
@@ -98,7 +83,6 @@
     <string name="october">Oktober</string>
     <string name="november">November</string>
     <string name="december">Dezember</string>
-    <string name="monthinfo_">Monatsinfos:</string>
     <string name="developer_mr_games">Entwickler: M&amp;R Games</string>
     <string name="email_mr_games">E-Mail: mrgames@outlook.de</string>
     <string name="homepage_mr_games">Homepage: www.mrgames13.jimdo.com</string>
@@ -130,13 +114,7 @@
     <string name="please_fill_all_fields">Bitte alle Felder ausfüllen</string>
     <string name="username_first_name_second_name">Nutzername (Vorname Nachname)</string>
     <string name="tap_to_coose_class">Tippen um Klasse zu wählen</string>
-    <string name="description_is_loading">Beschreibung wird geladen ...</string>
-    <string name="no_description_found">(Keine Beschreibung vorhanden)</string>
-    <string name="classtests_">Klassenarbeiten:</string>
-    <string name="homework_">Hausaufgaben:</string>
-    <string name="events_">Termine:</string>
     <string name="bsbz_layout_orange">BSBZ Layout (orange)</string>
-    <string name="layout">Layout</string>
     <string name="please_enter_your_password_">Bitte gib dein Passwort ein:</string>
     <string name="delete_account">Account löschen</string>
     <string name="wrong_password">Falsches Passwort</string>
@@ -151,9 +129,7 @@
     <string name="account_deletion_failed">Account konnte nicht gelöscht werden</string>
     <string name="password_changed_successfully">Passwort wurde erfolgreich geändert</string>
     <string name="password_changing_failed">Passwort konnte nicht geändert werden</string>
-    <string name="no_password">(Kein Passwort)</string>
     <string name="update_news">Update News!</string>
-    <string name="update_available">Update der BSBZ-App wurde gefunden. Hier tippen um Update herunterzuladen.</string>
     <string name="so_much_schooltime_is_over_">So viel Schultag ist vorrüber:\u0020</string>
     <string name="congradulations_schoolday_is_over">Herzlichen Glückwunsch! Der Schultag ist vorbei!</string>
     <string name="please_coose_your_class">Bitte wähle deine Klasse!</string>
@@ -166,7 +142,6 @@
     <string name="event_changings">Änderungen an den Terminen wurden auf dem Server gefunden</string>
     <string name="news_changings">Änderungen an den News wurden auf dem Server gefunden</string>
     <string name="no_synchronisation">Keine Synchronisation</string>
-    <string name="max_musterman">Max Mustermann</string>
     <string name="classspeaker">Klassensprecher</string>
     <string name="teacher">Lehrer</string>
     <string name="administrator">Administrator</string>
@@ -193,8 +168,6 @@
     <string name="account_do_not_exist">Dieser Account existiert nicht</string>
     <string name="account_locked">Dieser Account wurde von einem Administrator gesperrt. Um ihn zu entsperren wende dich über unsere E-Mail an uns.</string>
     <string name="account_sync_blocked">Ein Administrator hat dir die Synchronisation mit dem Server gesperrt. Um sie zu entsperren wende dich über unsere E-Mail an uns.</string>
-    <string name="last_edited_1">(Zuletzt bearbeitet von:\u0020</string>
-    <string name="last_edited_2">)</string>
     <string name="show_invisible">Unsichtbare Einträge anzeigen</string>
     <string name="recommend">App weiterempfehlen</string>
     <string name="recommend_string">Die BSBZ-App ist sehr hilfreich. Du kannst sie auf https://play.google.com/store/apps/details?id=com.mrgames13.jimdo.bsbz_app herunterladen.</string>
@@ -214,16 +187,11 @@
     <string name="no_description">Keine Beschreibung eingetragen</string>
     <string name="no_writer">Kein Verfasser eingetragen</string>
     <string name="no_receiver">Kein Empfänger eingestellt</string>
-    <string name="news_are_creating">News werden erstellt ...</string>
     <string name="error_try_again">Fehler. Bitte erneut versuchen</string>
     <string name="choose_receiver_">Empfänger wählen ...</string>
     <string name="all_classes">Alle Klassen</string>
-    <string name="edit_news">News bearbeiten</string>
-    <string name="delete_news">News löschen</string>
-    <string name="do_you_want_to_delete_news">Willst du diese News wirklich löschen?</string>
     <string name="tap_on_news">Tippe auf ein Element um Details zu sehen</string>
     <string name="no_info_entered">(Keine Info eingetragen)</string>
-    <string name="ok_showcase_view">Alles klar!</string>
     <string name="update_to_version">Update auf Version\u0020</string>
     <string name="check_for_update">Auf Update prüfen</string>
     <string name="searching_for_updates">Nach Updates suchen ...</string>
@@ -278,7 +246,6 @@
     <string name="forgot_password"><u>Passwort vergessen</u></string>
     <string name="support">Support</string>
     <string name="reset_password_m">Schreibe eine Nachricht an uns um dein Passwort zurückzusetzen</string>
-    <string name="error_occured">Fehler aufgetreten</string>
     <string name="new_classtest">Neue Klassenarbeit</string>
     <string name="new_homework">Neue Hausaufgabe</string>
     <string name="new_event">Neuer Termin</string>
@@ -286,17 +253,10 @@
     <string name="edit_homework">Hausaufgabe bearbeiten</string>
     <string name="edit_event">Termin bearbeiten</string>
     <string name="create_">Erstellen ...</string>
-    <string name="classtest">Klassenarbeit</string>
-    <string name="homework">Hausaufgabe</string>
-    <string name="event">Termin</string>
-    <string name="classtest_short">KA</string>
-    <string name="homework_short">HA</string>
-    <string name="event_short">Termin</string>
     <string name="classtest_short_short">K</string>
     <string name="homework_short_short">H</string>
     <string name="event_short_short">T</string>
     <string name="new_short_short">N</string>
-    <string name="direct_message_short_short">D</string>
     <string name="classtest_creating_">Klassenarbeit wird erstellt ...</string>
     <string name="homework_creating_">Hausaufgabe wird erstellt ...</string>
     <string name="event_creating_">Termin wird erstellt ...</string>
@@ -364,14 +324,12 @@
     <string name="edit_foodplan_pentecost">Pfinstferien</string>
     <string name="edit_foodplan_summer">Sommerferien</string>
     <string name="edit_foodplan_open">Speiseplan-Seite öffnen</string>
-    <string name="edit_foodplan_open_t">Speiseplan-Seite</string>
     <string name="no_valid_url">Dies ist keine gültige Internetseite</string>
     <string name="paste">Zwischenablage einfügen</string>
     <string name="no_clipboard">Kein Text in der Zwischenablage gefunden</string>
     <string name="edit_bsbz_info">BSBZ-Info bearbeiten</string>
     <string name="edit_bsbz_info_h">BSBZ-Info hier eintragen</string>
     <string name="edit_bsbz_info_d">Vor der Veröffentlichung der BSBZ-Info bitte auf Rechtschreibfehler o.ä. prüfen.</string>
-    <string name="element_is_creating_">Element wird erstellt ...</string>
     <string name="account_is_creating_">Account wird erstellt ...</string>
     <string name="element_is_deleting_">Element wird gelöscht ...</string>
     <string name="no_offline_account_found">Offlineaccount nicht gefunden</string>
@@ -390,7 +348,6 @@
 
     <!--LongStrings -->
     <string name="openSourceLicense" translatable="false"><![CDATA[<b>This application may use or contain portions of libraries subject to the following licenses:</b><br><br>- support-appcompat-v7<br>- support-v4<br>- support-design<br>- support-recyclerview-v7<br>- support-palette-v7<br>- selectable-rounded-imageview<br>- firebase-appindexing<br>- firebase-messaging<br><br><b><a href="http://www.apache.org/licenses/LICENSE-2.0">Apache 2.0 License</a></b>]]></string>
-    <string name="update_news_message">Die Version 3.3.11 der BSBZ-App ist da!\n\nVerbesserungen:\n- Performance verbessert\n- Kleinere Textverbesserungen\n\nViel Spaß mit der BSBZ-App wünscht\nDas M&#38;R Games Team</string>
     <string name="pref_title_more_apps">Mehr Apps von uns</string>
     <string name="test_server">M&amp;R Games Testserver 01</string>
 

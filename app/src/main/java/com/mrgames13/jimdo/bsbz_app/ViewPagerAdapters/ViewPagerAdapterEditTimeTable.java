@@ -21,7 +21,7 @@ import android.widget.Spinner;
 import com.mrgames13.jimdo.bsbz_app.App.MainActivity;
 import com.mrgames13.jimdo.bsbz_app.CommonObjects.TimeTable;
 import com.mrgames13.jimdo.bsbz_app.R;
-import com.mrgames13.jimdo.bsbz_app.Tools.StorageUtils;
+import com.mrgames13.jimdo.bsbz_app.Utils.StorageUtils;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -110,16 +110,16 @@ public class ViewPagerAdapterEditTimeTable extends FragmentPagerAdapter {
         public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
             contentView = inflater.inflate(R.layout.edit_timetable_day, null);
             //LayoutElemente initialisieren
-            hour1 = (Button) contentView.findViewById(R.id.edit_timetable_hour_1);
-            hour2 = (Button) contentView.findViewById(R.id.edit_timetable_hour_2);
-            hour3 = (Button) contentView.findViewById(R.id.edit_timetable_hour_3);
-            hour4 = (Button) contentView.findViewById(R.id.edit_timetable_hour_4);
-            hour5 = (Button) contentView.findViewById(R.id.edit_timetable_hour_5);
-            hour6 = (Button) contentView.findViewById(R.id.edit_timetable_hour_6);
-            hour7 = (Button) contentView.findViewById(R.id.edit_timetable_hour_7);
-            hour8 = (Button) contentView.findViewById(R.id.edit_timetable_hour_8);
-            hour9 = (Button) contentView.findViewById(R.id.edit_timetable_hour_9);
-            hour10 = (Button) contentView.findViewById(R.id.edit_timetable_hour_10);
+            hour1 = contentView.findViewById(R.id.edit_timetable_hour_1);
+            hour2 = contentView.findViewById(R.id.edit_timetable_hour_2);
+            hour3 = contentView.findViewById(R.id.edit_timetable_hour_3);
+            hour4 = contentView.findViewById(R.id.edit_timetable_hour_4);
+            hour5 = contentView.findViewById(R.id.edit_timetable_hour_5);
+            hour6 = contentView.findViewById(R.id.edit_timetable_hour_6);
+            hour7 = contentView.findViewById(R.id.edit_timetable_hour_7);
+            hour8 = contentView.findViewById(R.id.edit_timetable_hour_8);
+            hour9 = contentView.findViewById(R.id.edit_timetable_hour_9);
+            hour10 = contentView.findViewById(R.id.edit_timetable_hour_10);
             //OnClickListener setzen
             hour1.setOnClickListener(this);
             hour2.setOnClickListener(this);
@@ -176,10 +176,10 @@ public class ViewPagerAdapterEditTimeTable extends FragmentPagerAdapter {
             LayoutInflater inflater = getActivity().getLayoutInflater();
             final View dialogView = inflater.inflate(R.layout.dialogview_chooser_school_subject, null);
 
-            final RadioButton rd_specific = (RadioButton) dialogView.findViewById(R.id.rb_specific_subject);
-            final RadioButton rd_other = (RadioButton) dialogView.findViewById(R.id.rb_other_subject);
+            final RadioButton rd_specific = dialogView.findViewById(R.id.rb_specific_subject);
+            final RadioButton rd_other = dialogView.findViewById(R.id.rb_other_subject);
 
-            final Spinner spinner = (Spinner) dialogView.findViewById(R.id.spnr_specific_subject);
+            final Spinner spinner = dialogView.findViewById(R.id.spnr_specific_subject);
 
             String[] subject_res = getResources().getStringArray(R.array.subject_items);
             List<String> subject_res_list = new ArrayList<>();
@@ -189,8 +189,8 @@ public class ViewPagerAdapterEditTimeTable extends FragmentPagerAdapter {
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
             spinner.setAdapter(adapter);
 
-            final EditText et_text = (EditText) dialogView.findViewById(R.id.et_other_subject_text);
-            final EditText et_short = (EditText) dialogView.findViewById(R.id.et_other_subject_short);
+            final EditText et_text = dialogView.findViewById(R.id.et_other_subject_text);
+            final EditText et_short = dialogView.findViewById(R.id.et_other_subject_short);
 
             rd_specific.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 @Override
@@ -260,16 +260,16 @@ public class ViewPagerAdapterEditTimeTable extends FragmentPagerAdapter {
         public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
             contentView = inflater.inflate(R.layout.edit_timetable_day, null);
             //LayoutElemente initialisieren
-            hour1 = (Button) contentView.findViewById(R.id.edit_timetable_hour_1);
-            hour2 = (Button) contentView.findViewById(R.id.edit_timetable_hour_2);
-            hour3 = (Button) contentView.findViewById(R.id.edit_timetable_hour_3);
-            hour4 = (Button) contentView.findViewById(R.id.edit_timetable_hour_4);
-            hour5 = (Button) contentView.findViewById(R.id.edit_timetable_hour_5);
-            hour6 = (Button) contentView.findViewById(R.id.edit_timetable_hour_6);
-            hour7 = (Button) contentView.findViewById(R.id.edit_timetable_hour_7);
-            hour8 = (Button) contentView.findViewById(R.id.edit_timetable_hour_8);
-            hour9 = (Button) contentView.findViewById(R.id.edit_timetable_hour_9);
-            hour10 = (Button) contentView.findViewById(R.id.edit_timetable_hour_10);
+            hour1 = contentView.findViewById(R.id.edit_timetable_hour_1);
+            hour2 = contentView.findViewById(R.id.edit_timetable_hour_2);
+            hour3 = contentView.findViewById(R.id.edit_timetable_hour_3);
+            hour4 = contentView.findViewById(R.id.edit_timetable_hour_4);
+            hour5 = contentView.findViewById(R.id.edit_timetable_hour_5);
+            hour6 = contentView.findViewById(R.id.edit_timetable_hour_6);
+            hour7 = contentView.findViewById(R.id.edit_timetable_hour_7);
+            hour8 = contentView.findViewById(R.id.edit_timetable_hour_8);
+            hour9 = contentView.findViewById(R.id.edit_timetable_hour_9);
+            hour10 = contentView.findViewById(R.id.edit_timetable_hour_10);
             //OnClickListener setzen
             hour1.setOnClickListener(this);
             hour2.setOnClickListener(this);
@@ -326,10 +326,10 @@ public class ViewPagerAdapterEditTimeTable extends FragmentPagerAdapter {
             LayoutInflater inflater = getActivity().getLayoutInflater();
             final View dialogView = inflater.inflate(R.layout.dialogview_chooser_school_subject, null);
 
-            final RadioButton rd_specific = (RadioButton) dialogView.findViewById(R.id.rb_specific_subject);
-            final RadioButton rd_other = (RadioButton) dialogView.findViewById(R.id.rb_other_subject);
+            final RadioButton rd_specific = dialogView.findViewById(R.id.rb_specific_subject);
+            final RadioButton rd_other = dialogView.findViewById(R.id.rb_other_subject);
 
-            final Spinner spinner = (Spinner) dialogView.findViewById(R.id.spnr_specific_subject);
+            final Spinner spinner = dialogView.findViewById(R.id.spnr_specific_subject);
 
             String[] subject_res = getResources().getStringArray(R.array.subject_items);
             List<String> subject_res_list = new ArrayList<>();
@@ -339,8 +339,8 @@ public class ViewPagerAdapterEditTimeTable extends FragmentPagerAdapter {
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
             spinner.setAdapter(adapter);
 
-            final EditText et_text = (EditText) dialogView.findViewById(R.id.et_other_subject_text);
-            final EditText et_short = (EditText) dialogView.findViewById(R.id.et_other_subject_short);
+            final EditText et_text = dialogView.findViewById(R.id.et_other_subject_text);
+            final EditText et_short = dialogView.findViewById(R.id.et_other_subject_short);
 
             rd_specific.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 @Override
@@ -409,16 +409,16 @@ public class ViewPagerAdapterEditTimeTable extends FragmentPagerAdapter {
         public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
             contentView = inflater.inflate(R.layout.edit_timetable_day, null);
             //LayoutElemente initialisieren
-            hour1 = (Button) contentView.findViewById(R.id.edit_timetable_hour_1);
-            hour2 = (Button) contentView.findViewById(R.id.edit_timetable_hour_2);
-            hour3 = (Button) contentView.findViewById(R.id.edit_timetable_hour_3);
-            hour4 = (Button) contentView.findViewById(R.id.edit_timetable_hour_4);
-            hour5 = (Button) contentView.findViewById(R.id.edit_timetable_hour_5);
-            hour6 = (Button) contentView.findViewById(R.id.edit_timetable_hour_6);
-            hour7 = (Button) contentView.findViewById(R.id.edit_timetable_hour_7);
-            hour8 = (Button) contentView.findViewById(R.id.edit_timetable_hour_8);
-            hour9 = (Button) contentView.findViewById(R.id.edit_timetable_hour_9);
-            hour10 = (Button) contentView.findViewById(R.id.edit_timetable_hour_10);
+            hour1 = contentView.findViewById(R.id.edit_timetable_hour_1);
+            hour2 = contentView.findViewById(R.id.edit_timetable_hour_2);
+            hour3 = contentView.findViewById(R.id.edit_timetable_hour_3);
+            hour4 = contentView.findViewById(R.id.edit_timetable_hour_4);
+            hour5 = contentView.findViewById(R.id.edit_timetable_hour_5);
+            hour6 = contentView.findViewById(R.id.edit_timetable_hour_6);
+            hour7 = contentView.findViewById(R.id.edit_timetable_hour_7);
+            hour8 = contentView.findViewById(R.id.edit_timetable_hour_8);
+            hour9 = contentView.findViewById(R.id.edit_timetable_hour_9);
+            hour10 = contentView.findViewById(R.id.edit_timetable_hour_10);
             //OnClickListener setzen
             hour1.setOnClickListener(this);
             hour2.setOnClickListener(this);
@@ -475,10 +475,10 @@ public class ViewPagerAdapterEditTimeTable extends FragmentPagerAdapter {
             LayoutInflater inflater = getActivity().getLayoutInflater();
             final View dialogView = inflater.inflate(R.layout.dialogview_chooser_school_subject, null);
 
-            final RadioButton rd_specific = (RadioButton) dialogView.findViewById(R.id.rb_specific_subject);
-            final RadioButton rd_other = (RadioButton) dialogView.findViewById(R.id.rb_other_subject);
+            final RadioButton rd_specific = dialogView.findViewById(R.id.rb_specific_subject);
+            final RadioButton rd_other = dialogView.findViewById(R.id.rb_other_subject);
 
-            final Spinner spinner = (Spinner) dialogView.findViewById(R.id.spnr_specific_subject);
+            final Spinner spinner = dialogView.findViewById(R.id.spnr_specific_subject);
 
             String[] subject_res = getResources().getStringArray(R.array.subject_items);
             List<String> subject_res_list = new ArrayList<>();
@@ -488,8 +488,8 @@ public class ViewPagerAdapterEditTimeTable extends FragmentPagerAdapter {
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
             spinner.setAdapter(adapter);
 
-            final EditText et_text = (EditText) dialogView.findViewById(R.id.et_other_subject_text);
-            final EditText et_short = (EditText) dialogView.findViewById(R.id.et_other_subject_short);
+            final EditText et_text = dialogView.findViewById(R.id.et_other_subject_text);
+            final EditText et_short = dialogView.findViewById(R.id.et_other_subject_short);
 
             rd_specific.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 @Override
@@ -558,16 +558,16 @@ public class ViewPagerAdapterEditTimeTable extends FragmentPagerAdapter {
         public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
             contentView = inflater.inflate(R.layout.edit_timetable_day, null);
             //LayoutElemente initialisieren
-            hour1 = (Button) contentView.findViewById(R.id.edit_timetable_hour_1);
-            hour2 = (Button) contentView.findViewById(R.id.edit_timetable_hour_2);
-            hour3 = (Button) contentView.findViewById(R.id.edit_timetable_hour_3);
-            hour4 = (Button) contentView.findViewById(R.id.edit_timetable_hour_4);
-            hour5 = (Button) contentView.findViewById(R.id.edit_timetable_hour_5);
-            hour6 = (Button) contentView.findViewById(R.id.edit_timetable_hour_6);
-            hour7 = (Button) contentView.findViewById(R.id.edit_timetable_hour_7);
-            hour8 = (Button) contentView.findViewById(R.id.edit_timetable_hour_8);
-            hour9 = (Button) contentView.findViewById(R.id.edit_timetable_hour_9);
-            hour10 = (Button) contentView.findViewById(R.id.edit_timetable_hour_10);
+            hour1 = contentView.findViewById(R.id.edit_timetable_hour_1);
+            hour2 = contentView.findViewById(R.id.edit_timetable_hour_2);
+            hour3 = contentView.findViewById(R.id.edit_timetable_hour_3);
+            hour4 = contentView.findViewById(R.id.edit_timetable_hour_4);
+            hour5 = contentView.findViewById(R.id.edit_timetable_hour_5);
+            hour6 = contentView.findViewById(R.id.edit_timetable_hour_6);
+            hour7 = contentView.findViewById(R.id.edit_timetable_hour_7);
+            hour8 = contentView.findViewById(R.id.edit_timetable_hour_8);
+            hour9 = contentView.findViewById(R.id.edit_timetable_hour_9);
+            hour10 = contentView.findViewById(R.id.edit_timetable_hour_10);
             //OnClickListener setzen
             hour1.setOnClickListener(this);
             hour2.setOnClickListener(this);
@@ -624,10 +624,10 @@ public class ViewPagerAdapterEditTimeTable extends FragmentPagerAdapter {
             LayoutInflater inflater = getActivity().getLayoutInflater();
             final View dialogView = inflater.inflate(R.layout.dialogview_chooser_school_subject, null);
 
-            final RadioButton rd_specific = (RadioButton) dialogView.findViewById(R.id.rb_specific_subject);
-            final RadioButton rd_other = (RadioButton) dialogView.findViewById(R.id.rb_other_subject);
+            final RadioButton rd_specific = dialogView.findViewById(R.id.rb_specific_subject);
+            final RadioButton rd_other = dialogView.findViewById(R.id.rb_other_subject);
 
-            final Spinner spinner = (Spinner) dialogView.findViewById(R.id.spnr_specific_subject);
+            final Spinner spinner = dialogView.findViewById(R.id.spnr_specific_subject);
 
             String[] subject_res = getResources().getStringArray(R.array.subject_items);
             List<String> subject_res_list = new ArrayList<>();
@@ -637,8 +637,8 @@ public class ViewPagerAdapterEditTimeTable extends FragmentPagerAdapter {
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
             spinner.setAdapter(adapter);
 
-            final EditText et_text = (EditText) dialogView.findViewById(R.id.et_other_subject_text);
-            final EditText et_short = (EditText) dialogView.findViewById(R.id.et_other_subject_short);
+            final EditText et_text = dialogView.findViewById(R.id.et_other_subject_text);
+            final EditText et_short = dialogView.findViewById(R.id.et_other_subject_short);
 
             rd_specific.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 @Override
@@ -707,16 +707,16 @@ public class ViewPagerAdapterEditTimeTable extends FragmentPagerAdapter {
         public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
             contentView = inflater.inflate(R.layout.edit_timetable_day, null);
             //LayoutElemente initialisieren
-            hour1 = (Button) contentView.findViewById(R.id.edit_timetable_hour_1);
-            hour2 = (Button) contentView.findViewById(R.id.edit_timetable_hour_2);
-            hour3 = (Button) contentView.findViewById(R.id.edit_timetable_hour_3);
-            hour4 = (Button) contentView.findViewById(R.id.edit_timetable_hour_4);
-            hour5 = (Button) contentView.findViewById(R.id.edit_timetable_hour_5);
-            hour6 = (Button) contentView.findViewById(R.id.edit_timetable_hour_6);
-            hour7 = (Button) contentView.findViewById(R.id.edit_timetable_hour_7);
-            hour8 = (Button) contentView.findViewById(R.id.edit_timetable_hour_8);
-            hour9 = (Button) contentView.findViewById(R.id.edit_timetable_hour_9);
-            hour10 = (Button) contentView.findViewById(R.id.edit_timetable_hour_10);
+            hour1 = contentView.findViewById(R.id.edit_timetable_hour_1);
+            hour2 = contentView.findViewById(R.id.edit_timetable_hour_2);
+            hour3 = contentView.findViewById(R.id.edit_timetable_hour_3);
+            hour4 = contentView.findViewById(R.id.edit_timetable_hour_4);
+            hour5 = contentView.findViewById(R.id.edit_timetable_hour_5);
+            hour6 = contentView.findViewById(R.id.edit_timetable_hour_6);
+            hour7 = contentView.findViewById(R.id.edit_timetable_hour_7);
+            hour8 = contentView.findViewById(R.id.edit_timetable_hour_8);
+            hour9 = contentView.findViewById(R.id.edit_timetable_hour_9);
+            hour10 = contentView.findViewById(R.id.edit_timetable_hour_10);
             //OnClickListener setzen
             hour1.setOnClickListener(this);
             hour2.setOnClickListener(this);
@@ -773,10 +773,10 @@ public class ViewPagerAdapterEditTimeTable extends FragmentPagerAdapter {
             LayoutInflater inflater = getActivity().getLayoutInflater();
             final View dialogView = inflater.inflate(R.layout.dialogview_chooser_school_subject, null);
 
-            final RadioButton rd_specific = (RadioButton) dialogView.findViewById(R.id.rb_specific_subject);
-            final RadioButton rd_other = (RadioButton) dialogView.findViewById(R.id.rb_other_subject);
+            final RadioButton rd_specific = dialogView.findViewById(R.id.rb_specific_subject);
+            final RadioButton rd_other = dialogView.findViewById(R.id.rb_other_subject);
 
-            final Spinner spinner = (Spinner) dialogView.findViewById(R.id.spnr_specific_subject);
+            final Spinner spinner = dialogView.findViewById(R.id.spnr_specific_subject);
 
             String[] subject_res = getResources().getStringArray(R.array.subject_items);
             List<String> subject_res_list = new ArrayList<>();
@@ -786,8 +786,8 @@ public class ViewPagerAdapterEditTimeTable extends FragmentPagerAdapter {
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
             spinner.setAdapter(adapter);
 
-            final EditText et_text = (EditText) dialogView.findViewById(R.id.et_other_subject_text);
-            final EditText et_short = (EditText) dialogView.findViewById(R.id.et_other_subject_short);
+            final EditText et_text = dialogView.findViewById(R.id.et_other_subject_text);
+            final EditText et_short = dialogView.findViewById(R.id.et_other_subject_short);
 
             rd_specific.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 @Override

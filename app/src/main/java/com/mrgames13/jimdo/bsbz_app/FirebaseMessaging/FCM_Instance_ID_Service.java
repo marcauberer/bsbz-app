@@ -1,7 +1,6 @@
 package com.mrgames13.jimdo.bsbz_app.FirebaseMessaging;
 
 import android.Manifest;
-import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.support.v4.app.ActivityCompat;
@@ -10,7 +9,7 @@ import android.telephony.TelephonyManager;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.FirebaseInstanceIdService;
 import com.google.firebase.messaging.FirebaseMessaging;
-import com.mrgames13.jimdo.bsbz_app.Tools.StorageUtils;
+import com.mrgames13.jimdo.bsbz_app.Utils.StorageUtils;
 
 public class FCM_Instance_ID_Service extends FirebaseInstanceIdService {
 

@@ -19,10 +19,7 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
-import android.text.SpannableString;
 import android.text.TextWatcher;
-import android.text.method.LinkMovementMethod;
-import android.text.util.Linkify;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
@@ -43,22 +40,22 @@ import com.mrgames13.jimdo.bsbz_app.CommonObjects.Account;
 import com.mrgames13.jimdo.bsbz_app.FirebaseMessaging.FCM_Instance_ID_Service;
 import com.mrgames13.jimdo.bsbz_app.R;
 import com.mrgames13.jimdo.bsbz_app.Services.SyncService;
-import com.mrgames13.jimdo.bsbz_app.Tools.AccountUtils;
-import com.mrgames13.jimdo.bsbz_app.Tools.ServerMessagingUtils;
-import com.mrgames13.jimdo.bsbz_app.Tools.StorageUtils;
+import com.mrgames13.jimdo.bsbz_app.Utils.AccountUtils;
+import com.mrgames13.jimdo.bsbz_app.Utils.ServerMessagingUtils;
+import com.mrgames13.jimdo.bsbz_app.Utils.StorageUtils;
 
 import java.net.URLEncoder;
 import java.util.ArrayList;
 
 public class LogInActivity extends AppCompatActivity {
 
-	//Konstanten festlegen
-	private static final String androidversion = Build.VERSION.RELEASE;
+    //Konstanten festlegen
+    private static final String androidversion = Build.VERSION.RELEASE;
     private final int REQUEST_CODE_PERMISSION_READ_PHONE_STATE = 488;
 
     //Variablen als Objekte
     private Toolbar toolbar;
-	private Resources res;
+    private Resources res;
     private ConnectivityManager cm;
     private ProgressBar pb;
     private EditText et_username;
@@ -76,58 +73,58 @@ public class LogInActivity extends AppCompatActivity {
     private ServerMessagingUtils serverMessagingUtils;
     private AccountUtils au;
     private StorageUtils su;
-	
-	@Override
-	public void onStart() {
-		super.onStart();
-		
-		//Daten von den SharedPreferences abrufen
-		String layout = su.getString("Layout", res.getString(R.string.bsbz_layout_orange));
-		String color = "#ea690c";
-		if(layout.equals("0")) {
-			color = "#ea690c";
-		} else if(layout.equals("1")) {
-			color = "#000000";
-		} else if(layout.equals("2")) {
-			color = "#3ded25";
-		} else if(layout.equals("3")) {
-			color = "#ff0000";
-		} else if(layout.equals("4")) {
-			color = "#0000ff";
-		} else if(layout.equals("5")) {
-			color = "#00007f";
-		}
-		toolbar.setBackgroundDrawable(new ColorDrawable(Color.parseColor(color)));
+
+    @Override
+    public void onStart() {
+        super.onStart();
+
+        //Daten von den SharedPreferences abrufen
+        String layout = su.getString("Layout", res.getString(R.string.bsbz_layout_orange));
+        String color = "#ea690c";
+        if(layout.equals("0")) {
+            color = "#ea690c";
+        } else if(layout.equals("1")) {
+            color = "#000000";
+        } else if(layout.equals("2")) {
+            color = "#3ded25";
+        } else if(layout.equals("3")) {
+            color = "#ff0000";
+        } else if(layout.equals("4")) {
+            color = "#0000ff";
+        } else if(layout.equals("5")) {
+            color = "#00007f";
+        }
+        toolbar.setBackgroundDrawable(new ColorDrawable(Color.parseColor(color)));
         getSupportActionBar().setTitle(res.getString(R.string.title_activity_log_in));
 
-		if(Build.VERSION.SDK_INT >= 21) {
-			Window window = getWindow();
-			window.setStatusBarColor(MainActivity.darkenColor(Color.parseColor(color)));
-		}
-		
-		NotificationManager nm = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-		nm.cancel(1);
-		nm.cancel(2);
-		nm.cancel(3);
-		
-		//Aktionen ermitteln und ausführen
-		try {
-			String action = getIntent().getExtras().getString("Action");
-			if(action.equals("deleted account")) {
-				Toast.makeText(LogInActivity.this, res.getString(R.string.account_deleted_successfully), Toast.LENGTH_LONG).show();
+        if(Build.VERSION.SDK_INT >= 21) {
+            Window window = getWindow();
+            window.setStatusBarColor(MainActivity.darkenColor(Color.parseColor(color)));
+        }
+
+        NotificationManager nm = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+        nm.cancel(1);
+        nm.cancel(2);
+        nm.cancel(3);
+
+        //Aktionen ermitteln und ausführen
+        try {
+            String action = getIntent().getExtras().getString("Action");
+            if(action.equals("deleted account")) {
+                Toast.makeText(LogInActivity.this, res.getString(R.string.account_deleted_successfully), Toast.LENGTH_LONG).show();
                 getIntent().removeExtra("Action");
-			} else if(action.equals("not deleted account")) {
-				Toast.makeText(LogInActivity.this, res.getString(R.string.account_deletion_failed), Toast.LENGTH_LONG).show();
+            } else if(action.equals("not deleted account")) {
+                Toast.makeText(LogInActivity.this, res.getString(R.string.account_deletion_failed), Toast.LENGTH_LONG).show();
                 getIntent().removeExtra("Action");
-			} else if(action.equals("changed password")) {
-				Toast.makeText(LogInActivity.this, res.getString(R.string.password_changed_successfully), Toast.LENGTH_LONG).show();
+            } else if(action.equals("changed password")) {
+                Toast.makeText(LogInActivity.this, res.getString(R.string.password_changed_successfully), Toast.LENGTH_LONG).show();
                 getIntent().removeExtra("Action");
-			} else if(action.equals("not changed password")) {
-				Toast.makeText(LogInActivity.this, res.getString(R.string.password_changing_failed), Toast.LENGTH_LONG).show();
+            } else if(action.equals("not changed password")) {
+                Toast.makeText(LogInActivity.this, res.getString(R.string.password_changing_failed), Toast.LENGTH_LONG).show();
                 getIntent().removeExtra("Action");
-			}
-		} catch(Exception e) {}
-	}
+            }
+        } catch(Exception e) {}
+    }
 
     @Override
     protected void onPause() {
@@ -142,8 +139,8 @@ public class LogInActivity extends AppCompatActivity {
     }
 
     @Override
-	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
 
         //Resourcen initialisieren
         res = getResources();
@@ -152,20 +149,20 @@ public class LogInActivity extends AppCompatActivity {
         su = new StorageUtils(this, res);
 
         //Theme aus den Shared Preferences auslesen
-		String theme = su.getString("AppTheme", "0");
-		if(theme.equals("0")) {
-			MainActivity.AppTheme = 0;
-			setTheme(R.style.FirstTheme);
-		} else if(theme.equals("1")) {
-			MainActivity.AppTheme = 1;
-			setTheme(R.style.SecondTheme);
-		}
-		
-		setContentView(R.layout.activity_log_in);
+        String theme = su.getString("AppTheme", "0");
+        if(theme.equals("0")) {
+            MainActivity.AppTheme = 0;
+            setTheme(R.style.FirstTheme);
+        } else if(theme.equals("1")) {
+            MainActivity.AppTheme = 1;
+            setTheme(R.style.SecondTheme);
+        }
+
+        setContentView(R.layout.activity_log_in);
 
         //Toolbar aufsetzen
         toolbar = findViewById(R.id.toolbar_login);
-		setSupportActionBar(toolbar);
+        setSupportActionBar(toolbar);
 
         //AccountUtils initialisieren
         au = new AccountUtils(su);
@@ -173,45 +170,45 @@ public class LogInActivity extends AppCompatActivity {
         //Account laden
         current_account = au.getLastUser();
 
-		try { current_version = getPackageManager().getPackageInfo(getPackageName(), 0).versionName; } catch (NameNotFoundException e1) {}
-		
-		//Ids herausfinden
-		//Edit Texte
-		et_username = findViewById(R.id.LogIn_User_Name);
-		et_password = findViewById(R.id.LogIn_Password);
-		cb_keep_logged_in = findViewById(R.id.angemeldet_bleiben);
-		//Buttons
-		final Button login = findViewById(R.id.LogIn_LogIn);
-		//Button-Ausgrau-Mechanismus aufsetzen
-		et_username.addTextChangedListener(new TextWatcher() {
-			@Override
-			public void onTextChanged(CharSequence s, int start, int before, int count) {}
-			
-			@Override
-			public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
-			
-			@Override
-			public void afterTextChanged(Editable s) {
-				login.setEnabled(s.length() > 0 && et_password.getText().length() > 0);
-				cb_keep_logged_in.setEnabled(s.length() > 0 && et_password.getText().length() > 0);
-			}
-		});
-		et_password.addTextChangedListener(new TextWatcher() {
-			@Override
-			public void onTextChanged(CharSequence s, int start, int before, int count) {}
-			
-			@Override
-			public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
-			
-			@Override
-			public void afterTextChanged(Editable s) {
-				login.setEnabled(s.length() > 0 && et_username.getText().length() > 0);
-				cb_keep_logged_in.setEnabled(s.length() > 0 && et_username.getText().length() > 0);
-			}
-		});
-		et_password.setOnEditorActionListener(new OnEditorActionListener() {
-			@Override
-			public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+        try { current_version = getPackageManager().getPackageInfo(getPackageName(), 0).versionName; } catch (NameNotFoundException e1) {}
+
+        //Ids herausfinden
+        //Edit Texte
+        et_username = findViewById(R.id.LogIn_User_Name);
+        et_password = findViewById(R.id.LogIn_Password);
+        cb_keep_logged_in = findViewById(R.id.angemeldet_bleiben);
+        //Buttons
+        final Button login = findViewById(R.id.LogIn_LogIn);
+        //Button-Ausgrau-Mechanismus aufsetzen
+        et_username.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {}
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                login.setEnabled(s.length() > 0 && et_password.getText().length() > 0);
+                cb_keep_logged_in.setEnabled(s.length() > 0 && et_password.getText().length() > 0);
+            }
+        });
+        et_password.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {}
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                login.setEnabled(s.length() > 0 && et_username.getText().length() > 0);
+                cb_keep_logged_in.setEnabled(s.length() > 0 && et_username.getText().length() > 0);
+            }
+        });
+        et_password.setOnEditorActionListener(new OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                 //Strings auslesen und Leerzeichen durch '+' ersetzen
                 final String username = et_username.getText().toString();
                 final String password_string = et_password.getText().toString();
@@ -220,36 +217,36 @@ public class LogInActivity extends AppCompatActivity {
                 if(!username.equals("") && !password_string.equals("")) {
                     LogIn(username, password_string, androidversion, current_version, ab);
                 }
-				return true;
-			}
-		});
-		login.setEnabled(false);
-		cb_keep_logged_in.setEnabled(false);
-		
-		login.requestFocus();
-		
-		//LogIn Button
-		login.setOnClickListener(new OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				//Strings auslesen und Leerzeichen durch '+' ersetzen
-				final String username = et_username.getText().toString();
-				final String password_string = et_password.getText().toString();
-				final boolean ab = cb_keep_logged_in.isChecked();
-				//Einloggen
-				if(!username.equals("") && !password_string.equals("")) {
-					LogIn(username, password_string, androidversion, current_version, ab);
-				}
-			}
-		});
-		//Registrieren
-		Button register = findViewById(R.id.LogIn_Registrieren);
-		register.setOnClickListener(new OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				startActivity(new Intent(LogInActivity.this, RegistrationActivity.class));
-			}
-		});
+                return true;
+            }
+        });
+        login.setEnabled(false);
+        cb_keep_logged_in.setEnabled(false);
+
+        login.requestFocus();
+
+        //LogIn Button
+        login.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //Strings auslesen und Leerzeichen durch '+' ersetzen
+                final String username = et_username.getText().toString();
+                final String password_string = et_password.getText().toString();
+                final boolean ab = cb_keep_logged_in.isChecked();
+                //Einloggen
+                if(!username.equals("") && !password_string.equals("")) {
+                    LogIn(username, password_string, androidversion, current_version, ab);
+                }
+            }
+        });
+        //Registrieren
+        Button register = findViewById(R.id.LogIn_Registrieren);
+        register.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(LogInActivity.this, RegistrationActivity.class));
+            }
+        });
         //Passwort vergessen
         final TextView forgot_password = findViewById(R.id.forgot_password);
         forgot_password.setOnClickListener(new OnClickListener() {
@@ -280,53 +277,53 @@ public class LogInActivity extends AppCompatActivity {
         if(serverMessagingUtils.isInternetAvailable()) checkVersionAndServerState(current_account.getUsername(), false);
     }
 
-	@Override
-	public boolean onKeyDown(int keyCode, KeyEvent event) {
-		if(keyCode == KeyEvent.KEYCODE_BACK) {
-			if(!pressedOnce) {
-				Toast.makeText(LogInActivity.this, res.getString(R.string.press_again_to_exit_app), Toast.LENGTH_SHORT).show();
-				pressedOnce = true;
-				//Handler zur Wiederherstellung erstellen
-				new Handler().postDelayed(new Runnable() {
-					@Override
-					public void run() {
-						pressedOnce = false;
-					}
-				}, 2000);
-			} else {
-				pressedOnce = false;
-				onBackPressed();
-			}
-			return true;
-		}
-		
-		return super.onKeyDown(keyCode, event);
-	}
-	
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		getMenuInflater().inflate(R.menu.log_in, menu);
-		return true;
-	}
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if(keyCode == KeyEvent.KEYCODE_BACK) {
+            if(!pressedOnce) {
+                Toast.makeText(LogInActivity.this, res.getString(R.string.press_again_to_exit_app), Toast.LENGTH_SHORT).show();
+                pressedOnce = true;
+                //Handler zur Wiederherstellung erstellen
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        pressedOnce = false;
+                    }
+                }, 2000);
+            } else {
+                pressedOnce = false;
+                onBackPressed();
+            }
+            return true;
+        }
 
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		int id = item.getItemId();
-		if (id == R.id.action_settings) {
-			startActivity(new Intent(this, SettingsActivity.class));
-			return true;
-		} else if(id == R.id.action_gastmodus) {
-			//startActivity(new Intent(LogInActivity.this,MainActivity.class));
-			startActivity(new Intent(LogInActivity.this, MainActivity.class));
-			//Animierter Activitywechsel starten
-			overridePendingTransition(R.anim.in_login, R.anim.out_login);
-			finish();
-			return true;
-		}
-		return super.onOptionsItemSelected(item);
-	}
-	
-	public void LogIn(final String username, final String password, final String androidversion, final String appversion, final boolean ab) {
+        return super.onKeyDown(keyCode, event);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.log_in, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == R.id.action_settings) {
+            startActivity(new Intent(this, SettingsActivity.class));
+            return true;
+        } else if(id == R.id.action_gastmodus) {
+            //startActivity(new Intent(LogInActivity.this,MainActivity.class));
+            startActivity(new Intent(LogInActivity.this, MainActivity.class));
+            //Animierter Activitywechsel starten
+            overridePendingTransition(R.anim.in_login, R.anim.out_login);
+            finish();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    public void LogIn(final String username, final String password, final String androidversion, final String appversion, final boolean ab) {
         //ProgressBar sichtbar machen
         pb.setVisibility(View.VISIBLE);
         //Inhalt der Variablen in die Komponenten übertragen
@@ -492,7 +489,7 @@ public class LogInActivity extends AppCompatActivity {
             enableComponents(true);
             pb.setVisibility(View.GONE);
         }
-	}
+    }
 
     private void checkFirstStart() {
         if(!su.getBoolean("appAlreadyStarted", false)) {
@@ -512,36 +509,10 @@ public class LogInActivity extends AppCompatActivity {
         }
     }
 
-	private void showUpdateNews() {
-		if(!su.getBoolean("startedOnce_"+androidversion, false)) {
-            SpannableString message = new SpannableString(res.getString(R.string.update_news_message));
-            Linkify.addLinks(message, Linkify.WEB_URLS);
-            android.support.v7.app.AlertDialog d = new android.support.v7.app.AlertDialog.Builder(LogInActivity.this, R.style.FirstTheme_Dialog)
-                    .setTitle(res.getString(R.string.update_news))
-                    .setMessage(message)
-                    .setPositiveButton(res.getString(R.string.ok), new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            checkFirstStart();
-                            checkMarshmellowPermissions();
-                            dialog.dismiss();
-                        }
-                    })
-                    .create();
-            d.show();
-            ((TextView)d.findViewById(android.R.id.message)).setMovementMethod(LinkMovementMethod.getInstance());
-
-            su.putBoolean("startedOnce_"+androidversion, true);
-		} else {
-            checkFirstStart();
-            checkMarshmellowPermissions();
-		}
-	}
-
-	public void checkVersionAndServerState(final String username, final boolean showUpdateDialog) {
-		new Thread(new Runnable() {
-			@Override
-			public void run() {
+    public void checkVersionAndServerState(final String username, final boolean showUpdateDialog) {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
                 String name = username;
                 if(username.equals("")) name = res.getString(R.string.guest);
                 try {
@@ -573,8 +544,8 @@ public class LogInActivity extends AppCompatActivity {
                                         dialog.setPositiveButton(res.getString(R.string.open), new DialogInterface.OnClickListener() {
                                             @Override
                                             public void onClick(DialogInterface dialog, int which) {
-                                                //UpdateNews-Dialog anzeigen
-                                                showUpdateNews();
+                                                checkFirstStart();
+                                                checkMarshmellowPermissions();
                                                 //Dialog schließen
                                                 dialog.dismiss();
                                             }
@@ -652,7 +623,8 @@ public class LogInActivity extends AppCompatActivity {
                             runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
-                                    showUpdateNews();
+                                    checkFirstStart();
+                                    checkMarshmellowPermissions();
                                 }
                             });
                         }
@@ -666,8 +638,8 @@ public class LogInActivity extends AppCompatActivity {
                                     dialog.setPositiveButton(res.getString(R.string.open), new DialogInterface.OnClickListener() {
                                         @Override
                                         public void onClick(DialogInterface dialog, int which) {
-                                            //UpdateNews-Dialog anzeigen
-                                            showUpdateNews();
+                                            checkFirstStart();
+                                            checkMarshmellowPermissions();
                                             //Dialog schließen
                                             dialog.dismiss();
                                         }
@@ -708,8 +680,8 @@ public class LogInActivity extends AppCompatActivity {
                                     dialog.setPositiveButton(res.getString(R.string.open), new DialogInterface.OnClickListener() {
                                         @Override
                                         public void onClick(DialogInterface dialog, int which) {
-                                            //UpdateNews-Dialog anzeigen
-                                            showUpdateNews();
+                                            checkFirstStart();
+                                            checkMarshmellowPermissions();
                                             //Dialog schließen
                                             dialog.dismiss();
                                         }
@@ -759,14 +731,14 @@ public class LogInActivity extends AppCompatActivity {
                         });
                     }
                 } catch(Exception e) {}
-			}
-		}).start();
-	}
-	
-	public void autoLogin() {
-		//Angemeldet bleiben abfragen
-		String username = current_account.getUsername();
-		String password_string = current_account.getPassword();
+            }
+        }).start();
+    }
+
+    public void autoLogin() {
+        //Angemeldet bleiben abfragen
+        String username = current_account.getUsername();
+        String password_string = current_account.getPassword();
 
         //AutoLogin vom Registrieren beachten
         if(!autologin.equals("")) {
@@ -775,11 +747,11 @@ public class LogInActivity extends AppCompatActivity {
             password_string = autologin.substring(index +1);
             autologin = "";
         }
-		
-		if((!username.equals(res.getString(R.string.guest)) && MainActivity.isUpdateAvailable == false) || !autologin.equals("")) {
+
+        if((!username.equals(res.getString(R.string.guest)) && MainActivity.isUpdateAvailable == false) || !autologin.equals("")) {
             LogIn(username, password_string, androidversion, current_version, su.getBoolean("Angemeldet bleiben", false));
-		}
-	}
+        }
+    }
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {

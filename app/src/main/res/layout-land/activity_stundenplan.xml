@@ -2,7 +2,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/rl4"
     tools:context=".StundenplanActivity"
     android:layout_gravity="center">
 
@@ -88,7 +87,6 @@
                     </TableRow>
 
                     <TableRow
-                        android:id="@+id/tableRow2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" >
 
@@ -196,7 +194,6 @@
                     </TableRow>
 
                     <TableRow
-                        android:id="@+id/tableRow4"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" >
 
@@ -304,7 +301,6 @@
                     </TableRow>
 
                     <TableRow
-                        android:id="@+id/tableRow6"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" >
 
@@ -412,7 +408,6 @@
                     </TableRow>
 
                     <TableRow
-                        android:id="@+id/tableRow8"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" >
 
@@ -520,7 +515,6 @@
                     </TableRow>
 
                     <TableRow
-                        android:id="@+id/tableRow10"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" >
 

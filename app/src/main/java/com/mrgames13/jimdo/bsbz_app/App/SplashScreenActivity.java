@@ -14,16 +14,16 @@ import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.VideoView;
 
+import com.mrgames13.jimdo.bsbz_app.HelpClasses.MutedVideoView;
 import com.mrgames13.jimdo.bsbz_app.R;
-import com.mrgames13.jimdo.bsbz_app.Tools.SimpleAnimationListener;
+import com.mrgames13.jimdo.bsbz_app.Utils.SimpleAnimationListener;
 
 public class SplashScreenActivity extends AppCompatActivity {
     //Konstanten
 
     //Variablen als Objekte
-    private VideoView video;
+    private MutedVideoView video;
     private TextView app_name;
     private TextView powered;
     private ImageView app_logo;
@@ -36,7 +36,7 @@ public class SplashScreenActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_logo);
+        setContentView(R.layout.activity_splash);
 
         //Handler initialisieren
         h = new Handler();
@@ -56,7 +56,6 @@ public class SplashScreenActivity extends AppCompatActivity {
 
         app_name = findViewById(R.id.logo_app_title);
         powered = findViewById(R.id.logo_powered);
-
         app_logo = findViewById(R.id.logo_image_view);
 
         final Uri video_uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.logo_animation);

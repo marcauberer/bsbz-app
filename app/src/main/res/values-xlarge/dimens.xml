@@ -4,7 +4,6 @@
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="AppWidget_2Cells">110dp</dimen>
     <dimen name="AppWidget_4Cells">250dp</dimen>
-    <dimen name="appwidget_margin">8dp</dimen>
     <dimen name="TextHeight_14">14dp</dimen>
     <dimen name="navDrawerWidth">720dp</dimen>
     <dimen name="navHeaderHeight">350dp</dimen>

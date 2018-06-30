@@ -52,11 +52,11 @@ import com.mrgames13.jimdo.bsbz_app.CommonObjects.Account;
 import com.mrgames13.jimdo.bsbz_app.R;
 import com.mrgames13.jimdo.bsbz_app.Services.PercentService;
 import com.mrgames13.jimdo.bsbz_app.Services.SyncService;
-import com.mrgames13.jimdo.bsbz_app.Tools.AccountUtils;
-import com.mrgames13.jimdo.bsbz_app.Tools.NotificationUtils;
-import com.mrgames13.jimdo.bsbz_app.Tools.ServerMessagingUtils;
-import com.mrgames13.jimdo.bsbz_app.Tools.StorageUtils;
-import com.mrgames13.jimdo.bsbz_app.Tools.ThemeUtils;
+import com.mrgames13.jimdo.bsbz_app.Utils.AccountUtils;
+import com.mrgames13.jimdo.bsbz_app.Utils.NotificationUtils;
+import com.mrgames13.jimdo.bsbz_app.Utils.ServerMessagingUtils;
+import com.mrgames13.jimdo.bsbz_app.Utils.StorageUtils;
+import com.mrgames13.jimdo.bsbz_app.Utils.ThemeUtils;
 
 import java.net.URLEncoder;
 import java.util.Calendar;

@@ -24,7 +24,6 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.ActivityCompat;
-import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -47,7 +46,6 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
@@ -69,10 +67,10 @@ import com.mrgames13.jimdo.bsbz_app.R;
 import com.mrgames13.jimdo.bsbz_app.RecyclerViewAdapters.ElementViewAdapter;
 import com.mrgames13.jimdo.bsbz_app.RecyclerViewAdapters.GalleryViewAdapter_Folders;
 import com.mrgames13.jimdo.bsbz_app.Services.SyncService;
-import com.mrgames13.jimdo.bsbz_app.Tools.AccountUtils;
-import com.mrgames13.jimdo.bsbz_app.Tools.NotificationUtils;
-import com.mrgames13.jimdo.bsbz_app.Tools.ServerMessagingUtils;
-import com.mrgames13.jimdo.bsbz_app.Tools.StorageUtils;
+import com.mrgames13.jimdo.bsbz_app.Utils.AccountUtils;
+import com.mrgames13.jimdo.bsbz_app.Utils.NotificationUtils;
+import com.mrgames13.jimdo.bsbz_app.Utils.ServerMessagingUtils;
+import com.mrgames13.jimdo.bsbz_app.Utils.StorageUtils;
 import com.mrgames13.jimdo.bsbz_app.ViewPagerAdapters.ViewPagerAdapterPlanOfTheYear;
 
 import java.net.URLEncoder;
@@ -105,10 +103,6 @@ public class MainActivity extends AppCompatActivity {
     public static MenuItem progress_menu_item;
     private ViewGroup container;
     private LayoutInflater layoutInflater;
-    public static ArrayAdapter<String> adapter;
-    public static ArrayList<String> arraylist = new ArrayList<String>();
-    public static ArrayList<String> arraylist_main = new ArrayList<String>();
-    private static FragmentManager fragmentManager;
     private static ConnectivityManager cm;
     public static SyncService.onSyncFinishedListener syncFinishedListener;
     public static Resources res;
@@ -204,6 +198,7 @@ public class MainActivity extends AppCompatActivity {
 
         //NotificationUtils initialisieren
         nu = new NotificationUtils(MainActivity.this);
+        NotificationUtils.createNotificationChannels(this);
 
         //Aktueller Account laden
         current_account = au.getLastUser();
@@ -347,9 +342,6 @@ public class MainActivity extends AppCompatActivity {
         //DrawerToggle aktivieren
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         drawer_toggle.syncState();
-
-        //FragmentManager initialisieren
-        fragmentManager = getSupportFragmentManager();
 
         //String-Konstanten initialisieren
         KEINE_TERMINE_MONAT = res.getString(R.string.keine_termine_monat);

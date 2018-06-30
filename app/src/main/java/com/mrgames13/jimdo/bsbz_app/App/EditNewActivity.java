@@ -33,7 +33,7 @@ import android.widget.Toast;
 
 import com.mrgames13.jimdo.bsbz_app.R;
 import com.mrgames13.jimdo.bsbz_app.Services.SyncService;
-import com.mrgames13.jimdo.bsbz_app.Tools.ServerMessagingUtils;
+import com.mrgames13.jimdo.bsbz_app.Utils.ServerMessagingUtils;
 
 import java.net.URLEncoder;
 import java.util.Calendar;

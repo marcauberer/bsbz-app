@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="event_creating_">Termin wird erstellt ...</string>
-    <string name="event_short">Termin</string>
     <string name="event_short_short">T</string>
-    <string name="events_">Termine:</string>
     <string name="expiration_">Ablauf:</string>
     <string name="facebook_mr_games">Facebook: MrGames</string>
     <string name="february">Februar</string>
@@ -17,14 +15,10 @@
     <string name="galery_empty">Die Galerie enthält derzeit keine Bilder</string>
     <string name="give_feedback">Feedback geben</string>
     <string name="guest">Gast</string>
-    <string name="guestmode">Gastmodus</string>
     <string name="help">Hilfe</string>
     <string name="homepage_mr_games">Homepage: www.mrgames13.jimdo.com</string>
-    <string name="homework">Hausaufgabe</string>
-    <string name="homework_">Hausaufgaben:</string>
     <string name="homework_changings">Änderungen an den Hausaufgaben wurden auf dem Server gefunden</string>
     <string name="homework_creating_">Hausaufgabe wird erstellt ...</string>
-    <string name="homework_short">HA</string>
     <string name="homework_short_short">H</string>
     <string name="ideas_for_development">Ideen zur Weiterentwicklung</string>
     <string name="image_upload_m">Möchtest du das gewählte Bild wirklich veröffentlichen?</string>
@@ -44,10 +38,7 @@
     <string name="kind_of_class_">Klassenart:</string>
     <string name="kind_of_school_">Schulart:</string>
     <string name="lastSyncronisation_">"Letzte Synchronisation: "</string>
-    <string name="last_edited_1">"(Zuletzt bearbeitet von: "</string>
-    <string name="last_edited_2">)</string>
     <string name="last_sync_loading">Letzte Synchronisation: Laden ...</string>
-    <string name="layout">Layout</string>
     <string name="loading">Laden ...</string>
     <string name="loading_without_tripple_point">Laden</string>
     <string name="login">LogIn</string>
@@ -55,11 +46,9 @@
     <string name="logout">Logout</string>
     <string name="logoutInProgress">Logout wird ausgeführt ...</string>
     <string name="march">März</string>
-    <string name="max_musterman">Max Mustermann</string>
     <string name="may">Mai</string>
     <string name="monday">Montag</string>
     <string name="monday_short">Mo</string>
-    <string name="monthinfo_">Monatsinfos:</string>
     <string name="my_profile">Mein Profil</string>
     <string name="name">Bezeichnung</string>
     <string name="name_">Name:</string>
@@ -74,7 +63,6 @@
     <string name="new_image">Neues Bild</string>
     <string name="new_short_short">N</string>
     <string name="news">News</string>
-    <string name="news_are_creating">News werden erstellt ...</string>
     <string name="news_changings">Änderungen an den News wurden auf dem Server gefunden</string>
     <string name="next">Weiter</string>
     <string name="no">Nein</string>
@@ -87,11 +75,9 @@
     <string name="no_date_for_activation">Freischaltungsdatum nicht ausgewählt</string>
     <string name="no_date_for_expiration">Ablaufdatum nicht ausgewählt</string>
     <string name="no_description">Keine Beschreibung eingetragen</string>
-    <string name="no_description_found">(Keine Beschreibung vorhanden)</string>
     <string name="no_info_entered">(Keine Info eingetragen)</string>
     <string name="no_name">(Unbenannt)</string>
     <string name="no_offline_account_found">Offlineaccount nicht gefunden</string>
-    <string name="no_password">(Kein Passwort)</string>
     <string name="no_receiver">Kein Empfänger eingestellt</string>
     <string name="no_subject">Kein Betreff eingetragen</string>
     <string name="no_synchronisation">Keine Synchronisation</string>
@@ -104,7 +90,6 @@
     <string name="october">Oktober</string>
     <string name="offlinemode">Offlinemodus</string>
     <string name="ok">OK</string>
-    <string name="ok_showcase_view">Alles klar!</string>
     <string name="open">Öffnen</string>
     <string name="open_bsbz_app">BSBZ-App öffnen</string>
     <string name="our_homepage">Unsere Homepage</string>
@@ -206,8 +191,6 @@
     <string name="timetable_changings">Änderungen am Stundenplan wurden auf dem Server gefunden</string>
     <string name="timetable_from_">"Stundenplan von: "</string>
     <string name="timetable_not_synchronized">Der Stundenplan für diese Klasse wurde noch nicht synchronisiert</string>
-    <string name="title_activity_bsbz">BSBZ-Infos</string>
-    <string name="title_activity_day_details">Tagesdetails</string>
     <string name="_friday_">"     Freitag     "</string>
     <string name="_monday_">"     Montag     "</string>
     <string name="_thursday_">"     Donnerstag     "</string>
@@ -251,12 +234,9 @@
     <string name="class_level_">Klassenstufe:</string>
     <string name="classspeaker">Klassensprecher</string>
     <string name="classteacher">Klassenlehrer</string>
-    <string name="classtest">Klassenarbeit</string>
     <string name="classtest_changings">Änderungen an den Klassenarbeiten wurden auf dem Server gefunden</string>
     <string name="classtest_creating_">Klassenarbeit wird erstellt ...</string>
-    <string name="classtest_short">KA</string>
     <string name="classtest_short_short">K</string>
-    <string name="classtests_">Klassenarbeiten:</string>
     <string name="client_name">Client-Name</string>
     <string name="close">Schließen</string>
     <string name="commit_changings">Änderungen veröffentlichen</string>
@@ -274,44 +254,27 @@
     <string name="delete_folder_m">Möchtest du diesen Ordner wirklich unwiederuflich löschen?</string>
     <string name="delete_image">Bild löschen</string>
     <string name="delete_image_m">Möchtest du dieses Bild wirklich unwiederruflich löschen?</string>
-    <string name="delete_news">News löschen</string>
     <string name="delete_storage_m">Wollen Sie wirklich die lokalen Daten der App bereinigen? Die Daten können nicht wiederhergestellt werden!</string>
     <string name="delete_storage_s">App-Daten wurden erfolgreich bereinigt</string>
     <string name="delete_storage_t">App-Daten löschen?</string>
     <string name="descreption">Beschreibung</string>
-    <string name="description_is_loading">Beschreibung wird geladen ...</string>
     <string name="developer_mr_games">Entwickler: M&amp;R Games</string>
     <string name="dir_empty">Dieser Ordner ist leer</string>
-    <string name="direct_message_short_short">D</string>
-    <string name="title_activity_details">Heute - Details</string>
-    <string name="title_activity_diese_woche">Diese Woche</string>
     <string name="title_activity_edit_new">New bearbeiten</string>
-    <string name="title_activity_einstellungen">Einstellungen</string>
-    <string name="title_activity_entwickler">Die Entwickler</string>
-    <string name="title_activity_heute">Heute</string>
-    <string name="title_activity_homepage">Unsere Homepage</string>
-    <string name="title_activity_jahresplan">Jahresplan</string>
     <string name="title_activity_log_in">BSBZ-App - LogIn</string>
     <string name="title_activity_new_new">Neue New</string>
-    <string name="title_activity_news">News</string>
-    <string name="title_activity_profil">Mein Profil</string>
     <string name="title_activity_registration">BSBZ-App - Registrieren</string>
     <string name="title_activity_settings">Einstellungen</string>
-    <string name="title_activity_speiseplan">Speiseplan</string>
     <string name="title_activity_splash_screen">Die BSBZ-App</string>
-    <string name="title_activity_stundenplan">Stundenplan</string>
-    <string name="title_activity_web">Laden #8230;</string>
     <string name="today">Heute</string>
     <string name="tuesday">Dienstag</string>
     <string name="tuesday_short">Di</string>
     <string name="twitter_mr_games">Twitter: MR Games</string>
-    <string name="update_available">Update der BSBZ-App wurde gefunden. Hier tippen um Update herunterzuladen.</string>
     <string name="update_available_1">"Ein Update auf Version "</string>
     <string name="update_available_2">" ist verfügbar. Möchtest du es jetzt herunterladen?"</string>
     <string name="update_found_tap_to_download_1">"Update der BSBZ-App auf Version "</string>
     <string name="update_found_tap_to_download_2">" wurde gefunden. Hier tippen um Update herunterzuladen."</string>
     <string name="update_news">Update News!</string>
-    <string name="update_news_message">Die Version 3.3.11 der BSBZ-App ist da!\n\nVerbesserungen:\n- Performance verbessert\n- Kleinere Textverbesserungen\n\nViel Spaß mit der BSBZ-App wünscht\nDas M&#38;R Games Team</string>
     <string name="update_team">Neues Update erkannt. Wenn du die App zum Testen neuer Serverfunktionen öffnest, tippe auf \'Öffnen\', ansonsten auf \'Schließen\'</string>
     <string name="update_to_version">"Update auf Version "</string>
     <string name="updates_found">Es ist ein Update verfügbar. Möchten Sie es herunterladen?</string>
@@ -330,7 +293,6 @@
     <string name="yes">Ja</string>
     <string name="your_software_is_uptodate">Die App ist auf dem neusten Stand!</string>
     <string name="do_you_really_want_to_change_password">Möchtest du das Passwort dieses Accounts wirklich andern?</string>
-    <string name="do_you_want_to_delete_news">Willst du diese News wirklich löschen?</string>
     <string name="do_you_want_to_delete_your_account">Möchtest du deinen Account wirklich unwiederruflich mitsamt aller Daten löschen?</string>
     <string name="do_you_want_to_publish_timetable">Wollen Sie den veränderten Stundenplan wirklich veröffentlichen?</string>
     <string name="download">Download</string>
@@ -340,7 +302,6 @@
     <string name="download_in_progress">Download wird ausgeführt</string>
     <string name="download_in_progress_">Download wird ausgeführt ...</string>
     <string name="download_serverinfo">Serverinfo herunterladen ...</string>
-    <string name="edit">Bearbeiten</string>
     <string name="edit_bsbz_info">BSBZ-Info bearbeiten</string>
     <string name="edit_bsbz_info_d">Vor der Veröffentlichung der BSBZ-Info bitte auf Rechtschreibfehler o.ä. prüfen.</string>
     <string name="edit_bsbz_info_h">BSBZ-Info hier eintragen</string>
@@ -352,22 +313,17 @@
     <string name="edit_foodplan_h">Link einfügen</string>
     <string name="edit_foodplan_m">Füge hier die URL zum PDF-Dokument des Speiseplans dieser Woche ein</string>
     <string name="edit_foodplan_open">Speiseplan-Seite öffnen</string>
-    <string name="edit_foodplan_open_t">Speiseplan-Seite</string>
     <string name="edit_foodplan_pentecost">Pfinstferien</string>
     <string name="edit_foodplan_summer">Sommerferien</string>
     <string name="edit_foodplan_t">Speiseplan verwalten</string>
     <string name="edit_foodplan_winter">Winterferien</string>
     <string name="edit_homework">Hausaufgabe bearbeiten</string>
-    <string name="edit_news">News bearbeiten</string>
     <string name="edit_timetable">Stundenplan bearbeiten</string>
-    <string name="element_is_creating_">Element wird erstellt ...</string>
     <string name="element_is_deleting_">Element wird gelöscht ...</string>
     <string name="email_mr_games">E-Mail: mrgames@outlook.de</string>
     <string name="empty_folder">Leerer Ordner</string>
-    <string name="error_occured">Fehler aufgetreten</string>
     <string name="error_occured_try_again">Fehler. Bitte erneut versuchen</string>
     <string name="error_try_again">Fehler. Bitte erneut versuchen</string>
-    <string name="event">Termin</string>
     <string name="event_changings">Änderungen an den Terminen wurden auf dem Server gefunden</string>
     <string-array name="subject_items">
         <item>Unterrichtsfrei (-)</item>
@@ -468,5 +424,11 @@
     <string name="shortcut_plan_of_the_year_long">BSBZ-App Jahresplan</string>
     <string name="shortcut_foodplan_short">Speiseplan</string>
     <string name="shortcut_foodplan_long">BSBZ-App Speiseplan</string>
+    <string name="nc_system_name">System-Benachrichtigungen</string>
+    <string name="nc_system_description">System-Benachrichtigungen der BSBZ-App.</string>
+    <string name="nc_today_progress_name">Schultag Prozentanzeige</string>
+    <string name="nc_today_progress_description">Prozentanzeige des Schultags in der Statusleiste anzeigen.</string>
+    <string name="nc_changes_name">Datenänderung</string>
+    <string name="nc_changes_description">Benachrichtigungen für Änderungen des Stundenplans, der Klassenarbeiten, etc. anzeigen.</string>
 
 </resources>

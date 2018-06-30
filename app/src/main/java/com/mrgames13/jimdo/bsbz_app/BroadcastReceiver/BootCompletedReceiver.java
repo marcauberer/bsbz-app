@@ -17,10 +17,10 @@ import com.mrgames13.jimdo.bsbz_app.CommonObjects.Account;
 import com.mrgames13.jimdo.bsbz_app.R;
 import com.mrgames13.jimdo.bsbz_app.Services.PercentService;
 import com.mrgames13.jimdo.bsbz_app.Services.SyncService;
-import com.mrgames13.jimdo.bsbz_app.Tools.AccountUtils;
-import com.mrgames13.jimdo.bsbz_app.Tools.NotificationUtils;
-import com.mrgames13.jimdo.bsbz_app.Tools.ServerMessagingUtils;
-import com.mrgames13.jimdo.bsbz_app.Tools.StorageUtils;
+import com.mrgames13.jimdo.bsbz_app.Utils.AccountUtils;
+import com.mrgames13.jimdo.bsbz_app.Utils.NotificationUtils;
+import com.mrgames13.jimdo.bsbz_app.Utils.ServerMessagingUtils;
+import com.mrgames13.jimdo.bsbz_app.Utils.StorageUtils;
 
 import java.net.URLEncoder;
 import java.util.Calendar;
@@ -127,14 +127,13 @@ public class BootCompletedReceiver extends BroadcastReceiver {
                         MainActivity.isUpdateAvailable = true;
                         su.putBoolean("UpdateAvailable", true);
                         su.putString("SupportUrl", supporturl);
-                    } else {
-                        MainActivity.isUpdateAvailable = false;
+
                         //Nachricht in die Statusleiste senden
                         Intent i = new Intent(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=" + context.getPackageName())));
                         i.putExtra("Confirm", "Classtests");
-
                         nu.displayNotification(res.getString(R.string.app_name), res.getString(R.string.update_found_tap_to_download_1) + app_version + res.getString(R.string.update_found_tap_to_download_2), nu.ID_UPDATE_FOUND, i, nu.PRIORITY_HIGH, 300, null);
-
+                    } else {
+                        MainActivity.isUpdateAvailable = false;
                         //In SharedPreferences eintragen
                         su.putBoolean("UpdateAvailable", false);
                         su.putString("SupportUrl", supporturl);

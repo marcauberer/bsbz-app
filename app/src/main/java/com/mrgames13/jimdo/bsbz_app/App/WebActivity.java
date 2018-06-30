@@ -22,8 +22,8 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.mrgames13.jimdo.bsbz_app.R;
-import com.mrgames13.jimdo.bsbz_app.Tools.ServerMessagingUtils;
-import com.mrgames13.jimdo.bsbz_app.Tools.StorageUtils;
+import com.mrgames13.jimdo.bsbz_app.Utils.ServerMessagingUtils;
+import com.mrgames13.jimdo.bsbz_app.Utils.StorageUtils;
 
 @SuppressLint("SetJavaScriptEnabled")
 public class WebActivity extends AppCompatActivity {

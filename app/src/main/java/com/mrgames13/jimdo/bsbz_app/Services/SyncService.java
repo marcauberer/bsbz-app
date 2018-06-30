@@ -18,10 +18,10 @@ import com.mrgames13.jimdo.bsbz_app.App.LogInActivity;
 import com.mrgames13.jimdo.bsbz_app.App.MainActivity;
 import com.mrgames13.jimdo.bsbz_app.CommonObjects.Account;
 import com.mrgames13.jimdo.bsbz_app.R;
-import com.mrgames13.jimdo.bsbz_app.Tools.AccountUtils;
-import com.mrgames13.jimdo.bsbz_app.Tools.NotificationUtils;
-import com.mrgames13.jimdo.bsbz_app.Tools.ServerMessagingUtils;
-import com.mrgames13.jimdo.bsbz_app.Tools.StorageUtils;
+import com.mrgames13.jimdo.bsbz_app.Utils.AccountUtils;
+import com.mrgames13.jimdo.bsbz_app.Utils.NotificationUtils;
+import com.mrgames13.jimdo.bsbz_app.Utils.ServerMessagingUtils;
+import com.mrgames13.jimdo.bsbz_app.Utils.StorageUtils;
 
 import java.net.URLEncoder;
 import java.text.DateFormat;

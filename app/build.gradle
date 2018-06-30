@@ -7,9 +7,9 @@ android {
     defaultConfig {
         applicationId "com.mrgames13.jimdo.bsbz_app"
         minSdkVersion 15
-        targetSdkVersion 25
-        versionCode 3311
-        versionName "3.3.11"
+        targetSdkVersion 27
+        versionCode 3315
+        versionName "3.3.15"
         vectorDrawables.useSupportLibrary = true
     }
     buildTypes {
@@ -22,15 +22,14 @@ android {
 }
 
 dependencies {
-    //implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation 'com.android.support:appcompat-v7:27.+'
     implementation 'com.android.support:support-v4:27.+'
     implementation 'com.android.support:recyclerview-v7:27.+'
     implementation 'com.android.support:design:27.+'
     implementation 'com.android.support:palette-v7:27.+'
-    implementation 'com.google.firebase:firebase-appindexing:11.6.0'
-    implementation 'com.google.firebase:firebase-messaging:11.6.0'
-    implementation 'com.joooonho:selectableroundedimageview:1.0.+'
+    implementation 'com.google.firebase:firebase-appindexing:16.0.1'
+    implementation 'com.google.firebase:firebase-messaging:17.1.0'
+    implementation 'com.joooonho:selectableroundedimageview:1.0.1'
 }
 
 apply plugin: 'com.google.gms.google-services'

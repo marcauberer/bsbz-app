@@ -20,8 +20,8 @@ import android.widget.Toast;
 import com.mrgames13.jimdo.bsbz_app.CommonObjects.Account;
 import com.mrgames13.jimdo.bsbz_app.CommonObjects.TimeTable;
 import com.mrgames13.jimdo.bsbz_app.R;
-import com.mrgames13.jimdo.bsbz_app.Tools.AccountUtils;
-import com.mrgames13.jimdo.bsbz_app.Tools.StorageUtils;
+import com.mrgames13.jimdo.bsbz_app.Utils.AccountUtils;
+import com.mrgames13.jimdo.bsbz_app.Utils.StorageUtils;
 
 @SuppressWarnings("deprecation")
 public class TimeTableActivity extends AppCompatActivity {

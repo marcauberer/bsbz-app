@@ -1,6 +1,13 @@
 <resources>
     <!-- Strings related to Settings -->
-    <string name="title_activity_einstellungen">Einstellungen</string>
+
+    <!-- NotificationChannels -->
+    <string name="nc_system_name">System-Benachrichtigungen</string>
+    <string name="nc_system_description">System-Benachrichtigungen der BSBZ-App.</string>
+    <string name="nc_today_progress_name">Schultag Prozentanzeige</string>
+    <string name="nc_today_progress_description">Prozentanzeige des Schultags in der Statusleiste anzeigen.</string>
+    <string name="nc_changes_name">Datenänderung</string>
+    <string name="nc_changes_description">Benachrichtigungen für Änderungen des Stundenplans, der Klassenarbeiten, etc. anzeigen.</string>
 
     <!-- Example General settings -->
     <string name="pref_header_general">Allgemeine Einstellungen</string>
@@ -81,7 +88,7 @@
     <string name="pref_title_app_version">App-Version</string>
     <string name="pref_title_change_password">Passwort ändern</string>
     <string name="pref_title_developer">Die Entwickler</string>
-    <string name="pref_title_send_percent_notification">Prozentanzeige des Tages in der Statusleiste anzeigen</string>
+    <string name="pref_title_send_percent_notification" translatable="false">Prozentanzeige des Tages in der Statusleiste anzeigen</string>
     <string name="pref_title_app_layout1">App Farbschema</string>
     <string name="pref_summary_delete_account">Aktiven Account löschen</string>
     <string name="pref_summary_app_layout">Ändert das Layout der gesamten App</string>

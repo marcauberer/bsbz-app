@@ -30,7 +30,7 @@ import com.mrgames13.jimdo.bsbz_app.CommonObjects.Homework;
 import com.mrgames13.jimdo.bsbz_app.CommonObjects.New;
 import com.mrgames13.jimdo.bsbz_app.R;
 import com.mrgames13.jimdo.bsbz_app.Services.SyncService;
-import com.mrgames13.jimdo.bsbz_app.Tools.SimpleAnimationListener;
+import com.mrgames13.jimdo.bsbz_app.Utils.SimpleAnimationListener;
 
 import java.net.URLEncoder;
 
